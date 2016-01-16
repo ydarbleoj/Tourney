@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122021135) do
+ActiveRecord::Schema.define(version: 20160114025150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,25 +20,40 @@ ActiveRecord::Schema.define(version: 20151122021135) do
     t.string   "name"
     t.integer  "rating"
     t.integer  "slope"
+    t.integer  "par"
     t.string   "tee"
     t.string   "city"
     t.string   "state"
+    t.integer  "yardage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "course_id"
     t.integer  "score"
     t.integer  "putts"
-    t.integer  "course_id"
+    t.integer  "round_num"
     t.datetime "date_played"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "tournament_id"
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree
+  add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id", using: :btree
   add_index "rounds", ["user_id"], name: "index_rounds_on_user_id", using: :btree
+
+  create_table "tournaments", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "year"
+    t.integer  "num_players"
+    t.integer  "num_rounds"
+    t.datetime "end_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -61,5 +76,6 @@ ActiveRecord::Schema.define(version: 20151122021135) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "rounds", "courses"
+  add_foreign_key "rounds", "tournaments"
   add_foreign_key "rounds", "users"
 end

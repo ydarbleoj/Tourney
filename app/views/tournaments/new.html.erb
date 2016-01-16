@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="row">
+		<div class="small-6 columns">
+			<h1>New Round</h1>
+		</div>
+	</div>
+	<div class="row new-tourn-form">
+		<%= form_for(@tournament) do |f| %>
+		<div class="row">
+			<div class="small-6 medium-4 columns">
+				<%= f.label :name %>
+				<%= f.text_field :name %>
+			</div>
+			<div class="small-6 medium-4 columns">
+				<%= f.label :year %>
+				<%= f.text_field :year %>			
+			</div>
+			<div class="small-6 medium-4 columns">
+				<%= f.label :num_players %>
+				<%= f.text_field :num_players %>			
+			</div>
+				<div class="small-6 medium-4 columns">
+				<%= f.label :how_many_rounds %>
+				<%= f.text_field :num_rounds %>			
+			</div>
+		</div>
+	</div>
+	<%= submit_tag "Add", class: 'expanded button' %>
+	<% end %>		
+</div>

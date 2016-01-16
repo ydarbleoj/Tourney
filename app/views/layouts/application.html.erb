@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>TourneyApp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%= yield %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-</body>
+    <title>TourneyApp</title>
+
+    <%= stylesheet_link_tag    "application", media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+		<% if user_signed_in?  %>
+		<header>
+			<%= render 'devise/shared/navbar' %>
+		</header>
+		<% end %>
+		<section class="container" id="main-container">
+			<%= yield %>	
+		</section>
+			<p class="notice"><%= notice %></p>
+			<p class="alert"><%= alert %></p>
+
+    <%= yield %>
+
+  </body>
 </html>

@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+user = User.create(username: 'Joel Brady', handicap: 7, email: 'joel@mail.com', password: 'brady1234', password_confirmation: 'brady1234')
+
+bandon        = Course.create(par: 72, name: 'Bandon Dunes', rating: 71.4, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon')
+pacific       = Course.create(par: 71, name: 'Pacific Dunes', rating: 70.7, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon')
+trails        = Course.create(par: 71, name: 'Bandon Trails', rating: 71.1, slope: 129, tee: 'Green', city: 'Bandon', state: 'Oregon')
+old_mac       = Course.create(par: 71, name: 'Old Macdonald', rating: 71.6, slope: 125, tee: 'Green', city: 'Bandon', state: 'Oregon')
+great_blue    = Course.create(par: 72, name: 'Great Blue', rating: 71.9, slope: 137, tee: 'Blue', city: 'Portland', state: 'Oregon')
+stone_creek   = Course.create(par: 72, name: 'Stone Creek', rating: 71.4, slope: 127, tee: 'Blue', city: 'Oregon City', state: 'Oregon')
+reserve_north = Course.create(par: 72, name: 'The Reserve North Course', rating: 71.7, slope: 128, tee: 'Blue', city: 'Aloha', state: 'Oregon')
+reserve_south = Course.create(par: 72, name: 'The Reserve South Course', rating: 73, slope: 139, tee: 'Blue', city: 'Aloha', state: 'Oregon')
+north_course  = Course.create(par: 72, name: 'Los Seranos North Course', rating: 71.6, slope: 130, tee: 'Blue', city: 'Chino Hills', state: 'California')
+langdon       = Course.create(par: 72, name: 'Langdon Farms', rating: 71.9, slope: 132, tee: 'Blue', city: 'Aurora', state: 'Oregon')

@@ -1,0 +1,18 @@
+<div class="container-fluid">
+	<div class="row">
+		<% @courses.each do |c|  %>
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<%= c.name  %>
+		</div>				
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<p>Slope: <%= c.slope %></p>
+		</div> 
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<p>Rating: <%= c.rating %> </p>
+		</div> 
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<p>Par: <%= c.par %></p>
+		</div> 
+		<% end %>
+	</div>
+</div>

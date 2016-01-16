@@ -22,6 +22,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'annotate'
 gem 'puma'
 gem 'devise'
+gem 'foundation-rails'
+gem 'sass-rails', '>= 3.2'
+gem 'autoprefixer-rails'
 
 group :development, :test do
   gem 'byebug'
@@ -32,6 +35,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'web-console', '~> 2.0'
   gem 'awesome_print'
+   gem 'better_errors'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

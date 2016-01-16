@@ -1,0 +1,14 @@
+<div class="row">
+<div class="small-6">
+		<%= current_user.username %>
+		<%= current_user.handicap  %>
+		<% @rounds.each do |x| %>
+		<%= x.score  %>
+		<% end %>
+		<%= link_to "Edit" %>
+		<%= link_to "Tournaments", tournaments_path %>
+		<%= link_to "New Round", new_round_path%>
+		<%= link_to "Course List", courses_path  %>
+	</div>
+
+</div>
