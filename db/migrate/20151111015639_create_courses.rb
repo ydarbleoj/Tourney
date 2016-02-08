@@ -2,7 +2,7 @@ class CreateCourses < ActiveRecord::Migration
   def change
     create_table :courses do |t|
       t.string :name
-      t.integer :rating
+      t.decimal :rating
       t.integer :slope
       t.integer :par
       t.string :tee

@@ -1,14 +1,36 @@
-<div class="row">
-<div class="small-6">
-		<%= current_user.username %>
-		<%= current_user.handicap  %>
-		<% @rounds.each do |x| %>
-		<%= x.score  %>
-		<% end %>
-		<%= link_to "Edit" %>
-		<%= link_to "Tournaments", tournaments_path %>
-		<%= link_to "New Round", new_round_path%>
-		<%= link_to "Course List", courses_path  %>
+<div class="row profile-page">
+	<div class="row profile-top-container">
+		<div class="layer">
+		  <div class="row profile-info">
+		  	<div class='row' id="info-top">
+			  	<div class="small-1 columns edit-button"></div>
+					<div class="small-11 columns username"><%= current_user.username %></div>
+		  	</div>
+		  	<div class='row' id="info-bottom">
+					<div class="small-12 columns" id="profile-home">
+						<i class="fi-marker"></i>
+						<span><%= current_user.home%></span>
+					</div>
+		  	</div>
+		  </div>
+		</div>
 	</div>
-
+	<div class="row profile-middle-container">
+		<div class="row user-handicap">
+			<div class="small-6 columns" id="handicap-title">
+				<h2>Handicap</h2>
+			</div>
+			<div class="small-6 columns" id="handicap">
+				<%= current_user.handicap  %>
+			</div>
+		</div>
+	</div>
+	<div class="row profile-bottom-container">
+		<div class="small-6 columns" id="tournament-link">
+			<%= link_to "Tournaments", tournaments_path %>
+		</div>
+		<div class="small-6 columns" id="log-out">
+			<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+		</div>
+	</div>
 </div>

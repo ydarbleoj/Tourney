@@ -1,18 +1,11 @@
-<div class="container-fluid">
-	<div class="row">
-		<% @courses.each do |c|  %>
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<%= c.name  %>
-		</div>				
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<p>Slope: <%= c.slope %></p>
-		</div> 
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<p>Rating: <%= c.rating %> </p>
-		</div> 
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<p>Par: <%= c.par %></p>
-		</div> 
-		<% end %>
-	</div>
+<div class="row courses-container">
+  <% @courses.each do |f|  %>
+  <div class="small-12 medium-4 columns courses-link">
+    <%= content_tag :div, class: 'course-layer', id: "#{f.name.split(' ').join('-')}" do %>
+      <%= content_tag :div, class: 'course-layer' do %>
+       <h1><%= link_to f.name, course_path(f.id) %></h1>
+      <% end %>
+    <% end %>
+  </div>
+  <% end %>
 </div>

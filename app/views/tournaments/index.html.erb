@@ -1,27 +1,17 @@
-<div class="row tourn-main">
-	<div class="small-6 medium-4 columns tourn-header">
-		<h1>Tournaments</h1>
-			<% @tournaments.each do |x| %>
-		  <ul>
-		  	<li><%= x.id %></li>
-		  	<li><%= link_to x.year, tournament_path(x) %></li>
-		  </ul>
-		  <% end %>
-	</div>
-</div>
-<div class="row tourn-main-section">
-	<div class="small-12 medium-4 columns">
-		<div>
-			<%= link_to 'New Tournament', new_tournament_path  %>
-		</div>
-	</div>	
-	<div class="small-12 medium-4 columns">
-		<div>
-			<%= link_to "Current Tournament"  %>
+<div class="row tournament-container">
+	<div class="small-12 medium-4 columns" id="current-tournament">
+		<div class="tourn-layer">
+			<h1><%= link_to 'Current Tournament', tournament_path(@tournament) %></h1>
 		</div>
 	</div>
-	<div class="small-12">
-		<div>
+	<div class="small-12 medium-4 columns" id="history-tourn-button">
+		<div class="tourn-layer">
+			<h1><%= link_to 'Tournament History', history_tournaments_path %></h1>
+		</div>
+	</div>
+	<div class="small-12 medium-4 columns" id="tournament-courses">
+		<div class="tourn-layer">
+			<h1><%= link_to "Courses", courses_path %></h1>
 		</div>
 	</div>
 </div>

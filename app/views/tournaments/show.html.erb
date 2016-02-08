@@ -1,3 +1,33 @@
-<h1><%= @tournament.name %></h1>
-<%= @tournament.id  %>
-<p><%= link_to "Back", tournaments_path %></p>
+<div class="row" id="tourn-show-page">
+	<div class="row" id="stroke-lb-header">
+		<div class="small-3 columns" id="tournament-header">
+			<p><%= @tournament.name %><%= @tournament.year.to_s.split('0').last.to_i %></p>
+		</div>
+		<div class="small-9 columns" id="stroke-lb-title">
+			<h3>Stroke Leaderboard</h3>
+		</div>
+	</div>
+	<div class="row" id="stroke-lb-container">
+		<div class="row align-middle" id="lb-header">
+			<div class="small-1 columns" id="position">#</div>
+			<div class="small-4 columns" id="player">PLAYER</div>
+			<div class="small-2 columns" id="total-score">TOTAL</div>
+			<div class="small-1 columns lb" id="round-one-score">R1</div>
+			<div class="small-1 columns lb" id="round-two-score">R2</div>
+			<div class="small-1 columns lb" id="round-three-score">R3</div>
+			<div class="small-2 columns lb" id="net-total">NET</div>
+		</div>
+		<% @rnd1_scores.each do |s| %>
+		<div class="row align-middle" id="lb-player">
+			<div class="small-1 columns" id="position">#</div>
+			<div class="small-4 columns" id="player"><%= s.user.username %></div>
+			<div class="small-2 columns" id="total-score"><%= s.score - s.course.par %></div>
+			<div class="small-1 columns lb" id="round-one-score"><%= s.score  %></div>
+			<div class="small-1 columns lb" id="round-two-score">R2</div>
+			<div class="small-1 columns lb" id="round-three-score">R3</div>
+			<div class="small-2 columns lb" id="net-total"><%= s.score  %></div>
+		</div>
+		<% end %>
+	</div>
+</div>
+

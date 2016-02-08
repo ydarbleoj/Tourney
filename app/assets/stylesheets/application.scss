@@ -1,7 +1,23 @@
-@import 'foundation';
-@include foundation-everything;
-// @include foundation-flex-grid;
+// @import 'foundation';
+@import 'foundation_and_overrides';
+@import 'foundation-icons';
 @import 'main';
 @import 'login';
 @import 'users';
 @import 'home';
+@import 'courses';
+@import 'tournaments';
+@include foundation-flex-grid;
+.row .row {
+	margin: 0;
+}
+.columns { padding-left: 0; padding-right: 0; }
+li {
+	list-style: none;
+}
+a {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+// a:active {
+// 	color: rgba(255,255,255, 1);
+// }

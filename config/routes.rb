@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
+  # get ':username', to: 'users#show', as: :user
   resources :users, only: [:index, :show, :edit, :update]
   resources :courses
   resources :rounds
-  resources :tournaments
+  resources :tournaments do
+    collection do
+      get 'history'
+    end
+  end
   root to: "home#index"
 end
 

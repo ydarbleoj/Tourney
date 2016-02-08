@@ -5,8 +5,10 @@ class CreateRounds < ActiveRecord::Migration
       t.references :course, index: true, foreign_key: true
       t.integer :score
       t.integer :putts
+      t.integer :handicap
       t.integer :round_num
       t.datetime :date_played
+      t.datetime :tee_time
 
       t.timestamps null: false
     end

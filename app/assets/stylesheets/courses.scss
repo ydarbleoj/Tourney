@@ -1,4 +1,115 @@
-/*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
+// Courses SCSS
+// Index Page
+.courses-container {
+	width: 100%; height: 100%;
+	position: absolute;
+}
+.row .back {
+  width: 100%; height: 20px;
+  position: absolute;
+  padding-left: 20px;
+  border-right: 2px solid rgba(45, 45, 46, .9);
+}
+.courses-link {
+	width: 100%; height: 25%;
+}
+.course-layer {
+	width: 100%; height: 100%;
+	background-color: rgba(45,45,46, .2);
+	box-shadow: 0 0 1px 0 #000000;
+	position: absolute;
+}
+#Pacific-Dunes {
+	width: 100%; height: 25%;
+	background: url('Pacific-Dunes.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Bandon-Dunes{
+	width: 100%; height: 25%;
+	background: url('Bandon-Dunes.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Bandon-Trails {
+	width: 100%; height: 25%;
+	background: url('Bandon-Trails.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Old-MacDonald {
+	width: 100%; height: 25%;
+	background: url('Old-MacDonald.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+h1 {
+	font-size: 30px;
+	color: rgba(255,255,255,.9);
+	text-align: center;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%)
+}
+h1 a {
+	color: rgba(255, 255, 255, .9);
+}
+a { width: 100%; height: 100%; }
+// Show Page
+.course-container {
+ 	width: 100%; height: 100%;
+	background-color: rgba(255,255,255,.9);
+	position: absolute;
+}
+.course-header {
+  width: 100%; height: 50%;
+  position: relative;
+}
+
+#Bandon-Dunes-show{
+	width: 100%; height: 100%;
+	background: url('Bandon-Dunes.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Pacific-Dunes-show {
+	width: 100%; height: 100%;
+	background: url('Pacific-Dunes.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Bandon-Trails-show {
+	width: 100%; height: 100%;
+	background: url('Bandon-Trails.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#Old-MacDonald-show {
+	width: 100%; height: 100%;
+	background: url('Old-MacDonald.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.row #course-stats {
+	width: 100%; height: 100px;
+	position: absolute;
+	bottom: 0px;
+	padding: 15px 0 0 40px;
+	background-color:  rgba(45, 45, 46, .4);
+	color: rgb(255, 255, 255);
+}
+.row #course-stats-top {
+	height: 50%;
+	position: relative;
+  text-align: left;
+}
+.row #course-stats-bottom {
+	height: 50%;
+	position: relative;
+	text-align: left;
+}
+
+
+
+
+

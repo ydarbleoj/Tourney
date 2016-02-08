@@ -1,0 +1,8 @@
+<div class="row" id="tourn-history-container">
+	<div class="small-12 columns">
+		<% @tournaments.each do |t| %>
+			<%= t.name %>
+			<%= t.year %>
+		<% end %>
+	</div>
+</div>
