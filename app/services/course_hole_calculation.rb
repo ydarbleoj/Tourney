@@ -13,24 +13,22 @@ class CourseHoleCalculation
 
 	def hardest_hole
 		execute
-		hardest_array = []
 		hardest_hole = @sorted.pop
 		hole = hardest_hole[0].to_s.split('_').first
 		score = instance_variable_get("@hole#{hole.split('h')[1]}")
 		par = @course[0]["#{hole}_par"]
 		number = hole.split('h')[1]
-		hardest_array = [number, par, score.round(1)]
+	  [number, par, score.round(1)]
 	end
 
 	def easiest_hole
 		execute
-		easiest_array = []
 		easiest_hole = @sorted.shift
 		hole = easiest_hole[0].to_s.split('_').first
 		score = instance_variable_get("@hole#{hole.split('h')[1]}")
 		par = @course[0]["#{hole}_par"]
 		number = hole.split('h')[1]
-		easiest_array = [number, par, score.round(1)]
+		[number, par, score.round(1)]
 	end
 
 	def avg_score
