@@ -1,15 +1,16 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row tournament-container">
-	<div class="small-12 medium-4 columns" id="current-tournament">
+	<div class="small-12 medium-12 large-12 columns" id="current-tournament">
 		<div class="tourn-layer">
-			<h1><%= link_to 'Current Tournament', tournament_path(@tournament) %></h1>
+			<h1><%= link_to 'Current Tournament', stroke_leaderboard_tournament_path(@current_tournament.id) %></h1>
 		</div>
 	</div>
-	<div class="small-12 medium-4 columns" id="history-tourn-button">
+	<div class="small-12 medium-12 large-12 columns" id="history-tourn-button">
 		<div class="tourn-layer">
 			<h1><%= link_to 'Tournament History', history_tournaments_path %></h1>
 		</div>
 	</div>
-	<div class="small-12 medium-4 columns" id="tournament-courses">
+	<div class="small-12 medium-12 large-12 columns" id="tournament-courses">
 		<div class="tourn-layer">
 			<h1><%= link_to "Courses", courses_path %></h1>
 		</div>

@@ -4,11 +4,11 @@
 
 }
 #current-tournament {
-	width: 100%; height: 34%;
+	max-width: 100%; height: 34%;
 	background: url('IMG_0054.JPG');
 	background-repeat: no-repeat;
 	background-size: cover;
-	// position: absolute;
+	background-position: center;
 }
 .tourn-layer {
 	width: 100%; height: inherit;
@@ -29,7 +29,7 @@ h1 {
 	background: url('IMG_0043.JPG');
 	background-repeat: no-repeat;
 	background-size: cover;
-	// position: absolute;
+	background-position: center;
 }
  h1 a {
 	color: rgba(255, 255, 255, .9);
@@ -40,66 +40,221 @@ a { width: 100%; height: 100%; }
 	background: url('IMG_0064.JPG');
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position: center;
 }
+//
+// Stroke Leaderboard
+//
 #tourn-show-page {
 	background-color: #EEEEEE;
 }
 #stroke-lb-header {
-	width: 100%; height: 50px;
+	width: 100%; height: 100px;
+	background-color: rgba(56,162,247, 1);
+	position: fixed;
+	top: 0;
+	z-index: 1;
 	// padding-top: 10px;
+	box-shadow: 0 0px 6px rgba(0,0,0,0.16), 0 0px 6px rgba(0,0,0,0.23);
 }
-#tournament-header p {
+#putting-lb-header {
+	width: 100%; height: 100px;
+	background-color: rgba(237,131,47,1);
+	position: fixed;
+	top: 0;
+	z-index: 1;
 	padding-top: 10px;
+}
+#title-header {
+	width: 100%; height: 40px;
+}
+#tournament-name p {
+	padding: 10px 0 0 10px;
 	font-size: 16px;
-	color: rgba(237,131,47, .8);
-	// color: #666;
+	// color: rgba(237,131,47, .8);
+	color: white;
 	text-align: left;
+}
+#tournament-purse p {
+	padding: 10px 10px 0 0;
+	font-size: 16px;
+	// color: rgba(237,131,47, .8);
+	color: white;
+	text-align: center;
 }
 #stroke-lb-title {
 	padding-top: 10px;
-	text-align: left;
-	color: rgba(255, 255,255, 1);
-	color: rgba(237,131,47, .8)
+	text-align: center;
+	// color: rgba(255, 255,255, 1);
+	// color: rgba(237,131,47, .8);
+	color: white;
+}
+#putting-lb-title {
+	padding-top: 10px;
+	text-align: center;
+	color: white;
 }
 #stroke-lb-container {
-	width: 100%; height: 100%;
-	padding: 10px;
-	// background-color:
+	width: 100%; height: inherit;
+	padding: 0 5px;
+	overflow-y: scroll;
+	// position: relative;
+
+	background-color: #E0E0E0;
 }
 #lb-header {
 	width: 100%; height: 60px;
-	background-color: rgba(56,162,247, 1);
+	// background-color: rgba(56,162,247, 1);
+	background-color: inherit;
 	color: #f1f1f1;
 	// position: fixed;
-	// box-shadow: 0 0 4px #000000;
-}
-#position {
-	text-align: center;
+	z-index: 1;
+
 }
 #net-total {
 	text-align: center;
 }
 .lb {
-	text-align: right;
+	text-align: center;
 }
 #lb-player {
-	width: 100%; height: 60px;
-	background-color: pink;
+	width: 100%; height: 50px;
+	background-color: white;
+	top: 115px;
+	padding: 10px 2px;
+	position: relative;
+	display: block;
+	box-shadow: 0 2px 3px rgba(0,0,0,0.16), 0 2px 3px rgba(0,0,0,0.23);
+
+}
+#player {
+	padding-left: 20px;
+}
+#player h5 {
+	font-size: 20px;
+}
+#player span {
+	color: #666;
+	font-size: 14px;
+	padding-left: 5px;
+}
+#lb-total-score {
+	text-align: center;
+}
+#leaderboard_nav {
+	width: 100%; height: 50px;
+	background-color: rgba(56,162,247, 1);
+	position: relative;
+	bottom: 0;
+	z-index: 10;
+	color: white;
+}
+.tourn-links {
+	text-align: center;
+	border-left: 1px solid rgba(255,255,255,1);
+}
+.tourn-links:first-child {
+	border-left: none;
+}
+.tourn-links a {
+	color: white;
+}
+#putting-nav {
+	width: 100%; height: 50px;
+	position: relative;
+	bottom: 0;
+	z-index: 10;
+	color: white;
+	background-color: rgba(237,131,47,1);
+}
+#tee-time-container {
+	width: 100%; height: 500px;
+	// overflow-y: scroll;
+	// display: block;
+	// position: relative;
+	top: 0;
+	background-color: #9E9E9E;
+}
+#tee-time-cont-header {
+	width: 100%; height: 45px;
 	padding: 10px 0;
+	background-color: #1e4f5f;
+	color: white;
+	text-align: center;
+}
+#tee-time-cont-header-2 {
+	width: 100%; height: 45px;
+	padding: 10px 0;
+	background-color: #206176;
+	color: white;
+	text-align: center;
+}
+#tee-time-cont-header-3 {
+	width: 100%; height: 45px;
+	padding: 10px 0;
+	background-color: #216b82;
+	color: white;
+	text-align: center;
+}
+#tee-time-list {
+	width: 100%; height: 150px;
+	background-color: white;
+	// position: relative;
+	text-align: center;
+}
+#tee-time-nav {
+	width: 100%; height: 50px;
+	position: fixed;
+	bottom: 0;
+	z-index: 10;
+	color: white;
+	background-color: #9E9E9E;
+}
+#tee-times-header {
+	width: 100%; height: 60px;
+	background-color: #9E9E9E;
+	z-index: 1;
+	padding-top: 10px;
+}
+#times {
+	font-size: 20px;
+}
+#players {
+	padding: 5px 0;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+// History List
+#tourn-history-container {
+	width: 100%; height: 100%;
+	background-color: #607D8B;
+}
+#tourn-history-header {
+	width: 100%; height: 300px;
+	background: url('IMG_0026.JPG');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+#tourn-history-name {
+	text-align: center;
+}
+#tourn-history-name h1 {
+	color: #FF5722;
+}
+#hist-name h1 {
+	color: #FF5722;
+}
+#tourn-history-list {
+	width: 100%; height: 100px;
+	background-color: #546E7A;
+}
+#list-item h1 {
+	text-align: left;
+}
+#list-item a {
+	width: 100%; height: 100px;
+	color: white;
+}
 
 
 

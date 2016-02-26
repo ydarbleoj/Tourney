@@ -6,7 +6,7 @@ class CreateTournaments < ActiveRecord::Migration
       t.integer :num_players
       t.integer :num_rounds
       t.datetime :end_date
-      
+
       t.timestamps null: false
     end
   end

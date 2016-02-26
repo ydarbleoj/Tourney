@@ -1,6 +1,7 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row courses-container">
   <% @courses.each do |f|  %>
-  <div class="small-12 medium-4 columns courses-link">
+  <div class="small-12 columns courses-link">
     <%= content_tag :div, class: 'course-layer', id: "#{f.name.split(' ').join('-')}" do %>
       <%= content_tag :div, class: 'course-layer' do %>
        <h1><%= link_to f.name, course_path(f.id) %></h1>

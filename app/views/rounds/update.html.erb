@@ -1,0 +1,325 @@
+<div class="row" id="round-container">
+	<div class="row" id="sc-header">
+	  <div class="row align-center align-middle" id="top-header-row">
+			<div class="small-4 columns">
+				<p><%= @round.course.name %> hello</p>
+			</div>
+			<div class="small-4 columns" id="sc-title">
+				<p>Scorecard</p>
+			</div>
+			<div class="small-4 columns">
+				<p>Hcap <%= @round.user.handicap %></p>
+			</div>
+	  </div>
+	  <div class="row align-center align-middle" id="bottom-header-row">
+			<div class="small-4 columns">
+				<p><%= @round.course.yardage %> yds</p>
+			</div>
+			<div class="small-4 columns">
+				<p><%= @round.course.slope %> slope</p>
+			</div>
+			<div class="small-4 columns">
+				<p><%= @round.course.rating %> rating</p>
+			</div>
+	  </div>
+	</div><!-- sc-header -->
+	<div class="row align-top" id="front-nine-container">
+		<div class="row align-middle" id="front-nine-holes">
+			<div class="small-1 columns holes">
+				<h5></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>1</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>2</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>3</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>4</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>5</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>6</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>7</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>8</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>9</h5>
+			</div>
+			<div class="small-2 columns holes" id="out">
+				<h5>OUT</h5>
+			</div>
+		</div>
+		<div class="row align-middle" id="front-nine-pars">
+			<div class="small-1 columns holes">
+				<h5></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h1_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h2_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h3_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h4_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h5_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h6_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h7_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h8_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h9_par %></h5>
+			</div>
+			<div class="small-2 columns holes" id="out">
+				<h5><%= @round.course.out_par %></h5>
+			</div>
+		</div>
+		<form class="edit-round-form">
+			<div class="row align-middle align-center" id="front-nine-shots">
+				<div class="small-1 columns hole-input_edit" id="">
+					<p>Shots</p>
+				</div>
+				<%= form_for([@current_tourn, @round]) do |s|  %>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s1, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s2, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s3, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s4, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s5, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s6, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s7, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s8, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s9, class: 'score' %></h5>
+				</div>
+				<div class="small-2 align-middle columns hole-input_edit shots-border" id="out">
+					<h5><%= @f9_shots %></h5>
+				</div>
+			</div>
+			<div class="row align-middle" id="front-nine-putts">
+				<div class="small-1  columns hole-input_edit putts-border">
+					<p>Putts</p>
+				</div>
+				<div class="small-1  columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p1, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p2, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p3, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p4, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p5, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p6, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p7, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p8, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p9, class: 'score putts' %></h5>
+				</div>
+				<div class="small-2 columns  hole-input_edit putts-border" id="out">
+					<h5><%= @f9_putts  %></h5>
+				</div>
+			</div>
+		<div class="row align-middle" id="front-nine-holes">
+			<div class="small-1 columns holes">
+				<h5>10</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>11</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>12</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>13</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>14</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>15</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>16</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>17</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>18</h5>
+			</div>
+			<div class="small-1 columns holes" id="out">
+				<h5>IN</h5>
+			</div>
+			<div class="small-2 columns holes">
+				<h5>TOTAL</h5>
+			</div>
+		</div>
+		<div class="row align-middle" id="front-nine-pars">
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h10_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h11_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h12_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h13_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h14_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h15_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h16_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h17_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @round.course.h18_par %></h5>
+			</div>
+			<div class="small-1 columns holes" id="out">
+				<h5><%= @round.course.in_par %></h5>
+			</div>
+			<div class="small-2 columns holes">
+				<h5><%= @round.course.par  %></h5>
+			</div>
+		</div>
+			<div class="row align-middle align-center" id="front-nine-shots">
+				<div class="small-1 columns hole-input_edit remove-padding">
+					<h5><%= s.number_field :s10, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s11, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s12, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s13, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s14, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s15, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s16, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s17, class: 'score' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit shots-border remove-padding">
+					<h5><%= s.number_field :s18, class: 'score' %></h5>
+				</div>
+				<div class="small-1 align-middle columns hole-input_edit shots-border" id="out">
+					<h5><%= @b9_shots %></h5>
+				</div>
+				<div class="small-2 columns hole-input_edit shots-border">
+					<h5><%= @total_shots %></h5>
+				</div>
+			</div>
+		<!-- </form> -->
+		<!-- <form class="edit-round-form"> -->
+			<div class="row align-middle align-center" id="front-nine-putts">
+				<div class="small-1 columns hole-input_edit putts-border left-border remove-padding">
+					<h5><%= s.number_field :p10, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p11, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p12, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p13, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p14, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p15, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p16, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p17, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 columns hole-input_edit putts-border remove-padding">
+					<h5><%= s.number_field :p18, class: 'score putts' %></h5>
+				</div>
+				<div class="small-1 align-middle columns hole-input_edit putts-border" id="out">
+					<h5><%= @b9_putts %></h5>
+				</div>
+				<div class="small-2 columns hole-input_edit putts-border">
+					<h5><%= @total_putts  %></h5>
+				</div>
+			</div>
+			<div class="row align-middle" id="round-nav">
+				<div class="small-6 columns tourn-links">
+					<%= link_to "Back", tournament_rounds_path(@round.tournament.id)  %>
+				</div>
+				<div class="small-6 columns tourn-links">
+					<%= s.submit 'Finish', class: 'round-submit' %>
+				</div>
+			</div>
+				<% end %>
+		</form>
+	</div>
+
+
+
+</div>

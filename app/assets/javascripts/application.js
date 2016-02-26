@@ -17,3 +17,6 @@
 //= require_tree .
 
 $(document).foundation();
+$('.menu-wrapper').on('click', function() {
+    $(this).toggleClass('checked');
+})

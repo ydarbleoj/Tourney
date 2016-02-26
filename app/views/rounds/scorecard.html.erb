@@ -1,0 +1,161 @@
+<div class="row" id="scorecard-container">
+	<div class="row" id="sc-header">
+		<div class="small-12 align-center align-middle columns" id="sc-title">
+			<h3>Scorecard</h3>
+		</div>
+		<div class="small-3 columns">
+			<p><%= @scorecard.course.name %></p>
+		</div>
+		<div class="small-3 columns">
+			<p><%= @scorecard.course.yardage %> yds</p>
+		</div>
+		<div class="small-3 columns">
+			<p><%= @scorecard.course.slope %> slope</p>
+		</div>
+		<div class="small-3 columns">
+			<p><%= @scorecard.course.rating %> rating</p>
+		</div>
+	</div><!-- sc-header -->
+	<div class="row" id="front-nine-container">
+		<div class="row align-middle" id="front-nine-holes">
+			<div class="small-1 columns holes">
+				<h5></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>1</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>2</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>3</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>4</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>5</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>6</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>7</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>8</h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5>9</h5>
+			</div>
+			<div class="small-2 columns holes" id="out">
+				<h5>OUT</h5>
+			</div>
+		</div>
+		<div class="row align-middle" id="front-nine-pars">
+			<div class="small-1 columns holes">
+				<h5></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h1_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h2_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h3_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h4_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h5_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h6_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h7_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h8_par %></h5>
+			</div>
+			<div class="small-1 columns holes">
+				<h5><%= @scorecard.course.h9_par %></h5>
+			</div>
+			<div class="small-2 columns holes" id="out">
+				<h5><%= @scorecard.course.out_par %></h5>
+			</div>
+		</div>
+		<div class="row align-middle" id="front-nine-shots">
+			<div class="small-1 columns hole-input">
+				<p>Shots</p>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s1 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s2 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s3 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s4 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s5 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s6 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s7 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s8 %></h5>
+			</div>
+			<div class="small-1 columns hole-input">
+				<h5><%= @scorecard.s9 %></h5>
+			</div>
+			<div class="small-2 columns hole-input" id="out">
+				<h5><%= @f9_shots %></h5>
+			</div>
+		</div>
+		<div class="row align-middle" id="front-nine-putts">
+			<div class="small-1  columns hole-input">
+				<p>Putts</p>
+			</div>
+			<div class="small-1  columns hole-input">
+				<h5><%= @scorecard.p1 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p2 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p3 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p4 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p5 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p6 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p7 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p8 %></h5>
+			</div>
+			<div class="small-1 columns  hole-input">
+				<h5><%= @scorecard.p9 %></h5>
+			</div>
+			<div class="small-2 columns  hole-input" id="out">
+				<h5><%= @f9_putts  %></h5>
+			</div>
+		</div>
+	</div>
+</div>

@@ -7,17 +7,19 @@
 @import 'home';
 @import 'courses';
 @import 'tournaments';
+@import 'rounds';
+@import 'navbar';
 @include foundation-flex-grid;
 .row .row {
 	margin: 0;
 }
+p { margin: 0; }
+.row { max-width: 100%; margin: 0; }
 .columns { padding-left: 0; padding-right: 0; }
 li {
 	list-style: none;
 }
 a {
+	display: block;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-// a:active {
-// 	color: rgba(255,255,255, 1);
-// }

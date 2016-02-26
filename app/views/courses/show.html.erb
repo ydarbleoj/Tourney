@@ -1,26 +1,113 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row courses-container">
   <div class="row course-header">
     <%= content_tag :div, id: "#{@course.name.split(' ').join('-') + '-show'}" do %>
 	  <div class="row back"><%= link_to '<----', :back  %></div>
-    <h1><%= @course.name %></h1>
+    <h1 id="course-title"><%= @course.name %></h1>
     <div class="row" id="course-stats">
-	    <div class="row" id="course-stats-top">
-	      <div class="small-6 medium-4 columns">
+	    <div class="row align-center align-middle" id="course-stats-top">
+	      <div class="small-6 columns">
 	        <h2> Yardage: <%= @course.yardage %></h2>
 	      </div>
-	      <div class="small-6 medium-4 columns">
+	      <div class="small-6 columns">
 	        <h2> Par: <%= @course.par %></h2>
 	      </div>
 	    </div>
-	    <div class="row" id="course-stats-bottom">
-	      <div class="small-6 medium-4 columns">
+	    <div class="row align-center align-middle" id="course-stats-bottom">
+	      <div class="small-6 columns">
 	        <h2> Slope: <%= @course.slope %></h2>
 	      </div>
-	      <div class="small-6 medium-4 columns">
+	      <div class="small-6 columns">
 	        <h2> Rating: <%= @course.rating.to_f %></h2>
 	      </div>
 	    </div>
     </div>
     <% end %>
   </div>
+  <div class="row align-center" id="course-stats-body">
+  	<div class="row" id="stats-body-top">
+  		<div class="small-6 columns" id="hardest-hole">
+  			<div class="row" id="hardest-hole-wrapper">
+  				<div class="small-12 align-middle columns ">
+  					<p>Most Difficult Hole</p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p>Hole <%= @hardest[0] %></p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p>Par <%= @hardest[1] %></p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p><%= @hardest[2] %></p>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="small-6 columns" id="easiest-hole">
+  			<div class="row" id="easiest-hole-wrapper">
+  				<div class="small-12 align-middle columns ">
+  					<p>Easiest Hole</p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p>Hole <%= @easiest[0] %></p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p>Par <%= @easiest[1] %></p>
+  				</div>
+  				<div class="small-4 columns ">
+  					<p><%= @easiest[2] %></p>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<div class="row" id="stats-body-middle">
+  		<div class="small-6 columns" id="avg-putts">
+  			<div class="row" id="avg-putts-wrapper">
+  				<div class="small-6 align-middle columns ">
+  					<p>Avg Putts</p>
+  				</div>
+  				<div class="small-6 columns ">
+  					<p><%= @avg_putts %></p>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="small-6 columns" id="avg-score">
+  			<div class="row" id="avg-score-wrapper">
+  				<div class="small-6 align-middle columns ">
+  					<p>Avg Score</p>
+  				</div>
+  				<div class="small-6 columns ">
+  					<p><%= @avg_score %></p>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<div class="row" id="stats-body-bottom">
+			<div class="small-6 columns" id="fewest-putts">
+  			<div class="row" id="fewest-putts-wrapper">
+  				<div class="small-12 align-middle columns ">
+  					<p>Fewest Putts</p>
+  				</div>
+  				<div class="small-6 columns ">
+  					<p><%= @fewest_putts[0]%></p>
+  				</div>
+  				<div class="small-6 columns ">
+  					<p><%= @fewest_putts[1] %></p>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="small-6 columns" id="lowest-score">
+  			<div class="row" id="lowest-score-wrapper">
+	  			<div class="small-12">
+	  				<p>Lowest Round</p>
+	  			</div>
+  				<div class="small-6 align-middle columns ">
+  					<p><%= @lowest_round[0] %></p>
+  				</div>
+  				<div class="small-6 columns ">
+  					<p><%= @lowest_round[1] %></p>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+	</div>
 </div>

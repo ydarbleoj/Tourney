@@ -18,15 +18,9 @@ jeremy = User.create!(username: 'Jeremy Emerson', handicap: 14, email: 'jeremy@w
 david = User.create!(username: 'David Sanda', handicap: 21.8, email: 'david.sanda@verizon.com', home: nil, password: 'sanda1234', password_confirmation: 'sanda1234')
 
 bandon = Course.create!(par: 72, yardage: 6221, name: 'Bandon Dunes', rating: 71.4, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
-  scorecard: {
-		h1_yds: 352, h1_par: 4, h1_hcap: 13,
-	  h2_yds: 155, h2_par: 3, h2_hcap: 15,
-		h3_yds: 489, h3_par: 5, h3_hcap: 3,
-	  h4_yds: 362, h4_par: 4, h4_hcap: 5,
-	  h5_yds: 400, h5_par: 4, h5_hcap: 1,
-    h6_yds: 153, h6_par: 3, h6_hcap: 17,
-		h7_yds: 372, h7_par: 4, h7hcap: 7,
-		h8_yds: 342, h8_par: 4, h8_hcap: 11,
+		h1_yds: 352, h1_par: 4, h1_hcap: 13, h2_yds: 155, h2_par: 3, h2_hcap: 15, h3_yds: 489, h3_par: 5, h3_hcap: 3,
+	  h4_yds: 362, h4_par: 4, h4_hcap: 5, h5_yds: 400, h5_par: 4, h5_hcap: 1, h6_yds: 153, h6_par: 3, h6_hcap: 17,
+		h7_yds: 372, h7_par: 4, h7_hcap: 7, h8_yds: 342, h8_par: 4, h8_hcap: 11,
 	  h9_yds: 520, h9_par: 5, h9_hcap: 9,
     out_yds: 3145, out_par: 36,
     h10_yds: 339, h10_par: 4, h10_hcap: 8,
@@ -38,17 +32,16 @@ bandon = Course.create!(par: 72, yardage: 6221, name: 'Bandon Dunes', rating: 71
 		h16_yds: 345, h16_par: 4, h16_hcap: 10,
 		h17_yds: 375, h17_par: 4, h17_hcap: 12,
 		h18_yds: 513, h18_par: 5, h18_hcap: 4,
-		in_yds: 3076, in_par: 36 })
+		in_yds: 3076, in_par: 36 )
 
 pacific = Course.create!(par: 71, yardage: 6142, name: 'Pacific Dunes', rating: 70.7, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
-	 scorecard: {
 		h1_yds: 304, h1_par: 4, h1_hcap: 9,
 	  h2_yds: 335, h2_par: 4, h2_hcap: 11,
 		h3_yds: 476, h3_par: 5, h3_hcap: 7,
 	  h4_yds: 449, h4_par: 4, h4_hcap: 3,
 	  h5_yds: 181, h5_par: 3, h5_hcap: 17,
     h6_yds: 288, h6_par: 4, h6_hcap: 13,
-		h7_yds: 436, h7_par: 4, h7hcap: 1,
+		h7_yds: 436, h7_par: 4, h7_hcap: 1,
 		h8_yds: 369, h8_par: 4, h8_hcap: 5,
 	  h9_yds: 379, h9_par: 4, h9_hcap: 15,
     out_yds: 3217, out_par: 36,
@@ -61,17 +54,16 @@ pacific = Course.create!(par: 71, yardage: 6142, name: 'Pacific Dunes', rating: 
 		h16_yds: 338, h16_par: 4, h16_hcap: 12,
 		h17_yds: 189, h17_par: 3, h17_hcap: 8,
 		h18_yds: 575, h18_par: 5, h18_hcap: 4,
-		in_yds: 2925, in_par: 35 })
+		in_yds: 2925, in_par: 35 )
 
 trails = Course.create!(par: 71, yardage: 6247, name: 'Bandon Trails', rating: 71.1, slope: 129, tee: 'Green', city: 'Bandon', state: 'Oregon',
-	scorecard: {
 		h1_yds: 356, h1_par: 4, h1_hcap: 13,
 	  h2_yds: 166, h2_par: 3, h2_hcap: 17,
 		h3_yds: 532, h3_par: 5, h3_hcap: 3,
 	  h4_yds: 363, h4_par: 4, h4_hcap: 5,
 	  h5_yds: 124, h5_par: 3, h5_hcap: 15,
     h6_yds: 359, h6_par: 4, h6_hcap: 9,
-		h7_yds: 406, h7_par: 4, h7hcap: 7,
+		h7_yds: 406, h7_par: 4, h7_hcap: 7,
 		h8_yds: 299, h8_par: 4, h8_hcap: 11,
 	  h9_yds: 522, h9_par: 5, h9_hcap: 1,
     out_yds: 3127, out_par: 36,
@@ -84,17 +76,16 @@ trails = Course.create!(par: 71, yardage: 6247, name: 'Bandon Trails', rating: 7
 		h16_yds: 494, h16_par: 5, h16_hcap: 2,
 		h17_yds: 159, h17_par: 3, h17_hcap: 16,
 		h18_yds: 363, h18_par: 4, h18_hcap: 6,
-		in_yds: 3120, in_par: 35 })
+		in_yds: 3120, in_par: 35 )
 
-old_mac = Course.create(par: 71, yardage: 6320, name: 'Old MacDonald', rating: 71.6, slope: 125, tee: 'Green', city: 'Bandon', state: 'Oregon',
-	scorecard: {
+old_mac = Course.create(par: 71, yardage: 6320, name: 'Old Mac', rating: 71.6, slope: 125, tee: 'Green', city: 'Bandon', state: 'Oregon',
 		h1_yds: 304, h1_par: 4, h1_hcap: 11,
 	  h2_yds: 162, h2_par: 3, h2_hcap: 15,
 		h3_yds: 345, h3_par: 4, h3_hcap: 9,
 	  h4_yds: 472, h4_par: 4, h4_hcap: 1,
 	  h5_yds: 134, h5_par: 3, h5_hcap: 17,
     h6_yds: 520, h6_par: 5, h6_hcap: 3,
-		h7_yds: 345, h7_par: 4, h7hcap: 5,
+		h7_yds: 345, h7_par: 4, h7_hcap: 5,
 		h8_yds: 170, h8_par: 3, h8_hcap: 13,
 	  h9_yds: 352, h9_par: 4, h9_hcap: 7,
     out_yds: 2804, out_par: 34,
@@ -107,10 +98,27 @@ old_mac = Course.create(par: 71, yardage: 6320, name: 'Old MacDonald', rating: 7
 		h16_yds: 433, h16_par: 4, h16_hcap: 2,
 		h17_yds: 515, h17_par: 5, h17_hcap: 10,
 		h18_yds: 426, h18_par: 4, h18_hcap: 8,
-		in_yds: 3516, in_par: 37 })
+		in_yds: 3516, in_par: 37 )
 
 bandon_2016 = Tournament.create!(name: 'Bandon', year: 2016, num_players: 16, num_rounds: 3,
 														 end_date: DateTime.new(2016, 3, 19,18,00,00))
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: payne.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: cory.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: jack.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: robb.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: scott.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: eric.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: rory.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: rich.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: albino.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: dan.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: greg.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: matt.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: joel.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: bryan.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: damon.id)
+Leaderboard.create!(tournament_id: bandon_2016.id, user_id: pat.id)
+
 # Round One
 fri = DateTime.new(2016, 3, 17)
 fri_first = DateTime.new(2016, 3, 17, 9, 40, 00)
@@ -250,188 +258,164 @@ fifteen_fri_first = DateTime.new(2015, 2, 6, 9, 50, 00)
 fifteen_fri_sec = DateTime.new(2015, 2, 6, 10, 00, 00)
 fifteen_fri_third = DateTime.new(2015, 2, 6, 10, 10, 00)
 # First
-payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
+payne_rnd1 = payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 7, h2_shots: 4, h3_shots: 6, h4_shots: 6,
-	                  h5_shots: 5, h6_shots: 5, h7_shots: 6, h8_shots: 5,
-	                 	h9_shots: 7, h10_shots: 4, h11_shots: 6, h12_shots: 3,
-	                 	h13_shots: 5, h14_shots: 6, h15_shots: 4, h16_shots: 7,
-	                 	h17_shots: 3, h18_shots: 4}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 3, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 1, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 1,
-	                 	h13_putts: 2, h14_putts: 1, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 7, s2: 4, s3: 6, s4: 6,
+	                  s5: 5, s6: 5, s7: 6, s8: 5,
+	                 	s9: 7, s10: 4, s11: 6, s12: 3,
+	                 	s13: 5, s14: 6, s15: 4, s16: 7,
+	                 	s17: 3, s18: 4 , handicap: 14,
+	                 	p1: 3, p2: 2, p3: 2, p4: 2,
+	                 	p5: 3, p6: 1, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 1,
+	                 	p13: 2, p14: 1, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 93, putts: 35)
 
 cory.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 7, h2_shots: 4, h3_shots: 9, h4_shots: 6,
-	                  h5_shots: 3, h6_shots: 5, h7_shots: 5, h8_shots: 7,
-                  	h9_shots: 9, h10_shots: 6, h11_shots: 10, h12_shots: 4,
-	                 	h13_shots: 5, h14_shots: 6, h15_shots: 7, h16_shots: 10,
-	                 	h17_shots: 5, h18_shots: 5}, handicap: 21,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 3, h4_putts: 3,
-	                 	h5_putts: 1, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 3, h10_putts: 2, h11_putts: 3, h12_putts: 2,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 3, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 2 },
+	                 	s1: 7, s2: 4, s3: 9, s4: 6,
+	                  s5: 3, s6: 5, s7: 5, s8: 7,
+                  	s9: 9, s10: 6, s11: 10, s12: 4,
+	                 	s13: 5, s14: 6, s15: 7, s16: 10,
+	                 	s17: 5, s18: 5, handicap: 21,
+	                 	p1: 2, p2: 2, p3: 3, p4: 3,
+	                 	p5: 1, p6: 2, p7: 2, p8: 2,
+	                 	p9: 3, p10: 2, p11: 3, p12: 2,
+	                 	p13: 1, p14: 2, p15: 3, p16: 2,
+	                 	p17: 3, p18: 2,
 	                 	score: 113, putts: 37)
 damon.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 6, h2_shots: 8, h3_shots: 9, h4_shots: 8,
-	                  h5_shots: 4, h6_shots: 5, h7_shots: 9, h8_shots: 5,
-                  	h9_shots: 8, h10_shots: 5, h11_shots: 7, h12_shots: 6,
-	                 	h13_shots: 11, h14_shots: 10, h15_shots: 10, h16_shots: 12,
-	                 	h17_shots: 10, h18_shots: 11}, handicap: 32,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 3,
-	                 	h5_putts: 1, h6_putts: 2, h7_putts: 2, h8_putts: 3,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 3,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 6, s2: 8, s3: 9, s4: 8,
+	                  s5: 4, s6: 5, s7: 9, s8: 5,
+                  	s9: 8, s10: 5, s11: 7, s12: 6,
+	                 	s13: 11, s14: 10, s15: 10, s16: 12,
+	                 	s17: 10, s18: 11 , handicap: 32,
+	                 	p1: 2, p2: 2, p3: 2, p4: 3,
+	                 	p5: 1, p6: 2, p7: 2, p8: 3,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 2, p14: 2, p15: 2, p16: 3,
+	                 	p17: 2, p18: 2 ,
 	                 	score: 144, putts: 39)
 bryan.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 6, h2_shots: 5, h3_shots: 6, h4_shots: 5,
-	                  h5_shots: 5, h6_shots: 5, h7_shots: 6, h8_shots: 6,
-                  	h9_shots: 5, h10_shots: 4, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 4, h14_shots: 6, h15_shots: 3, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 5}, handicap: 8,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 3, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 1, h16_putts: 2,
-	                 	h17_putts: 1, h18_putts: 2 },
+	                 	s1: 6, s2: 5, s3: 6, s4: 5,
+	                  s5: 5, s6: 5, s7: 6, s8: 6,
+                  	s9: 5, s10: 4, s11: 5, s12: 4,
+	                 	s13: 4, s14: 6, s15: 3, s16: 6,
+	                 	s17: 5, s18: 5, handicap: 8,
+	                 	p1: 2, p2: 3, p3: 2, p4: 2,
+	                 	p5: 3, p6: 2, p7: 2, p8: 1,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 2, p14: 2, p15: 1, p16: 2,
+	                 	p17: 1, p18: 2,
 	                 	score: 92, putts: 36)
 # Second
 jack.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_sec.strftime("%F"), tee_time: fifteen_fri_sec.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 6, h2_shots: 6, h3_shots: 6, h4_shots: 6,
-	                  h5_shots: 4, h6_shots: 9, h7_shots: 7, h8_shots: 4,
-                  	h9_shots: 6, h10_shots: 9, h11_shots: 8, h12_shots: 5,
-	                 	h13_shots: 4, h14_shots: 11, h15_shots: 7, h16_shots: 8,
-	                 	h17_shots: 8, h18_shots: 5}, handicap: 25,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 3, h3_putts: 1, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 1, h7_putts: 3, h8_putts: 1,
-	                 	h9_putts: 1, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 1, h18_putts: 2 },
+	                 	s1: 6, s2: 6, s3: 6, s4: 6,
+	                  s5: 4, s6: 9, s7: 7, s8: 4,
+                  	s9: 6, s10: 9, s11: 8, s12: 5,
+	                 	s13: 4, s14: 11, s15: 7, s16: 8,
+	                 	s17: 8, s18: 5, handicap: 25,
+	                 	p1: 2, p2: 3, p3: 1, p4: 2,
+	                 	p5: 1, p6: 1, p7: 3, p8: 1,
+	                 	p9: 1, p10: 2, p11: 2, p12: 2,
+	                 	p13: 1, p14: 2, p15: 2, p16: 2,
+	                 	p17: 1, p18: 2,
 	                 	score: 119, putts: 31)
 jeremy.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_sec.strftime("%F"), tee_time: fifteen_fri_sec.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 5, h2_shots: 4, h3_shots: 7, h4_shots: 7,
-	                  h5_shots: 2, h6_shots: 4, h7_shots: 5, h8_shots: 6,
-                  	h9_shots: 5, h10_shots: 7, h11_shots: 6, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 5, h15_shots: 5, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 4}, handicap: 13,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 3, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 1, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 3, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 3, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 1 },
+	                 	s1: 5, s2: 4, s3: 7, s4: 7,
+	                  s5: 2, s6: 4, s7: 5, s8: 6,
+                  	s9: 5, s10: 7, s11: 6, s12: 5,
+	                 	s13: 6, s14: 5, s15: 5, s16: 6,
+	                 	s17: 5, s18: 4, handicap: 13,
+	                 	p1: 2, p2: 3, p3: 2, p4: 2,
+	                 	p5: 1, p6: 1, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 3, p12: 2,
+	                 	p13: 3, p14: 3, p15: 2, p16: 2,
+	                 	p17: 2, p18: 1,
 	                 	score: 94, putts: 37)
 greg.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_sec.strftime("%F"), tee_time: fifteen_fri_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 6, h2_shots: 7, h3_shots: 10, h4_shots: 4,
-	                  h5_shots: 4, h6_shots: 9, h7_shots: 6, h8_shots: 5,
-                  	h9_shots: 7, h10_shots: 5, h11_shots: 6, h12_shots: 6,
-	                 	h13_shots: 7, h14_shots: 8, h15_shots: 6, h16_shots: 8,
-	                 	h17_shots: 7, h18_shots: 8}, handicap: 23,
-	                 putts_card: {
-	                 	h1_putts: 1, h2_putts: 2, h3_putts: 3, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 3, h7_putts: 3, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 3, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 3, h15_putts: 2, h16_putts: 4,
-	                 	h17_putts: 2, h18_putts: 3 },
+	                 	s1: 6, s2: 7, s3: 10, s4: 4,
+	                  s5: 4, s6: 9, s7: 6, s8: 5,
+                  	s9: 7, s10: 5, s11: 6, s12: 6,
+	                 	s13: 7, s14: 8, s15: 6, s16: 8,
+	                 	s17: 7, s18: 8, handicap: 23,
+	                 	p1: 1, p2: 2, p3: 3, p4: 2,
+	                 	p5: 1, p6: 3, p7: 3, p8: 1,
+	                 	p9: 2, p10: 3, p11: 2, p12: 2,
+	                 	p13: 3, p14: 3, p15: 2, p16: 4,
+	                 	p17: 2, p18: 3,
 	                 	score: 119, putts: 42)
 dan.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_sec.strftime("%F"), tee_time: fifteen_fri_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 7, h2_shots: 5, h3_shots: 7, h4_shots: 6,
-	                  h5_shots: 3, h6_shots: 5, h7_shots: 5, h8_shots: 5,
-                  	h9_shots: 6, h10_shots: 9, h11_shots: 8, h12_shots: 4,
-	                 	h13_shots: 6, h14_shots: 9, h15_shots: 5, h16_shots: 4,
-	                 	h17_shots: 4, h18_shots: 4}, handicap: 18,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 1, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 3, h8_putts: 3,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 2, h16_putts: 1,
-	                 	h17_putts: 1, h18_putts: 2 },
+	                 	s1: 7, s2: 5, s3: 7, s4: 6,
+	                  s5: 3, s6: 5, s7: 5, s8: 5,
+                  	s9: 6, s10: 9, s11: 8, s12: 4,
+	                 	s13: 6, s14: 9, s15: 5, s16: 4,
+	                 	s17: 4, s18: 4, handicap: 18,
+	                 	p1: 2, p2: 2, p3: 1, p4: 2,
+	                 	p5: 2, p6: 2, p7: 3, p8: 3,
+	                 	p9: 2, p10: 2, p11: 2, p12: 2,
+	                 	p13: 2, p14: 3, p15: 2, p16: 1,
+	                 	p17: 1, p18: 2,
 	                 	score: 102, putts: 36)
 # Third
 david.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_third.strftime("%F"), tee_time: fifteen_fri_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 10, h2_shots: 5, h3_shots: 5, h4_shots: 6,
-	                  h5_shots: 3, h6_shots: 6, h7_shots: 5, h8_shots: 5,
-                  	h9_shots: 9, h10_shots: 6, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 6, h16_shots: 6,
-	                 	h17_shots: 4, h18_shots: 7}, handicap: 20,
-	                 putts_card: {
-	                 	h1_putts: 4, h2_putts: 3, h3_putts: 1, h4_putts: 3,
-	                 	h5_putts: 2, h6_putts: 3, h7_putts: 2, h8_putts: 3,
-	                 	h9_putts: 3, h10_putts: 3, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 3, h14_putts: 3, h15_putts: 3, h16_putts: 3,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 10, s2: 5, s3: 5, s4: 6,
+	                  s5: 3, s6: 6, s7: 5, s8: 5,
+                  	s9: 9, s10: 6, s11: 5, s12: 4,
+	                 	s13: 6, s14: 6, s15: 6, s16: 6,
+	                 	s17: 4, s18: 7, handicap: 20,
+	                 	p1: 4, p2: 3, p3: 1, p4: 3,
+	                 	p5: 2, p6: 3, p7: 2, p8: 3,
+	                 	p9: 3, p10: 3, p11: 2, p12: 3,
+	                 	p13: 3, p14: 3, p15: 3, p16: 3,
+	                 	p17: 2, p18: 2,
 	                 	score: 104, putts: 48)
 albino.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_third.strftime("%F"), tee_time: fifteen_fri_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 7, h2_shots: 3, h3_shots: 7, h4_shots: 8,
-	                  h5_shots: 4, h6_shots: 5, h7_shots: 6, h8_shots: 6,
-                  	h9_shots: 5, h10_shots: 4, h11_shots: 6, h12_shots: 3,
-	                 	h13_shots: 6, h14_shots: 5, h15_shots: 4, h16_shots: 7,
-	                 	h17_shots: 5, h18_shots: 6}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 1, h2_putts: 1, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 3, h8_putts: 3,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 3, h15_putts: 1, h16_putts: 3,
-	                 	h17_putts: 1, h18_putts: 2 },
+	                 	s1: 7, s2: 3, s3: 7, s4: 8,
+	                  s5: 4, s6: 5, s7: 6, s8: 6,
+                  	s9: 5, s10: 4, s11: 6, s12: 3,
+	                 	s13: 6, s14: 5, s15: 4, s16: 7,
+	                 	s17: 5, s18: 6, handicap: 14,
+	                 	p1: 1, p2: 1, p3: 2, p4: 2,
+	                 	p5: 3, p6: 2, p7: 3, p8: 3,
+	                 	p9: 2, p10: 2, p11: 2, p12: 2,
+	                 	p13: 3, p14: 3, p15: 1, p16: 3,
+	                 	p17: 1, p18: 2,
 	                 	score: 97, putts: 38)
 joel.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_third.strftime("%F"), tee_time: fifteen_fri_third.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 8, h2_shots: 4, h3_shots: 5, h4_shots: 4,
-	                  h5_shots: 3, h6_shots: 4, h7_shots: 5, h8_shots: 5,
-                  	h9_shots: 5, h10_shots: 2, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 7, h14_shots: 5, h15_shots: 5, h16_shots: 6,
-	                 	h17_shots: 2, h18_shots: 4}, handicap: 7,
-	                 putts_card: {
-	                 	h1_putts: 3, h2_putts: 2, h3_putts: 1, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 1, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 0, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 3, h14_putts: 1, h15_putts: 2, h16_putts: 1,
-	                 	h17_putts: 1, h18_putts: 1 },
+	                 	s1: 8, s2: 4, s3: 5, s4: 4,
+	                  s5: 3, s6: 4, s7: 5, s8: 5,
+                  	s9: 5, s10: 2, s11: 5, s12: 4,
+	                 	s13: 7, s14: 5, s15: 5, s16: 6,
+	                 	s17: 2, s18: 4, handicap: 7,
+	                 	p1: 3, p2: 2, p3: 1, p4: 2,
+	                 	p5: 1, p6: 1, p7: 2, p8: 1,
+	                 	p9: 2, p10: 0, p11: 2, p12: 3,
+	                 	p13: 3, p14: 1, p15: 2, p16: 1,
+	                 	p17: 1, p18: 1,
 	                 	score: 83, putts: 29)
 pat.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 	                 date_played: fifteen_fri_third.strftime("%F"), tee_time: fifteen_fri_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 8, h2_shots: 8, h3_shots: 7, h4_shots: 8,
-	                  h5_shots: 3, h6_shots: 5, h7_shots: 10, h8_shots: 6,
-                  	h9_shots: 7, h10_shots: 5, h11_shots: 6, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 7, h16_shots: 8,
-	                 	h17_shots: 5, h18_shots: 6}, handicap: 32,
-	                 putts_card: {
-	                 	h1_putts: 3, h2_putts: 2, h3_putts: 2, h4_putts: 3,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 3, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 8, s2: 8, s3: 7, s4: 8,
+	                  s5: 3, s6: 5, s7: 10, s8: 6,
+                  	s9: 7, s10: 5, s11: 6, s12: 5,
+	                 	s13: 6, s14: 6, s15: 7, s16: 8,
+	                 	s17: 5, s18: 6, handicap: 32,
+	                 	p1: 3, p2: 2, p3: 2, p4: 3,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 3, p14: 2, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 116, putts: 40)
 
 # Round Two
@@ -442,185 +426,161 @@ fifteen_sat_third = DateTime.new(2015, 2, 7, 10, 50, 00)
 # First
 payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_first.strftime("%F"), tee_time: fifteen_sat_first.strftime("%H:%M"),
- 									 shots_card: {
-	                 	h1_shots: 4, h2_shots: 4, h3_shots: 6, h4_shots: 6,
-	                  h5_shots: 5, h6_shots: 6, h7_shots: 6, h8_shots: 5,
-                    h9_shots: 7, h10_shots: 4, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 4, h16_shots: 7,
-	                 	h17_shots: 5, h18_shots: 8}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 1, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 1, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 3,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 4, s2: 4, s3: 6, s4: 6,
+	                  s5: 5, s6: 6, s7: 6, s8: 5,
+                    s9: 7, s10: 4, s11: 5, s12: 4,
+	                 	s13: 6, s14: 6, s15: 4, s16: 7,
+	                 	s17: 5, s18: 8, handicap: 14,
+	                 	p1: 2, p2: 2, p3: 1, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 1, p11: 2, p12: 2,
+	                 	p13: 2, p14: 2, p15: 2, p16: 3,
+	                 	p17: 2, p18: 2,
 	                 	score: 98, putts: 35)
 cory.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_first.strftime("%F"), tee_time: fifteen_sat_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 7, h2_shots: 4, h3_shots: 10, h4_shots: 10,
-	                  h5_shots: 9, h6_shots: 3, h7_shots: 9, h8_shots: 7,
-                    h9_shots: 6, h10_shots: 5, h11_shots: 6, h12_shots: 6,
-	                 	h13_shots: 7, h14_shots: 7, h15_shots: 5, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 8}, handicap: 21,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 1, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 2, h15_putts: 2, h16_putts: 3,
-	                 	h17_putts: 2, h18_putts: 3 },
+	                 	s1: 7, s2: 4, s3: 10, s4: 10,
+	                  s5: 9, s6: 3, s7: 9, s8: 7,
+                    s9: 6, s10: 5, s11: 6, s12: 6,
+	                 	s13: 7, s14: 7, s15: 5, s16: 6,
+	                 	s17: 5, s18: 8, handicap: 21,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 1, p10: 2, p11: 2, p12: 2,
+	                 	p13: 3, p14: 2, p15: 2, p16: 3,
+	                 	p17: 2, p18: 3,
 	                 	score: 120, putts: 38)
 jack.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_first.strftime("%F"), tee_time: fifteen_sat_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 6, h2_shots: 7, h3_shots: 7, h4_shots: 6,
-	                  h5_shots: 8, h6_shots: 5, h7_shots: 6, h8_shots: 4,
-                    h9_shots: 6, h10_shots: 7, h11_shots: 5, h12_shots: 5,
-	                 	h13_shots: 10, h14_shots: 5, h15_shots: 3, h16_shots: 9,
-	                 	h17_shots: 7, h18_shots: 10}, handicap: 25,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 1,
-	                 	h17_putts: 3, h18_putts: 3 },
+	                 	s1: 6, s2: 7, s3: 7, s4: 6,
+	                  s5: 8, s6: 5, s7: 6, s8: 4,
+                    s9: 6, s10: 7, s11: 5, s12: 5,
+	                 	s13: 10, s14: 5, s15: 3, s16: 9,
+	                 	s17: 7, s18: 10, handicap: 25,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 1,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 2, p14: 2, p15: 2, p16: 1,
+	                 	p17: 3, p18: 3,
 	                 	score: 116, putts: 37)
 jeremy.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_first.strftime("%F"), tee_time: fifteen_sat_first.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 6, h2_shots: 4, h3_shots: 5, h4_shots: 5,
-	                  h5_shots: 5, h6_shots: 3, h7_shots: 6, h8_shots: 6,
-                    h9_shots: 7, h10_shots: 6, h11_shots: 4, h12_shots: 4,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 6, h16_shots: 4,
-	                 	h17_shots: 5, h18_shots: 6}, handicap: 13,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 3, h11_putts: 1, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 3, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 1 },
+	                 	s1: 6, s2: 4, s3: 5, s4: 5,
+	                  s5: 5, s6: 3, s7: 6, s8: 6,
+                    s9: 7, s10: 6, s11: 4, s12: 4,
+	                 	s13: 6, s14: 6, s15: 6, s16: 4,
+	                 	s17: 5, s18: 6, handicap: 13,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 1,
+	                 	p9: 2, p10: 3, p11: 1, p12: 2,
+	                 	p13: 2, p14: 3, p15: 3, p16: 2,
+	                 	p17: 2, p18: 1,
 	                 	score: 94, putts: 36)
 # Second
 greg.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_sec.strftime("%F"), tee_time: fifteen_sat_sec.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 7, h2_shots: 7, h3_shots: 7, h4_shots: 8,
-	                  h5_shots: 6, h6_shots: 4, h7_shots: 8, h8_shots: 6,
-                    h9_shots: 7, h10_shots: 6, h11_shots: 6, h12_shots: 5,
-	                 	h13_shots: 7, h14_shots: 4, h15_shots: 3, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 6}, handicap: 23,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 1, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 1, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 7, s2: 7, s3: 7, s4: 8,
+	                  s5: 6, s6: 4, s7: 8, s8: 6,
+                    s9: 7, s10: 6, s11: 6, s12: 5,
+	                 	s13: 7, s14: 4, s15: 3, s16: 6,
+	                 	s17: 5, s18: 6, handicap: 23,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 1, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 1, p11: 2, p12: 2,
+	                 	p13: 3, p14: 1, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 108, putts: 35)
 dan.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_sec.strftime("%F"), tee_time: fifteen_sat_sec.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 8, h2_shots: 3, h3_shots: 7, h4_shots: 7,
-	                  h5_shots: 5, h6_shots: 3, h7_shots: 5, h8_shots: 6,
-                    h9_shots: 7, h10_shots: 4, h11_shots: 3, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 5, h15_shots: 4, h16_shots: 6,
-	                 	h17_shots: 7, h18_shots: 6}, handicap: 18,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 1, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 3 },
+	                 	s1: 8, s2: 3, s3: 7, s4: 7,
+	                  s5: 5, s6: 3, s7: 5, s8: 6,
+                    s9: 7, s10: 4, s11: 3, s12: 5,
+	                 	s13: 6, s14: 5, s15: 4, s16: 6,
+	                 	s17: 7, s18: 6, handicap: 18,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 1,
+	                 	p9: 2, p10: 2, p11: 1, p12: 3,
+	                 	p13: 2, p14: 2, p15: 2, p16: 2,
+	                 	p17: 2, p18: 3,
 	                 	score: 97, putts: 36)
 david.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_sec.strftime("%F"), tee_time: fifteen_sat_sec.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 3, h2_shots: 4, h3_shots: 7, h4_shots: 5,
-	                  h5_shots: 5, h6_shots: 5, h7_shots: 8, h8_shots: 7,
-                    h9_shots: 7, h10_shots: 6, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 4, h16_shots: 5,
-	                 	h17_shots: 6, h18_shots: 9}, handicap: 20,
-	                 putts_card: {
-	                 	h1_putts: 1, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 3, s2: 4, s3: 7, s4: 5,
+	                  s5: 5, s6: 5, s7: 8, s8: 7,
+                    s9: 7, s10: 6, s11: 5, s12: 4,
+	                 	s13: 6, s14: 6, s15: 4, s16: 5,
+	                 	s17: 6, s18: 9, handicap: 20,
+	                 	p1: 1, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 1,
+	                 	p9: 2, p10: 2, p11: 2, p12: 2,
+	                 	p13: 2, p14: 2, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 102, putts: 34)
 albino.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_sec.strftime("%F"), tee_time: fifteen_sat_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 5, h2_shots: 3, h3_shots: 7, h4_shots: 6,
-	                  h5_shots: 5, h6_shots: 4, h7_shots: 5, h8_shots: 5,
-                    h9_shots: 5, h10_shots: 6, h11_shots: 5, h12_shots: 4,
-	                 	h13_shots: 5, h14_shots: 5, h15_shots: 3, h16_shots: 5,
-	                 	h17_shots: 5, h18_shots: 7}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 1, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 5, s2: 3, s3: 7, s4: 6,
+	                  s5: 5, s6: 4, s7: 5, s8: 5,
+                    s9: 5, s10: 6, s11: 5, s12: 4,
+	                 	s13: 5, s14: 5, s15: 3, s16: 5,
+	                 	s17: 5, s18: 7, handicap: 14,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 1, p14: 2, p15: 1, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 94, putts: 35)
 # Third
 damon.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_third.strftime("%F"), tee_time: fifteen_sat_third.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 5, h2_shots: 4, h3_shots: 11, h4_shots: 9,
-	                  h5_shots: 8, h6_shots: 8, h7_shots: 6, h8_shots: 6,
-                    h9_shots: 6, h10_shots: 5, h11_shots: 6, h12_shots: 6,
-	                 	h13_shots: 11, h14_shots: 7, h15_shots: 7, h16_shots: 8,
-	                 	h17_shots: 8, h18_shots: 8}, handicap: 32,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 1,
-	                 	h5_putts: 2, h6_putts: 3, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 3, h16_putts: 3,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 5, s2: 4, s3: 11, s4: 9,
+	                  s5: 8, s6: 8, s7: 6, s8: 6,
+                    s9: 6, s10: 5, s11: 6, s12: 6,
+	                 	s13: 11, s14: 7, s15: 7, s16: 8,
+	                 	s17: 8, s18: 8, handicap: 32,
+	                 	p1: 2, p2: 2, p3: 2, p4: 1,
+	                 	p5: 2, p6: 3, p7: 2, p8: 1,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 1, p14: 2, p15: 3, p16: 3,
+	                 	p17: 2, p18: 2,
 	                 	score: 129, putts: 36)
 pat.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_third.strftime("%F"), tee_time: fifteen_sat_third.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 6, h2_shots: 4, h3_shots: 7, h4_shots: 7,
-	                  h5_shots: 8, h6_shots: 4, h7_shots: 7, h8_shots: 7,
-                    h9_shots: 8, h10_shots: 6, h11_shots: 6, h12_shots: 2,
-	                 	h13_shots: 7, h14_shots: 9, h15_shots: 9, h16_shots: 7,
-	                 	h17_shots: 7, h18_shots: 6}, handicap: 32,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 1,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 6, s2: 4, s3: 7, s4: 7,
+	                  s5: 8, s6: 4, s7: 7, s8: 7,
+                    s9: 8, s10: 6, s11: 6, s12: 2,
+	                 	s13: 7, s14: 9, s15: 9, s16: 7,
+	                 	s17: 7, s18: 6, handicap: 32,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 1,
+	                 	p13: 2, p14: 3, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 117, putts: 36)
 bryan.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_third.strftime("%F"), tee_time: fifteen_sat_third.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 5, h2_shots: 3, h3_shots: 7, h4_shots: 5,
-	                  h5_shots: 4, h6_shots: 4, h7_shots: 6, h8_shots: 5,
-                    h9_shots: 6, h10_shots: 5, h11_shots: 4, h12_shots: 4,
-	                 	h13_shots: 7, h14_shots: 4, h15_shots: 6, h16_shots: 7,
-	                 	h17_shots: 6, h18_shots: 6}, handicap: 8,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 1, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 3, h11_putts: 1, h12_putts: 2,
-	                 	h13_putts: 3, h14_putts: 2, h15_putts: 2, h16_putts: 3,
-	                 	h17_putts: 3, h18_putts: 3 },
+	                 	s1: 5, s2: 3, s3: 7, s4: 5,
+	                  s5: 4, s6: 4, s7: 6, s8: 5,
+                    s9: 6, s10: 5, s11: 4, s12: 4,
+	                 	s13: 7, s14: 4, s15: 6, s16: 7,
+	                 	s17: 6, s18: 6, handicap: 8,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 1, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 3, p11: 1, p12: 2,
+	                 	p13: 3, p14: 2, p15: 2, p16: 3,
+	                 	p17: 3, p18: 3,
 	                 	score: 94, putts: 38)
 joel.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
 	                 date_played: fifteen_sat_third.strftime("%F"), tee_time: fifteen_sat_third.strftime("%H:%M"),
-	                 shots_card: {
-	                 	h1_shots: 4, h2_shots: 4, h3_shots: 6, h4_shots: 6,
-	                  h5_shots: 4, h6_shots: 4, h7_shots: 5, h8_shots: 8,
-                    h9_shots: 6, h10_shots: 4, h11_shots: 3, h12_shots: 4,
-	                 	h13_shots: 7, h14_shots: 5, h15_shots: 8, h16_shots: 5,
-	                 	h17_shots: 4, h18_shots: 4}, handicap: 7,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 1, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 1, h18_putts: 1 },
+	                 	s1: 4, s2: 4, s3: 6, s4: 6,
+	                  s5: 4, s6: 4, s7: 5, s8: 8,
+                    s9: 6, s10: 4, s11: 3, s12: 4,
+	                 	s13: 7, s14: 5, s15: 8, s16: 5,
+	                 	s17: 4, s18: 4, handicap: 7,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 1, p12: 2,
+	                 	p13: 2, p14: 3, p15: 2, p16: 2,
+	                 	p17: 1, p18: 1,
 	                 	score: 91, putts: 34)
 
 # Round Three
@@ -631,181 +591,222 @@ fifteen_sun_third = DateTime.new(2015, 2, 8, 11, 10, 00)
 # First
 greg.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_first.strftime("%F"), tee_time: fifteen_sun_first.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 6, h2_shots: 6, h3_shots: 5, h4_shots: 6,
-	                  h5_shots: 6, h6_shots: 5, h7_shots: 7, h8_shots: 6,
-                    h9_shots: 5, h10_shots: 5, h11_shots: 3, h12_shots: 7,
-	                 	h13_shots: 6, h14_shots: 6, h15_shots: 6, h16_shots: 7,
-	                 	h17_shots: 7, h18_shots: 10}, handicap: 23,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 5, h6_putts: 2, h7_putts: 3, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 1, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 3, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 3 },
+	                 	s1: 6, s2: 6, s3: 5, s4: 6,
+	                  s5: 6, s6: 5, s7: 7, s8: 6,
+                    s9: 5, s10: 5, s11: 3, s12: 7,
+	                 	s13: 6, s14: 6, s15: 6, s16: 7,
+	                 	s17: 7, s18: 10, handicap: 23,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 5, p6: 2, p7: 3, p8: 2,
+	                 	p9: 2, p10: 2, p11: 1, p12: 2,
+	                 	p13: 2, p14: 3, p15: 3, p16: 2,
+	                 	p17: 3, p18: 3,
 	                 	score: 111, putts: 41)
 albino.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_first.strftime("%F"), tee_time: fifteen_sun_first.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 6, h2_shots: 5, h3_shots: 5, h4_shots: 6,
-	                  h5_shots: 4, h6_shots: 5, h7_shots: 5, h8_shots: 4,
-                    h9_shots: 6, h10_shots: 5, h11_shots: 3, h12_shots: 8,
-	                 	h13_shots: 5, h14_shots: 7, h15_shots: 8, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 5}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 3, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 3, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 2 },
+	                 	s1: 6, s2: 5, s3: 5, s4: 6,
+	                  s5: 4, s6: 5, s7: 5, s8: 4,
+                    s9: 6, s10: 5, s11: 3, s12: 8,
+	                 	s13: 5, s14: 7, s15: 8, s16: 6,
+	                 	s17: 5, s18: 5, handicap: 14,
+	                 	p1: 2, p2: 2, p3: 2, p4: 2,
+	                 	p5: 2, p6: 3, p7: 2, p8: 2,
+	                 	p9: 3, p10: 2, p11: 2, p12: 3,
+	                 	p13: 2, p14: 3, p15: 2, p16: 2,
+	                 	p17: 3, p18: 2,
 	                 	score: 97, putts: 41)
 jack.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_first.strftime("%F"), tee_time: fifteen_sun_first.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 6, h2_shots: 5, h3_shots: 7, h4_shots: 6,
-	                  h5_shots: 5, h6_shots: 6, h7_shots: 5, h8_shots: 6,
-                    h9_shots: 5, h10_shots: 5, h11_shots: 5, h12_shots: 7,
-	                 	h13_shots: 5, h14_shots: 6, h15_shots: 6, h16_shots: 8,
-	                 	h17_shots: 5, h18_shots: 7}, handicap: 25,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 3, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 2, h8_putts: 3,
-	                 	h9_putts: 1, h10_putts: 2, h11_putts: 3, h12_putts: 2,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 3 },
+	                 	s1: 6, s2: 5, s3: 7, s4: 6,
+	                  s5: 5, s6: 6, s7: 5, s8: 6,
+                    s9: 5, s10: 5, s11: 5, s12: 7,
+	                 	s13: 5, s14: 6, s15: 6, s16: 8,
+	                 	s17: 5, s18: 7, handicap: 25,
+	                 	p1: 2, p2: 2, p3: 3, p4: 2,
+	                 	p5: 3, p6: 2, p7: 2, p8: 3,
+	                 	p9: 1, p10: 2, p11: 3, p12: 2,
+	                 	p13: 1, p14: 2, p15: 2, p16: 2,
+	                 	p17: 2, p18: 3,
 	                 	score: 105, putts: 39)
 joel.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_first.strftime("%F"), tee_time: fifteen_sun_first.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 5, h2_shots: 4, h3_shots: 6, h4_shots: 5,
-	                  h5_shots: 4, h6_shots: 4, h7_shots: 6, h8_shots: 3,
-                    h9_shots: 5, h10_shots: 3, h11_shots: 4, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 3, h15_shots: 5, h16_shots: 6,
-	                 	h17_shots: 4, h18_shots: 5}, handicap: 7,
-	                 putts_card: {
-	                 	h1_putts: 3, h2_putts: 2, h3_putts: 2, h4_putts: 3,
-	                 	h5_putts: 2, h6_putts: 1, h7_putts: 2, h8_putts: 0,
-	                 	h9_putts: 3, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 1, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 1 },
+	                 	s1: 5, s2: 4, s3: 6, s4: 5,
+	                  s5: 4, s6: 4, s7: 6, s8: 3,
+                    s9: 5, s10: 3, s11: 4, s12: 5,
+	                 	s13: 6, s14: 3, s15: 5, s16: 6,
+	                 	s17: 4, s18: 5, handicap: 7,
+	                 	p1: 3, p2: 2, p3: 2, p4: 3,
+	                 	p5: 2, p6: 1, p7: 2, p8: 0,
+	                 	p9: 3, p10: 2, p11: 2, p12: 2,
+	                 	p13: 2, p14: 1, p15: 2, p16: 2,
+	                 	p17: 3, p18: 1,
 	                 	score: 84, putts: 35)
 # Second
 jeremy.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_sec.strftime("%F"), tee_time: fifteen_sun_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 4, h2_shots: 6, h3_shots: 5, h4_shots: 5,
-	                  h5_shots: 4, h6_shots: 5, h7_shots: 4, h8_shots: 4,
-                    h9_shots: 4, h10_shots: 4, h11_shots: 4, h12_shots: 5,
-	                 	h13_shots: 3, h14_shots: 3, h15_shots: 5, h16_shots: 7,
-	                 	h17_shots: 3, h18_shots: 7}, handicap: 13,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 3, h3_putts: 2, h4_putts: 3,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 3, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 1, h14_putts: 1, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 4, s2: 6, s3: 5, s4: 5,
+	                  s5: 4, s6: 5, s7: 4, s8: 4,
+                    s9: 4, s10: 4, s11: 4, s12: 5,
+	                 	s13: 3, s14: 3, s15: 5, s16: 7,
+	                 	s17: 3, s18: 7, handicap: 13,
+	                 	p1: 2, p2: 3, p3: 2, p4: 3,
+	                 	p5: 3, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 3, p11: 2, p12: 2,
+	                 	p13: 1, p14: 1, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 82, putts: 38)
 bryan.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_sec.strftime("%F"), tee_time: fifteen_sun_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 5, h2_shots: 6, h3_shots: 5, h4_shots: 6,
-	                  h5_shots: 4, h6_shots: 4, h7_shots: 5, h8_shots: 5,
-                    h9_shots: 4, h10_shots: 4, h11_shots: 4, h12_shots: 5,
-	                 	h13_shots: 5, h14_shots: 5, h15_shots: 5, h16_shots: 6,
-	                 	h17_shots: 5, h18_shots: 7}, handicap: 8,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 1, h4_putts: 2,
-	                 	h5_putts: 2, h6_putts: 2, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 1, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 2 },
+	                 	s1: 5, s2: 6, s3: 5, s4: 6,
+	                  s5: 4, s6: 4, s7: 5, s8: 5,
+                    s9: 4, s10: 4, s11: 4, s12: 5,
+	                 	s13: 5, s14: 5, s15: 5, s16: 6,
+	                 	s17: 5, s18: 7, handicap: 8,
+	                 	p1: 2, p2: 2, p3: 1, p4: 2,
+	                 	p5: 2, p6: 2, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 2,
+	                 	p13: 1, p14: 2, p15: 2, p16: 2,
+	                 	p17: 3, p18: 2,
 	                 	score: 90, putts: 35)
 pat.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_sec.strftime("%F"), tee_time: fifteen_sun_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 4, h2_shots: 6, h3_shots: 7, h4_shots: 9,
-	                  h5_shots: 5, h6_shots: 6, h7_shots: 6, h8_shots: 7,
-                    h9_shots: 5, h10_shots: 4, h11_shots: 4, h12_shots: 8,
-	                 	h13_shots: 10, h14_shots: 5, h15_shots: 6, h16_shots: 7,
-	                 	h17_shots: 5, h18_shots: 6}, handicap: 32,
-	                 putts_card: {
-	                 	h1_putts: 1, h2_putts: 3, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 3, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 2, h12_putts: 3,
-	                 	h13_putts: 2, h14_putts: 2, h15_putts: 2, h16_putts: 3,
-	                 	h17_putts: 3, h18_putts: 2 },
+	                 	s1: 4, s2: 6, s3: 7, s4: 9,
+	                  s5: 5, s6: 6, s7: 6, s8: 7,
+                    s9: 5, s10: 4, s11: 4, s12: 8,
+	                 	s13: 10, s14: 5, s15: 6, s16: 7,
+	                 	s17: 5, s18: 6, handicap: 32,
+	                 	p1: 1, p2: 3, p3: 2, p4: 2,
+	                 	p5: 3, p6: 2, p7: 3, p8: 2,
+	                 	p9: 2, p10: 2, p11: 2, p12: 3,
+	                 	p13: 2, p14: 2, p15: 2, p16: 3,
+	                 	p17: 3, p18: 2,
 	                 	score: 107, putts: 42)
 payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_sec.strftime("%F"), tee_time: fifteen_sun_sec.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 5, h2_shots: 5, h3_shots: 7, h4_shots: 5,
-	                  h5_shots: 4, h6_shots: 4, h7_shots: 6, h8_shots: 5,
-                    h9_shots: 6, h10_shots: 4, h11_shots: 4, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 3, h15_shots: 6, h16_shots: 4,
-	                 	h17_shots: 5, h18_shots: 7}, handicap: 14,
-	                 putts_card: {
-	                 	h1_putts: 3, h2_putts: 1, h3_putts: 2, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 1, h7_putts: 2, h8_putts: 2,
-	                 	h9_putts: 2, h10_putts: 2, h11_putts: 3, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 1, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 3, h18_putts: 2 },
+	                 	s1: 5, s2: 5, s3: 7, s4: 5,
+	                  s5: 4, s6: 4, s7: 6, s8: 5,
+                    s9: 6, s10: 4, s11: 4, s12: 5,
+	                 	s13: 6, s14: 3, s15: 6, s16: 4,
+	                 	s17: 5, s18: 7, handicap: 14,
+	                 	p1: 3, p2: 1, p3: 2, p4: 2,
+	                 	p5: 3, p6: 1, p7: 2, p8: 2,
+	                 	p9: 2, p10: 2, p11: 3, p12: 2,
+	                 	p13: 2, p14: 1, p15: 2, p16: 2,
+	                 	p17: 3, p18: 2,
 	                 	score: 91, putts: 37)
 # Third
 damon.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
-	                 date_played: fifteen_sun_third.strftime("%F"), tee_time: fifteen_sun_third.strftime("%H:%M"),
-	                  shots_card: {}, putts_card: {}, score: nil, putts: nil)
+	                 date_played: fifteen_sun_third.strftime("%F"), tee_time: fifteen_sun_third.strftime("%H:%M"))
 cory.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_third.strftime("%F"), tee_time: fifteen_sun_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 5, h2_shots: 6, h3_shots: 7, h4_shots: 7,
-	                  h5_shots: 6, h6_shots: 6, h7_shots: 6, h8_shots: 5,
-                    h9_shots: 5, h10_shots: 3, h11_shots: 4, h12_shots: 7,
-	                 	h13_shots: 5, h14_shots: 5, h15_shots: 9, h16_shots: 6,
-	                 	h17_shots: 4, h18_shots: 8}, handicap: 21,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 2, h3_putts: 3, h4_putts: 3,
-	                 	h5_putts: 1, h6_putts: 2, h7_putts: 2, h8_putts: 1,
-	                 	h9_putts: 3, h10_putts: 2, h11_putts: 3, h12_putts: 3,
-	                 	h13_putts: 3, h14_putts: 2, h15_putts: 2, h16_putts: 1,
-	                 	h17_putts: 1, h18_putts: 3 },
+	                 	s1: 5, s2: 6, s3: 7, s4: 7,
+	                  s5: 6, s6: 6, s7: 6, s8: 5,
+                    s9: 5, s10: 3, s11: 4, s12: 7,
+	                 	s13: 5, s14: 5, s15: 9, s16: 6,
+	                 	s17: 4, s18: 8, handicap: 21,
+	                 	p1: 2, p2: 2, p3: 3, p4: 3,
+	                 	p5: 1, p6: 2, p7: 2, p8: 1,
+	                 	p9: 3, p10: 2, p11: 3, p12: 3,
+	                 	p13: 3, p14: 2, p15: 2, p16: 1,
+	                 	p17: 1, p18: 3,
 	                 	score: 104, putts: 39)
 dan.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_third.strftime("%F"), tee_time: fifteen_sun_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 4, h2_shots: 6, h3_shots: 7, h4_shots: 6,
-	                  h5_shots: 4, h6_shots: 5, h7_shots: 7, h8_shots: 7,
-                    h9_shots: 4, h10_shots: 4, h11_shots: 3, h12_shots: 6,
-	                 	h13_shots: 9, h14_shots: 5, h15_shots: 7, h16_shots: 5,
-	                 	h17_shots: 5, h18_shots: 7}, handicap: 18,
-	                 putts_card: {
-	                 	h1_putts: 2, h2_putts: 1, h3_putts: 3, h4_putts: 2,
-	                 	h5_putts: 3, h6_putts: 2, h7_putts: 2, h8_putts: 3,
-	                 	h9_putts: 1, h10_putts: 2, h11_putts: 2, h12_putts: 2,
-	                 	h13_putts: 2, h14_putts: 3, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 4, s2: 6, s3: 7, s4: 6,
+	                  s5: 4, s6: 5, s7: 7, s8: 7,
+                    s9: 4, s10: 4, s11: 3, s12: 6,
+	                 	s13: 9, s14: 5, s15: 7, s16: 5,
+	                 	s17: 5, s18: 7, handicap: 18,
+	                 	p1: 2, p2: 1, p3: 3, p4: 2,
+	                 	p5: 3, p6: 2, p7: 2, p8: 3,
+	                 	p9: 1, p10: 2, p11: 2, p12: 2,
+	                 	p13: 2, p14: 3, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 96, putts: 38)
 david.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
 	                 date_played: fifteen_sun_third.strftime("%F"), tee_time: fifteen_sun_third.strftime("%H:%M"),
-	                  shots_card: {
-	                 	h1_shots: 4, h2_shots: 6, h3_shots: 6, h4_shots: 5,
-	                  h5_shots: 5, h6_shots: 4, h7_shots: 6, h8_shots: 6,
-                    h9_shots: 7, h10_shots: 5, h11_shots: 6, h12_shots: 5,
-	                 	h13_shots: 6, h14_shots: 4, h15_shots: 6, h16_shots: 7,
-	                 	h17_shots: 4, h18_shots: 6}, handicap: 20,
-	                 putts_card: {
-	                 	h1_putts: 1, h2_putts: 3, h3_putts: 3, h4_putts: 1,
-	                 	h5_putts: 2, h6_putts: 1, h7_putts: 2, h8_putts: 3,
-	                 	h9_putts: 3, h10_putts: 3, h11_putts: 3, h12_putts: 1,
-	                 	h13_putts: 3, h14_putts: 2, h15_putts: 2, h16_putts: 2,
-	                 	h17_putts: 2, h18_putts: 2 },
+	                 	s1: 4, s2: 6, s3: 6, s4: 5,
+	                  s5: 5, s6: 4, s7: 6, s8: 6,
+                    s9: 7, s10: 5, s11: 6, s12: 5,
+	                 	s13: 6, s14: 4, s15: 6, s16: 7,
+	                 	s17: 4, s18: 6, handicap: 20,
+	                 	p1: 1, p2: 3, p3: 3, p4: 1,
+	                 	p5: 2, p6: 1, p7: 2, p8: 3,
+	                 	p9: 3, p10: 3, p11: 3, p12: 1,
+	                 	p13: 3, p14: 2, p15: 2, p16: 2,
+	                 	p17: 2, p18: 2,
 	                 	score: 98, putts: 39)
 
 
+rnds = bandon_2015.rounds
+holes = 1..18
+#  Rounds One
+rnds.each do |r|
+	if (r.round_num == 1 && r.s1.nil?.!) == true
+		r1_shots, r1_p = [], []
+		holes.each do |i|
+			r1_shots << r["s#{i}"]
+		end
+		r1_score = r1_shots.compact.inject(0) {|sum, x| sum + x }
 
+		holes.each do |i|
+			r1_p << r["p#{i}"]
+		end
+		r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
 
+		three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
+		h = ((r.user.handicap * 0.9) * 1).round
 
+		Leaderboard.create(
+			tournament_id: bandon_2015.id,
+			user_id: r.user_id,
+			rnd1_score: r1_score - h,
+			rnd1_putts: r1_putts,
+			total_score: (r1_score - h) - r.course.par,
+			total_putts: r1_putts,
+			total_3_putts: three_putts.length,
+			net_total: r1_score - h)
+	elsif (r.round_num == 2 && r.s1.nil?.!) == true
+		leaderboard = Leaderboard.where(tournament_id: r.tournament_id, user_id: r.user_id).first
 
+		r2_shots, r2_p = [], []
+		holes.each do |i|
+			r2_shots << r["s#{i}"]
+		end
+		r2_score = r2_shots.compact.inject(0) {|sum, x| sum + x }
 
+		holes.each do |i|
+			r2_p << r["p#{i}"]
+		end
+		r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
+
+		three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
+		h = ((r.user.handicap * 0.9) * 1).round
+
+		leaderboard.update(rnd2_score: r2_score - h, rnd2_putts: r2_putts, net_total: (leaderboard.net_total + (r2_score - h)),
+			                 total_putts: (leaderboard.total_putts + r2_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
+			                 total_score: (leaderboard.total_score + ((r2_score - h) - r.course.par)))
+	elsif (r.round_num == 3 && r.s1.nil?.!) == true
+		leaderboard = Leaderboard.where(tournament_id: r.tournament_id, user_id: r.user_id).first
+		r3_shots, r3_p = [], []
+		holes.each do |i|
+			r3_shots << r["s#{i}"]
+		end
+		r3_score = r3_shots.compact.inject(0) {|sum, x| sum + x }
+
+		holes.each do |i|
+			r3_p << r["p#{i}"]
+		end
+		r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
+		three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
+		h = ((r.user.handicap * 0.9) * 1).round
+
+		leaderboard.update(rnd3_score: r3_score - h, rnd3_putts: r3_putts, net_total: (leaderboard.net_total + (r3_score - h)),
+			                 total_putts: (leaderboard.total_putts + r3_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
+			                 total_score: (leaderboard.total_score + ((r3_score - h) - r.course.par)))
+	end
+
+end
 
 
 

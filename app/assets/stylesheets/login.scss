@@ -1,6 +1,6 @@
-.row { 
+.row {
 	max-width: 100%; height: 100%;
-	margin: 0;	
+	margin: 0;
 }
 .login-page {
 	background-color: rgba(56,162,247,1);
@@ -18,9 +18,9 @@
 }
 #login-form-line { border-top: 2px solid rgba(255,255,255,.4); }
 .field-info { width: 100%; }
-i { 
+i {
 	text-align: left;
-	color: rgba(255, 255, 255, .6); 
+	color: rgba(255, 255, 255, .6);
 	padding: 0 20px 0 0;
 	font-size: 1.5em;
 }
@@ -32,7 +32,7 @@ i.fi-at-sign { margin-left: -50px; }
 }
 i.fi-arrow-right { font-size: 2em; }
 .remember-me { padding-top: 200px; }
-.field input { 
+.field input {
 	padding: 22px 0;
 	background-color: transparent;
 	border: 0 solid transparent;
@@ -45,19 +45,19 @@ input::-webkit-input-placeholder {
 	color: rgba(255, 255, 255,.6);
 	letter-spacing: 2px;
 }
- 
+
 input:-moz-placeholder { /* Firefox 18- */
-	color: rgba(255, 255, 255,.6);  
+	color: rgba(255, 255, 255,.6);
 	letter-spacing: 2px;
 }
- 
+
 input::-moz-placeholder {  /* Firefox 19+ */
-	color: rgba(255, 255, 255,.6);  
+	color: rgba(255, 255, 255,.6);
 	letter-spacing: 2px;
 }
- 
-input:-ms-input-placeholder {  
-	color: rgba(255, 255, 255,.6);  
+
+input:-ms-input-placeholder {
+	color: rgba(255, 255, 255,.6);
 	letter-spacing: 2px;
 }
 input:active {
