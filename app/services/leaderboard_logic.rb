@@ -144,5 +144,5 @@ class LeaderboardLogic
   	@holes.each { |i| r << rnd["s#{i}"] }
   	r
   end
-
+#
 end
