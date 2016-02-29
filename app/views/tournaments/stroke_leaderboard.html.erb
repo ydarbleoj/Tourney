@@ -1,22 +1,39 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row" id="tourn-show-page">
 	<div class="row" id="stroke-lb-header">
 		<div class="row align-middle" id="title-header">
 			<div class="small-3 columns" id="tournament-name">
-				<p><%= @tournament.name %> <%= @tournament.year.to_s.split('0').last.to_i  %></p>
+				<p><%= @tournament.year %></p>
+				<p id="purse-total">Purse <span>$<%= @purse %></span></p>
 			</div>
 			<div class="small-6 columns" id="stroke-lb-title">
-				<h5>Stroke Leaderboard</h5>
-			</div>
-			<div class="small-3 columns" id="tournament-purse">
-				<p>Purse $<%= @purse %></p>
+				<h5>Leaderboard</h5>
 			</div>
 		</div>
 		<div class="row align-middle" id="lb-header">
 			<div class="small-5 columns" id="player">PLAYER</div>
 			<div class="small-2 columns" id="lb-total-score">TOTAL</div>
-			<div class="small-1 columns lb" id="round-one-score">R1</div>
-			<div class="small-1 columns lb" id="round-two-score">R2</div>
-			<div class="small-1 columns lb" id="round-three-score">R3</div>
+			<div class="small-1 columns lb" id="round-one-score">
+				<% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R1', edit_tournament_round_path(@tournament.id, @rnd1_id[0].id) %>
+		    <% else %>
+		    	<%= link_to 'R1', tournament_round_path(@tournament.id, @rnd1_id[0].id)  %>
+				<% end %>
+			</div>
+			<div class="small-1 columns lb" id="round-two-score">
+				<% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R2', edit_tournament_round_path(@tournament.id, @rnd2_id[0].id) %>
+		    <% else %>
+		    	<%= link_to 'R2', tournament_round_path(@tournament.id, @rnd2_id[0].id)  %>
+				<% end %>
+			</div>
+			<div class="small-1 columns lb" id="round-three-score">
+				<% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R3', edit_tournament_round_path(@tournament.id, @rnd3_id[0].id) %>
+		    <% else %>
+		    	<%= link_to 'R3', tournament_round_path(@tournament.id, @rnd3_id[0].id)  %>
+				<% end %>
+			</div>
 			<div class="small-2 columns lb" id="net-total">NET</div>
 		</div>
 	</div>
@@ -40,7 +57,7 @@
 	</div>
 	<div class="row align-bottom align-middle" id="leaderboard_nav">
 		<div class="small-3 columns tourn-links">
-			<%= link_to "Home", tournaments_path(@tournament)  %>
+			<%= link_to "Home", tournaments_path  %>
 		</div>
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Putting", putting_leaderboard_tournament_path(@tournament.id)  %>

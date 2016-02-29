@@ -1,22 +1,39 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row" id="tourn-show-page">
 	<div class="row" id="putting-lb-header">
 		<div class="row align-middle" id="title-header">
 			<div class="small-3 columns" id="tournament-name">
-				<p><%= @tournament.name %> <%= @tournament.year.to_s.split('0').last.to_i  %></p>
+				<p><%= @tournament.year %></p>
+				<p id="purse-total">Purse <span>$<%= @three_putts %></span></p>
 			</div>
 			<div class="small-6 columns" id="putting-lb-title">
 				<h5>Putting Leaderboard</h5>
-			</div>
-			<div class="small-3 columns" id="tournament-purse">
-				<p>Purse $<%= @three_putts %></p>
 			</div>
 		</div>
 		<div class="row align-middle" id="lb-header">
 			<div class="small-5 columns" id="player">PLAYER</div>
 			<div class="small-2 columns" id="lb-total-score">3 Putts</div>
-			<div class="small-1 columns lb" id="round-one-score">R1</div>
-			<div class="small-1 columns lb" id="round-two-score">R2</div>
-			<div class="small-1 columns lb" id="round-three-score">R3</div>
+			<div class="small-1 columns lb" id="round-one-score">
+				<% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R1', edit_tournament_round_path(@tournament.id, @rnd1_id[0].id) %>
+			  <% else %>
+					<%= link_to 'R1', tournament_round_path(@tournament.id, @rnd1_id[0].id) %>
+				<% end %>
+			</div>
+			<div class="small-1 columns lb" id="round-two-score">
+			  <% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R2', edit_tournament_round_path(@tournament.id, @rnd2_id[0].id) %>
+		    <% else %>
+		    	<%= link_to 'R2', tournament_round_path(@tournament.id, @rnd2_id[0].id)  %>
+				<% end %>
+			</div>
+			<div class="small-1 columns lb" id="round-three-score">
+				<% if @tournament.id == @current_tournament.id %>
+			    <%=  link_to 'R3', edit_tournament_round_path(@tournament.id, @rnd3_id[0].id) %>
+		    <% else %>
+		    	<%= link_to 'R3', tournament_round_path(@tournament.id, @rnd3_id[0].id)  %>
+				<% end %>
+			</div>
 			<div class="small-2 columns lb" id="net-total">Total</div>
 		</div>
 	</div>

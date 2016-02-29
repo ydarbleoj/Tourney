@@ -2,94 +2,43 @@
 	<div class="row" id="tee-times-header">
 		<div class="row align-middle" id="title-header">
 			<div class="small-3 columns" id="tournament-name">
-				<p><%= @tournament.name %></p>
+				<p><%= @tournament.name %> <%= @tournament.year  %></p>
 			</div>
 			<div class="small-6 columns" id="putting-lb-title">
 				<h3>Tee Times</h3>
 			</div>
-			<div class="small-3 columns" id="tournament-year">
-				<p><%= @tournament.year.to_s.split('0').last.to_i %></p>
+			<div class="small-3 columns lb" id="tournament-name">
+				<p><%= link_to 'BACK', url_for(:back) %></p>
 			</div>
 		</div>
 	</div>
-	<div class="row" id="tee-time-container">
-		<div class="row align-center" id="tee-time-cont-header">
-			<div class="small-6 columns">
-				<h4>ROUND <%= @rnd1[0].round_num %></h4>
+	<div class="row" id="tee-times-wrapper">
+		<% @rounds.group_by(&:round_num).sort.each do |round,tee_times|  %>
+		<div class="row" id="tee-time-container">
+			<div class="row align-center align-middle inner-height" id="tee-time-cont-header">
+				<div class="small-6 columns">
+					<h4>ROUND <%= round %></h4>
+				</div>
+				<div class="small-6 columns">
+					<h4><%= tee_times[0].course.name %></h4>
+				</div>
 			</div>
-			<div class="small-6 columns">
-				<h4><%= @rnd1[0].course.name %></h4>
+			<% total = 0 %>
+			<% tee_times.group_by(&:tee_time).sort.each do |time, player|  %>
+			<% total += 1  %>
+			<div class="row align-middle" id="tee-time-list">
+				<div class="small-6 align-middle align-center columns" id="times">
+					<p>GROUP <%= total  %></p>
+					<%= time.strftime("%H:%M") %>
+				</div>
+				<div class="small-6 align-middle align-center columns" id="players">
+				<% player.each do |i| %>
+					<p><%= i.user.username %></p>
+				<% end %>
+				</div>
 			</div>
-		</div>
-		<% @rnd1_times.each do |x|  %>
-		<div class="row" id="tee-time-list">
-			<div class="small-6 align-middle align-center columns" id="times">
-				<%= x[0] %>
-			</div>
-			<div class="small-6 align-middle align-center columns" id="players">
-			<% x[1].each do |i| %>
-				<h4><%= i.user.username %></h4>
 			<% end %>
-			</div>
 		</div>
 		<% end %>
-	</div>
-	<div class="row" id="tee-time-container">
-		<div class="row align-center" id="tee-time-cont-header-2">
-			<div class="small-6 align-middle columns">
-				<h4>ROUND <%= @rnd2[0].round_num %></h4>
-			</div>
-			<div class="small-6 align-middle columns">
-				<h4><%= @rnd2[0].course.name %></h4>
-			</div>
-		</div>
-		<% @rnd2_times.each do |x|  %>
-		<div class="row" id="tee-time-list">
-			<div class="small-6 align-middle align-center columns" id="times">
-				<%= x[0] %>
-			</div>
-			<div class="small-6 align-middle align-center columns" id="players">
-			<% x[1].each do |i| %>
-				<h4><%= i.user.username %></h4>
-			<% end %>
-			</div>
-		</div>
-		<% end %>
-	</div>
-	<div class="row" id="tee-time-container">
-		<div class="row align-center" id="tee-time-cont-header-3">
-			<div class="small-6 align-middle columns">
-				<h4>ROUND <%= @rnd3[0].round_num %></h4>
-			</div>
-			<div class="small-6 align-middle columns">
-				<h4><%= @rnd3[0].course.name %></h4>
-			</div>
-		</div>
-		<% @rnd3_times.each do |x|  %>
-		<div class="row" id="tee-time-list">
-			<div class="small-6 align-middle align-center columns" id="times">
-				<%= x[0] %>
-			</div>
-			<div class="small-6 align-middle align-center columns" id="players">
-			<% x[1].each do |i| %>
-				<h4><%= i.user.username %></h4>
-			<% end %>
-			</div>
-		</div>
-		<% end %>
-	</div>
-	<div class="row align-bottom align-middle" id="tee-time-nav">
-		<div class="small-3 columns tourn-links">
-			<%= link_to "Home", tournaments_path(@tournament)  %>
-		</div>
-		<div class="small-3 columns tourn-links">
-			<%= link_to "Stroke", stroke_leaderboard_tournament_path(@tournament.id) %>
-		</div>
-		<div class="small-3 columns tourn-links">
-			<%= link_to "Putting", putting_leaderboard_tournament_path(@tournament.id) %>
-		</div>
-		<div class="small-3 columns tourn-links">
-			<%= link_to "+ Round", tournament_rounds_path(@tournament)  %>
-		</div>
 	</div>
 </div>

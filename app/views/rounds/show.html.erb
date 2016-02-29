@@ -301,7 +301,7 @@
 	</div>
 	<div class="row align-middle round-show" id="round-nav">
 		<div class="small-6 columns tourn-links">
-			<%= link_to "Back", tournament_rounds_path(@round.tournament.id)  %>
+			<%= link_to "Back", url_for(:back)  %>
 		</div>
 		<div class="small-6 columns tourn-links">
 			<%= link_to 'Home', stroke_leaderboard_tournament_path(@round.tournament.id) %>

@@ -1,21 +1,12 @@
-<div class="row align-right" id="menu-container">
-	<div class="column small-11"></div>
-	<div class="column small-1" id="menu-wrapper">
-		<div class="visible-menu">
-			<ul class="menu-bars">
-				<li class="first"></li>
-				<li class="second"></li>
-				<li class="third"></li>
-			</ul>
-		</div>
-		<div class="hidden-menu">
-			<ul class='ham-menu'>
-				<li class="vis-menu">Pro</li>
-				<li class="vis-menu">Edit</li>
-				<li class="vis-menu">Tourn</li>
-				<li class="vis-menu"><%= link_to "Out", destroy_user_session_path, method: :delete %></li>
-			</ul>
-		</div>
+<div id="menu-wrapper">
+	<div class="visible-menu">
+		<ul class="menu-bars">
+			<li class="first">
+				<%= link_to '', user_path(current_user.id)  %>
+			</li>
+			<li class="second"></li>
+			<li class="third"></li>
+		</ul>
 	</div>
 </div>
 

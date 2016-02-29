@@ -2,13 +2,14 @@
 	<div class="row" id="sc-header">
 	  <div class="row align-center align-middle" id="top-header-row">
 			<div class="small-4 columns">
-				<p><%= @round.course.name %></p>
+				<p>Hcap <%= @handicap %></p>
 			</div>
 			<div class="small-4 columns" id="sc-title">
+				<p><%= @round.course.name %></p>
 				<p>Scorecard</p>
 			</div>
 			<div class="small-4 columns">
-				<p>Hcap <%= @handicap %></p>
+				<%= render 'devise/shared/navbar'  %>
 			</div>
 	  </div>
 	  <div class="row align-center align-middle" id="bottom-header-row">
@@ -311,7 +312,7 @@
 			</div>
 			<div class="row align-middle" id="round-nav">
 				<div class="small-4 columns tourn-links">
-					<%= link_to "Back", tournament_rounds_path(@round.tournament.id)  %>
+					<%= link_to "Back", url_for(:back) %>
 				</div>
 				<div class="small-4 columns tourn-links">
 					<%= link_to "Leaderboard", stroke_leaderboard_tournament_path(@round.tournament.id)   %>

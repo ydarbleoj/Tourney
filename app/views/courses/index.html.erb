@@ -1,5 +1,6 @@
 <%= render 'devise/shared/navbar'  %>
 <div class="row courses-container">
+	<div class="row back"><%= link_to 'BACK', tournaments_path %></div>
   <% @courses.each do |f|  %>
   <div class="small-12 columns courses-link">
     <%= content_tag :div, class: 'course-layer', id: "#{f.name.split(' ').join('-')}" do %>

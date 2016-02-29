@@ -1,16 +1,25 @@
-<div class="row login-page">
-  <div class="small-10 medium-12 large-3 columns log-in-form">
+<div class="row align-center align-middle login-page">
+  <div class="small-12 medium-12 large-3 columns log-in-form">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field field-info">
-      <i class="fi-at-sign"></i>
-      <%= f.email_field :email, autofocus: true, placeholder: 'EMAIL', class: 'email-login' %>
+    <div class="row align-middle field-info">
+      <div class="small-2 columns field">
+        <i class="fi-at-sign"></i>
+      </div>
+      <div class="small-10 columns field">
+        <%= f.email_field :email, autofocus: true, placeholder: 'EMAIL', class: 'email-login' %>
+      </div>
     </div>
-    <div class="field field-info" id="login-form-line">
-      <i class="fi-star"></i>
-      <%= f.password_field :password, autocomplete: "off", placeholder: 'PASSWORD' %>
-        <%= button_tag(class: "login-submit") do %>
-          <i class="fi-arrow-right"></i>
-        <% end %>
+    <div class="row align-middle field-info" id="login-form-line">
+      <div class="small-2 columns field">
+        <i class="fi-star"></i>
+      </div>
+      <div class="small-9 columns field">
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'PASSWORD' %>
+      </div>
+      <div class="small-1 columns">
+        <%= button_tag(class: "login-submit fi-arrow-right") do %>
+      </div>
+      <% end %>
     </div>
 
     <% if devise_mapping.rememberable? -%>

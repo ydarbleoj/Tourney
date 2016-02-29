@@ -32,12 +32,10 @@ class TournamentsController < ApplicationController
 
   def edit
     @tournament = Tournament.find(params[:id])
-    'Tourn Edit'
   end
 
   def update
     @tournament = Tournament.find(params[:id])
-    'Tourn Update'
     if @tournament.update(tourn_params)
       redirect_to @tournament
     else
@@ -57,17 +55,18 @@ class TournamentsController < ApplicationController
 
   def stroke_leaderboard
     @tournament = Tournament.find(params[:id])
-
     current_tournament
 
     if @tournament.id == @current_tournament.id
       tourn = @tournament
       stroke_purse
+      rnd_id(tourn)
       LeaderboardLogic.new(tourn).execute
       @lb = tourn.leaderboards.order(total_score: :asc)
     else
       tourn = @tournament
       stroke_purse
+      rnd_id(tourn)
       @lb = tourn.leaderboards.where.not(rnd3_score: nil).order(total_score: :asc)
     end
   end
@@ -80,22 +79,25 @@ class TournamentsController < ApplicationController
       tourn = @tournament
       PuttingLeaderboardCalculations.new(tourn).execute
       putts_purse(tourn)
+      rnd_id(tourn)
       @putting_lb = tourn.leaderboards.order(total_putts: :asc)
     else
       tourn = @tournament
       putts_purse(tourn)
+      rnd_id(tourn)
       @putting_lb = tourn.leaderboards.where.not(rnd3_putts: nil).order(total_putts: :asc)
     end
   end
 
+  def rnd_id(tourn)
+    @rnd1_id = current_user.rounds.where(round_num: 1).where(tournament_id: tourn.id)
+    @rnd2_id = current_user.rounds.where(round_num: 2).where(tournament_id: tourn.id)
+    @rnd3_id = current_user.rounds.where(round_num: 3).where(tournament_id: tourn.id)
+  end
+
   def tee_times
     @tournament = Tournament.find(params[:id])
-    @rnd1 = Round.where(tournament_id: @tournament.id).where(round_num: 1)
-    @rnd1_times = @rnd1.group_by { |x| x['tee_time'].strftime("%H:%M") }.map {|x| x }
-    @rnd2 = Round.where(tournament_id: @tournament.id).where(round_num: 2)
-    @rnd2_times = @rnd2.group_by { |x| x['tee_time'].strftime("%H:%M") }.map {|x| x }
-    @rnd3 = Round.where(tournament_id: @tournament.id).where(round_num: 3)
-    @rnd3_times = @rnd3.group_by { |x| x['tee_time'].strftime("%H:%M") }.map {|x| x }
+    @rounds = Round.where(tournament_id: @tournament.id)
   end
 
   def stroke_purse

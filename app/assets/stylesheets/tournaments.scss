@@ -63,31 +63,42 @@ a { width: 100%; height: 100%; }
 	position: fixed;
 	top: 0;
 	z-index: 1;
-	padding-top: 10px;
 }
 #title-header {
-	width: 100%; height: 40px;
+	width: 100%; height: 70px;
 }
 #tournament-name p {
 	padding: 10px 0 0 10px;
 	font-size: 16px;
-	// color: rgba(237,131,47, .8);
 	color: white;
 	text-align: left;
+	letter-spacing: .5px;
 }
+p#purse-total {
+	padding: 0 0 0 10px;
+	font-size: 14px;
+	color: white;
+	text-align: left;
+	letter-spacing: .5px;
+}
+
 #tournament-purse p {
 	padding: 10px 10px 0 0;
 	font-size: 16px;
-	// color: rgba(237,131,47, .8);
 	color: white;
 	text-align: center;
 }
 #stroke-lb-title {
 	padding-top: 10px;
 	text-align: center;
-	// color: rgba(255, 255,255, 1);
-	// color: rgba(237,131,47, .8);
 	color: white;
+}
+#tournament-year {
+	padding-left: 5px;
+}
+#tournament-name { padding-left: 5px; }
+#purse-year {
+	width: 100%; height:	40px;
 }
 #putting-lb-title {
 	padding-top: 10px;
@@ -95,27 +106,34 @@ a { width: 100%; height: 100%; }
 	color: white;
 }
 #stroke-lb-container {
-	width: 100%; height: inherit;
+	width: 100%;
 	padding: 0 5px;
 	overflow-y: scroll;
-	// position: relative;
-
 	background-color: #E0E0E0;
+	position: relative;
+	display: block;
 }
 #lb-header {
-	width: 100%; height: 60px;
-	// background-color: rgba(56,162,247, 1);
+	width: 100%; height: 40px;
 	background-color: inherit;
 	color: #f1f1f1;
-	// position: fixed;
 	z-index: 1;
 
+}
+#tournament-year {
+	height: 60px;
+}
+#tournament-purse {
+	height: 30px;
 }
 #net-total {
 	text-align: center;
 }
 .lb {
 	text-align: center;
+}
+.lb a {
+	color: #fff;
 }
 #lb-player {
 	width: 100%; height: 50px;
@@ -144,7 +162,6 @@ a { width: 100%; height: 100%; }
 #leaderboard_nav {
 	width: 100%; height: 50px;
 	background-color: rgba(56,162,247, 1);
-	position: relative;
 	bottom: 0;
 	z-index: 10;
 	color: white;
@@ -167,54 +184,18 @@ a { width: 100%; height: 100%; }
 	color: white;
 	background-color: rgba(237,131,47,1);
 }
-#tee-time-container {
-	width: 100%; height: 500px;
-	// overflow-y: scroll;
-	// display: block;
-	// position: relative;
-	top: 0;
-	background-color: #9E9E9E;
-}
-#tee-time-cont-header {
-	width: 100%; height: 45px;
-	padding: 10px 0;
-	background-color: #1e4f5f;
-	color: white;
-	text-align: center;
-}
-#tee-time-cont-header-2 {
-	width: 100%; height: 45px;
-	padding: 10px 0;
-	background-color: #206176;
-	color: white;
-	text-align: center;
-}
-#tee-time-cont-header-3 {
-	width: 100%; height: 45px;
-	padding: 10px 0;
-	background-color: #216b82;
-	color: white;
-	text-align: center;
-}
-#tee-time-list {
-	width: 100%; height: 150px;
-	background-color: white;
-	// position: relative;
-	text-align: center;
-}
-#tee-time-nav {
-	width: 100%; height: 50px;
-	position: fixed;
-	bottom: 0;
-	z-index: 10;
-	color: white;
-	background-color: #9E9E9E;
-}
+// TEE-TIMES
 #tee-times-header {
-	width: 100%; height: 60px;
-	background-color: #9E9E9E;
+	width: 100%; height: 100px;
+	background-color: #F44336;
 	z-index: 1;
+	position: fixed;
 	padding-top: 10px;
+}
+#tee-times-wrapper {
+	width: 100%;
+	margin-top: 100px;
+	margin-bottom: 10px;
 }
 #times {
 	font-size: 20px;
@@ -222,34 +203,50 @@ a { width: 100%; height: 100%; }
 #players {
 	padding: 5px 0;
 }
-
+#tee-time-container {
+	width: 100%;
+	background-color: #F1F1F1;
+	position: relative;
+	display: block;
+}
+.inner-height {
+	height: 50px;
+}
+#tee-time-cont-header {
+	width: 100%;
+	background-color: #9E9E9E;
+	color: white;
+	text-align: center;
+}
+#tee-time-list {
+	width: 100%; height: 130px;
+	background-color: white;
+	margin: 5px 0;
+	text-align: center;
+}
+#players p {
+	font-size: 20px;
+}
 
 // History List
 #tourn-history-container {
 	width: 100%; height: 100%;
-	background-color: #607D8B;
+	background-color: #424242;
 }
 #tourn-history-header {
 	width: 100%; height: 300px;
-	background: url('IMG_0026.JPG');
-	background-repeat: no-repeat;
-	background-size: cover;
 }
 #tourn-history-name {
 	text-align: center;
 }
 #tourn-history-name h1 {
-	color: #FF5722;
+	color: rgba(56,162,247, 1);
 }
 #hist-name h1 {
-	color: #FF5722;
+	color: rgba(56,162,247, 1);
 }
 #tourn-history-list {
 	width: 100%; height: 100px;
-	background-color: #546E7A;
-}
-#list-item h1 {
-	text-align: left;
 }
 #list-item a {
 	width: 100%; height: 100px;

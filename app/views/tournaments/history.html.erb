@@ -1,15 +1,16 @@
 <div class="row" id="tourn-history-container">
+	<div class="row back"><%= link_to 'BACK', url_for(:back) %></div>
 	<div class="row align-center" id="tourn-history-header">
 		<div class="small-12 align-middle align-center columns" id="tourn-history-name">
 			<h1><%=@tournaments[0].name %> </h1>
 			<h1 id="hist-name">Tournament History</h1>
 		</div>
 	</div>
-	<div class="row" id="tourn-history-list">
-		<% @tournaments.each do |t|  %>
-		<div class="small-12 align-center align-middle columns" id="list-item">
+	<% @tournaments.each do |t|  %>
+	<div class="row align-center align-middle" id="tourn-history-list">
+		<div class="small-12 columns" id="list-item">
 			<h1><%= link_to t.year, stroke_leaderboard_tournament_path(t.id) %></h1>
 		</div>
-		<% end %>
 	</div>
+	<% end %>
 </div>

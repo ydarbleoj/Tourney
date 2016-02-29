@@ -2,7 +2,7 @@
 <div class="row courses-container">
   <div class="row course-header">
     <%= content_tag :div, id: "#{@course.name.split(' ').join('-') + '-show'}" do %>
-	  <div class="row back"><%= link_to '<----', :back  %></div>
+	  <div class="row back"><%= link_to 'BACK', url_for(:back) %></div>
     <h1 id="course-title"><%= @course.name %></h1>
     <div class="row" id="course-stats">
 	    <div class="row align-center align-middle" id="course-stats-top">
