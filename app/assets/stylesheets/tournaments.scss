@@ -162,8 +162,10 @@ p#purse-total {
 #leaderboard_nav {
 	width: 100%; height: 50px;
 	background-color: rgba(56,162,247, 1);
+	position: absolute;
+	left: 0;
 	bottom: 0;
-	z-index: 10;
+	z-index: 1000;
 	color: white;
 }
 .tourn-links {
@@ -178,7 +180,8 @@ p#purse-total {
 }
 #putting-nav {
 	width: 100%; height: 50px;
-	position: relative;
+	position: absolute;
+	left: 0;
 	bottom: 0;
 	z-index: 10;
 	color: white;

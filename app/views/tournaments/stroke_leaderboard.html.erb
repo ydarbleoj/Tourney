@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="row align-middle" id="lb-header">
-			<div class="small-5 columns" id="player">PLAYER</div>
+			<div class="small-4 columns" id="player">PLAYER</div>
 			<div class="small-2 columns" id="lb-total-score">TOTAL</div>
 			<div class="small-1 columns lb" id="round-one-score">
 				<% if @tournament.id == @current_tournament.id %>
@@ -40,7 +40,7 @@
 	<div class="row" id="stroke-lb-container">
 		<% @lb.each do |s| %>
 		<div class="row align-middle" id="lb-player">
-			<div class="small-5 columns" id="player"><h5><%= s.user.username.split(' ').first %> <%= s.user.username.split(' ').last[0]  %>
+			<div class="small-4 columns" id="player"><h5><%= s.user.username.split(' ').first %> <%= s.user.username.split(' ').last[0]  %>
 				<span><%= s.user.handicap.nil?.! ? s.user.handicap : nil %></span></h5>
 			</div>
 			<div class="small-2 columns" id="lb-total-score"><%= s.total_score %></div>
@@ -55,8 +55,8 @@
 		</div>
 		<% end %>
 	</div>
-	<div class="row align-bottom align-middle" id="leaderboard_nav">
-		<div class="small-3 columns tourn-links">
+	<div class="row align-middle" id="leaderboard_nav">
+		<div class="small-2 columns tourn-links">
 			<%= link_to "Home", tournaments_path  %>
 		</div>
 		<div class="small-3 columns tourn-links">
