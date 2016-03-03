@@ -8,7 +8,7 @@
 	      <div class="small-6 columns">
 	        <h2> Yardage: <%= @course.yardage %></h2>
 	      </div>
-	      <div class="small-6 columns">
+	      <div class="small-5 columns">
 	        <h2> Par: <%= @course.par %></h2>
 	      </div>
 	    </div>
@@ -16,7 +16,7 @@
 	      <div class="small-6 columns">
 	        <h2> Slope: <%= @course.slope %></h2>
 	      </div>
-	      <div class="small-6 columns">
+	      <div class="small-5 columns">
 	        <h2> Rating: <%= @course.rating.to_f %></h2>
 	      </div>
 	    </div>
@@ -27,13 +27,13 @@
   	<div class="row" id="stats-body-top">
   		<div class="small-6 columns" id="hardest-hole">
   			<div class="row" id="hardest-hole-wrapper">
-  				<div class="small-12 align-middle columns ">
+  				<div class="small-11 align-middle columns ">
   					<p>Most Difficult Hole</p>
   				</div>
   				<div class="small-4 columns ">
   					<p>Hole <%= @hardest[0] %></p>
   				</div>
-  				<div class="small-4 columns ">
+  				<div class="small-3 columns ">
   					<p>Par <%= @hardest[1] %></p>
   				</div>
   				<div class="small-4 columns ">
@@ -41,15 +41,15 @@
   				</div>
   			</div>
   		</div>
-  		<div class="small-6 columns" id="easiest-hole">
+  		<div class="small-5 columns" id="easiest-hole">
   			<div class="row" id="easiest-hole-wrapper">
-  				<div class="small-12 align-middle columns ">
+  				<div class="small-11 align-middle columns ">
   					<p>Easiest Hole</p>
   				</div>
   				<div class="small-4 columns ">
   					<p>Hole <%= @easiest[0] %></p>
   				</div>
-  				<div class="small-4 columns ">
+  				<div class="small-3 columns ">
   					<p>Par <%= @easiest[1] %></p>
   				</div>
   				<div class="small-4 columns ">
@@ -64,17 +64,17 @@
   				<div class="small-6 align-middle columns ">
   					<p>Avg Putts</p>
   				</div>
-  				<div class="small-6 columns ">
+  				<div class="small-5 columns ">
   					<p><%= @avg_putts %></p>
   				</div>
   			</div>
   		</div>
-  		<div class="small-6 columns" id="avg-score">
+  		<div class="small-5 columns" id="avg-score">
   			<div class="row" id="avg-score-wrapper">
   				<div class="small-6 align-middle columns ">
   					<p>Avg Score</p>
   				</div>
-  				<div class="small-6 columns ">
+  				<div class="small-5 columns ">
   					<p><%= @avg_score %></p>
   				</div>
   			</div>
@@ -83,7 +83,7 @@
   	<div class="row" id="stats-body-bottom">
 			<div class="small-6 columns" id="fewest-putts">
   			<div class="row" id="fewest-putts-wrapper">
-  				<div class="small-12 align-middle columns ">
+  				<div class="small-11 align-middle columns ">
   					<p>Fewest Putts</p>
   				</div>
   				<div class="small-6 columns ">
@@ -94,7 +94,7 @@
   				</div>
   			</div>
   		</div>
-  		<div class="small-6 columns" id="lowest-score">
+  		<div class="small-5 columns" id="lowest-score">
   			<div class="row" id="lowest-score-wrapper">
 	  			<div class="small-12">
 	  				<p>Lowest Round</p>
