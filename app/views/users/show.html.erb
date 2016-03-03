@@ -45,14 +45,14 @@
 				<h5>$310</h5>
 			</div>
 		</div>
-		<div class="row align-middle align-center" id="bottom-row-bottom">
-			<div class="column small-4 align-middle" id="tournament-link">
+		<div class="row align-middle" id="bottom-row-bottom">
+			<div class="column small-4" id="tournament-link">
 				<%= link_to "Tournaments", tournaments_path %>
 			</div>
-			<div class="column small-4 align-middle" id="scorecards-link">
+			<div class="column small-4" id="scorecards-link">
 				<%= link_to "Edit Profile", edit_user_path(current_user.id) %>
 			</div>
-			<div class="column small-4 align-middle" id="log-out-profile">
+			<div class="column small-4" id="log-out-profile">
 				<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
 			</div>
 		</div>
