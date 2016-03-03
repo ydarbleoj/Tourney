@@ -27,13 +27,13 @@
 			<div class="small-6 columns" id="low-net-title">
 				<h3>Low Putts</h3>
 			</div>
-			<div class="small-6 columns" id="low-gross-title">
+			<div class="small-5 columns" id="low-gross-title">
 				<h3>Low Net</h3>
 			</div>
 			<div class="small-6 columns" id="low-net">
 				<h5><%= @putt_course.name  %> <span><%= @low_putt.putts %></span></h5>
 			</div>
-			<div class="small-6 columns" id="low-gross">
+			<div class="small-5 columns" id="low-gross">
 				<h5><%= @course.name  %> <span><%= @low_net.score - @low_net.handicap %></span></h5>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 			<div class="small-6 columns" id="total-earnings">
 				<h3>Total Winnings</h3>
 			</div>
-			<div class="small-6 columns" id="low-gross">
+			<div class="small-5 columns" id="low-gross">
 				<h5>$310</h5>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 			<div class="small-4 columns" id="scorecards-link">
 				<%= link_to "Edit Profile", edit_user_path(current_user.id) %>
 			</div>
-			<div class="small-4 columns" id="log-out-profile">
+			<div class="small-3 columns" id="log-out-profile">
 				<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
 			</div>
 		</div>
