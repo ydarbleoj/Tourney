@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="row align-middle" id="lb-header">
-			<div class="small-4 columns" id="player">PLAYER</div>
+			<div class="small-5 columns" id="player">PLAYER</div>
 			<div class="small-2 columns" id="lb-total-score">TOTAL</div>
 			<div class="small-1 columns lb" id="round-one-score">
 				<% if @tournament.id == @current_tournament.id %>
@@ -34,7 +34,7 @@
 		    	<%= link_to 'R3', tournament_round_path(@tournament.id, @rnd3_id[0].id)  %>
 				<% end %>
 			</div>
-			<div class="small-2 columns lb" id="net-total">NET</div>
+			<div class="small-1 columns lb" id="net-total">NET</div>
 		</div>
 	</div>
 	<div class="row" id="stroke-lb-container">
