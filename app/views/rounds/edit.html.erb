@@ -9,7 +9,7 @@
 				<p>Scorecard</p>
 			</div>
 	  </div>
-	  <div class="row align-center align-middle" id="bottom-header-row">
+	  <div class="row align-middle" id="bottom-header-row">
 			<div class="small-4 columns">
 				<p><%= @round.course.yardage %> yds</p>
 			</div>
@@ -95,7 +95,7 @@
 		<div class="row edit-round-form">
 			<%= form_for([@current_tourn,@round]) do |s|  %>
 			<%= s.hidden_field :handicap, value: @handicap  %>
-			<div class="row align-middle align-center" id="front-nine-shots">
+			<div class="row align-middle" id="front-nine-shots">
 				<div class="small-1 columns hole-input_edit" id="">
 					<p>Shots</p>
 				</div>
@@ -235,7 +235,7 @@
 				<h5><%= @round.course.par  %></h5>
 			</div>
 		</div>
-			<div class="row align-middle align-center" id="front-nine-shots">
+			<div class="row align-middle" id="front-nine-shots">
 				<div class="small-1 columns hole-input_edit remove-padding">
 					<h5><%= s.number_field :s10, class: 'score' %></h5>
 				</div>
@@ -270,7 +270,7 @@
 					<h5><%= @total_shots %></h5>
 				</div>
 			</div>
-			<div class="row align-middle align-center" id="front-nine-putts">
+			<div class="row align-middle" id="front-nine-putts">
 				<div class="small-1 columns hole-input_edit putts-border left-border remove-padding">
 					<h5><%= s.number_field :p10, class: 'score putts' %></h5>
 				</div>
