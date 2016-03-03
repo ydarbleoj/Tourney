@@ -1,3 +1,4 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row" id="tourn-show-page">
 	<div class="row" id="tee-times-header">
 		<div class="row align-middle" id="title-header">
@@ -7,16 +8,13 @@
 			<div class="small-6 columns" id="putting-lb-title">
 				<h3>Tee Times</h3>
 			</div>
-			<div class="small-3 columns lb" id="tournament-name">
-				<p><%= link_to 'BACK', url_for(:back) %></p>
-			</div>
 		</div>
 	</div>
 	<div class="row" id="tee-times-wrapper">
 		<% @rounds.group_by(&:round_num).sort.each do |round,tee_times|  %>
 		<div class="row" id="tee-time-container">
 			<div class="row align-center align-middle inner-height" id="tee-time-cont-header">
-				<div class="small-6 columns">
+				<div class="small-5 columns">
 					<h4>ROUND <%= round %></h4>
 				</div>
 				<div class="small-6 columns">
@@ -27,7 +25,7 @@
 			<% tee_times.group_by(&:tee_time).sort.each do |time, player|  %>
 			<% total += 1  %>
 			<div class="row align-middle" id="tee-time-list">
-				<div class="small-6 align-middle align-center columns" id="times">
+				<div class="small-5 align-middle align-center columns" id="times">
 					<p>GROUP <%= total  %></p>
 					<%= time.strftime("%H:%M") %>
 				</div>
@@ -40,5 +38,19 @@
 			<% end %>
 		</div>
 		<% end %>
+	</div>
+	<div class="row align-middle" id="tee-time-nav">
+		<div class="small-3 columns tourn-links">
+			<%= link_to "Home", tournaments_path  %>
+		</div>
+		<div class="small-3 columns tourn-links">
+			<%= link_to "Stroke", stroke_leaderboard_tournament_path(@tournament.id)  %>
+		</div>
+		<div class="small-3 columns tourn-links">
+			<%= link_to "Putting", putting_leaderboard_tournament_path(@tournament.id) %>
+		</div>
+		<div class="small-2 columns tourn-links">
+			<%= link_to "+ Rnd", tournament_rounds_path(@tournament)  %>
+		</div>
 	</div>
 </div>
