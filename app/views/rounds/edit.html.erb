@@ -1,4 +1,3 @@
-<%= render 'devise/shared/navbar'  %>
 <div class="row" id="round-container">
 	<div class="row" id="sc-header">
 	  <div class="row align-middle" id="top-header-row">
@@ -267,7 +266,7 @@
 				<div class="small-1 align-middle columns hole-input_edit shots-border" id="out">
 					<h5><%= @b9_shots %></h5>
 				</div>
-				<div class="small-2 columns hole-input_edit shots-border">
+				<div class="small-1 columns hole-input_edit shots-border">
 					<h5><%= @total_shots %></h5>
 				</div>
 			</div>
@@ -302,7 +301,7 @@
 				<div class="small-1 align-middle columns hole-input_edit putts-border" id="out">
 					<h5><%= @b9_putts %></h5>
 				</div>
-				<div class="small-2 columns hole-input_edit putts-border">
+				<div class="small-1 columns hole-input_edit putts-border">
 					<h5><%= @total_putts  %></h5>
 				</div>
 				<%= s.hidden_field :score, value: @score %>
