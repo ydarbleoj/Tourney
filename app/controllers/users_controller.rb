@@ -20,12 +20,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
+    'USER EDIT'
   end
 
   def update
-    @user = User.find(params[:id])
-
+    @user = current_user
+    "USER UPDATE"
     if @user.update(user_params)
       redirect_to @user
     else
@@ -53,6 +54,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:handicap, :username, :email)
+    params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home)
   end
 end
