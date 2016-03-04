@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :rounds
   end
   root to: "home#index"
-  get '*path', to: 'home#index'
+  match '*path', to: 'home#index', via: [:get, :post]
 end
 
 __END__
