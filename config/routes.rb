@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  # get 'leaderboards/index'
-  # get 'leaderboards/new'
-  # get 'leaderboards/edit'
-  # get 'leaderboards/create'
-  # get 'leaderboards/execute'
-
   devise_for :users, controllers: { registrations: 'registrations' }
   # get ':username', to: 'users#show', as: :user
   resources :users, only: [:index, :show, :edit, :update]
@@ -24,7 +18,7 @@ Rails.application.routes.draw do
     resources :rounds
   end
   root to: "home#index"
-  match '*path', to: 'home#index', via: [:get, :post]
+  match '*path', => redirect('/'), via: [:get, :post]
 end
 
 __END__
