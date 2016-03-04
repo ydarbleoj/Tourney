@@ -13,6 +13,6 @@ class RegistrationsController < ApplicationController
 	end
 
 	def after_inactive_sign_up_path_for(resource)
-		"/newuser"
+		root_path
 	end
 end
