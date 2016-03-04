@@ -51,7 +51,7 @@
 			<div class="small-1 columns lb" id="round-three-score">
 				<%= s.rnd3_score != 0 ? s.rnd3_score : '' %>
 			</div>
-			<div class="small-2 columns lb" id="net-total"><%= s.net_total %></div>
+			<div class="small-1 columns lb" id="net-total"><%= s.net_total %></div>
 		</div>
 		<% end %>
 	</div>
@@ -65,7 +65,7 @@
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Tee Times", tee_times_tournament_path(@tournament) %>
 		</div>
-		<div class="small-2 columns tourn-links">
+		<div class="columns tourn-links">
 			<%= link_to "+ Rnd", tournament_rounds_path(@tournament)  %>
 		</div>
 	</div>
