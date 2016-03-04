@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     if user_signed_in?
       redirect_to user_path(current_user.id)
      else
-     	redirect_to root_path
+     	root_path
     end
   end
 
