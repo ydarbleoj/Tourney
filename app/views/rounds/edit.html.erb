@@ -16,7 +16,7 @@
 			<div class="small-4 columns">
 				<p><%= @round.course.slope %> slope</p>
 			</div>
-			<div class="small-3 columns">
+			<div class="columns">
 				<p><%= @round.course.rating %> rating</p>
 			</div>
 	  </div>
@@ -53,7 +53,7 @@
 			<div class="small-1 columns holes">
 				<h5>9</h5>
 			</div>
-			<div class="small-1 columns holes" id="out">
+			<div class="columns holes" id="out">
 				<h5>OUT</h5>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 			<div class="small-1 columns holes">
 				<h5><%= @round.course.h9_par %></h5>
 			</div>
-			<div class="small-1 columns holes" id="out">
+			<div class="columns holes" id="out">
 				<h5><%= @round.course.out_par %></h5>
 			</div>
 		</div>
@@ -126,7 +126,7 @@
 				<div class="small-1 columns hole-input_edit shots-border remove-padding">
 					<h5><%= s.number_field :s9, class: 'score' %></h5>
 				</div>
-				<div class="small-1 align-middle columns hole-input_edit shots-border" id="out">
+				<div class="columns hole-input_edit shots-border" id="out">
 					<h5><%= @f9_shots %></h5>
 				</div>
 			</div>
@@ -161,7 +161,7 @@
 				<div class="small-1 columns  hole-input_edit putts-border remove-padding">
 					<h5><%= s.number_field :p9, class: 'score putts' %></h5>
 				</div>
-				<div class="small-1 columns  hole-input_edit putts-border" id="out">
+				<div class="columns  hole-input_edit putts-border" id="out">
 					<h5><%= @f9_putts  %></h5>
 				</div>
 			</div>
@@ -196,7 +196,7 @@
 			<div class="small-1 columns holes" id="out">
 				<h5>IN</h5>
 			</div>
-			<div class="small-1 columns holes">
+			<div class="columns holes">
 				<h5>TOTAL</h5>
 			</div>
 		</div>
@@ -231,7 +231,7 @@
 			<div class="small-1 columns holes" id="out">
 				<h5><%= @round.course.in_par %></h5>
 			</div>
-			<div class="small-1 columns holes">
+			<div class="columns holes">
 				<h5><%= @round.course.par  %></h5>
 			</div>
 		</div>
@@ -266,7 +266,7 @@
 				<div class="small-1 align-middle columns hole-input_edit shots-border" id="out">
 					<h5><%= @b9_shots %></h5>
 				</div>
-				<div class="small-1 columns hole-input_edit shots-border">
+				<div class="columns hole-input_edit shots-border">
 					<h5><%= @total_shots %></h5>
 				</div>
 			</div>
@@ -301,7 +301,7 @@
 				<div class="small-1 align-middle columns hole-input_edit putts-border" id="out">
 					<h5><%= @b9_putts %></h5>
 				</div>
-				<div class="small-2 columns hole-input_edit putts-border" id="end-row">
+				<div class="columns hole-input_edit putts-border">
 					<h5><%= @total_putts  %></h5>
 				</div>
 				<%= s.hidden_field :score, value: @score %>
@@ -311,10 +311,10 @@
 				<div class="small-4 columns tourn-links">
 					<%= link_to "Back", url_for(:back) %>
 				</div>
-				<div class="small-4 columns tourn-links">
+				<div class="small-5 columns tourn-links">
 					<%= link_to "Leaderboard", stroke_leaderboard_tournament_path(@round.tournament.id)   %>
 				</div>
-				<div class="small-3 columns tourn-links">
+				<div class="columns tourn-links">
 					<%= s.submit 'Finish', class: 'round-submit' %>
 				</div>
 			</div>
