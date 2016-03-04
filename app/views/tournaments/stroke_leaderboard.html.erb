@@ -34,12 +34,12 @@
 		    	<%= link_to 'R3', tournament_round_path(@tournament.id, @rnd3_id[0].id)  %>
 				<% end %>
 			</div>
-			<div class="small-1 columns lb" id="net-total-title">NET</div>
+			<div class="columns lb" id="net-total-title">NET</div>
 		</div>
 	</div>
 	<div class="row" id="stroke-lb-container">
 		<% @lb.each do |s| %>
-		<div class="row align-middle" id="lb-player">
+		<div class="row" id="lb-player">
 			<div class="small-5 columns" id="player"><h5><%= s.user.username.split(' ').first %> <%= s.user.username.split(' ').last[0]  %>
 				<span><%= s.user.handicap.nil?.! ? s.user.handicap : nil %></span></h5>
 			</div>
