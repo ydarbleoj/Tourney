@@ -27,6 +27,12 @@
 				<h5><span><%= @low_putt.putts %></span> at <%= @putt_course.name %></h5>
 			</div>
 		</div>
+		<div class="row">
+			<div class="columns" id="next-round">
+				<p>Next Round</p>
+				<h5><span><%= @next_round.tee_time.strftime("%H:%M") %></span> at <%= @next_round.course.name %></h5>
+			</div>
+		</div>
 	</div>
 	<div class="row align-middle" id="profile_nav">
 		<div class="small-4 columns tourn-links">

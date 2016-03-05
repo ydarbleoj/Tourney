@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     end
     fewest_putts
     lowest_net
+    next_round
   end
 
   def edit
@@ -53,6 +54,9 @@ class UsersController < ApplicationController
     @course = Course.find(@low_net.course_id)
   end
 
+  def next_round
+    @next_round = @user.rounds.where("tee_time < ?", Time.now).first
+  end
   private
 
   def user_params
