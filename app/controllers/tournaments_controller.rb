@@ -1,11 +1,10 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
-  # rescue ActiveRecord::RecordNotFound redirect_to root_url, :flash => { :error => "Record not found." }
-  around_filter :catch_not_found
 
   def index
     @tournaments = Tournament.all
     current_tournament
+    redirect_to(root_url, :notice => 'Record not found') unless @tournament
   end
 
   def show
