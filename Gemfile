@@ -29,6 +29,7 @@ gem 'foundation-rails'
 gem 'sass-rails', '>= 3.2'
 gem 'autoprefixer-rails'
 gem 'foundation-icons-sass-rails', '~> 3.0.0'
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug'
