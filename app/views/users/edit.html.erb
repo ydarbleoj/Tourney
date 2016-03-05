@@ -1,3 +1,41 @@
-<div class="row">
-	<h1><%= @user.username %> Edit Page</h1>
+<div class="row profile-page">
+	<div class="row profile-top-container">
+		<div class="layer">
+		  <div class="row profile-info">
+		  	<div class='row' id="info-top">
+					<div class="small-11 columns username"><%= current_user.username %></div>
+		  	</div>
+		  	<div class='row' id="info-bottom">
+					<div class="small-12 columns" id="profile-home">
+						<i class="fi-marker"></i>
+						<span><%= current_user.home%></span>
+					</div>
+		  	</div>
+		  </div>
+		</div>
+	</div>
+	<div class="row align-center align-middle profile-middle-container">
+		<div class="small-4 columns" id="handicap-title">
+			<h2>Handicap</h2>
+		</div>
+		<div class="small-4 columns" id="handicap">
+			<%= current_user.handicap  %>
+		</div>
+	</div>
+	<div class="row align-center" id="profile-bottom-container">
+		<div class="row align-middle align-center" id="top-row-bottom">
+
+		</div>
+		<div class="row align-middle" id="bottom-row-bottom">
+			<div class="small-4 columns" id="tournament-link">
+				<%= link_to "Tournaments", tournaments_path %>
+			</div>
+			<div class="small-4 columns" id="scorecards-link">
+				<%= link_to "Edit Profile", edit_user_path(current_user.id) %>
+			</div>
+			<div class="small-3 columns" id="log-out-profile">
+				<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+			</div>
+		</div>
+	</div>
 </div>
