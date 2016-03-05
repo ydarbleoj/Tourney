@@ -4,17 +4,15 @@
 			<div id="user-image">
 				<div class="layer"></div>
 			</div>
-			<div id="user-home">
-				<i class="fi-marker"></i>
-				<span> <%= current_user.home%></span>
-			</div>
 		</div>
 		<div class="columns" id="user-profile-info">
 			<p id="profile-username"><%= current_user.username %></p>
+			<i class="fi-marker"></i>
+			<span> <%= current_user.home%></span>
 			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
 		</div>
 	</div>
-	<div class="row" id="user-profile-middle">
+	<div class="row align-center" id="user-profile-middle">
 		<div class="row align-middle">
 			<div class="columns" id="best-round">
 				<p>Best Round</p>

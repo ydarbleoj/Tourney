@@ -37,7 +37,7 @@
 }
 div#user-image { margin: 0 auto -10px; }
 #profile-username {
-	margin-bottom: 0px;
+	margin: 10px 0 -10px;
 }
 #user-home {
 	text-align: center;
@@ -53,12 +53,15 @@ div#user-image { margin: 0 auto -10px; }
 	background-color: rgba(56, 162,247,1);
 	width: 100%; height: calc(100% - 250px);
 }
+#user-profile-middle p {
+	text-align: center;
+	border-bottom: 1px solid #545454;
+}
 #best-round {
 	width: 100%; max-height: 33%;
-	padding-left: 30px;
 	color: #545454;
 }
-#best-round p {
+#best-round {
 	font-size: 20px;
 }
 #best-round h5 {
@@ -69,7 +72,6 @@ div#user-image { margin: 0 auto -10px; }
 }
 #best-putting {
 	width: 100%; max-height: 33%;
-	padding-left: 30px;
 	color: #545454;
 }
 #best-putting p {
@@ -83,7 +85,6 @@ div#user-image { margin: 0 auto -10px; }
 }
 #next-round {
 	width: 100%; max-height: 34%;
-	padding-left: 30px;
 	color: #545454;
 }
 #next-round p {
