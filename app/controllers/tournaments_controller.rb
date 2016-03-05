@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
-  before_action :record_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
     @tournaments = Tournament.all
