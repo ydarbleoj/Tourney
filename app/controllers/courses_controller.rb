@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-
+  before_filter :check_for_user
 
 	def index
 		@courses = Course.all

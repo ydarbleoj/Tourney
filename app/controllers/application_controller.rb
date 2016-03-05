@@ -4,16 +4,8 @@ class ApplicationController < ActionController::Base
   # before_filter :configure_permitted_parameters, if: :devise_controller?
 
 private
-
-  def catch_not_found
-    yield
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_url, :flash => { :error => "Record not found." }
-  end
-
-  def record_not_found
-
-    redirect_to root_url
+	def check_for_user
+    redirect_to root_path if current_user.nil?
   end
 
   def configure_permitted_parameters

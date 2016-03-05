@@ -1,10 +1,10 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
-  before_filter :find_tournament
+  before_filter :check_for_user
 
   def index
-    @tournaments = Tournament.all
-    current_tournament
+      @tournaments = Tournament.all
+      current_tournament
   end
 
   def show
@@ -45,8 +45,7 @@ class TournamentsController < ApplicationController
   end
 
   def current_tournament
-    @current_tournament = current_user.tournaments.where("end_date > ?", Date.today).first
-
+      @current_tournament = current_user.tournaments.where("end_date > ?", Date.today).first
   end
 
   def history
@@ -109,10 +108,10 @@ class TournamentsController < ApplicationController
     @three_putts = t.leaderboards.sum(:total_3_putts)
     @three_putts = @three_putts.nil?.! ? @three_putts : 0
   end
+
   private
-    def find_tournament
-      @tournament = Tournament.find(params[:id])
-      redirect_to root_path if @tournament.nil?
+    def check_for_user
+      redirect_to root_path if current_user.nil?
     end
 
     def tourn_params
