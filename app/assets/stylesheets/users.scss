@@ -12,16 +12,13 @@
 	background-color: rgba(46,46,45, .3);
 	position: absolute;
 }
-.fi-marker { font-size: 30px; color: rgba(56, 162,247,1); }
-#user-profile-image {
-	// padding: 40px 0 0 10px;
-}
-#user-profile-info {
-	// padding: 70px 0 0 20px;
-	// text-align: center;
+.fi-marker { font-size: 30px; color: rgba(56, 162,247,1); text-align: center; }
+#user-profile-image span {
+	font-size: 18px;
+	color: rgba(255,255,255, .8);
+	text-align: center;
 }
 #user-profile-info p {
-	margin-bottom: -10px;
 	font-size: 20px;
 	color: rgba(255,255,255, .8);
 }
@@ -37,7 +34,13 @@
 	background-position: center;
 	background-size: cover;
 	position: relative;
-
+}
+div#user-image { margin: 0 auto -10px; }
+#profile-username {
+	margin-bottom: 0px;
+}
+#user-home {
+	text-align: center;
 }
 #user-handicap {
 	font-size: 16px;

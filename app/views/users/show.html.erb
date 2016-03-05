@@ -1,15 +1,17 @@
 <div class="row" id="user-profile">
 	<div class="row align-middle align-center" id="user-profile-top">
-		<div class="small-4 medium-6 large-4 columns" id="user-profile-image">
+		<div class="small-6 medium-6 large-4 columns" id="user-profile-image">
 			<div id="user-image">
 				<div class="layer"></div>
 			</div>
+			<div id="user-home">
+				<i class="fi-marker"></i>
+				<span> <%= current_user.home%></span>
+			</div>
 		</div>
-		<div class="small-6 medium-6 large-4 columns" id="user-profile-info">
-			<p><%= current_user.username %></p>
-			<i class="fi-marker"></i>
-			<span><%= current_user.home%></span>
-			<p id="user-handicap">Handicap <span><%= current_user.handicap %></span></p>
+		<div class="columns" id="user-profile-info">
+			<p id="profile-username"><%= current_user.username %></p>
+			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
 		</div>
 	</div>
 	<div class="row" id="user-profile-middle">
