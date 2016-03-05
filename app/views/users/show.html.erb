@@ -14,10 +14,18 @@
 			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
 		</div>
 	</div>
-	<div class="row" id="user-profile-middle">
-		<div class="small-12 columns" id="best-round">
-			<p>Best Round</p>
-
+	<div class="row align-middle" id="user-profile-middle">
+		<div class="row">
+			<div class="columns" id="best-round">
+				<p>Best Round</p>
+				<h5><span><%= @low_net.score %></span> at <%= @course.name %></h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="columns" id="best-putting">
+				<p>Fewest Putts</p>
+				<h5><span><%= @low_putt.putts %></span> at <%= @putt_course.name %></h5>
+			</div>
 		</div>
 	</div>
 	<div class="row align-middle" id="profile_nav">
