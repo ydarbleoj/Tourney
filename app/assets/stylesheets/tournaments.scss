@@ -51,7 +51,7 @@ a { width: 100%; height: 100%; }
 
 }
 #stroke-lb-header {
-	width: 100%; height: 100px;
+	width: 100%; height: 110px;
 	background-color: rgba(56,162,247, 1);
 	position: fixed;
 	top: 0;
@@ -60,7 +60,7 @@ a { width: 100%; height: 100%; }
 	box-shadow: 0 0px 6px rgba(0,0,0,0.16), 0 0px 6px rgba(0,0,0,0.23);
 }
 #putting-lb-header {
-	width: 100%; height: 100px;
+	width: 100%; height: 110px;
 	background-color: rgba(237,131,47,1);
 	position: fixed;
 	top: 0;
@@ -108,15 +108,13 @@ p#purse-total {
 	color: white;
 }
 #stroke-lb-container {
-	width: 100%; height: 100%;
+	width: 100%; height: calc(100% - 160px);
 	padding: 0 5px;
 	overflow: auto;
 	overflow-y: scroll;
 	background-color: #E0E0E0;
 	margin: 112px 0 50px;
 	bottom: 40px;
-	// position: relative;
-	// display: block;
 }
 #lb-header {
 	width: 100%; height: 40px;
