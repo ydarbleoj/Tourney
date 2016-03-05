@@ -1,5 +1,6 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
+  before_filter :require_login
 
   def index
     @tournaments = Tournament.all
