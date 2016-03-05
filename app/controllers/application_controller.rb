@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def record_not_found
-    redirect_to root_path
+    redirect_to root_url
   end
 
   def configure_permitted_parameters
