@@ -5,31 +5,16 @@
 	position: fixed;
 	top: 0;
 	right: 0;
-	margin-right: 0px;
-	text-align: right;
+	margin: 10px;
+	text-align: center;
 	z-index: 100;
 }
-
-ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+.fi-torso {
+	color: white;
+	font-size: 30px;
 }
-.menu-bars {
-	margin: 10px auto 0;
-	padding: 6px 6px 7px 6px;
-	position: relative;
-
-}
-.menu-bars li  {
-	width: 8px;
-	height: 2px;
-	background-color: #fff;
-	margin: 5px 0 0;
-	padding: 0;
-}
-.menu-bars a {
-	margin: 10px 0 0;
-	z-index: 101;
+a{
 	display: block;
+	position: relative;
+	width: 100%; height: 100%;
 }
