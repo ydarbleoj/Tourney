@@ -54,7 +54,7 @@ div#user-image { margin: 0 auto -10px; }
 	width: 100%; height: calc(100% - 250px);
 }
 #best-round {
-	width: 100%;
+	width: 100%; max-height: 33%;
 	padding-left: 30px;
 	color: #545454;
 }
@@ -68,7 +68,7 @@ div#user-image { margin: 0 auto -10px; }
 	color: white;
 }
 #best-putting {
-	width: 100%;
+	width: 100%; max-height: 33%;
 	padding-left: 30px;
 	color: #545454;
 }
@@ -82,7 +82,7 @@ div#user-image { margin: 0 auto -10px; }
 	color: white;
 }
 #next-round {
-	width: 100%;
+	width: 100%; max-height: 34%;
 	padding-left: 30px;
 	color: #545454;
 }
