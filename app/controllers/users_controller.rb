@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :check_for_user
 
   def index
     @users = User.all

@@ -18,7 +18,6 @@ Rails.application.routes.draw do
     resources :rounds
   end
   root to: "home#index"
-  match '*path' => redirect('/'), via: [:get, :post]
 end
 
 __END__
