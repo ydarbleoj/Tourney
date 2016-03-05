@@ -1,11 +1,10 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
-  before_filter :require_login
+  before_filter :find_tournament
 
   def index
     @tournaments = Tournament.all
     current_tournament
-    redirect_to(root_url, :notice => 'Record not found') unless @tournament
   end
 
   def show
@@ -111,6 +110,11 @@ class TournamentsController < ApplicationController
     @three_putts = @three_putts.nil?.! ? @three_putts : 0
   end
   private
+    def find_tournament
+      @tournament = Tournament.find(params[:id])
+      redirect_to root_path if @tournament.nil?
+    end
+
     def tourn_params
       params.require(:tournament).permit(:name, :year, :num_players, :num_rounds, rounds_attributes: [:id, :user_id, :course_id, :round_num, :s1, :s2, :s3, :s4, :s5, :s6,
       :s7, :s8, :s9, :s10, :s11, :s12, :s13, :s14, :s15, :s16, :s17, :s18, :p1, :p2, :p3,
