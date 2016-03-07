@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   end
 
   def next_round
-    @next_round = @user.rounds.where("tee_time < ?", Time.now).first
+    @next_round = @user.rounds.where("tee_time > ?", Time.now).first
   end
   private
 
