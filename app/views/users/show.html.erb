@@ -9,7 +9,7 @@
 		</div>
 		<div class="columns" id="user-profile-info">
 			<p id="profile-username"><%= current_user.username %></p>
-			<span> <%= current_user.home%></span>
+			<span> <%= current_user.home %></span>
 			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
 		</div>
 	</div>
@@ -17,13 +17,13 @@
 		<div class="row align-middle">
 			<div class="columns" id="best-round">
 				<p>Best Round</p>
-				<h5><span><%= @low_net.score - @low_net.handicap %></span> at <%= @course.name %></h5>
+				<h5><span><%= @low_net.nil?.! ? @low_net.score - @low_net.handicap : 0 %></span> at <%=  @course.nil?.! ? @course.name : "" %></h5>
 			</div>
 		</div>
 		<div class="row align-middle">
 			<div class="columns" id="best-putting">
 				<p>Fewest Putts</p>
-				<h5><span><%= @low_putt.putts %></span> at <%= @putt_course.name %></h5>
+				<h5><span><%= @low_putt.nil?.! ? @low_putt.putts : 0 %></span> at <%= @putt_course.nil?.! ? @putt_course.name : ''%></h5>
 			</div>
 		</div>
 		<div class="row align-middle">

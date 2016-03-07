@@ -31,18 +31,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    if user_params[:password_confirmation].blank?
-      user_params.delete(:password)
-      user_params.delete(:password_confirmation)
-    end
-
-    update_success = if needs_password?(@user, user_params)
-                       @user.update(user_params)
-                     else
-                       @user.update_without_password(user_params)
-                     end
-
-    if update_success
+    if @user.update(user_params)
       redirect_to @user
     else
       render "edit"
@@ -58,12 +47,12 @@ class UsersController < ApplicationController
 
   def fewest_putts
     @low_putt = @user.rounds.where.not(putts: nil).order(putts: :asc).limit(1).first
-    @putt_course = Course.find(@low_putt.course_id)
+    @low_putt.nil?.! ? @putt_course = Course.find(@low_putt.course_id) : nil
   end
 
   def lowest_net
     @low_net = @user.rounds.where.not(score: nil).order('score - handicap ASC').limit(1).first
-    @course = Course.find(@low_net.course_id)
+    @low_net.nil?.! ? @course = Course.find(@low_net.course_id) : nil
   end
 
   def avg_score
@@ -75,7 +64,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home, :profile_image)
   end
 
-  def needs_password?(user, params)
+  def needs_password(user, params)
     params[:password].present?
   end
 end

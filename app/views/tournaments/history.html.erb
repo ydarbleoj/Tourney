@@ -2,7 +2,7 @@
 	<div class="row back"><%= link_to 'BACK', url_for(:back) %></div>
 	<div class="row align-center" id="tourn-history-header">
 		<div class="small-12 align-middle align-center columns" id="tourn-history-name">
-			<h1><%=@tournaments[0].name %> </h1>
+			<h1><%= @tournaments[0].nil?.! ? @tournaments[0].name : 'Bandon'%> </h1>
 			<h1 id="hist-name">Tournament History</h1>
 		</div>
 	</div>
