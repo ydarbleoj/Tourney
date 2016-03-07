@@ -39,6 +39,7 @@
 		</div>
 		<% end %>
 	</div>
+	<% if @user_tournaments.include? @tournament.id %>
 	<div class="row align-middle" id="tee-time-nav">
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Home", tournaments_path  %>
@@ -49,8 +50,21 @@
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Putting", putting_leaderboard_tournament_path(@tournament.id) %>
 		</div>
-		<div class="small-2 columns tourn-links">
+		<div class="columns tourn-links">
 			<%= link_to "+ Rnd", tournament_rounds_path(@tournament)  %>
 		</div>
 	</div>
+	<% else %>
+	<div class="row align-middle" id="tee-time-nav">
+		<div class="small-4 columns tourn-links">
+			<%= link_to "Home", tournaments_path  %>
+		</div>
+		<div class="small-4 columns tourn-links">
+			<%= link_to "Stroke", stroke_leaderboard_tournament_path(@tournament.id)  %>
+		</div>
+		<div class="columns tourn-links">
+			<%= link_to "Putting", putting_leaderboard_tournament_path(@tournament.id) %>
+		</div>
+	</div>
+	<% end %>
 </div>

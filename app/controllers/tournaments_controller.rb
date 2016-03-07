@@ -49,12 +49,13 @@ class TournamentsController < ApplicationController
   end
 
   def history
-    @tournaments = current_user.tournaments.where("end_date < ?", Date.today).uniq
+    @tournaments = Tournament.where("end_date < ?", Date.today).uniq
   end
 
 
   def stroke_leaderboard
     @tournament = Tournament.find(params[:id])
+    user_tournaments
     current_tournament
 
     if @tournament.id == @current_tournament.id
@@ -73,6 +74,7 @@ class TournamentsController < ApplicationController
 
   def putting_leaderboard
     @tournament = Tournament.find(params[:id])
+    user_tournaments
     current_tournament
 
     if @tournament.id == @current_tournament.id
@@ -98,6 +100,7 @@ class TournamentsController < ApplicationController
   def tee_times
     @tournament = Tournament.find(params[:id])
     @rounds = Round.where(tournament_id: @tournament.id)
+    user_tournaments
   end
 
   def stroke_purse
@@ -107,6 +110,10 @@ class TournamentsController < ApplicationController
   def putts_purse(t)
     @three_putts = t.leaderboards.sum(:total_3_putts)
     @three_putts = @three_putts.nil?.! ? @three_putts : 0
+  end
+
+  def user_tournaments
+    @user_tournaments = current_user.tournaments.uniq.select {|x| x.id }.map {|x| x.id }
   end
 
   private

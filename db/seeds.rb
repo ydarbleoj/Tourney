@@ -1,4 +1,4 @@
-joel = User.create!(username: 'Joel Brady', handicap: 7.6, email: 'joel@mail.com', home: 'Portland, OR', password: 'brady1234', password_confirmation: 'brady1234', admin: true)
+joel = User.create!(username: 'Joel Brady', handicap: 7.6, email: 'brady.joel@gmail.com', home: 'Portland, OR', password: 'gonzaga2004', password_confirmation: 'gonzaga2004', admin: true)
 bryan = User.create!(username: 'Bryan Hellum', handicap: 8, email: 'bhellum@gmail.com', home: nil, password: 'hellum1234', password_confirmation: 'hellum1234')
 payne = User.create!(username: 'Mike Payne', handicap: 14, email: 'michaeljamespayne@yahoo.com', home: nil, password: 'payne1234', password_confirmation: 'payne1234')
 cory = User.create!(username: 'Cory Booth', handicap: 21, email: 'coryjbooth@gmail.com', home: nil, password: 'booth1234', password_confirmation: 'booth1234')
@@ -755,7 +755,7 @@ rnds.each do |r|
 		r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
 
 		three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.user.handicap * 0.9) * 1).round
+		h = ((r.handicap * 0.9) * 1).round
 
 		Leaderboard.create(
 			tournament_id: bandon_2015.id,
@@ -781,7 +781,7 @@ rnds.each do |r|
 		r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
 
 		three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.user.handicap * 0.9) * 1).round
+		h = ((r.handicap * 0.9) * 1).round
 
 		leaderboard.update(rnd2_score: r2_score - h, rnd2_putts: r2_putts, net_total: (leaderboard.net_total + (r2_score - h)),
 			                 total_putts: (leaderboard.total_putts + r2_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
@@ -799,7 +799,7 @@ rnds.each do |r|
 		end
 		r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 		three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.user.handicap * 0.9) * 1).round
+		h = ((r.handicap * 0.9) * 1).round
 
 		leaderboard.update(rnd3_score: r3_score - h, rnd3_putts: r3_putts, net_total: (leaderboard.net_total + (r3_score - h)),
 			                 total_putts: (leaderboard.total_putts + r3_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),

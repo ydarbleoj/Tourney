@@ -17,21 +17,21 @@
 				<% if @tournament.id == @current_tournament.id %>
 			    <%=  link_to 'R1', edit_tournament_round_path(@tournament.id, @rnd1_id[0].id) %>
 			  <% else %>
-					<%= link_to 'R1', tournament_round_path(@tournament.id, @rnd1_id[0].id) %>
+			  	R1
 				<% end %>
 			</div>
 			<div class="small-1 columns lb" id="round-two-score">
 			  <% if @tournament.id == @current_tournament.id %>
 			    <%=  link_to 'R2', edit_tournament_round_path(@tournament.id, @rnd2_id[0].id) %>
 		    <% else %>
-		    	<%= link_to 'R2', tournament_round_path(@tournament.id, @rnd2_id[0].id)  %>
+		    	R2
 				<% end %>
 			</div>
 			<div class="small-1 columns lb" id="round-three-score">
 				<% if @tournament.id == @current_tournament.id %>
 			    <%=  link_to 'R3', edit_tournament_round_path(@tournament.id, @rnd3_id[0].id) %>
 		    <% else %>
-		    	<%= link_to 'R3', tournament_round_path(@tournament.id, @rnd3_id[0].id)  %>
+			    R3
 				<% end %>
 			</div>
 			<div class="small-1 columns lb" id="net-total-title">Total</div>
@@ -51,6 +51,7 @@
 		</div>
 		<% end %>
 	</div>
+	<% if @user_tournaments.include? @tournament.id %>
 	<div class="row align-bottom align-middle footer" id="putting-nav">
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Home", tournaments_path(@tournament)  %>
@@ -61,8 +62,21 @@
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Tee Times", tee_times_tournament_path(@tournament) %>
 		</div>
-		<div class="small-2 columns tourn-links">
+		<div class="columns tourn-links">
 			<%= link_to "+ Rnd", tournament_rounds_path(@tournament)  %>
 		</div>
 	</div>
+	<% else %>
+	<div class="row align-bottom align-middle footer" id="putting-nav">
+		<div class="small-4 columns tourn-links">
+			<%= link_to "Home", tournaments_path(@tournament)  %>
+		</div>
+		<div class="small-4 columns tourn-links">
+			<%= link_to "Stroke", stroke_leaderboard_tournament_path(@tournament.id) %>
+		</div>
+		<div class="columns tourn-links">
+			<%= link_to "Tee Times", tee_times_tournament_path(@tournament) %>
+		</div>
+	</div>
+	<% end %>
 </div>

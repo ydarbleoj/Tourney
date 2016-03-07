@@ -3,8 +3,8 @@ class RoundsController < ApplicationController
   before_filter :check_for_user
 
   def index
-    @tourn_rounds = Round.where(tournament_id: params["tournament_id"]).where(user_id: current_user.id).order(round_num: :asc)
-    current_tourn
+      @tourn_rounds = Round.where(tournament_id: params["tournament_id"]).where(user_id: current_user.id).order(round_num: :asc)
+      current_tourn
   end
 
 
@@ -102,7 +102,7 @@ class RoundsController < ApplicationController
   end
 
   def handicap
-    @handicap = (((@round.user.handicap * @round.course.slope) / 113) * 0.9).round
+    @round.user.handicap.nil?.! ? @handicap = (((@round.user.handicap * @round.course.slope) / 113) * 0.9).round : 0
   end
 
   def round_params
