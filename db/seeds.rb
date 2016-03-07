@@ -755,10 +755,11 @@ rnds.each do |r|
 		r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
 
 		three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.handicap * 0.9) * 1).round
+		h = ((r.user.handicap * 0.9) * 1).round
 
 		Leaderboard.create(
 			tournament_id: bandon_2015.id,
+			handicap: h,
 			user_id: r.user_id,
 			rnd1_score: r1_score - h,
 			rnd1_putts: r1_putts,
