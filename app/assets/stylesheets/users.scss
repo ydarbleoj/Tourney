@@ -142,10 +142,14 @@ input {
 	color: rgba(255,255,255,.8);
 	outline: none;
 }
+#user-edit-submit {
+	padding-top: 30px;
+}
 .edit-border {
 	height: 60px;
 	border-bottom: 1px solid white;
 }
+
 label {
 	font-size: 16px;
 	color: rgba(56, 162,247,1);
