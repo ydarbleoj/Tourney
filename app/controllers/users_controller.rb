@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :check_for_user
+  before_filter :skip_password_attribute, only: :update
 
   def index
     @users = User.all
@@ -25,12 +26,13 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
-    'USER EDIT'
+    "edit"
   end
 
   def update
     @user = current_user
-    "USER UPDATE"
+
+      "UPdate"
     if @user.update(user_params)
       redirect_to @user
     else
@@ -61,6 +63,12 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home)
+    params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home, :profile_image)
+  end
+
+   def skip_password_attribute
+    if params[:password_confirmation].blank?
+      params.except!(:password, :password_confirmation)
+    end
   end
 end

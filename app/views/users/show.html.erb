@@ -3,6 +3,8 @@
 		<div class="small-6 medium-6 large-4 columns" id="user-profile-image">
 			<div id="user-image">
 				<div class="layer"></div>
+					<%= image_tag attachment_url(@user, :profile_image, :fill, 110, 110, format: "jpg"), class: 'image-tag' %>
+
 			</div>
 		</div>
 		<div class="columns" id="user-profile-info">

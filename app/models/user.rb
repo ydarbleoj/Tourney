@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable,
          :validatable
   before_save { self.email = email.downcase }
+  attachment :profile_image
 
   has_many :rounds
   has_many :courses, through: :rounds

@@ -31,13 +31,13 @@
   					<p>Most Difficult Hole</p>
   				</div>
   				<div class="small-4 columns ">
-  					<p>Hole <%= @hardest[0] %></p>
+  					<p>Hole <%= @hardest[0].nil?.! ? @hardest[0] : 0 %></p>
   				</div>
   				<div class="small-3 columns ">
-  					<p>Par <%= @hardest[1] %></p>
+  					<p>Par <%= @hardest[1].nil?.! ? @hardest[1] : 0 %></p>
   				</div>
   				<div class="small-4 columns ">
-  					<p><%= @hardest[2] %></p>
+  					<p><%= @hardest[2].nil?.! ? @hardest[2] : 0 %></p>
   				</div>
   			</div>
   		</div>
@@ -47,13 +47,13 @@
   					<p>Easiest Hole</p>
   				</div>
   				<div class="small-4 columns ">
-  					<p>Hole<%= @easiest[0] %></p>
+  					<p>Hole<%= @easiest[0].nil?.! ? @easiest[0] : 0 %></p>
   				</div>
   				<div class="small-4 columns ">
-  					<p>Par <%= @easiest[1] %></p>
+  					<p>Par <%= @easiest[1].nil?.! ? @easiest[1] : 0 %></p>
   				</div>
   				<div class="small-3 columns ">
-  					<p><%= @easiest[2] %></p>
+  					<p><%= @easiest[2].nil?.! ? @easiest[2] : 0 %></p>
   				</div>
   			</div>
   		</div>
@@ -65,7 +65,7 @@
   					<p>Avg Putts</p>
   				</div>
   				<div class="small-5 columns ">
-  					<p><%= @avg_putts %></p>
+  					<p><%= @avg_putts.nil?.! ? @avg_putts : 0 %></p>
   				</div>
   			</div>
   		</div>
@@ -75,7 +75,7 @@
   					<p>Avg Score</p>
   				</div>
   				<div class="small-4 columns ">
-  					<p><%= @avg_score %></p>
+  					<p><%= @avg_score.nil?.! ? @avg_score : 0 %></p>
   				</div>
   			</div>
   		</div>
@@ -87,10 +87,10 @@
   					<p>Fewest Putts</p>
   				</div>
   				<div class="small-6 columns ">
-  					<p><%= @fewest_putts[0]%></p>
+  					<p><%= @fewest_putts.nil?.! ? @fewest_putts[0] : 0 %></p>
   				</div>
   				<div class="small-6 columns ">
-  					<p><%= @fewest_putts[1] %></p>
+  					<p><%= @fewest_putts.nil?.! ? @fewest_putts[1] : 0 %></p>
   				</div>
   			</div>
   		</div>
@@ -100,10 +100,10 @@
 	  				<p>Lowest Round</p>
 	  			</div>
   				<div class="small-8 columns ">
-  					<p><%= @lowest_round[0] %></p>
+  					<p><%= @lowest_round.nil?.! ? @lowest_round[0] : 0 %></p>
   				</div>
   				<div class="small-3 columns ">
-  					<p><%= @lowest_round[1] %></p>
+  					<p><%= @lowest_round.nil?.! ? @lowest_round[1] : 0 %></p>
   				</div>
   			</div>
   		</div>

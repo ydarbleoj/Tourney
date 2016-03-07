@@ -28,25 +28,35 @@ class CourseHoleCalculation
 		score = instance_variable_get("@hole#{hole.split('h')[1]}")
 		par = @course[0]["#{hole}_par"]
 		number = hole.split('h')[1]
-		[number, par, score.round(1)]
+		if number.nil?.!
+			return [number, par, score]
+		end
 	end
 
 	def avg_score
-		Round.where("course_id = ?", @course_id).average(%q{score - handicap}).round(1)
+		Round.where.not(score: :nil).where("course_id = ?", @course_id).average(%q{score - handicap})
 	end
 
 	def avg_putts
-		Round.where("course_id = ?", @course_id).average(:putts).round(1)
+		Round.where("course_id = ?", @course_id).average(:putts)
 	end
 
 	def fewest_putts
-		fewest_putts = Round.where("course_id = ?", @course_id).order(putts: :asc).first
-		[fewest_putts.user.username, fewest_putts.putts]
+		fewest_putts = Round.where.not(score: :nil).where("course_id = ?", @course_id).order(putts: :asc).first
+		if fewest_putts.nil?.!
+		  return [fewest_putts.user.username, fewest_putts.putts]
+		else
+			fewest_putts = nil
+		end
 	end
 
 	def lowest_round
-		p lowest_round = Round.where("course_id = ?", @course_id).order(%q{score - handicap}).first
-		[lowest_round.user.username, lowest_round.score - lowest_round.handicap]
+		lowest_round = Round.where.not(score: :nil).where("course_id = ?", @course_id).order(%q{score - handicap}).first
+		if lowest_round.nil?.!
+		  return [lowest_round.user.username, lowest_round.score - lowest_round.handicap]
+		else
+			return nil
+		end
 	end
 
 	def average_holes
