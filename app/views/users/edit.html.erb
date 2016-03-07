@@ -16,6 +16,14 @@
 				<%= f.email_field :email, class: 'edit-user-form' %>
 			</div>
 			<div class="small-12 columns edit-border" id="user-edit-home">
+				<%= f.label :password %> <br>
+				<%= f.text_field :password, class: 'edit-user-form'%>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-home">
+				<%= f.label :password_confirmation %> <br>
+				<%= f.text_field :password_confirmation, class: 'edit-user-form'%>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-home">
 				<%= f.label :home %> <br>
 				<%= f.text_field :home, class: 'edit-user-form'%>
 			</div>

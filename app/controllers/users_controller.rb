@@ -31,7 +31,18 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    if @user.update(user_params)
+    if user_params[:password_confirmation].blank?
+      user_params.delete(:password)
+      user_params.delete(:password_confirmation)
+    end
+
+    successfully_updated = if needs_password?(@user, user_params)
+                             @user.update(user_params)
+                           else
+                             @user.update_without_password(user_params)
+                           end
+
+    if successfully_updated
       redirect_to @user
     else
       render "edit"
@@ -64,7 +75,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home, :profile_image)
   end
 
-  def needs_password(user, params)
-    params[:password].present?
+  def needs_password?(user, params)
+    params[:password_confirmation].present?
   end
 end
