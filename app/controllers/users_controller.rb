@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_filter :check_for_user
-  before_filter :skip_password_attribute, only: :update
 
   def index
     @users = User.all
@@ -21,7 +20,7 @@ class UsersController < ApplicationController
     end
     fewest_putts
     lowest_net
-    next_round
+    avg_score
   end
 
   def edit
@@ -57,8 +56,8 @@ class UsersController < ApplicationController
     @course = Course.find(@low_net.course_id)
   end
 
-  def next_round
-    @next_round = @user.rounds.where("tee_time > ?", Time.now).first
+  def avg_score
+    @avg_score = @user.rounds.where.not(score: nil).average('score - handicap')
   end
   private
 
@@ -66,9 +65,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:handicap, :username, :email, :password, :password_confirmation, :home, :profile_image)
   end
 
-   def skip_password_attribute
-    if params[:password_confirmation].blank?
-      params.except!(:password, :password_confirmation)
-    end
-  end
 end

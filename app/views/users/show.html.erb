@@ -17,7 +17,7 @@
 		<div class="row align-middle">
 			<div class="columns" id="best-round">
 				<p>Best Round</p>
-				<h5><span><%= @low_net.score %></span> at <%= @course.name %></h5>
+				<h5><span><%= @low_net.score - @low_net.handicap %></span> at <%= @course.name %></h5>
 			</div>
 		</div>
 		<div class="row align-middle">
@@ -27,9 +27,9 @@
 			</div>
 		</div>
 		<div class="row align-middle">
-			<div class="columns" id="next-round">
-				<p>Next Round</p>
-				<h5><span><%= @next_round.tee_time.strftime("%H:%M") %></span> at <%= @next_round.course.name %></h5>
+			<div class="columns" id="tourn-average">
+				<p>Tournament Average</p>
+				<h5><%= @avg_score %></h5>
 			</div>
 		</div>
 	</div>
