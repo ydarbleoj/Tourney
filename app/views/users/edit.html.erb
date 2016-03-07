@@ -1,29 +1,31 @@
-<div class="row align-middle align-center" id="user-edit-page">
+<div class="row" id="user-edit-page">
 	<h2>Edit Profile</h2>
-  <%= form_for @user do |f| %>
-	<div class="row align-center" id="user-edit-form-wrapper">
-		<div class="small-12 columns edit-border" id="user-edit-image">
-		  <%= f.label :image %><br>
-		  <%= f.attachment_field :profile_image %>
+	<div class="row" id="form-container-edit">
+	  <%= form_for @user do |f| %>
+		<div class="row align-center" id="user-edit-form-wrapper">
+			<div class="small-12 columns edit-border" id="user-edit-image">
+			  <%= f.label :image %><br>
+			  <%= f.attachment_field :profile_image %>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-name">
+				<%= f.label :username %> <br>
+				<%= f.text_field :username, class: 'edit-user-form'%>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-email">
+				<%= f.label :email %> <br>
+				<%= f.email_field :email, class: 'edit-user-form' %>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-home">
+				<%= f.label :home %> <br>
+				<%= f.text_field :home, class: 'edit-user-form'%>
+			</div>
+			<div class="small-12 columns edit-border" id="user-edit-handicap">
+				<%= f.label :handicap%> <br>
+				<%= f.number_field :handicap, :step => 'any', class: 'edit-user-form' %>
+			</div>
+			<%= f.submit 'Update', class: 'user-edit-submit' %>
 		</div>
-		<div class="small-12 columns edit-border" id="user-edit-name">
-			<%= f.label :username %> <br>
-			<%= f.text_field :username, class: 'edit-user-form'%>
-		</div>
-		<div class="small-12 columns edit-border" id="user-edit-email">
-			<%= f.label :email %> <br>
-			<%= f.email_field :email, class: 'edit-user-form' %>
-		</div>
-		<div class="small-12 columns edit-border" id="user-edit-home">
-			<%= f.label :home %> <br>
-			<%= f.text_field :home, class: 'edit-user-form'%>
-		</div>
-		<div class="small-12 columns edit-border" id="user-edit-handicap">
-			<%= f.label :handicap%> <br>
-			<%= f.number_field :handicap, :step => 'any', class: 'edit-user-form' %>
-		</div>
-		<%= f.submit 'Update', class: 'user-edit-submit' %>
+		<% end %>
 	</div>
-<% end %>
 
 </div>

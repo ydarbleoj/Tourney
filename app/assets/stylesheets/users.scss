@@ -116,16 +116,23 @@ div#user-image { margin: 0 auto -10px; }
 //  EDIT USER
 #user-edit-page {
 	width: 100%; height: 100%;
+	top: 0;
+	left: 0;
 	background-color: #545454;
 }
 #user-edit-page h2 {
 	color: white;
 	font-size: 24px;
 }
+#form-container-edit {
+	width: 100%; height: 100%;
+	overflow: hidden;
+	padding: 40px 20px 0;
+	position: relative;
+}
 form { width: 100%; }
 #user-edit-form-wrapper {
-	width: 80%; height: 100%;
-	margin: 0 auto;
+	width: 100%; height: 100%;
 }
 input {
 	padding: 22px 0;
