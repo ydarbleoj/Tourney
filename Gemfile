@@ -42,8 +42,13 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'web-console', '~> 2.0'
   gem 'awesome_print'
-   gem 'better_errors'
+  gem 'better_errors'
+  gem 'derailed'
+  gem 'meta_request'
+  gem 'stackprof'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+gem "binding_of_caller"
 
+gem 'oink'
