@@ -116,6 +116,11 @@ class TournamentsController < ApplicationController
     @user_tournaments = current_user.tournaments.uniq.select {|x| x.id }.map {|x| x.id }
   end
 
+  def ranking
+    tournament = Tournament.where(id: params[:id])
+    rounds = Leaderboard.where(tournament_id: tournament.id).order()
+  end
+
   private
     def check_for_user
       redirect_to root_path if current_user.nil?

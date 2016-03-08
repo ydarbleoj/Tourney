@@ -34,7 +34,7 @@ class CourseHoleCalculation
 	end
 
 	def avg_score
-		Round.where.not(score: :nil).where("course_id = ?", @course_id).average(%q{score - handicap})
+		Round.where("course_id = ?", @course_id).average(%q{score - handicap})
 	end
 
 	def avg_putts
@@ -42,7 +42,7 @@ class CourseHoleCalculation
 	end
 
 	def fewest_putts
-		fewest_putts = Round.where.not(score: :nil).where("course_id = ?", @course_id).order(putts: :asc).first
+		fewest_putts = Round.where("course_id = ?", @course_id).order(putts: :asc).first
 		if fewest_putts.nil?.!
 		  return [fewest_putts.user.username, fewest_putts.putts]
 		else
@@ -51,7 +51,7 @@ class CourseHoleCalculation
 	end
 
 	def lowest_round
-		lowest_round = Round.where.not(score: :nil).where("course_id = ?", @course_id).order(%q{score - handicap}).first
+		lowest_round = Round.where("course_id = ?", @course_id).order(%q{score - handicap}).first
 		if lowest_round.nil?.!
 		  return [lowest_round.user.username, lowest_round.score - lowest_round.handicap]
 		else
