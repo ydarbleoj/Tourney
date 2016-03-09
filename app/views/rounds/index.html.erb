@@ -1,28 +1,28 @@
+<%= render 'devise/shared/navbar'  %>
 <div class="row" id="tourn-rnds-list">
 	<div class="row align-middle" id="sc-list-header">
-		<div class="small-6 columns" id="sc-tourn">
-			<h3><%= @tourn_rounds[0].tournament.name %> <%= @tourn_rounds[0].tournament.year %></h3>
-		</div>
-		<div class="columns" id="sc-list-title">
-			<h3><%= current_user.username.split(' ').first  %>'s Scorecards</h3>
+		<div class="columns" id="sc-tourn">
+			<h3><%= @tourn_rounds[0].tournament.name %> <%= @tourn_rounds[0].tournament.year %> Scorecards</h3>
 		</div>
 	</div><!-- sc-header -->
-	<% @tourn_rounds.each do |t| %>
-	<div class="row align-middle" id="scorecard-link-wrapper">
-		<div class="small-6 columns" id="round-link">
-			<h5>ROUND
-				<% if t.tournament_id == @current_tourn.id %>
-			    <%=  link_to t.round_num, edit_tournament_round_path(t.tournament_id, t.id) %>
-			  <% else %>
-					<%= link_to t.round_num, tournament_round_path(t.tournament_id, t.id) %>
-				<% end %>
-			</h5>
+	<div class="row" id="round-list-container">
+		<% @tourn_rounds.each do |t| %>
+		<div class="row align-middle" id="scorecard-link-wrapper">
+			<div class="small-6 columns" id="round-link">
+				<h5>ROUND
+					<% if t.tournament_id == @current_tourn.id %>
+				    <%=  link_to t.round_num, edit_tournament_round_path(t.tournament_id, t.id) %>
+				  <% else %>
+						<%= link_to t.round_num, tournament_round_path(t.tournament_id, t.id) %>
+					<% end %>
+				</h5>
+			</div>
+			<div class="columns">
+				<h5><%= t.course.name %></h5>
+			</div>
 		</div>
-		<div class="columns">
-			<h5><%= t.course.name %></h5>
-		</div>
+		<% end %>
 	</div>
-	<% end %>
 	<div class="row align-middle footer" id="rounds-list-nav">
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Home", tournaments_path  %>
