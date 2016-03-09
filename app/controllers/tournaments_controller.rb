@@ -117,8 +117,9 @@ class TournamentsController < ApplicationController
   end
 
   def ranking
-    tournament = Tournament.where(id: params[:id])
-    rounds = Leaderboard.where(tournament_id: tournament.id).order()
+    t = Tournament.where(id: params[:id]).first
+    rounds = t.leaderboards.order(:total_score)
+    grouped_rounds = rounds.group_by {|x| x.total_score }.map {|x| x }
   end
 
   private

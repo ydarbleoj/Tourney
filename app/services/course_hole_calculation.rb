@@ -43,7 +43,7 @@ class CourseHoleCalculation
 
 	def fewest_putts
 		fewest_putts = Round.where("course_id = ?", @course_id).order(putts: :asc).first
-		if fewest_putts.nil?.!
+		if fewest_putts.putts.nil?.!
 		  return [fewest_putts.user.username, fewest_putts.putts]
 		else
 			fewest_putts = nil
@@ -52,7 +52,7 @@ class CourseHoleCalculation
 
 	def lowest_round
 		lowest_round = Round.where("course_id = ?", @course_id).order(%q{score - handicap}).first
-		if lowest_round.nil?.!
+		if lowest_round.score.nil?.!
 		  return [lowest_round.user.username, lowest_round.score - lowest_round.handicap]
 		else
 			return nil

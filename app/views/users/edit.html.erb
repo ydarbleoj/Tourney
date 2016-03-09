@@ -3,10 +3,6 @@
 	<div class="row" id="form-container-edit">
 	  <%= form_for @user do |f| %>
 		<div class="row align-center" id="user-edit-form-wrapper">
-			<div class="small-12 columns edit-border" id="user-edit-image">
-			  <%= f.label :image %><br>
-			  <%= f.attachment_field :profile_image %>
-			</div>
 			<div class="small-12 columns edit-border" id="user-edit-name">
 				<%= f.label :username %> <br>
 				<%= f.text_field :username, class: 'edit-user-form'%>

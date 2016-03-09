@@ -102,7 +102,7 @@ class RoundsController < ApplicationController
   end
 
   def handicap
-    @round.user.handicap.nil?.! ? @handicap = (((@round.user.handicap * @round.course.slope) / 113) * 0.9).round : 0
+    @round.user.handicap.nil?.! ? @handicap = @round.user.handicap.round : @handicap = 0
   end
 
   def round_params

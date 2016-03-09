@@ -97,16 +97,16 @@ input.putts {
 	left: 0;
 	bottom: 0;
 	z-index: 10;
-	color: #616161;
+	color: white;
 	font-size: 20px;
-	background-color: #BDBDBD;
+	background-color: #616161;
 }
 .round-submit {
-	color: #545454;
+	color: white;
 	background-color: transparent;
 	border: none;
 }
-#round-nav a { color: #616161; }
+#round-nav a { color: white; }
 // Rounds List
 #tourn-rnds-list {
 	width: 100%; height: 100%;
@@ -114,7 +114,7 @@ input.putts {
 }
 #sc-list-header {
 	width: 100%; height: 110px;
-	background-color: #424242;
+	background-color: #616161;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -159,5 +159,5 @@ input.putts {
 	bottom: 0;
 	left: 0;
 	z-index: 10;
-	background-color: #424242;
+	background-color: #616161;
 }

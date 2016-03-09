@@ -782,7 +782,7 @@ rnds.each do |r|
 		r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
 
 		three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.handicap * 0.9) * 1).round
+		h = r.handicap
 
 		leaderboard.update(rnd2_score: r2_score - h, rnd2_putts: r2_putts, net_total: (leaderboard.net_total + (r2_score - h)),
 			                 total_putts: (leaderboard.total_putts + r2_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
@@ -800,7 +800,7 @@ rnds.each do |r|
 		end
 		r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 		three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
-		h = ((r.handicap * 0.9) * 1).round
+		h = r.handicap
 
 		leaderboard.update(rnd3_score: r3_score - h, rnd3_putts: r3_putts, net_total: (leaderboard.net_total + (r3_score - h)),
 			                 total_putts: (leaderboard.total_putts + r3_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
