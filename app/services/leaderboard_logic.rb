@@ -17,7 +17,7 @@ class LeaderboardLogic
 		@rnd1.each do |r|
 			leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
 			@rnd1_course = Course.where("id = ?", r.course.id)
-			player_handicap = r.user.handicap.nil?.! ? r.user.handicap : 0
+			player_handicap = r.handicap.nil?.! ? r.handicap : 0
 
 			shots = add_shots(r)
 			shots = shots.select { |x| x if x != nil }.map { |x| x }
