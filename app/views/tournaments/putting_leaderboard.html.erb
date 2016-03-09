@@ -41,7 +41,11 @@
 		<% @putting_lb.each do |s| %>
 		<div class="row align-middle" id="lb-player">
 			<div class="small-5 columns" id="player"><h5><%= s.user.username.split(' ').first %> <%= s.user.username.split(' ').last[0]  %>
-				<span><%= s.user.handicap.nil?.! ? s.user.handicap.round : nil %></span></h5>
+				<% if s.tournament_id == @current_tournament.id  %>
+					<span><%= s.user.handicap.nil?.! ? s.user.handicap.round : nil %></span></h5>
+				<% else %>
+					<span><%= s.handicap.nil?.! ? s.handicap.round : nil %></span></h5>
+				<% end %>
 			</div>
 			<div class="small-2 columns" id="lb-total-score"><%= s.total_3_putts %></div>
 			<div class="small-1 columns lb" id="round-one-score"><%= s.rnd1_putts %></div>
