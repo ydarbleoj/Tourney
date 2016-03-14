@@ -7,8 +7,8 @@
 		</div>
 	</div>
 	<% @tournaments.each do |t|  %>
-	<div class="row align-center align-middle" id="tourn-history-list">
-		<div class="small-12 columns" id="list-item">
+	<div class="row align-center" id="tourn-history-list">
+		<div class="small-10lin medium-6 large-4 columns" id="list-item">
 			<h1><%= link_to t.year, stroke_leaderboard_tournament_path(t.id) %></h1>
 		</div>
 	</div>

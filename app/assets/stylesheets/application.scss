@@ -23,3 +23,6 @@ a {
 	display: block;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+a:active {
+	opacity: 0.5;
+}
