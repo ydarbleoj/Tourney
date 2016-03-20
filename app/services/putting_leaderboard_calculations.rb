@@ -62,7 +62,6 @@ class PuttingLeaderboardCalculations
 			leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
 			r3_p = []
 
-			p leaderboard.inspect
 			if r.s1.nil?.!
 				@holes.each do |i|
 			    r3_p << r["p#{i}"]
@@ -73,7 +72,7 @@ class PuttingLeaderboardCalculations
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd3_putts: r3_putts,
-					total_3_putts: three_putts.length + (@rnd2_three_putts.length + @rnd1_three_putts.length),
+					total_3_putts: three_putts.length + @rnd2_three_putts.length + @rnd1_three_putts.length,
 					total_putts: leaderboard.rnd1_putts + leaderboard.rnd2_putts + r3_putts)
 			end
 		end
