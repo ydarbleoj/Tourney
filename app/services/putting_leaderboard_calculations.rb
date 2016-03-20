@@ -22,7 +22,7 @@ class PuttingLeaderboardCalculations
 			  r1_p << r["p#{i}"]
 		  end
 		  r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
-		  three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
+		  @rnd1_three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
 
 			leaderboard.update(
 				user_id: r.user_id,
@@ -44,12 +44,12 @@ class PuttingLeaderboardCalculations
 			    r2_p << r["p#{i}"]
 		    end
 			  r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
-			  three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
+			  @rnd2_three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
 
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd2_putts: r2_putts,
-					total_3_putts: three_putts.length,
+					total_3_putts: three_putts.length + @rnd1_three_putts,
 					total_putts: leaderboard.rnd1_putts + r2_putts)
 			end
 		end
@@ -60,6 +60,9 @@ class PuttingLeaderboardCalculations
 
 		rounds.each do |r|
 			if r.s1.nil?.!
+
+				r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
+			  three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
 
 				leaderboard.update(
 					user_id: r.user_id,
