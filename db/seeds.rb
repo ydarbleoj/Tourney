@@ -810,30 +810,6 @@
 # end
 
 
-joel = User.where(username: 'Joel Brady')
-bryan = User.where(username: 'Bryan Hellum')
-payne = User.where(username: 'Mike Payne')
-cory = User.where(username: 'Cory Booth')
-jack = User.where(username: 'Jack Weast')
-damon = User.where(username: 'Damon Sullivan')
-pat = User.where(username: 'Pat Anderson')
-robb = User.where(username: 'Robb Page')
-scott = User.where(username: 'Scott Kovesdy')
-rory = User.where(username: 'Rory Tarquinio')
-albino = User.where(username: 'Albino Duran')
-greg = User.where(username: 'Greg Smith')
-rich = User.where(username: 'Rich Guisti')
-dan = User.where(username: 'Dan Jablonski')
-eric = User.where(username: 'Eric Fox')
-matt = User.where(username: 'Matt James')
-
-ab = albino[0].rounds.where(tournament_id: 1).where(round_num: 2).first
-ab.update(tee_time: "2016-03-09 10:40:00")
-mk = payne[0].rounds.where(tournament_id: 1).where(round_num: 2).first
-mk.update(tee_time: "2016-03-09 10:30:00")
-
-
-
 
 
 

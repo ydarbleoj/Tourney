@@ -63,7 +63,7 @@ class TournamentsController < ApplicationController
       stroke_purse
       rnd_id(tourn)
       LeaderboardLogic.new(tourn).execute
-      @lb = tourn.leaderboards.order(total_score: :asc)
+      @lb = tourn.leaderboards.where.not(rnd2_score: nil).order(total_score: :asc)
     else
       tourn = @tournament
       stroke_purse
@@ -82,7 +82,7 @@ class TournamentsController < ApplicationController
       PuttingLeaderboardCalculations.new(tourn).execute
       putts_purse(tourn)
       rnd_id(tourn)
-      @putting_lb = tourn.leaderboards.order(total_putts: :asc)
+      @putting_lb = tourn.leaderboards.where.not(rnd2_score: nil).order(total_putts: :asc)
     else
       tourn = @tournament
       putts_purse(tourn)
