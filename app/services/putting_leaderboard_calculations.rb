@@ -72,7 +72,7 @@ class PuttingLeaderboardCalculations
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd3_score: score,
-					total_3_putts: three_putts.length + (@rnd2_three_putts.length + @rnd1_three_putts.length)
+					total_3_putts: three_putts.length + (@rnd2_three_putts.length + @rnd1_three_putts.length),
 					total_putts: (leaderboard.rnd1_putts + leaderboard.rnd2_putts) + r3_putts)
 			end
 		end
