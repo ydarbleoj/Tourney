@@ -56,7 +56,7 @@ class PuttingLeaderboardCalculations
 	end
 
 	def rnd3_calculation
-		@rnd_3 = @tourn.rounds.where(round_num: 3)
+		@rnd3 = @tourn.rounds.where(round_num: 3)
 
 		@rnd3.each do |r|
 			leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
@@ -68,8 +68,8 @@ class PuttingLeaderboardCalculations
 		    end
 				r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 			  three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
-			  total_3_putts = (three_putts.length + @rnd2_three_putts.length + @rnd1_three_putts.length)
-			  total_putts = (leaderboard.rnd1_putts + leaderboard.rnd2_putts + r3_putts)
+			  total_3_putts = (three_putts.length + @rnd2_three_putts.length) + @rnd1_three_putts.length
+			  total_putts = (leaderboard.rnd1_putts + leaderboard.rnd2_putts) + r3_putts
 
 				leaderboard.update(
 					user_id: r.user_id,
