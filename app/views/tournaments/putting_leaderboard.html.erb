@@ -50,7 +50,7 @@
 			<div class="small-2 columns" id="lb-total-score"><%= s.total_3_putts %></div>
 			<div class="small-1 columns lb" id="round-one-score"><%= s.rnd1_putts %></div>
 			<div class="small-1 columns lb" id="round-two-score"><%= s.rnd2_putts %></div>
-			<div class="small-1 columns lb" id="round-three-score"><%= s.rnd3_putts %></div>
+			<div class="small-1 columns lb" id="round-three-score"><%= s.rnd3_putts.nil?.! ? s.rnd3_putts : '' %></div>
 			<div class="small-2 columns lb" id="net-total"><%= s.total_putts %></div>
 		</div>
 		<% end %>
