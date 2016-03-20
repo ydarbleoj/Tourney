@@ -68,12 +68,14 @@ class PuttingLeaderboardCalculations
 		    end
 				r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 			  three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
+			  total_3_putts = (three_putts.length + @rnd2_three_putts.length + @rnd1_three_putts.length)
+			  total_putts = (leaderboard.rnd1_putts + leaderboard.rnd2_putts + r3_putts)
 
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd3_putts: r3_putts,
-					total_3_putts: three_putts.length + @rnd2_three_putts.length + @rnd1_three_putts.length,
-					total_putts: leaderboard.rnd1_putts + leaderboard.rnd2_putts + r3_putts)
+					total_3_putts: total_3_putts,
+					total_putts: total_putts)
 			end
 		end
 	end
