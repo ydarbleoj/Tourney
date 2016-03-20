@@ -62,7 +62,7 @@ class PuttingLeaderboardCalculations
 			leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
 			r3_p = []
 
-			if r.s1.nil?.!
+			if r.p1.nil?.!
 				@holes.each do |i|
 			    r3_p << r["p#{i}"]
 		    end
