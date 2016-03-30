@@ -27,7 +27,7 @@ class PuttingLeaderboardCalculations
 			leaderboard.update(
 				user_id: r.user_id,
 				rnd1_putts: r1_putts,
-				rnd1_3putts: @rnd1_three_putts.length,
+				rnd1_3putts: nil,
 				total_3_putts: @rnd1_three_putts.length,
 				total_putts: r1_putts)
 		end
