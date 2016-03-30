@@ -52,7 +52,7 @@ class PuttingLeaderboardCalculations
 					user_id: r.user_id,
 					rnd2_putts: r2_putts,
 					rnd2_3putts: @rnd2_three_putts.length,
-					total_3_putts: total_3_putts,
+					total_3_putts: @rnd2_three_putts,
 					total_putts: leaderboard.rnd1_putts + r2_putts)
 			end
 		end

@@ -24,14 +24,12 @@ class LeaderboardsController < ApplicationController
 
     @rounds.each do |r|
     end
-
-
   end
 
   private
     def board_params
       params.require(:leaderboard)
             .permit(:tournament_id, :user_id, :rnd1_score, :rnd1_putts, :rnd2_score, :rnd2_putts,
-                    :rnd3_score, :rnd3_putts, :total_score, :total_putts, :net_total)
+                    :rnd3_score, :rnd3_putts, :total_score, :total_putts, :net_total, :rnd1_3putts, :rnd2_3putts, :rnd3_3putts)
     end
 end
