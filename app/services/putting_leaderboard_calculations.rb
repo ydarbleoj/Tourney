@@ -78,7 +78,7 @@ class PuttingLeaderboardCalculations
 					user_id: r.user_id,
 					rnd3_putts: r3_putts,
 					# rnd3_3putts: three_putts.length,
-					total_3_putts: ,
+					total_3_putts: total_3_putts,
 					total_putts: total_putts)
 			end
 		end
