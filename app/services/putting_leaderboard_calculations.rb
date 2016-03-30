@@ -27,7 +27,7 @@ class PuttingLeaderboardCalculations
 			leaderboard.update(
 				user_id: r.user_id,
 				rnd1_putts: r1_putts,
-				rnd1_3putts: nil,
+				# rnd1_3putts: nil,
 				total_3_putts: @rnd1_three_putts.length,
 				total_putts: r1_putts)
 		end
@@ -46,13 +46,13 @@ class PuttingLeaderboardCalculations
 		    end
 			  r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
 			  @rnd2_three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
-			  # total_3_putts = (leaderboard.rnd1_3putts + @rnd2_three_putts.length)
+			  total_3_putts = (@rnd1_three_putts.length + @rnd2_three_putts.length)
 
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd2_putts: r2_putts,
 					# rnd2_3putts: @rnd2_three_putts.length,
-					total_3_putts: @rnd2_three_putts,
+					total_3_putts: total_3_putts,
 					total_putts: leaderboard.rnd1_putts + r2_putts)
 			end
 		end
@@ -71,14 +71,14 @@ class PuttingLeaderboardCalculations
 		    end
 				r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 			  three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
-			  # total_3_putts = (three_putts.length + leaderboard.rnd1_3putts) + leaderboard.rnd2_3putts
+			  total_3_putts = (@rnd2_three_putts.length + @rnd1_three_putts.length) + three_putts.length
 			  total_putts = (leaderboard.rnd1_putts + leaderboard.rnd2_putts) + r3_putts
 
 				leaderboard.update(
 					user_id: r.user_id,
 					rnd3_putts: r3_putts,
 					# rnd3_3putts: three_putts.length,
-					total_3_putts: 100,
+					total_3_putts: ,
 					total_putts: total_putts)
 			end
 		end
