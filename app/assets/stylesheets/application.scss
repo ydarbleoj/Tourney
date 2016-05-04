@@ -9,13 +9,13 @@
 @import 'tournaments';
 @import 'rounds';
 @import 'navbar';
-@include foundation-flex-grid;
+
 .row .row {
-	margin: 0;
+	margin-left: 0;
+  margin-right: 0;
 }
 p { margin: 0; }
-.row { max-width: 100%; margin: 0; }
-.columns { padding-left: 0; padding-right: 0; }
+// .columns { padding-left: 0; padding-right: 0; }
 li {
 	list-style: none;
 }

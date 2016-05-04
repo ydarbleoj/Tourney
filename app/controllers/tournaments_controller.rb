@@ -58,7 +58,7 @@ class TournamentsController < ApplicationController
     user_tournaments
     current_tournament
 
-    if @tournament.id == @current_tournament.id
+    if @current_tournament.nil?.! && @tournament.id == @current_tournament
       tourn = @tournament
       stroke_purse
       rnd_id(tourn)
@@ -77,7 +77,7 @@ class TournamentsController < ApplicationController
     user_tournaments
     current_tournament
 
-    if @tournament.id == @current_tournament.id
+    if @current_tournament.nil?.! && @tournament.id == @current_tournament.id
       tourn = @tournament
       PuttingLeaderboardCalculations.new(tourn).execute
       putts_purse(tourn)
