@@ -6,7 +6,7 @@ class CreateUserScores < ActiveRecord::Migration
       t.integer :number
       t.integer :score
       t.integer :putts
-      t.boolean :skin
+      t.boolean :skin, default: false
       t.integer :net
 
       t.timestamps null: false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504163430) do
+ActiveRecord::Schema.define(version: 20160504165125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,7 @@ ActiveRecord::Schema.define(version: 20160504163430) do
     t.integer  "net"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "handicap"
   end
 
   add_index "user_scores", ["scorecard_id"], name: "index_user_scores_on_scorecard_id", using: :btree
