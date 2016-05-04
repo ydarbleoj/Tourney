@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330005209) do
+ActiveRecord::Schema.define(version: 20160504013704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,18 @@ ActiveRecord::Schema.define(version: 20160330005209) do
     t.integer  "in_par"
   end
 
+  create_table "holes", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "par"
+    t.integer  "yards"
+    t.integer  "handicap"
+    t.integer  "new_course_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "holes", ["new_course_id"], name: "index_holes_on_new_course_id", using: :btree
+
   create_table "leaderboards", force: :cascade do |t|
     t.integer  "rnd1_score"
     t.integer  "rnd2_score"
@@ -110,6 +122,18 @@ ActiveRecord::Schema.define(version: 20160330005209) do
 
   add_index "leaderboards", ["tournament_id"], name: "index_leaderboards_on_tournament_id", using: :btree
   add_index "leaderboards", ["user_id"], name: "index_leaderboards_on_user_id", using: :btree
+
+  create_table "new_courses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "slope"
+    t.integer  "rating"
+    t.string   "tee"
+    t.string   "state"
+    t.string   "city"
+    t.integer  "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "user_id"
@@ -198,6 +222,7 @@ ActiveRecord::Schema.define(version: 20160330005209) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "holes", "new_courses"
   add_foreign_key "rounds", "courses"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "rounds", "users"
