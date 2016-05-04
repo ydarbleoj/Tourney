@@ -1,0 +1,15 @@
+class CreateUserScores < ActiveRecord::Migration
+  def change
+    create_table :user_scores do |t|
+      t.references :user, index: true, foreign_key: true
+      t.references :scorecard, index: true, foreign_key: true
+      t.integer :number
+      t.integer :score
+      t.integer :putts
+      t.boolean :skin
+      t.integer :net
+
+      t.timestamps null: false
+    end
+  end
+end

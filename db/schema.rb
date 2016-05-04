@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504013704) do
+ActiveRecord::Schema.define(version: 20160504163430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,17 @@ ActiveRecord::Schema.define(version: 20160504013704) do
   add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id", using: :btree
   add_index "rounds", ["user_id"], name: "index_rounds_on_user_id", using: :btree
 
+  create_table "scorecards", force: :cascade do |t|
+    t.integer  "total_score"
+    t.integer  "total_putts"
+    t.integer  "total_3putts"
+    t.integer  "new_course_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "scorecards", ["new_course_id"], name: "index_scorecards_on_new_course_id", using: :btree
+
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
     t.integer  "year"
@@ -198,6 +209,21 @@ ActiveRecord::Schema.define(version: 20160504013704) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "user_scores", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "scorecard_id"
+    t.integer  "number"
+    t.integer  "score"
+    t.integer  "putts"
+    t.boolean  "skin"
+    t.integer  "net"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "user_scores", ["scorecard_id"], name: "index_user_scores_on_scorecard_id", using: :btree
+  add_index "user_scores", ["user_id"], name: "index_user_scores_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -226,4 +252,7 @@ ActiveRecord::Schema.define(version: 20160504013704) do
   add_foreign_key "rounds", "courses"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "rounds", "users"
+  add_foreign_key "scorecards", "new_courses"
+  add_foreign_key "user_scores", "scorecards"
+  add_foreign_key "user_scores", "users"
 end

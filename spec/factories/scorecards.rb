@@ -1,13 +1,9 @@
 FactoryGirl.define do
   factory :scorecard do
-    hole "MyText"
-par 1
-yards 1
-score 1
-putts 1
-hcap 1
-round nil
-course nil
+    total_score 1
+    total_putts 1
+    total_3putts 1
+    new_course nil
+    user nil
   end
-
 end
