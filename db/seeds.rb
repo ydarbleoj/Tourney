@@ -830,7 +830,8 @@ Hole.create(number: 16, par: 3, yards: 174, handicap: 18, new_course_id: dove.id
 Hole.create(number: 17, par: 4, yards: 439, handicap: 8, new_course_id: dove.id)
 Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id)
 
-
+test_user1 = User.create!(username: 'test one', handicap: 7.6, email: 'test1@mail.com', home: 'Portland, OR', password: 'password', password_confirmation: 'password', admin: false)
+test_user2 = User.create!(username: 'test two', handicap: 32, email: 'test2@mail.com', home: 'Portland, OR', password: 'password', password_confirmation: 'password', admin: false)
 
 
 
