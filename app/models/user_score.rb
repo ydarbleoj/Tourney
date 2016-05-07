@@ -1,9 +1,7 @@
 class UserScore < ActiveRecord::Base
-  belongs_to :user
   belongs_to :scorecard
 
   validates :scorecard_id, presence: true
-  validates :user_id, presence: true
 
   before_save :calculate_net
 

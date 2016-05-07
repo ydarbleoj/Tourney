@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :new_course do
-    name "MyString"
-    slope 1
-    rating 1
-    tee "MyString"
+    name "Test Course"
+    slope 137
+    rating 74
+    tee "Yellow"
     state "MyString"
     city "MyString"
-    par 1
+    par 72
   end
 end

@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
   has_many :courses, through: :rounds
   has_many :tournaments, through: :rounds
   has_many :leaderboards
-  has_many :user_scores
-  has_many :scorecards, through: :user_scores
+  has_many :scorecards
 
   validates :username, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

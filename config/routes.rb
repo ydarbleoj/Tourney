@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'history'
     #   get 'current_tournament'
     end
+    resources :tournament_rounds
     resources :rounds
   end
   root to: "home#index"
