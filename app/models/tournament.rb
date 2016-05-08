@@ -9,4 +9,5 @@ class Tournament < ActiveRecord::Base
   has_one :tournament_leaderboard
 
 	accepts_nested_attributes_for :rounds
+  accepts_nested_attributes_for :tournament_rounds
 end

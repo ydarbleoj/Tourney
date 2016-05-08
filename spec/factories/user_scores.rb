@@ -5,7 +5,7 @@ FactoryGirl.define do
     user
     scorecard
     number
-    score 1
+    score
     putts 1
     skin false
     net 1
