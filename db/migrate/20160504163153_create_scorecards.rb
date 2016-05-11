@@ -5,7 +5,6 @@ class CreateScorecards < ActiveRecord::Migration
       t.integer :total_putts
       t.integer :total_3putts
       t.references :new_course, index: true, foreign_key: true
-      t.references :users, index: true, foreign_key: true
 
       t.timestamps null: false
     end
