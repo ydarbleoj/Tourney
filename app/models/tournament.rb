@@ -5,6 +5,7 @@ class Tournament < ActiveRecord::Base
 	has_many :leaderboards
   has_many :tournament_rounds
   has_many :scorecards, through: :tournament_rounds
+  # has_many :users, through: :scorecards
 
   has_one :tournament_leaderboard
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508010354) do
+ActiveRecord::Schema.define(version: 20160510230019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,24 @@ ActiveRecord::Schema.define(version: 20160508010354) do
     t.integer  "p16"
     t.integer  "p17"
     t.integer  "p18"
+    t.integer  "net1"
+    t.integer  "net2"
+    t.integer  "net3"
+    t.integer  "net4"
+    t.integer  "net5"
+    t.integer  "net6"
+    t.integer  "net7"
+    t.integer  "net8"
+    t.integer  "net9"
+    t.integer  "net10"
+    t.integer  "net11"
+    t.integer  "net12"
+    t.integer  "net13"
+    t.integer  "net14"
+    t.integer  "net15"
+    t.integer  "net16"
+    t.integer  "net17"
+    t.integer  "net18"
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree

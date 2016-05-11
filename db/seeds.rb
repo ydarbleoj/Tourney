@@ -836,7 +836,7 @@ test_user2 = User.create!(username: 'test two', handicap: 32, email: 'test2@mail
 test_tourn = Tournament.create(name: 'Some NonProfit Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
 test_round = test_tourn.tournament_rounds.create(round_number: 1)
 
-
+users = FactoryGirl.create_list(:user, 10)
 
 
 
