@@ -1,11 +1,12 @@
 class UserScore < ActiveRecord::Base
   belongs_to :scorecard
 
+
   validates :scorecard_id, presence: true
 
+  before_save :set_handicap
   before_save :calculate_net
   # before_save :set_skin
-  before_create :set_handicap
 
   def set_handicap
     self.handicap = self.scorecard.handicap

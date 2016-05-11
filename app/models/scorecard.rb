@@ -1,7 +1,7 @@
 class Scorecard < ActiveRecord::Base
   belongs_to :new_course
   belongs_to :user
-  belongs_to :tournament_round
+  belongs_to :tournament
 
   has_many :user_scores
 

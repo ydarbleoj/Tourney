@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510230019) do
+ActiveRecord::Schema.define(version: 20160511014436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -201,9 +201,11 @@ ActiveRecord::Schema.define(version: 20160510230019) do
     t.integer  "net16"
     t.integer  "net17"
     t.integer  "net18"
+    t.integer  "new_course_id"
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree
+  add_index "rounds", ["new_course_id"], name: "index_rounds_on_new_course_id", using: :btree
   add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id", using: :btree
   add_index "rounds", ["user_id"], name: "index_rounds_on_user_id", using: :btree
 
@@ -218,9 +220,12 @@ ActiveRecord::Schema.define(version: 20160510230019) do
     t.integer  "user_id"
     t.integer  "tournament_round_id"
     t.integer  "total_net"
+    t.integer  "round_num"
+    t.integer  "tournament_id"
   end
 
   add_index "scorecards", ["new_course_id"], name: "index_scorecards_on_new_course_id", using: :btree
+  add_index "scorecards", ["tournament_id"], name: "index_scorecards_on_tournament_id", using: :btree
   add_index "scorecards", ["tournament_round_id"], name: "index_scorecards_on_tournament_round_id", using: :btree
   add_index "scorecards", ["user_id"], name: "index_scorecards_on_user_id", using: :btree
 
@@ -293,10 +298,12 @@ ActiveRecord::Schema.define(version: 20160510230019) do
 
   add_foreign_key "holes", "new_courses"
   add_foreign_key "rounds", "courses"
+  add_foreign_key "rounds", "new_courses"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "rounds", "users"
   add_foreign_key "scorecards", "new_courses"
   add_foreign_key "scorecards", "tournament_rounds"
+  add_foreign_key "scorecards", "tournaments"
   add_foreign_key "scorecards", "users"
   add_foreign_key "tournament_leaderboards", "tournaments"
   add_foreign_key "tournament_rounds", "tournaments"

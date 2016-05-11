@@ -7,18 +7,25 @@ class Round < ActiveRecord::Base
   validates :course_id, presence: true
   # after_update :shots_calculation
 
-  before_save :calculate_net
+  # before_save :calculate_net
+  # before_save :set_hanidcap
 
-  # def calculate_net
-  #   course_par = self.scorecard.new_course.holes[self.number - 1].par
-  #   course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
 
-  #   if self.handicap < 19
-  #     self.net = self.handicap >= course_hcap ? self.score - 1 : self.score
-  #   else
-  #     new_cap = self.handicap - 18
-  #     self.net = new_cap >= course_hcap ? self.score - 2 : self.score - 1
-  #   end
-  # end
+  def set_handicap
+    self.handicap = self.user.handicap
+  end
+
+  def calculate_net
+     p 'here'
+    course_par = self.new_course.holes[self.number - 1].par
+    course_hcap = self.new_course.holes[self.number - 1].handicap
+
+    # if self.handicap < 19
+    #   self.net = self.handicap >= course_hcap ? self.score - 1 : self.score
+    # else
+    #   new_cap = self.handicap - 18
+    #   self.net = new_cap >= course_hcap ? self.score - 2 : self.score - 1
+    # end
+  end
 
 end

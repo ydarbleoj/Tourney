@@ -4,7 +4,7 @@ class TournamentsController < ApplicationController
 
   def index
       @tournaments = Tournament.all
-      current_tournament
+      p current_tournament
   end
 
   def show
@@ -45,7 +45,7 @@ class TournamentsController < ApplicationController
   end
 
   def current_tournament
-      @current_tournament = current_user.tournaments.where("end_date > ?", Date.today).first
+    @current_tournament = current_user.tournaments.where("end_date > ?", Date.today).first
   end
 
   def history
@@ -128,7 +128,7 @@ class TournamentsController < ApplicationController
     end
 
     def tourn_params
-      params.require(:tournament).permit(:name, :year, :num_players, :num_rounds, tournament_rounds_attributes: [:round_number], rounds_attributes: [:id, :user_id, :course_id, :round_num, :s1, :s2, :s3, :s4, :s5, :s6,
+      params.require(:tournament).permit(:name, :year, :num_players, :num_rounds, rounds_attributes: [:id, :user_id, :course_id, :round_num, :s1, :s2, :s3, :s4, :s5, :s6,
       :s7, :s8, :s9, :s10, :s11, :s12, :s13, :s14, :s15, :s16, :s17, :s18, :p1, :p2, :p3,
       :p4, :p5, :p6, :p7, :p8, :p9, :p10, :p11, :p12, :p13, :p14, :p15, :p16, :p17, :p18])
     end
