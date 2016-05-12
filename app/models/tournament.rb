@@ -3,9 +3,8 @@ class Tournament < ActiveRecord::Base
 	has_many :courses, through: :rounds
 	has_many :users, through: :rounds
 	has_many :leaderboards
-  # has_many :tournament_rounds
-  has_many :scorecards
-  has_many :users, through: :scorecards
+  has_many :tournament_rounds
+  has_many :scorecards, through: :tournament_rounds
 
   has_one :tournament_leaderboard
 
