@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511014436) do
+ActiveRecord::Schema.define(version: 20160512004412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 20160511014436) do
     t.integer  "total_net"
     t.integer  "round_num"
     t.integer  "tournament_id"
+    t.integer  "handicap"
   end
 
   add_index "scorecards", ["new_course_id"], name: "index_scorecards_on_new_course_id", using: :btree
