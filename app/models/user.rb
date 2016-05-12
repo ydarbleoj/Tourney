@@ -12,8 +12,8 @@ class User < ActiveRecord::Base
   has_many :tournaments, through: :rounds
   has_many :leaderboards
   has_many :scorecards
-  has_many :tournaments, through: :scorecards
   has_many :user_scores, through: :scorecards
+  has_many :tournament_rounds, through: :scorecards
 
 
   validates :username, presence: true
