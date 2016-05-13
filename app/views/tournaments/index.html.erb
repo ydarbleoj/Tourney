@@ -3,7 +3,7 @@
   <% if @current_tournament.nil?.! %>
   <div class="small-12 medium-12 large-12 columns" id="current-tournament">
 		<div class="tourn-layer">
-			<h1><%= link_to 'Current Tournament', stroke_leaderboard_tournament_path(@current_tournament.id) %></h1>
+			<h1><%= link_to @current_tournament.name, skins_leaderboard_tournament_path(@current_tournament.id) %></h1>
 		</div>
 	</div>
 	<div class="small-12 medium-12 large-12 columns" id="history-tourn-button">

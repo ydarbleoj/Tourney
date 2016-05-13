@@ -833,7 +833,7 @@ Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id
 test_user1 = User.create!(username: 'test one', handicap: 7.6, email: 'test1@mail.com', password: 'password', password_confirmation: 'password', admin: false)
 test_user2 = User.create!(username: 'test two', handicap: 32, email: 'test2@mail.com', password: 'password', password_confirmation: 'password', admin: false)
 
-test_tourn = Tournament.create(name: 'Some NonProfit Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
+# test_tourn = Tournament.create(name: 'Some NonProfit Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
 
 
 

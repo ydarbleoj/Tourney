@@ -8,3 +8,4 @@ class TournamentRound < ActiveRecord::Base
 
   accepts_nested_attributes_for :scorecards
 end
+

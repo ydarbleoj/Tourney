@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
-  # get ':username', to: 'users#show', as: :user
   resources :users, only: [:index, :show, :edit, :update]
   resources :courses
   resources :leaderboards
   resources :tournaments do
     member do
+      get 'skins_leaderboard'
       get 'stroke_leaderboard'
       get 'putting_leaderboard'
       get 'tee_times'

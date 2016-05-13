@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :check_for_user
+  before_filter :check_for_user, only: [:index, :show, :edit]
+  # before_filter :authenticate_user!
+
 
   def index
     @users = User.all

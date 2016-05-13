@@ -3,7 +3,7 @@ class Scorecard < ActiveRecord::Base
   belongs_to :user
   belongs_to :tournament_round
 
-  has_many :user_scores
+  has_many :user_scores, dependent: :destroy
 
   accepts_nested_attributes_for :user_scores
 
