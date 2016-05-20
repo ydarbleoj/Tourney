@@ -10,7 +10,7 @@ class Scorecard < ActiveRecord::Base
   before_create :set_handicap
 
   def set_handicap
-    self.handicap = self.user.handicap
+    self.handicap = self.user.handicap #) * (self.new_course.slope) \ 113
   end
 
   def create_user_scores

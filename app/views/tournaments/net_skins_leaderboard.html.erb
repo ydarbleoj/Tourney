@@ -1,6 +1,6 @@
 <%= render 'devise/shared/navbar'  %>
 <div class="row" id="tourn-show-page">
-  <div class="row" id="stroke-lb-header">
+  <div class="row" id="putting-lb-header">
     <div class="row align-middle" id="title-header">
       <div class="small-3 columns" id="tournament-name">
         <p><%= skins_tournament.year %></p>
@@ -13,27 +13,27 @@
       <div class="small-5 columns" id="player">PLAYER</div>
       <div class="small-2 columns" id="lb-total-score">TOTAL</div>
       <div class="small-3 columns lb" id="round-one-score">Skins Won</div>
-      <div class="columns lb" id="net-total-title">Gross</div>
+      <div class="columns lb" id="net-total-title">Net</div>
     </div>
   </div>
   <div class="row" id="stroke-lb-container">
-    <% gross_skins_leaderboard.each do |scorecard|  %>
+    <% net_skins_leaderboard.each do |scorecard|  %>
     <div class="row" id="lb-player">
       <div class="small-5 columns" id="player"><h5><%= scorecard.user.username.split(' ').first %>
         <span><%= scorecard.user.handicap.nil?.! ? scorecard.user.handicap.round : nil %></span></h5>
       </div>
-      <div class="small-2 columns" id="lb-total-score"><%=  scorecard.gross_skin_total%></div>
-      <div class="small-3 columns lb" id="round-one-score"><%= scorecard.user_scores.where.not(skin: false).pluck(:number).join(', ') %></div>
-      <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:score) %></div>
+      <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total%></div>
+      <div class="small-3 columns lb" id="round-one-score"><%= scorecard.user_scores.where.not(net_skin: false).pluck(:number).join(', ') %></div>
+      <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:net) %></div>
     </div>
     <% end %>
   </div>
-  <div class="row align-middle" id="leaderboard_nav">
+  <div class="row align-middle" id="putting-nav">
     <div class="small-3 columns tourn-links">
       <%= link_to "Home", tournaments_path  %>
     </div>
     <div class="small-3 columns tourn-links">
-      <%= link_to "Net Skins", net_skins_leaderboard_tournament_path(@tournament) %>
+      <%= link_to "Gross Skins", skins_leaderboard_tournament_path(@tournament) %>
     </div>
     <div class="columns tourn-links">
       <%= link_to "+ Rnd", tournament_rounds_path(@tournament)  %>

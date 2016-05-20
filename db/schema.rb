@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512043107) do
+ActiveRecord::Schema.define(version: 20160519225839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,8 @@ ActiveRecord::Schema.define(version: 20160512043107) do
     t.integer  "total_net"
     t.integer  "round_num"
     t.integer  "handicap"
+    t.integer  "net_skin_total"
+    t.integer  "gross_skin_total"
   end
 
   add_index "scorecards", ["new_course_id"], name: "index_scorecards_on_new_course_id", using: :btree
@@ -265,6 +267,7 @@ ActiveRecord::Schema.define(version: 20160512043107) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "handicap"
+    t.boolean  "net_skin",     default: false
   end
 
   add_index "user_scores", ["scorecard_id"], name: "index_user_scores_on_scorecard_id", using: :btree

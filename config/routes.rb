@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :tournaments do
     member do
       get 'skins_leaderboard'
+      get 'net_skins_leaderboard'
       get 'stroke_leaderboard'
       get 'putting_leaderboard'
       get 'tee_times'
