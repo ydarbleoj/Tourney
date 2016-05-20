@@ -45,9 +45,9 @@ class TournamentsController < ApplicationController
   end
 
   def current_tournament
-    tourn = Tournament.where("end_date > ?", Date.today).first
-    user_tourn = current_user.tournament_rounds.where(tournament_id: tourn.id).first
-    user_tourn = user_tourn.nil? ? nil : user_tourn.tournament
+   p tourn = Tournament.where("end_date > ?", Date.today).first
+   p  user_tourn = current_user.tournament_rounds.where(tournament_id: tourn.id).first
+   p user_tourn = user_tourn.nil? ? nil : user_tourn.tournament
 
     @current_tournament ||= user_tourn
     # t = Tournament.where("end_date > ?", Date.today).first
