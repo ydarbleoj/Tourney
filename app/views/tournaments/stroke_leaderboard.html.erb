@@ -59,7 +59,7 @@
 		</div>
 		<% end %>
 	</div>
-	<% if @user_tournaments.include? @tournament.id %>
+	<% if @current_tournament.nil?.! && @current_tournament.id == @tournament.id %>
 	<div class="row align-middle" id="leaderboard_nav">
 		<div class="small-3 columns tourn-links">
 			<%= link_to "Home", tournaments_path  %>

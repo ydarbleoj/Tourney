@@ -65,7 +65,7 @@ class TournamentsController < ApplicationController
 
   def stroke_leaderboard
     @tournament = Tournament.find(params[:id])
-    user_tournaments
+    # user_tournaments
     current_tournament
 
     if @current_tournament.nil?.! && @tournament.id == @current_tournament
@@ -84,7 +84,7 @@ class TournamentsController < ApplicationController
 
   def putting_leaderboard
     @tournament = Tournament.find(params[:id])
-    user_tournaments
+    # user_tournaments
     current_tournament
 
     if @current_tournament.nil?.! && @tournament.id == @current_tournament.id
@@ -110,7 +110,7 @@ class TournamentsController < ApplicationController
   def tee_times
     @tournament = Tournament.find(params[:id])
     @rounds = Round.where(tournament_id: @tournament.id)
-    user_tournaments
+    # user_tournaments
   end
 
   def stroke_purse

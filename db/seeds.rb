@@ -809,39 +809,40 @@
 
 # end
 
-# dove = NewCourse.create!(name: 'Dove Mountain - Saguaro to Tortolita', slope: 134, rating: 72.3, tee: 'Copper', city: 'Marana', state: 'AZ', par: 72)
+dove = NewCourse.create!(name: 'Dove Mountain - Saguaro to Tortolita', slope: 134, rating: 72.3, tee: 'Copper', city: 'Marana', state: 'AZ', par: 72)
 
-# Hole.create(number: 1, par: 4, yards: 414, handicap: 7, new_course_id: dove.id)
-# Hole.create(number: 2, par: 5, yards: 493, handicap: 3, new_course_id: dove.id)
-# Hole.create(number: 3, par: 3, yards: 175, handicap: 17, new_course_id: dove.id)
-# Hole.create(number: 4, par: 4, yards: 369, handicap: 13, new_course_id: dove.id)
-# Hole.create(number: 5, par: 4, yards: 429, handicap: 5, new_course_id: dove.id)
-# Hole.create(number: 6, par: 3, yards: 161, handicap: 15, new_course_id: dove.id)
-# Hole.create(number: 7, par: 4, yards: 421, handicap: 9, new_course_id: dove.id)
-# Hole.create(number: 8, par: 5, yards: 539, handicap: 1, new_course_id: dove.id)
-# Hole.create(number: 9, par: 4, yards: 406, handicap: 11, new_course_id: dove.id)
-# Hole.create(number: 10, par: 4, yards: 428, handicap: 6, new_course_id: dove.id)
-# Hole.create(number: 11, par: 5, yards: 546, handicap: 4, new_course_id: dove.id)
-# Hole.create(number: 12, par: 3, yards: 180, handicap: 16, new_course_id: dove.id)
-# Hole.create(number: 13, par: 5, yards: 516, handicap: 2, new_course_id: dove.id)
-# Hole.create(number: 14, par: 4, yards: 398, handicap: 10, new_course_id: dove.id)
-# Hole.create(number: 15, par: 4, yards: 343, handicap: 12, new_course_id: dove.id)
-# Hole.create(number: 16, par: 3, yards: 174, handicap: 18, new_course_id: dove.id)
-# Hole.create(number: 17, par: 4, yards: 439, handicap: 8, new_course_id: dove.id)
-# Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id)
+Hole.create(number: 1, par: 4, yards: 414, handicap: 7, new_course_id: dove.id)
+Hole.create(number: 2, par: 5, yards: 493, handicap: 3, new_course_id: dove.id)
+Hole.create(number: 3, par: 3, yards: 175, handicap: 17, new_course_id: dove.id)
+Hole.create(number: 4, par: 4, yards: 369, handicap: 13, new_course_id: dove.id)
+Hole.create(number: 5, par: 4, yards: 429, handicap: 5, new_course_id: dove.id)
+Hole.create(number: 6, par: 3, yards: 161, handicap: 15, new_course_id: dove.id)
+Hole.create(number: 7, par: 4, yards: 421, handicap: 9, new_course_id: dove.id)
+Hole.create(number: 8, par: 5, yards: 539, handicap: 1, new_course_id: dove.id)
+Hole.create(number: 9, par: 4, yards: 406, handicap: 11, new_course_id: dove.id)
+Hole.create(number: 10, par: 4, yards: 428, handicap: 6, new_course_id: dove.id)
+Hole.create(number: 11, par: 5, yards: 546, handicap: 4, new_course_id: dove.id)
+Hole.create(number: 12, par: 3, yards: 180, handicap: 16, new_course_id: dove.id)
+Hole.create(number: 13, par: 5, yards: 516, handicap: 2, new_course_id: dove.id)
+Hole.create(number: 14, par: 4, yards: 398, handicap: 10, new_course_id: dove.id)
+Hole.create(number: 15, par: 4, yards: 343, handicap: 12, new_course_id: dove.id)
+Hole.create(number: 16, par: 3, yards: 174, handicap: 18, new_course_id: dove.id)
+Hole.create(number: 17, par: 4, yards: 439, handicap: 8, new_course_id: dove.id)
+Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id)
 
-# (1..10).each do |x|
-#   User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
-# end
+(1..10).each do |x|
+  User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
+end
 
+users = User.last(10)
 
-# test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
-# round_one = test_tourn.tournament_rounds.create(round_number: 1)
+test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
+round_one = test_tourn.tournament_rounds.create(round_number: 1)
 
-# users.each do |user|
-#   sc = round_one.scorecards.create(user_id: user.id, new_course_id: 1)
-#   (1..18).each {|x| sc.user_scores.create(number: x, score: rand(2..7))}
-# end
+users.each do |user|
+  sc = round_one.scorecards.create(user_id: user.id, new_course_id: 1)
+  (1..18).each {|x| sc.user_scores.create(number: x, score: rand(2..7))}
+end
 
 
 
