@@ -835,8 +835,10 @@ Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id
 end
 
 users = User.last(10)
+scott = User.where(username: 'Scott Kovesdy').first
+users << scott
 
-test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 10, num_rounds: 1, end_date: DateTime.new(2016, 6, 12))
+test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 120, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
 round_one = test_tourn.tournament_rounds.create(round_number: 1)
 
 users.each do |user|
