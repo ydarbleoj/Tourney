@@ -6,8 +6,8 @@ module TournamentsHelper
 
   def skins_tournament
     @tournament = Tournament.find(params[:id])
-    p skins('net')
-    p skins('score')
+    skins('net')
+    skins('score')
     @tournament
   end
 
@@ -53,4 +53,8 @@ module TournamentsHelper
     @tournament.scorecards.order(net_skin_total: :desc)
   end
 
+  def current_scorecard
+    tr = @tournament.tournament_rounds.first
+    current_user.scorecards.where(tournament_round_id: tr.id).first
+  end
 end

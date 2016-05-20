@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
     resources :tournament_rounds
     resources :rounds
+    resources :scorecards
   end
   root to: "home#index"
 end

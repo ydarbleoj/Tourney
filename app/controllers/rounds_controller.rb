@@ -3,8 +3,8 @@ class RoundsController < ApplicationController
   before_filter :check_for_user
 
   def index
-      @tourn_rounds = Round.where(tournament_id: params["tournament_id"]).where(user_id: current_user.id).order(round_num: :asc)
-      current_tourn
+    @tourn_rounds = Round.where(tournament_id: params["tournament_id"]).where(user_id: current_user.id).order(round_num: :asc)
+    current_tourn
   end
 
 
