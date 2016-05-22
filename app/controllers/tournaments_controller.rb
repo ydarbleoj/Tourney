@@ -50,18 +50,11 @@ class TournamentsController < ApplicationController
    p user_tourn = user_tourn.nil? ? nil : user_tourn.tournament
 
     @current_tournament ||= user_tourn
-    # t = Tournament.where("end_date > ?", Date.today).first
-    # t_rounds = t.scorecards.where(user_id: current_user.id).first.tournament_round.tournament
-    # @current_tournament ||= t_rounds
   end
 
   def history
     @tournaments = Tournament.where("end_date < ?", Date.today).uniq
   end
-
-  # def skins_leaderboard
-  #   @tournament = Tournament.find(params[:id])
-  # end
 
   def stroke_leaderboard
     @tournament = Tournament.find(params[:id])

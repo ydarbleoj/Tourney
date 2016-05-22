@@ -23,7 +23,7 @@
         <span><%= scorecard.user.handicap.nil?.! ? scorecard.user.handicap.round : nil %></span></h5>
       </div>
       <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total%></div>
-      <div class="small-3 columns lb" id="round-one-score"><%= scorecard.user_scores.where.not(net_skin: false).pluck(:number).join(', ') %></div>
+      <div class="small-3 columns lb" id="round-one-score"><%= skins_won(scorecard, 'net_skin') %></div>
       <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:net) %></div>
     </div>
     <% end %>

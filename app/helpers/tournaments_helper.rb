@@ -4,6 +4,10 @@ module TournamentsHelper
 		@tournaments = Tournaments.all
 	end
 
+  def user_scorecard
+
+  end
+
   def skins_tournament
     @tournament = Tournament.find(params[:id])
     skins('net')
@@ -56,5 +60,10 @@ module TournamentsHelper
   def current_scorecard
     tr = @tournament.tournament_rounds.first
     current_user.scorecards.where(tournament_round_id: tr.id).first
+  end
+
+  def skins_won(scorecard, type)
+    skin = type.to_sym
+    scorecard.user_scores.where.not(skin => false).pluck(:number).join(', ')
   end
 end

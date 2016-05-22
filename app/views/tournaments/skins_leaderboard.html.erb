@@ -23,17 +23,20 @@
         <span><%= scorecard.user.handicap.nil?.! ? scorecard.user.handicap.round : nil %></span></h5>
       </div>
       <div class="small-2 columns" id="lb-total-score"><%=  scorecard.gross_skin_total%></div>
-      <div class="small-3 columns lb" id="round-one-score"><%= scorecard.user_scores.where.not(skin: false).pluck(:number).join(', ') %></div>
+      <div class="small-3 columns lb" id="round-one-score"><%= skins_won(scorecard, 'skin') %></div>
       <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:score) %></div>
     </div>
     <% end %>
   </div>
   <div class="row align-middle" id="leaderboard_nav">
-    <div class="small-6 columns tourn-links">
+    <div class="small-4 columns tourn-links">
       <%= link_to "Home", tournaments_path  %>
     </div>
-    <div class="columns tourn-links">
+    <div class="small-4 columns tourn-links">
       <%= link_to "Net Skins", net_skins_leaderboard_tournament_path(@tournament) %>
+    </div>
+    <div class="columns tourn-links">
+      <%= link_to "Scorecard", edit_scorecard_path(@tournament.scorecards.where(user_id: current_user.id).first.id)%>
     </div>
   </div>
 </div>
