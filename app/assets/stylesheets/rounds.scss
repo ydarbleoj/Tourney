@@ -108,6 +108,17 @@ input.putts {
 	border: none;
 }
 #round-nav a { color: white; }
+.skin-won {
+  background-color: red;
+}
+.net-skin-won {
+  background-color: green;
+}
+.test {
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: black;
+}
 // Rounds List
 #tourn-rnds-list {
 	width: 100%; height: 100%;

@@ -1,5 +1,5 @@
 class TournamentRound < ActiveRecord::Base
-  belongs_to :tournament
+  belongs_to :tournament, touch: true
 
   has_many :scorecards, dependent: :destroy
   has_many :new_courses, through: :scorecards

@@ -10,3 +10,19 @@ p #user-email {
 	width: 25%;
 	margin: 0;
 }
+.two-strokes::after {
+  content:  '..';
+  text-align: right;
+}
+.one-stroke::after {
+  content:  '.';
+  text-align: center;
+}
+.no-stroke {
+}
+.skin-won {
+  background-color: red;
+}
+.net-skin-won {
+  background-color: green;
+}

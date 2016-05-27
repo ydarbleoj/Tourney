@@ -1,12 +1,11 @@
 class UserScore < ActiveRecord::Base
-  belongs_to :scorecard
+  belongs_to :scorecard, touch: true
 
 
   validates :scorecard_id, presence: true
 
   before_save :set_handicap
   before_save :calculate_net
-  # before_save :set_skin
 
   def set_handicap
     self.handicap = self.scorecard.handicap
@@ -25,18 +24,5 @@ class UserScore < ActiveRecord::Base
       end
     end
   end
-
-  def set_skin
-    lowest_skin = scorecard.tournament_round.user_scores.where(number: self.number).order(net: :asc).pluck(:id, :net)
-    lowest_skin = lowest_skin.group_by { |x| x[1] }.map { |x| x[1] }
-    p lowest_skin[0][0]
-    p self.id
-    skin_value = lowest_skin[0].length == 1 && self.id == lowest_skin[0][0][0] ? true : false
-    p skin_value
-    if skin_value == true
-      self.skin = true
-    end
-  end
-
 
 end

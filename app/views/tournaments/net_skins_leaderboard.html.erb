@@ -29,11 +29,14 @@
     <% end %>
   </div>
   <div class="row align-middle" id="putting-nav">
-    <div class="small-6 columns tourn-links">
+    <div class="small-4 columns tourn-links">
       <%= link_to "Home", tournaments_path  %>
     </div>
-    <div class="columns tourn-links">
+    <div class="small-4 columns tourn-links">
       <%= link_to "Gross Skins", skins_leaderboard_tournament_path(@tournament) %>
+    </div>
+    <div class="columns tourn-links">
+      <%= link_to "Scorecard", edit_scorecard_path(@tournament.scorecards.where(user_id: current_user.id).first.id)%>
     </div>
   </div>
 </div>

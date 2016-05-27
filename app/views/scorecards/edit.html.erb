@@ -11,7 +11,7 @@
     </div>
     <div class="row align-middle" id="bottom-header-row">
       <div class="small-4 columns">
-        <p><%= @scorecard.new_course.tee %> yds</p>
+        <p><%= @scorecard.new_course.tee %> Tee</p>
       </div>
       <div class="small-4 columns">
         <p><%= @scorecard.new_course.slope %> slope</p>
@@ -24,70 +24,43 @@
   <div class="row" id="front-nine-container">
     <div class="row align-middle" id="front-nine-holes">
       <div class="small-1 columns holes">
-        <h5></h5>
+        <p>Hole</p>
       </div>
+      <% (1..9).each do |hole_num|  %>
       <div class="small-1 columns holes">
-        <h5>1</h5>
+        <h5><%= hole_num %></h5>
       </div>
-      <div class="small-1 columns holes">
-        <h5>2</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>3</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>4</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>5</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>6</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>7</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>8</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>9</h5>
-      </div>
+      <% end %>
       <div class="columns holes" id="out">
         <h5>OUT</h5>
       </div>
     </div>
-    <div class="row align-middle" id="front-nine-pars">
+    <div class="row align-middle" id="front-nine-holes">
       <div class="small-1 columns holes">
+        <p>Hcap</p>
+      </div>
+      <% @scorecard.new_course.holes.each do |hole|  %>
+        <% if hole.number < 10  %>
+        <div class="small-1 columns holes">
+          <p><%= hole.handicap %></p>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="columns holes" id="out">
         <h5></h5>
       </div>
+    </div>
+    <div class="row align-middle" id="front-nine-pars">
       <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[0].par %></h5>
+        <p>Par</p>
       </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[1].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[2].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[3].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[4].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[5].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[6].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[7].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[8].par%></h5>
-      </div>
+      <% @scorecard.new_course.holes.each do |hole| %>
+        <% if hole.number < 10 %>
+        <div class="small-1 columns holes">
+          <h5><%= hole.par %></h5>
+        </div>
+        <% end %>
+      <% end %>
       <div class="columns holes" id="out">
         <h5><%= out_par(@scorecard) %></h5>
       </div>
@@ -98,55 +71,40 @@
         <div class="small-1 columns hole-input_edit" id="">
           <p>Shots</p>
         </div>
-        <%= s.fields_for :user_scores do |u| %>
+        <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %>
           <% if u.object.number < 10 %>
-          <div class="small-1 columns hole-input_edit shots-border remove-padding">
-            <h5><%= u.number_field :score, class: 'score' %></h5>
+          <div class="small-1 columns hole-input_edit shots-border remove-padding <%= check_for_skin(u.object.skin) %>">
+            <p class="handicaped-holes <%= handicaped_holes(s.object, u.object.number) %>"></p>
+            <h5><%= u.number_field :score, class: 'score test' %></h5>
           </div>
           <% end %>
         <% end %>
+      <div class="columns holes" id="out">
+        <h5><%= out_gross_score(@scorecard) %></h5>
+      </div>
       </div>
       <div class="row align-middle" id="front-nine-putts">
         <div class="small-1 columns hole-input_edit" id="">
           <p>Net</p>
         </div>
-        <%= s.fields_for :user_scores do |u| %>
+        <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %>
           <% if u.object.number < 10 %>
           <div class="small-1 columns hole-input_edit shots-border remove-padding">
             <h5><%= u.number_field :net, class: 'score' %></h5>
           </div>
           <% end %>
         <% end %>
+      <div class="columns holes" id="out">
+        <h5><%= out_net_score(@scorecard) %></h5>
+      </div>
       </div>
     </div>
     <div class="row align-middle" id="front-nine-holes">
+      <% (10..18).each do |hole_num|  %>
       <div class="small-1 columns holes">
-        <h5>10</h5>
+        <h5><%= hole_num %></h5>
       </div>
-      <div class="small-1 columns holes">
-        <h5>11</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>12</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>13</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>14</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>15</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>16</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>17</h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5>18</h5>
-      </div>
+      <% end %>
       <div class="small-1 columns holes" id="out">
         <h5>IN</h5>
       </div>
@@ -154,34 +112,26 @@
         <h5>TOTAL</h5>
       </div>
     </div>
+    <div class="row align-middle" id="front-nine-holes">
+      <% @scorecard.new_course.holes.each do |hole|  %>
+        <% if hole.number > 9 %>
+        <div class="small-1 columns holes">
+          <p><%= hole.handicap %></p>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="columns holes" id="out">
+        <h5></h5>
+      </div>
+    </div>
     <div class="row align-middle" id="front-nine-pars">
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[9].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[10].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[11].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[12].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[13].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[14].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[15].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[16].par %></h5>
-      </div>
-      <div class="small-1 columns holes">
-        <h5><%= @scorecard.new_course.holes[17].par %></h5>
-      </div>
+      <% @scorecard.new_course.holes.each do |hole| %>
+        <% if hole.number > 9 %>
+        <div class="small-1 columns holes">
+          <h5><%= hole.par %></h5>
+        </div>
+        <% end %>
+      <% end %>
       <div class="small-1 columns holes" id="out">
         <h5><%= in_par(@scorecard) %></h5>
       </div>
@@ -190,28 +140,33 @@
       </div>
     </div>
       <div class="row align-middle" id="front-nine-shots">
-         <%= s.fields_for :user_scores do |u| %>
+         <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %>
           <% if u.object.number > 9 %>
           <div class="small-1 columns hole-input_edit shots-border remove-padding">
             <h5><%= u.number_field :score, class: 'score' %></h5>
           </div>
           <% end %>
         <% end %>
+      <div class="small-1 columns holes" id="out">
+        <h5><%= in_gross_score(@scorecard) %></h5>
+      </div>
+       <div class="columns hole-input_edit putts-border">
+        <h5><%= total_gross_score(@scorecard) %></h5>
+      </div>
       </div>
       <div class="row align-middle" id="front-nine-putts">
-        <%= s.fields_for :user_scores do |u| %>
+        <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %>
           <% if u.object.number > 9 %>
           <div class="small-1 columns hole-input_edit shots-border remove-padding">
             <h5><%= u.number_field :net, class: 'score' %></h5>
           </div>
           <% end %>
         <% end %>
-
         <div class="small-1 align-middle columns hole-input_edit putts-border" id="out">
-          <h5><%=  %></h5>
+          <h5><%= in_net_score(@scorecard) %></h5>
         </div>
         <div class="columns hole-input_edit putts-border">
-          <h5></h5>
+          <h5><%= total_net_score(@scorecard) %></h5>
         </div>
       </div>
       <div class="row align-middle" id="round-nav">
@@ -222,13 +177,17 @@
           <%= link_to "Leaderboard", skins_leaderboard_tournament_path(@scorecard.tournament_round.tournament.id)   %>
         </div>
         <div class="columns tourn-links">
-          <%= s.submit 'Update', class: 'round-submit' %>
+          <%= s.submit 'Update', class: 'round-submit'%>
         </div>
       </div>
-        <% end %>
+     <% end %>
     </div>
   </div>
-
-
-
 </div>
+
+
+
+
+
+
+

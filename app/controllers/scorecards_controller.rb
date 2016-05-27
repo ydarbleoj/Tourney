@@ -12,7 +12,17 @@ class ScorecardsController < ApplicationController
 
   def edit
     @scorecard = Scorecard.find(params[:id])
-    @scorecard.user_scores.each { |user_score| user_score.score }
+    @user_scores = @scorecard.user_scores
+  end
+
+  def update
+    @scorecard = Scorecard.find(params[:id])
+
+    respond_to do |format|
+      if @scorecard.update(scorecard_params)
+        format.html { redirect_to edit_scorecard_path(@scorecard.id) }
+      end
+    end
   end
 
   def current_tourn
