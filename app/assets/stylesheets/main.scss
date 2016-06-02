@@ -10,13 +10,18 @@ p #user-email {
 	width: 25%;
 	margin: 0;
 }
-.two-strokes::after {
+.handicaped-holes {
+	position: absolute;
+	right: 10px;
+	top: -5px;
+}
+.two-stroke::after {
   content:  '..';
-  text-align: right;
+	display: block;
 }
 .one-stroke::after {
   content:  '.';
-  text-align: center;
+	display: block;
 }
 .no-stroke {
 }
