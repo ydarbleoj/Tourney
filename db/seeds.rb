@@ -6,7 +6,7 @@
 # damon = User.create!(username: 'Damon Sullivan', handicap: 36, email: 'damon.sullivan@thugdesign.com', password: 'sullivan1234', password_confirmation: 'sullivan1234')
 # pat = User.create!(username: 'Pat Anderson', handicap: 36, email: 'patrick.edward.anderson@gmail.com', password: 'anderson1234', password_confirmation: 'anderson1234')
 # robb = User.create!(username: 'Robb Page', handicap: 6.5, email: 'theswine19@gmail.com', password: 'page1234', password_confirmation: 'page1234')
-# scott = User.create!(username: 'Scott Kovesdy', handicap: nil, email: 'skovesdy@msn.com', password: 'kovesdy1234', password_confirmation: 'kovesdy1234')
+# scott = User.create!(username: 'Scott Kovesdy', handicap: 5.6, email: 'skovesdy@msn.com', password: 'kovesdy1234', password_confirmation: 'kovesdy1234')
 # rory = User.create!(username: 'Rory Tarquinio', handicap: nil, email: 'rtarquinio10@gmail.com', password: 'tarquinio1234', password_confirmation: 'tarquinio1234')
 # albino = User.create!(username: 'Albino Duran', handicap: 14, email: 'albino.duran@verizon.com', password: 'duran1234', password_confirmation: 'duran1234')
 # greg = User.create!(username: 'Greg Smith', handicap: 23, email: 'grs@yurik.net', password: 'smith1234', password_confirmation: 'smith1234')
@@ -16,7 +16,7 @@
 # matt = User.create!(username: 'Matt James', handicap: nil, email: 'mjiggity@gmail.com', password: 'james1234', password_confirmation: 'james1234')
 # jeremy = User.create!(username: 'Jeremy Emerson', handicap: 14, email: 'jeremy@wrightstrategies.com', password: 'emerson1234', password_confirmation: 'emerson1234')
 # david = User.create!(username: 'David Sanda', handicap: 21.8, email: 'david.sanda@verizon.com', password: 'sanda1234', password_confirmation: 'sanda1234')
-
+#
 # bandon = Course.create!(par: 72, yardage: 6221, name: 'Bandon Dunes', rating: 71.4, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 352, h1_par: 4, h1_hcap: 13, h2_yds: 155, h2_par: 3, h2_hcap: 15, h3_yds: 489, h3_par: 5, h3_hcap: 3,
 # 	  h4_yds: 362, h4_par: 4, h4_hcap: 5, h5_yds: 400, h5_par: 4, h5_hcap: 1, h6_yds: 153, h6_par: 3, h6_hcap: 17,
@@ -33,7 +33,7 @@
 # 		h17_yds: 375, h17_par: 4, h17_hcap: 12,
 # 		h18_yds: 513, h18_par: 5, h18_hcap: 4,
 # 		in_yds: 3076, in_par: 36 )
-
+#
 # pacific = Course.create!(par: 71, yardage: 6142, name: 'Pacific Dunes', rating: 70.7, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 304, h1_par: 4, h1_hcap: 9,
 # 	  h2_yds: 335, h2_par: 4, h2_hcap: 11,
@@ -55,7 +55,7 @@
 # 		h17_yds: 189, h17_par: 3, h17_hcap: 8,
 # 		h18_yds: 575, h18_par: 5, h18_hcap: 4,
 # 		in_yds: 2925, in_par: 35 )
-
+#
 # trails = Course.create!(par: 71, yardage: 6247, name: 'Bandon Trails', rating: 71.1, slope: 129, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 356, h1_par: 4, h1_hcap: 13,
 # 	  h2_yds: 166, h2_par: 3, h2_hcap: 17,
@@ -77,7 +77,7 @@
 # 		h17_yds: 159, h17_par: 3, h17_hcap: 16,
 # 		h18_yds: 363, h18_par: 4, h18_hcap: 6,
 # 		in_yds: 3120, in_par: 35 )
-
+#
 # old_mac = Course.create(par: 71, yardage: 6320, name: 'Old Mac', rating: 71.6, slope: 125, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 304, h1_par: 4, h1_hcap: 11,
 # 	  h2_yds: 162, h2_par: 3, h2_hcap: 15,
@@ -99,7 +99,7 @@
 # 		h17_yds: 515, h17_par: 5, h17_hcap: 10,
 # 		h18_yds: 426, h18_par: 4, h18_hcap: 8,
 # 		in_yds: 3516, in_par: 37 )
-
+#
 # bandon_2016 = Tournament.create!(name: 'Bandon', year: 2016, num_players: 16, num_rounds: 3,
 # 														 end_date: DateTime.new(2016, 3, 19,18,00,00))
 # Leaderboard.create!(tournament_id: bandon_2016.id, user_id: payne.id)
@@ -118,7 +118,7 @@
 # Leaderboard.create!(tournament_id: bandon_2016.id, user_id: bryan.id)
 # Leaderboard.create!(tournament_id: bandon_2016.id, user_id: damon.id)
 # Leaderboard.create!(tournament_id: bandon_2016.id, user_id: pat.id)
-
+#
 # # Round One
 # fri = DateTime.new(2016, 3, 17)
 # fri_first = DateTime.new(2016, 3, 17, 9, 40, 00)
@@ -161,7 +161,7 @@
 # 	                 date_played: fri_fourth.strftime("%F"), tee_time: fri_fourth.strftime("%H:%M"))
 # pat.rounds.create!(tournament_id: bandon_2016.id, round_num: 1, course: trails,
 # 	                 date_played: fri_fourth.strftime("%F"), tee_time: fri_fourth.strftime("%H:%M"))
-
+#
 # # Round Two
 # sat = DateTime.new(2016, 3, 18)
 # sat_first = DateTime.new(2016, 3, 18, 10, 10, 00)
@@ -204,7 +204,7 @@
 # 	                 date_played: sat_fourth.strftime("%F"), tee_time: sat_fourth.strftime("%H:%M"))
 # pat.rounds.create!(tournament_id: bandon_2016.id, round_num: 2, course: old_mac,
 # 	                 date_played: sat_fourth.strftime("%F"), tee_time: sat_fourth.strftime("%H:%M"))
-
+#
 # # Round Three
 # sun = DateTime.new(2016, 3, 19)
 # sun_first = DateTime.new(2016, 3, 19, 10, 20, 00)
@@ -247,11 +247,11 @@
 # 	                 date_played: sun_fourth.strftime("%F"), tee_time: sun_fourth.strftime("%H:%M"))
 # pat.rounds.create!(tournament_id: bandon_2016.id, round_num: 3, course: bandon,
 # 	                 date_played: sun_fourth.strftime("%F"), tee_time: sun_fourth.strftime("%H:%M"))
-
+#
 # # Bandon 2015
 # bandon_2015 = Tournament.create!(name: 'Bandon', year: 2015, num_players: 12, num_rounds: 3,
 # 														 end_date: DateTime.new(2015, 2, 8,18,00,00))
-
+#
 # # Round One
 # fifteen_fri = DateTime.new(2015, 2, 6)
 # fifteen_fri_first = DateTime.new(2015, 2, 6, 9, 50, 00)
@@ -271,7 +271,7 @@
 # 	                 	p13: 2, p14: 1, p15: 2, p16: 2,
 # 	                 	p17: 2, p18: 2,
 # 	                 	score: 93, putts: 35)
-
+#
 # cory.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 # 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
 # 	                 	s1: 7, s2: 4, s3: 9, s4: 6,
@@ -417,7 +417,7 @@
 # 	                 	p13: 3, p14: 2, p15: 2, p16: 2,
 # 	                 	p17: 2, p18: 2,
 # 	                 	score: 116, putts: 40)
-
+#
 # # Round Two
 # fifteen_sat = DateTime.new(2015, 2, 7)
 # fifteen_sat_first = DateTime.new(2015, 2, 7, 10, 30, 00)
@@ -582,7 +582,7 @@
 # 	                 	p13: 2, p14: 3, p15: 2, p16: 2,
 # 	                 	p17: 1, p18: 1,
 # 	                 	score: 91, putts: 34)
-
+#
 # # Round Three
 # fifteen_sun = DateTime.new(2015, 2, 8)
 # fifteen_sun_first = DateTime.new(2015, 2, 8, 10, 50, 00)
@@ -736,8 +736,8 @@
 # 	                 	p13: 3, p14: 2, p15: 2, p16: 2,
 # 	                 	p17: 2, p18: 2,
 # 	                 	score: 98, putts: 39)
-
-
+#
+#
 # rnds = bandon_2015.rounds
 # holes = 1..18
 # #  Rounds One
@@ -748,15 +748,15 @@
 # 			r1_shots << r["s#{i}"]
 # 		end
 # 		r1_score = r1_shots.compact.inject(0) {|sum, x| sum + x }
-
+#
 # 		holes.each do |i|
 # 			r1_p << r["p#{i}"]
 # 		end
 # 		r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
-
+#
 # 		three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
 # 		h = ((r.user.handicap * 0.9) * 1).round
-
+#
 # 		Leaderboard.create(
 # 			tournament_id: bandon_2015.id,
 # 			handicap: h,
@@ -769,21 +769,21 @@
 # 			net_total: r1_score - h)
 # 	elsif (r.round_num == 2 && r.s1.nil?.!) == true
 # 		leaderboard = Leaderboard.where(tournament_id: r.tournament_id, user_id: r.user_id).first
-
+#
 # 		r2_shots, r2_p = [], []
 # 		holes.each do |i|
 # 			r2_shots << r["s#{i}"]
 # 		end
 # 		r2_score = r2_shots.compact.inject(0) {|sum, x| sum + x }
-
+#
 # 		holes.each do |i|
 # 			r2_p << r["p#{i}"]
 # 		end
 # 		r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
-
+#
 # 		three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
 # 		h = r.handicap
-
+#
 # 		leaderboard.update(rnd2_score: r2_score - h, rnd2_putts: r2_putts, net_total: (leaderboard.net_total + (r2_score - h)),
 # 			                 total_putts: (leaderboard.total_putts + r2_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
 # 			                 total_score: (leaderboard.total_score + ((r2_score - h) - r.course.par)))
@@ -794,19 +794,19 @@
 # 			r3_shots << r["s#{i}"]
 # 		end
 # 		r3_score = r3_shots.compact.inject(0) {|sum, x| sum + x }
-
+#
 # 		holes.each do |i|
 # 			r3_p << r["p#{i}"]
 # 		end
 # 		r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
 # 		three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
 # 		h = r.handicap
-
+#
 # 		leaderboard.update(rnd3_score: r3_score - h, rnd3_putts: r3_putts, net_total: (leaderboard.net_total + (r3_score - h)),
 # 			                 total_putts: (leaderboard.total_putts + r3_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
 # 			                 total_score: (leaderboard.total_score + ((r3_score - h) - r.course.par)))
 # 	end
-
+#
 # end
 
 dove = NewCourse.create!(name: 'Dove Mountain - Saguaro to Tortolita', slope: 134, rating: 72.3, tee: 'Copper', city: 'Marana', state: 'AZ', par: 72)
@@ -836,6 +836,7 @@ end
 
 users = User.last(10)
 scott = User.where(username: 'Scott Kovesdy').first
+
 users << scott
 
 test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 120, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
@@ -845,14 +846,3 @@ users.each do |user|
   sc = round_one.scorecards.create(user_id: user.id, new_course_id: 1)
   (1..18).each {|x| sc.user_scores.create(number: x, score: rand(2..7))}
 end
-
-
-
-
-
-
-
-
-
-
-

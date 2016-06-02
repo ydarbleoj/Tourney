@@ -41,10 +41,10 @@ module ScorecardsHelper
     hcap = scorecard.handicap
 
     if hcap < 19
-      hcap < hole_hcap ? 'no-stroke' : 'one-stroke'
+      hcap < hole_hcap ? '' : '.'
     else
       new_cap = hcap - 18
-      new_cap < hole_hcap ? 'one-stroke' : 'two-stroke'
+      new_cap < hole_hcap ? '.' : '..'
     end
   end
 
