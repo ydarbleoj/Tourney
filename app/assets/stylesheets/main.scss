@@ -16,14 +16,10 @@ p #user-email {
 	top: -5px;
 }
 .two-stroke::after {
-  content:  '..';
 	display: block;
 }
 .one-stroke::after {
-  content:  '.';
 	display: block;
-}
-.no-stroke {
 }
 .skin-won {
   background-color: red;

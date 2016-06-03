@@ -6,7 +6,8 @@
         <p><%= skins_tournament.year %></p>
       </div>
       <div class="small-6 columns" id="stroke-lb-title">
-        <h5><%= skins_tournament.name %> Leaderboard</h5>
+        <h5><%= skins_tournament.name %> </h5>
+        <h5>Net Skins Leaderboard</h5>
       </div>
     </div>
     <div class="row align-middle" id="lb-header">
@@ -20,7 +21,7 @@
     <% net_skins_leaderboard.each do |scorecard|  %>
     <div class="row" id="lb-player">
       <div class="small-5 columns" id="player"><h5><%= scorecard.user.username.split(' ').first %>
-        <span><%= scorecard.user.handicap.nil?.! ? scorecard.user.handicap.round : nil %></span></h5>
+        <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span></h5>
       </div>
       <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total%></div>
       <div class="small-3 columns lb" id="round-one-score"><%= skins_won(scorecard, 'net_skin') %></div>

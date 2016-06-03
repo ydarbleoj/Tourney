@@ -7,10 +7,11 @@ class Scorecard < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_scores
 
-  before_create :set_handicap
+  before_save :set_handicap
 
   def set_handicap
-    self.handicap = self.user.handicap #) * (self.new_course.slope) \ 113
+    p self.handicap
+    self.handicap = (self.user.handicap * self.new_course.slope) / 113
   end
 
 end

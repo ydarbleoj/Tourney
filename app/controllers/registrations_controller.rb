@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     # Define Tournament
-    @tournament = Tournament.where(name: 'Some NonProfit Tournament').first
+    @tournament = Tournament.where(name: 'JBS Tournament').first
     @tournament_rounds = @tournament.tournament_rounds.first
     # Build user scorecard for Tournament
     @scorecard = @tournament_rounds.scorecards.create(user_id: resource.id, new_course_id: 1)
