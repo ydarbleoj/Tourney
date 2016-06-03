@@ -23,7 +23,7 @@
     <% if current_user.admin? %>
       <div class="small-5 columns" id="player">
       <%= link_to edit_scorecard_path(@tournament.scorecards.where(user_id: scorecard.user.id).first.id) do %>
-        <h5><%= scorecard.user.username.split(' ').first %>
+        <h5 class='admin-link'><%= scorecard.user.username.split(' ').first %>
           <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span>
         </h5>
       <% end %>

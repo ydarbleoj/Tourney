@@ -20,9 +20,19 @@
   <div class="row" id="stroke-lb-container">
     <% net_skins_leaderboard.each do |scorecard|  %>
     <div class="row" id="lb-player">
+      <% if current_user.admin? %>
+      <div class="small-5 columns" id="player">
+        <%= link_to edit_scorecard_path(@tournament.scorecards.where(user_id: scorecard.user.id).first.id) do %>
+          <h5 class='admin-link'><%= scorecard.user.username.split(' ').first %>
+            <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span>
+          </h5>
+        <% end %>
+      </div>
+      <% else %>
       <div class="small-5 columns" id="player"><h5><%= scorecard.user.username.split(' ').first %>
         <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span></h5>
       </div>
+      <% end %>
       <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total%></div>
       <div class="small-3 columns lb" id="round-one-score"><%= skins_won(scorecard, 'net_skin') %></div>
       <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:net) %></div>
