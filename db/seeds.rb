@@ -830,16 +830,16 @@
 # Hole.create(number: 17, par: 4, yards: 439, handicap: 8, new_course_id: dove.id)
 # Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id)
 
-(1..10).each do |x|
-  User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
-end
+# (1..10).each do |x|
+#   User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
+# end
 
-users = User.last(10)
+# users = User.last(10)
 scott = User.where(username: 'Scott Kovesdy').first
 
 users << scott
 
-test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 120, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
+test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 140, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
 round_one = test_tourn.tournament_rounds.create(round_number: 1)
 
 users.each do |user|
