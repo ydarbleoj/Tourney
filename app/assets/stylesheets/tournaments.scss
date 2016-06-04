@@ -1,28 +1,42 @@
 .tournament-container {
 	width: 100%; height: 100%;
 	position: absolute;
+}
+.tournament-container-jbs {
+  width: 100%; height: 100%;
+  position: absolute;
+  background: url('dsc.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
 }
 #current-tournament {
-	max-width: 100%; height: 34%;
-	background: url('IMG_0054.JPG');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+  max-width: 100%; height: 34%;
+  background: url('IMG_0054.JPG');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
+#current-tournament-jbs {
+  h1 {
+  	font-size: 30px;
+  	color: rgba(255,255,255,.9);
+  	text-align: center;
+  	position: relative;
+  	transform: translateY(-50%);
+  }
+}
+span .makeawish-logo {
+  margin-left: 25%;
+  width: 50%; height: 50%;
+}
+
 .tourn-layer {
-	width: 100%; height: inherit;
-	background-color: rgba(45,45,46, .6);
-	position: absolute;
-	box-shadow: 0 0 1px 0 #000000;
-}
-h1 {
-	font-size: 30px;
-	color: rgba(255,255,255,.9);
-	text-align: center;
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+  width: 100%; height: inherit;
+  background-color: rgba(45,45,46, .6);
+  position: relative;
+  box-shadow: 0 0 1px 0 #000000;
 }
 #history-tourn-button {
 	width: 100%; height: 33%;

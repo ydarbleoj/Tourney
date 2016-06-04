@@ -834,7 +834,8 @@
 #   User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
 # end
 
-# users = User.last(10)
+
+
 scott = User.where(username: 'Scott Kovesdy').first
 
 users << scott

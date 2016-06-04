@@ -75,7 +75,7 @@
       <%= form_for @scorecard do |s|  %>
       <div class="row align-middle" id="front-nine-shots"><!-- Start of top hole shots row -->
         <div class="small-1 columns hole-input_edit" id="">
-          <p>Shots</p>
+          <p>Score</p>
         </div>
         <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %>
           <% if u.object.number < 10 %>
@@ -164,7 +164,7 @@
         <%= s.fields_for :user_scores, @user_scores.sort_by(&:number) do |u| %><!-- Start of bottom hole net row -->
           <% if u.object.number > 9 %>
           <div class="small-1 columns hole-input_edit shots-border remove-padding">
-            <h5><%= u.number_field :net, class: 'score' %></h5>
+            <h5><%= u.object.net %></h5>
           </div>
           <% end %>
         <% end %>

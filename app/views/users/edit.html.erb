@@ -3,31 +3,31 @@
 	<div class="row" id="form-container-edit">
 	  <%= form_for @user do |f| %>
 		<div class="row align-center" id="user-edit-form-wrapper">
-			<div class="small-12 columns edit-border" id="user-edit-name">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
 				<%= f.label :username %> <br>
 				<%= f.text_field :username, class: 'edit-user-form'%>
 			</div>
-			<div class="small-12 columns edit-border" id="user-edit-email">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-email">
 				<%= f.label :email %> <br>
 				<%= f.email_field :email, class: 'edit-user-form' %>
 			</div>
-			<div class="small-12 columns edit-border" id="user-edit-home">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
 				<%= f.label :password %> <br>
 				<%= f.text_field :password, class: 'edit-user-form'%>
 			</div>
-			<div class="small-12 columns edit-border" id="user-edit-home">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
 				<%= f.label :password_confirmation %> <br>
 				<%= f.text_field :password_confirmation, class: 'edit-user-form'%>
 			</div>
-			<div class="small-12 columns edit-border" id="user-edit-home">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
 				<%= f.label :home %> <br>
 				<%= f.text_field :home, class: 'edit-user-form'%>
 			</div>
-			<div class="small-12 columns edit-border" id="user-edit-handicap">
+			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-handicap">
 				<%= f.label :handicap%> <br>
 				<%= f.number_field :handicap, :step => 'any', class: 'edit-user-form' %>
 			</div>
-			<div class="small-12 columns" id="user-edit-submit">
+			<div class="small-12 medium-8 large-stack columns" id="user-edit-submit">
 				<%= f.submit 'Update', class: 'expanded button' %>
 			</div>
 		</div>

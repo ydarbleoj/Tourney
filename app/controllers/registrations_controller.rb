@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 
 	def sign_up_params
     # devise_parameter_sanitizer.sanitize(:sign_up)
-		params.require(:user).permit(:username, :handicap, :email, :password, :password_confirmation)
+		params.require(:user).permit(:username, :handicap, :gender, :email, :password, :password_confirmation)
 	end
 
   def after_sign_up_path_for(resource)
