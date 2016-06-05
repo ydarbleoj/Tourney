@@ -18,9 +18,10 @@ Rails.application.routes.draw do
     end
     resources :tournament_rounds
     resources :rounds
+    resources :scorecards, shallow: true
   end
 
-  resources :scorecards
+  resources :scorecards, only: [:show, :edit, :update]
   root to: "home#index"
 end
 

@@ -3,7 +3,9 @@ class ScorecardsController < ApplicationController
   before_filter :current_tourn
 
   def index
-    @scorecards = Scorecard.all
+    p params
+    @tournament = Tournament.find(params[:tournament_id])
+    @scorecards = @tournament.scorecards
   end
 
   def show
@@ -23,6 +25,11 @@ class ScorecardsController < ApplicationController
         format.html { redirect_to edit_scorecard_path(@scorecard.id) }
       end
     end
+  end
+
+  def destroy
+    @scorecard = Scorecard.find(params[:id]).destroy
+    redirect_to tournament_scorecards_path(@current_tourn.id)
   end
 
   def current_tourn

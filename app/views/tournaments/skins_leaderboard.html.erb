@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row align-middle" id="lb-header">
-      <div class="small-5 columns" id="player">PLAYER</div>
+      <div class="small-5 columns" id="player"><%= current_user.admin == true ? link_to("PLAYER", tournament_scorecards_path(skins_tournament)) : 'PLAYER' %></div>
       <div class="small-2 columns" id="lb-total-score">TOTAL</div>
       <div class="small-3 columns lb" id="round-one-score">Skins Won</div>
       <div class="columns lb" id="net-total-title">Gross</div>
@@ -23,13 +23,13 @@
     <% if current_user.admin? %>
       <div class="small-5 columns" id="player">
       <%= link_to edit_scorecard_path(@tournament.scorecards.where(user_id: scorecard.user.id).first.id) do %>
-        <h5 class='admin-link'><%= scorecard.user.username.split(' ').first %>
+        <h5 class='admin-link'><%= scorecard.user.username %>
           <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span>
         </h5>
       <% end %>
       </div>
     <% else %>
-      <div class="small-5 columns" id="player"><h5><%= scorecard.user.username.split(' ').first %>
+      <div class="small-5 columns" id="player"><h5><%= scorecard.user.username %>
         <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span></h5>
       </div>
     <% end %>

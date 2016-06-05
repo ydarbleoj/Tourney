@@ -1,5 +1,13 @@
 module ScorecardsHelper
 
+  def current_tournament
+    Tournament.find(params[:id])
+  end
+
+  def master_list
+
+  end
+
   def out_gross_score(scorecard)
     scorecard.user_scores.where('number < ?', 10).sum(:score)
   end

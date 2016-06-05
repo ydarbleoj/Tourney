@@ -8,10 +8,13 @@
       </div>
       <div class="row" id="top-header-row">
         <div class="small-4 columns">
-          <p>Hcap <%= @scorecard.handicap %></p>
+          <p><%= @scorecard.user.username %></p>
         </div>
-        <div class="small-4 columns" id="sc-title">
+        <div class="small-4 columns">
           <p>Scorecard</p>
+        </div>
+        <div class="columns" id="sc-title">
+          <p>Hcap <%= @scorecard.handicap %></p>
         </div>
       </div>
       <div class="row align-middle" id="bottom-header-row">

@@ -1,0 +1,46 @@
+<%= render 'devise/shared/navbar'  %>
+<div class="row" id="tourn-show-page">
+  <div class="row" id="stroke-lb-header">
+    <div class="row align-middle" id="title-header">
+      <div class="small-3 columns" id="tournament-name">
+        <p><%= @tournament.year %></p>
+      </div>
+      <div class="small-6 columns" id="stroke-lb-title">
+        <h5><%= @tournament.name %></h5>
+        <H5>Master List</H5>
+      </div>
+    </div>
+    <div class="row align-middle" id="lb-header">
+      <div class="small-3 columns" id="player">PLAYER</div>
+      <div class="small-2 columns" id="lb-total-score">Handicap</div>
+      <div class="small-3 columns lb" id="round-one-score"></div>
+      <div class="columns lb" id="net-total-title"></div>
+    </div>
+  </div>
+  <div class="row" id="stroke-lb-container">
+    <% @scorecards.each do |scorecard|  %>
+    <div class="row" id="lb-player">
+      <div class="small-3 columns" id="player">
+        <h5 class='admin-link'><%= scorecard.user.username %>
+        </h5>
+      </div>
+      <div class="small-2 columns" id="lb-total-score">
+        <h5><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></h5>
+      </div>
+      <div class="small-3 columns lb" id="round-one-score"></div>
+      <div class="columns lb" id="delete-button"><%= link_to("DELETE", scorecard, method: :delete) %></div>
+    </div>
+    <% end %>
+  </div>
+  <div class="row align-middle" id="leaderboard_nav">
+    <div class="small-4 columns tourn-links">
+      <%= link_to "Home", tournaments_path  %>
+    </div>
+    <div class="small-4 columns tourn-links">
+      <%= link_to "Gross Skins", skins_leaderboard_tournament_path(@tournament) %>
+    </div>
+    <div class="columns tourn-links">
+      <%= link_to "Net Skins", net_skins_leaderboard_tournament_path(@tournament)%>
+    </div>
+  </div>
+</div>
