@@ -22,7 +22,7 @@ class ImportCsv
       @tournament_rounds = @tournament.tournament_rounds.first
       # Build user scorecard for Tournament
       @scorecard = @tournament_rounds.scorecards.create(user_id: user.id, new_course_id: 1)
-      (1..18).each { |x| @scorecard.user_scores.create(number: x, score: rand(2..7)) }
+      (1..18).each { |x| @scorecard.user_scores.create(number: x) }
 
     end
 

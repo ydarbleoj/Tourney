@@ -10,6 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
   def after_sign_up_path_for(resource)
+    p "HERE"
     # Define Tournament
     @tournament = Tournament.where(name: 'Royal JBS Tournament').first
     @tournament_rounds = @tournament.tournament_rounds.first
