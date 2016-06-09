@@ -1,7 +1,7 @@
 <div class="row" id="user-profile">
 	<div class="row align-middle" id="user-profile-top">
 		<div class="small-12 columns" id="user-profile-info">
-			<p id="profile-username"><%= current_user.username %></p>
+			<p id="profile-username"><%= current_user.first_name %> <%= current_user.last_name %></p>
 			<span> <%= current_user.home %></span>
 			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
 		</div>

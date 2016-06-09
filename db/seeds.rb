@@ -836,9 +836,7 @@
 
 
 
-scott = User.where(username: 'Scott Kovesdy').first
 
-users << scott
 
 test_tourn = Tournament.create(name: 'JBS Tournament', year: 2016, num_players: 140, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
 round_one = test_tourn.tournament_rounds.create(round_number: 1)

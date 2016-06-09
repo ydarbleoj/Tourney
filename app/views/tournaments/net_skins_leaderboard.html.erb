@@ -3,19 +3,19 @@
   <div class="row" id="putting-lb-header">
     <div class="row align-middle" id="title-header">
       <div class="small-3 columns" id="tournament-name">
-        <p><%= skins_tournament.year %></p>
+        <p><%= net_skins_tournament.year %></p>
       </div>
       <div class="small-6 columns" id="stroke-lb-title">
-        <h5><%= skins_tournament.name %> </h5>
+        <h5><%= @tournament.name %> </h5>
         <h5>Net Skins Leaderboard</h5>
       </div>
     </div>
     <div class="row align-middle" id="lb-header">
       <div class="small-5 columns" id="player">
-        <%= current_user.admin == true ? link_to("PLAYER", tournament_scorecards_path(skins_tournament)) : 'PLAYER' %>
+        <%= current_user.admin == true ? link_to("PLAYER", tournament_scorecards_path(@tournament)) : 'PLAYER' %>
       </div>
       <div class="small-2 columns" id="lb-total-score">TOTAL</div>
-      <div class="small-3 columns lb" id="round-one-score">Skins Won</div>
+      <div class="small-3 columns lb" id="round-one-score">Skin (score)</div>
       <div class="columns lb" id="net-total-title">Net</div>
     </div>
   </div>
@@ -25,17 +25,17 @@
       <% if current_user.admin? %>
       <div class="small-5 columns" id="player">
         <%= link_to edit_scorecard_path(@tournament.scorecards.where(user_id: scorecard.user.id).first.id) do %>
-          <h5 class='admin-link'><%= scorecard.user.username %>
+          <h5 class='admin-link'><%= scorecard.user.first_name %> <%= scorecard.user.last_name  %>
             <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span>
           </h5>
         <% end %>
       </div>
       <% else %>
-      <div class="small-5 columns" id="player"><h5><%= scorecard.user.username %>
+      <div class="small-5 columns" id="player"><h5><%= scorecard.user.first_name %> <%= scorecard.user.last_name  %>
         <span><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></span></h5>
       </div>
       <% end %>
-      <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total%></div>
+      <div class="small-2 columns" id="lb-total-score"><%=  scorecard.net_skin_total %></div>
       <div class="small-3 columns lb" id="round-one-score"><%= skins_won(scorecard, 'net_skin') %></div>
       <div class="columns lb" id="round-one-score"><%= scorecard.user_scores.sum(:net) %></div>
     </div>

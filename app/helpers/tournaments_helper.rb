@@ -6,8 +6,13 @@ module TournamentsHelper
 
   def skins_tournament
     @tournament = Tournament.find(params[:id])
-    skins('net')
     skins('score')
+    @tournament
+  end
+
+  def net_skins_tournament
+    @tournament = Tournament.find(params[:id])
+    skins('net')
     @tournament
   end
 
@@ -91,6 +96,14 @@ module TournamentsHelper
 
   def skins_won(scorecard, type)
     skin = type.to_sym
-    scorecard.user_scores.where.not(skin => false).pluck(:number).join(', ')
+    score = type != 'net_skin' ? :score : :net
+    scores = scorecard.user_scores.where.not(skin => false).select(:number, score) #.join(', ')
+    scores.map { |x| "#{x.number} (#{x[score]})" }.join(', ')
   end
+
+  def winning_score(scorecard, type)
+    score = type.to_sym
+    scorecard.user_scores.where.not(skin => false).pluck(score).join(', ')
+  end
+
 end

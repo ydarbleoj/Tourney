@@ -6,12 +6,12 @@ class RegistrationsController < Devise::RegistrationsController
 
 	def sign_up_params
     # devise_parameter_sanitizer.sanitize(:sign_up)
-		params.require(:user).permit(:username, :handicap, :gender, :email, :password, :password_confirmation)
+		params.require(:user).permit(:first_name, :last_name, :handicap, :gender, :email, :password, :password_confirmation)
 	end
 
   def after_sign_up_path_for(resource)
     # Define Tournament
-    @tournament = Tournament.where(name: 'JBS Tournament').first
+    @tournament = Tournament.where(name: 'Royal JBS Tournament').first
     @tournament_rounds = @tournament.tournament_rounds.first
     # Build user scorecard for Tournament
     @scorecard = @tournament_rounds.scorecards.create(user_id: resource.id, new_course_id: 1)

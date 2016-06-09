@@ -11,24 +11,20 @@
       </div>
     </div>
     <div class="row align-middle" id="lb-header">
-      <div class="small-3 columns" id="player">PLAYER</div>
-      <div class="small-2 columns" id="lb-total-score">Handicap</div>
-      <div class="small-3 columns lb" id="round-one-score"></div>
-      <div class="columns lb" id="net-total-title"></div>
+      <div class="small-4 columns" id="player">PLAYER</div>
+      <div class="small-5 columns" id="player">EMAIL</div>
+      <div class="columns lb">DELETE</div>
     </div>
   </div>
   <div class="row" id="stroke-lb-container">
-    <% @scorecards.each do |scorecard|  %>
+    <% @scorecards.sort { |a, b| a.user.last_name <=> b.user.last_name }.each do |scorecard|  %>
     <div class="row" id="lb-player">
-      <div class="small-3 columns" id="player">
-        <h5 class='admin-link'><%= scorecard.user.username %>
+      <div class="small-4 columns" id="player">
+        <h5 class='admin-link'><%= scorecard.user.first_name %> <%= scorecard.user.last_name  %>
         </h5>
       </div>
-      <div class="small-2 columns" id="lb-total-score">
-        <h5><%= scorecard.handicap.nil?.! ? scorecard.handicap.round : nil %></h5>
-      </div>
-      <div class="small-3 columns lb" id="round-one-score"></div>
-      <div class="columns lb" id="delete-button"><%= link_to("DELETE", scorecard, method: :delete) %></div>
+      <div class="small-5 columns email-master" id="player"><p><%= scorecard.user.email  %></p></div>
+      <div class="columns lb" id="delete-button"><%= link_to("X", scorecard, method: :delete) %></div>
     </div>
     <% end %>
   </div>

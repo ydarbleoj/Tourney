@@ -4,9 +4,17 @@
 	  <%= form_for @user do |f| %>
 		<div class="row align-center" id="user-edit-form-wrapper">
 			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
-				<%= f.label :username %> <br>
-				<%= f.text_field :username, class: 'edit-user-form'%>
+				<%= f.label :first_name %> <br>
+				<%= f.text_field :first_name, class: 'edit-user-form'%>
 			</div>
+      <div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
+        <%= f.label :last_name %> <br>
+        <%= f.text_field :last_name, class: 'edit-user-form'%>
+      </div>
+      <div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
+        <%= f.label :gender %> <br>
+        <%= f.select :gender, ["M", "F"], prompt: 'Select One', class: 'edit-user-form'%>
+      </div>
 			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-email">
 				<%= f.label :email %> <br>
 				<%= f.email_field :email, class: 'edit-user-form' %>
@@ -30,6 +38,9 @@
 			<div class="small-12 medium-8 large-stack columns" id="user-edit-submit">
 				<%= f.submit 'Update', class: 'expanded button' %>
 			</div>
+      <div class="small-12 medium-6 large-stack columns" id="user-edit-submit">
+        <%= link_to 'Cancel', user_path(current_user.id), class: 'expanded button' %>
+      </div>
 		</div>
 		<% end %>
 	</div>
