@@ -49,7 +49,6 @@ class TournamentsController < ApplicationController
    p "USer #{current_user.email}"
    p "Scorecard #{current_user.scorecards.first.id}"
    p "round #{current_user.tournament_rounds.where(tournament_id: tourn.id).first}"
-   p "TEST #{test}"
    p  user_tourn = current_user.tournament_rounds.where(tournament_id: tourn.id).first
    p user_tourn = user_tourn.nil? ? nil : user_tourn.tournament
 
