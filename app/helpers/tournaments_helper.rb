@@ -27,30 +27,30 @@ module TournamentsHelper
 
     (1..18).each do |hole|
 
-      p "NUMBER : #{hole}"
+      # p "NUMBER : #{hole}"
       current_skin = tr.user_scores.where(number: hole).where(skin => true).pluck(:id, query)
       current_low_score = current_skin.blank?.! ? current_skin[0][1] : []
       new_low_score = tr.user_scores.where(number: hole).minimum(query)
       users_with_lowest_score = tr.user_scores.where(number: hole).where(query => new_low_score).pluck(:id, query)
-      p "CURRENT SKIN : #{current_skin}"
-      p "USER #{users_with_lowest_score}"
+      # p "CURRENT SKIN : #{current_skin}"
+      # p "USER #{users_with_lowest_score}"
 
       if current_skin.blank? && users_with_lowest_score.length > 1
         p "NO WINNER #{users_with_lowest_score}"
       end
 
       if current_skin.blank? && users_with_lowest_score.length == 1
-        p "FIRST WIN #{users_with_lowest_score[0]}"
+        # p "FIRST WIN #{users_with_lowest_score[0]}"
         new_skin = UserScore.find(users_with_lowest_score[0][0])
         new_skin.update(skin => true)
       end
 
       if current_skin.blank?.! && users_with_lowest_score.length == 1
         if current_low_score == new_low_score
-        p "LOW SCORE #{current_low_score} : #{new_low_score}"
+        # p "LOW SCORE #{current_low_score} : #{new_low_score}"
         p "WINNER #{current_skin}"
         elsif current_low_score > new_low_score
-          p "NEW WINNER #{users_with_lowest_score[0][0]}"
+          # p "NEW WINNER #{users_with_lowest_score[0][0]}"
           new_skin = UserScore.find(users_with_lowest_score[0][0])
           new_skin.update(skin => true)
 
@@ -61,9 +61,9 @@ module TournamentsHelper
 
       if current_skin.blank?.! && users_with_lowest_score.length > 1
         if current_low_score == users_with_lowest_score[0][1] || current_low_score > users_with_lowest_score[0][1]
-          p "USERS #{users_with_lowest_score}"
+          # p "USERS #{users_with_lowest_score}"
           remove_skin = UserScore.find(current_skin.flatten[0])
-          p "REMOVE #{remove_skin.id}"
+          # p "REMOVE #{remove_skin.id}"
           remove_skin.update(skin => false)
         end
       end
