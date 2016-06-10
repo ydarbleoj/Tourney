@@ -1,7 +1,7 @@
 class ImportCsv
 
  def update
-    filename = File.join Rails.root, "public/csv_files/jbs_users.csv"
+    filename = File.join Rails.root, "public/csv_files/jbs_list.csv"
     import(filename)
   end
 
