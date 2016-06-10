@@ -28,6 +28,18 @@ module ScorecardsHelper
     scorecard.new_course.holes.where('number > ?', 9).sum(:par)
   end
 
+  def course_tee
+    @scorecard.user.gender == 'M' ? 'Copper' : 'Green'
+  end
+
+  def course_slope
+    @scorecard.user.gender == 'M' ? 134 : 131
+  end
+
+  def course_rating
+    @scorecard.user.gender == 'M' ? 72.3 : 71.6
+  end
+
   def total_gross_score(scorecard)
     @total = scorecard.user_scores.sum(:score)
     scorecard.update(total_score: @total)

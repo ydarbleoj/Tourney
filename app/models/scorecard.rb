@@ -8,9 +8,26 @@ class Scorecard < ActiveRecord::Base
   accepts_nested_attributes_for :user_scores
 
   before_save :set_handicap
+  after_create :create_user_scores
 
   def set_handicap
     self.handicap = self.user.handicap
+  end
+
+  def create_user_scores
+    Scorecard.transaction do
+      (1..18).each { |x| self.user_scores.create!(number: x) }
+    end
+  end
+
+  def update_skins
+    p "SCORECARD SKINS"
+   p skin = self.user_scores.where({skin: true}).count
+   p  net_skin = self.user_scores.where({net_skin: true}).count
+
+    Scorecard.transaction do
+      sc.update_columns(gross_skin_total: skin, net_skin_total: net_skin)
+    end
   end
 
 end

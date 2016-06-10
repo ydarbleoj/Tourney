@@ -16,7 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
     @tournament_rounds = @tournament.tournament_rounds.first
     # Build user scorecard for Tournament
     @scorecard = @tournament_rounds.scorecards.create(user_id: resource.id, new_course_id: 1)
-    (1..18).each { |x| @scorecard.user_scores.create(number: x) }
 
     tournaments_path
   end
