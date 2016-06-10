@@ -1,7 +1,7 @@
 class ImportCsv
 
  def update
-    filename = File.join Rails.root, "public/csv_files/jbs_last.csv"
+    filename = File.join Rails.root, "public/csv_files/jbs_users.csv"
     import(filename)
   end
 
@@ -12,7 +12,7 @@ class ImportCsv
       user = User.create(
         first_name: first_name,
         last_name: last_name,
-        gender: gender,
+        gender: gender.nil? ? 'M' : gender,
         handicap: handicap.nil? ? 0 : handicap,
         email: email.nil? ? first_name + last_name + '@mail.com' : email,
         password: 'password',
