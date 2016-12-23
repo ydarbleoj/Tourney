@@ -201,9 +201,11 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.integer  "net16"
     t.integer  "net17"
     t.integer  "net18"
+    t.integer  "new_course_id"
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree
+  add_index "rounds", ["new_course_id"], name: "index_rounds_on_new_course_id", using: :btree
   add_index "rounds", ["tournament_id"], name: "index_rounds_on_tournament_id", using: :btree
   add_index "rounds", ["user_id"], name: "index_rounds_on_user_id", using: :btree
 
@@ -214,11 +216,11 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.integer  "new_course_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "handicap"
     t.integer  "user_id"
     t.integer  "tournament_round_id"
     t.integer  "total_net"
     t.integer  "round_num"
-    t.integer  "handicap"
     t.integer  "net_skin_total"
     t.integer  "gross_skin_total"
   end
@@ -262,7 +264,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.integer  "number"
     t.integer  "score"
     t.integer  "putts"
-    t.boolean  "skin",         default: false
+    t.boolean  "skin"
     t.integer  "net"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -300,6 +302,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
 
   add_foreign_key "holes", "new_courses"
   add_foreign_key "rounds", "courses"
+  add_foreign_key "rounds", "new_courses"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "rounds", "users"
   add_foreign_key "scorecards", "new_courses"
