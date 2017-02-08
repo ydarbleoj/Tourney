@@ -13,14 +13,14 @@
       <div class="small-8 columns home-button-left" id="button-left-side">
         <p>Current Tournament <%= @current_tournament.year %></p>
       </div>
-      <div class="small-4 columns text-center home-button-right" id="button-right-side">
+      <div class="small-4 columns text-center home-button-right">
         <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
       </div>
     </div>
     <% end %>
 
 
-    <%= link_to() do %>
+    <%= link_to(history_tournaments_path) do %>
     <div class="row expanded align-middle show-link" id="home-links">
       <div class="small-8 columns">
         <p>History</p>

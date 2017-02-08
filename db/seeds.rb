@@ -418,7 +418,7 @@
 
 #   user_rnd3 = Round.where(tournament_id: bandon_2015, user_id: user.id, round_num: 3).first
 
-#   rnd3_sc = rnd3.scorecards.create(user_id: user.id, new_course_id: pacific.id,
+#   rnd3_sc = rnd3.scorecards.where(user_id: user.id, new_course_id: pacific.id)
 #     total_score: user_rnd3.score,
 #     total_putts: user_rnd3.putts,
 #     total_3putts: 0,
@@ -493,7 +493,7 @@ users.each do |user|
   p user.first_name
 
   # user = User.where(email: user.email).first
-  user_rnd1 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 1).first
+  p user_rnd1 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 1).first
   p handicap = user_rnd1.handicap
 
   rnd1_sc = rnd1.scorecards.create(user_id: user.id, new_course_id: trails.id,
@@ -606,17 +606,9 @@ users.each do |user|
   total_score = (rnd1_score + rnd2_score + rnd3_score) - (trails.par + bandon.par + old_mac.par)
 
 
-  leaderboard = bandon_2016.leaderboards.create(user_id: user.id, handicap: handicap,
-    rnd1_score: rnd1_score,
-    rnd2_score: rnd2_score,
-    rnd3_score: rnd3_score,
-    rnd1_putts: user_rnd1.putts,
-    rnd2_putts: user_rnd2.putts,
-    rnd3_putts: user_rnd3.putts,
-    total_score: total_score,
-    total_putts: (user_rnd1.putts + user_rnd2.putts + user_rnd3.putts),
+  leaderboard = bandon_2016.leaderboards.where(user_id: user.id)
+    .update_all(
     total_3_putts: (three_putts1 + three_putts2 + three_putts3),
-    net_total: (rnd1_score + rnd2_score + rnd3_score),
     rn1_3putts: three_putts1,
     rnd2_3putts: three_putts2,
     rnd3_3putts: three_putts3)

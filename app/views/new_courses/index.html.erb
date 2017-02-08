@@ -2,8 +2,8 @@
   <div class="columns">
 
     <% @new_courses.each do |course|  %>
-      <%= link_to(tournament_new_course_path(@tournament.id, course.id)) do %>
-      <div class="row align-middle text-center img-container" id="<%= course.name.split(' ').join('-') %>-index">
+      <%= link_to tournament_new_course_path(@tournament.id, course.id), id: "#{course.name.split(' ').join('-')}-index" do %>
+      <div class="row align-middle text-center img-container">
         <div class="small-12 columns" >
           <h1><%= course.name %></h1>
         </div>

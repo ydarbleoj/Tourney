@@ -49,7 +49,7 @@ class TournamentsController < ApplicationController
   end
 
   def history
-    @tournaments = Tournament.where("end_date < ?", Date.today).uniq
+    @tournaments = Tournament.where("end_date < ? AND name = ?", Date.today, 'Bandon').uniq
   end
 
   def stroke_leaderboard
@@ -120,7 +120,7 @@ class TournamentsController < ApplicationController
 
   def set_current_tournament
     current_date = DateTime.now
-    @current_tournament = Tournament.where('end_date > ?', current_date).first
+    @current_tournament = Tournament.where('end_date > ? AND name = ?', current_date, 'Bandon').first
     @current_tournament = @current_tournament.blank? ? Tournament.last : @current_tournament
   end
 
