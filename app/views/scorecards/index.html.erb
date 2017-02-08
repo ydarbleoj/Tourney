@@ -1,6 +1,6 @@
 <div class="row expanded user-scorecards">
 
-  <div class="row align-bottom scorecard-index">
+  <div class="row align-bottom scorecard-index scroll-effect">
     <div class="small-12 text-left columns">
       <h5><%= current_user.username %></h5>
       <h5>Scorecards</h5>
@@ -12,7 +12,7 @@
       <% @scorecards.each do |scorecard| %>
 
         <%= link_to(display_scorecard_path(scorecard.id)) do %>
-        <div class="row align-middle scorecard-links">
+        <div class="row align-middle scorecard-links scroll-trgt">
 
           <div class="small-3 columns text-center">
             <h2><%= scorecard.total_score %></h2>
