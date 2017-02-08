@@ -11,7 +11,7 @@
   <div class="row user-links text-center">
     <div class="columns">
       <%= link_to(user_statistic_path(current_user)) do %>
-      <div class="row expanded align-middle link-row">
+      <div class="row expanded align-middle show-link" id="home-links">
         <div class="small-8 columns">
           <h5>Statistics</h5>
         </div>
@@ -22,7 +22,7 @@
       <% end %>
 
       <%= link_to(scorecards_path) do %>
-      <div class="row expanded align-middle link-row">
+      <div class="row expanded align-middle show-link">
         <div class="small-8 columns">
           <h5>Scorecards</h5>
         </div>
@@ -33,7 +33,7 @@
       <% end %>
 
        <%= link_to(tournaments_path) do %>
-      <div class="row expanded align-middle link-row">
+      <div class="row expanded align-middle show-link">
         <div class="small-8 columns">
           <h5>Tournaments</h5>
         </div>
@@ -44,7 +44,7 @@
       <% end %>
 
       <%= link_to(edit_user_path(current_user)) do %>
-      <div class="row expanded align-middle link-row">
+      <div class="row expanded align-middle show-link">
         <div class="small-8 columns">
           <h5>Settings</h5>
         </div>
@@ -56,7 +56,7 @@
 
       <% if current_user.admin == true %>
         <%= link_to(new_tournament_path) do %>
-        <div class="row expanded align-middle link-row">
+        <div class="row expanded align-middle show-link">
           <div class="small-8 columns text-center">
             <h5>New Tournament</h5>
           </div>

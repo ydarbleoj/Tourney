@@ -498,11 +498,11 @@ users.each do |user|
   p handicap = user_rnd1.handicap
 
   rnd1_sc = rnd1.scorecards.create(user_id: user.id, new_course_id: trails.id,
-    total_score: lb.rnd1_score,
+    total_score: lb.rnd1_score + handicap,
     total_putts: lb.rnd1_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: lb.rnd1_score - handicap,
+    total_net: lb.rnd1_score,
     round_num: 1,
     finished: true)
 
@@ -529,16 +529,16 @@ users.each do |user|
   three_putts1 = user_scores1.map { |x| p x.putts if x.putts > 2 }.compact.length
   rnd1_sc.update(total_3putts: three_putts1)
 
-  rnd1_score = user_rnd1.score - handicap
+  rnd1_score = lb.rnd1_score
 
   user_rnd2 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 2).first
 
   rnd2_sc = rnd2.scorecards.create(user_id: user.id, new_course_id: old_mac.id,
-    total_score: lb.rnd2_score,
+    total_score: lb.rnd2_score + handicap,
     total_putts: lb.rnd2_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: lb.rnd2_score - handicap,
+    total_net: lb.rnd2_score,
     round_num: 2,
     finished: true)
 
@@ -564,18 +564,18 @@ users.each do |user|
   user_scores2 = rnd2_sc.user_scores
   three_putts2 = user_scores2.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-  rnd2_score = user_rnd2.score - handicap
+  rnd2_score = lb.rnd2_score - handicap
   rnd2_sc.update(total_3putts: three_putts2)
 
 
   user_rnd3 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 3).first
 
   rnd3_sc = rnd3.scorecards.create(user_id: user.id, new_course_id: bandon.id,
-    total_score: lb.rnd3_score,
+    total_score: lb.rnd3_score + handicap,
     total_putts: lb.rnd3_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: lb.rnd3_score - handicap,
+    total_net: lb.rnd3_score,
     round_num: 3,
     finished: true)
 
@@ -603,7 +603,7 @@ users.each do |user|
 
   rnd3_sc.update(total_3putts: three_putt3)
 
-  rnd3_score = user_rnd3.score - handicap
+  rnd3_score = lb.rnd3_score - handicap
 
   total_score = (rnd1_score + rnd2_score + rnd3_score) - (trails.par + bandon.par + old_mac.par)
 
