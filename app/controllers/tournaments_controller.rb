@@ -119,9 +119,7 @@ class TournamentsController < ApplicationController
   end
 
   def set_current_tournament
-    current_date = DateTime.now
-    @current_tournament = Tournament.where('end_date > ? AND name = ?', current_date, 'Bandon').first
-    @current_tournament = @current_tournament.blank? ? Tournament.last : @current_tournament
+    @current_tournament = Tournament.where(name: 'Bandon').order(year: :asc).first
   end
 
   def authorize_user

@@ -492,16 +492,17 @@ users.each do |user|
   bandon_2016.users << user
   p user.first_name
 
+  p lb = bandon_2016.leaderboards.where(user_id: user.id).first
   # user = User.where(email: user.email).first
   p user_rnd1 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 1).first
   p handicap = user_rnd1.handicap
 
   rnd1_sc = rnd1.scorecards.create(user_id: user.id, new_course_id: trails.id,
-    total_score: user_rnd1.score,
-    total_putts: user_rnd1.putts,
+    total_score: lb.rnd1_score,
+    total_putts: lb.rnd1_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: user_rnd1.score - handicap,
+    total_net: lb.rnd1_score - handicap,
     round_num: 1,
     finished: true)
 
@@ -533,11 +534,11 @@ users.each do |user|
   user_rnd2 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 2).first
 
   rnd2_sc = rnd2.scorecards.create(user_id: user.id, new_course_id: old_mac.id,
-    total_score: user_rnd2.score,
-    total_putts: user_rnd2.putts,
+    total_score: lb.rnd2_score,
+    total_putts: lb.rnd2_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: user_rnd2.score - handicap,
+    total_net: lb.rnd2_score - handicap,
     round_num: 2,
     finished: true)
 
@@ -570,11 +571,11 @@ users.each do |user|
   user_rnd3 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 3).first
 
   rnd3_sc = rnd3.scorecards.create(user_id: user.id, new_course_id: bandon.id,
-    total_score: user_rnd3.score,
-    total_putts: user_rnd3.putts,
+    total_score: lb.rnd3_score,
+    total_putts: lb.rnd3_putts,
     total_3putts: 0,
     handicap: handicap,
-    total_net: user_rnd3.score - handicap,
+    total_net: lb.rnd3_score - handicap,
     round_num: 3,
     finished: true)
 
@@ -599,7 +600,8 @@ users.each do |user|
 
   user_scores3 = rnd3_sc.user_scores
   three_putts3 = user_scores3.map { |x| p x.putts if x.putts > 2 }.compact.length
-  rnd3_sc.update(total_3putts: three_putts3)
+
+  rnd3_sc.update(total_3putts: three_putt3)
 
   rnd3_score = user_rnd3.score - handicap
 

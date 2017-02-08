@@ -22,11 +22,12 @@
 .user-links {
   width: 100%;
   height: 67%;
+  padding: 5px 5px 0;
   a {
     width: 100%;
     height: 25%;
+    margin-bottom: 5px;
     color: $header-color;
-    padding: 5px;
     div.link-row {
       width: 100%;
       height: 100%;
