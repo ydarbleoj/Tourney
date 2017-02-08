@@ -31,12 +31,12 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
-  config.action_mailer.perform_caching = false
+  # config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: 'www.tourney-app.com'}
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
-   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
    :address              => "smtp.sendgrid.net",
