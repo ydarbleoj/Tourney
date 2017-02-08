@@ -1,4 +1,3 @@
-# class RegistrationsController < ApplicationController
 class RegistrationsController < Devise::RegistrationsController
 
 
@@ -10,20 +9,19 @@ class RegistrationsController < Devise::RegistrationsController
 	end
 
   def after_sign_up_path_for(resource)
-    p "HERE"
-    # Define Tournament
-    @tournament = Tournament.where(name: 'Royal JBS Tournament').first
-    @tournament_rounds = @tournament.tournament_rounds.first
-    # Build user scorecard for Tournament
-    @scorecard = @tournament_rounds.scorecards.create(user_id: resource.id, new_course_id: 1)
+    # p "HERE"
+    # # Define Tournament
+    # @tournament = Tournament.where(name: 'Royal JBS Tournament').first
+    # @tournament_rounds = @tournament.tournament_rounds.first
+    # # Build user scorecard for Tournament
+    # @scorecard = @tournament_rounds.scorecards.create(user_id: resource.id, new_course_id: 1)
 
-    tournaments_path
+    # tournaments_path
   end
 
   def after_inactive_sign_up_path_for(resource)
     root_path
   end
 
-  def add_player_to_jbs
-  end
+
 end

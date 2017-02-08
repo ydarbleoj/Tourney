@@ -1,14 +1,72 @@
 // Profile CSS
 #user-profile {
-	width: 100%; height: 100%;
-	background-color: rgba(56, 162,247,1);
+	width: 100%;
+  height: 100%;
+  background-color: $white;
+  background-color: $light-gray;
 }
-#user-profile-top {
-	margin-top: -8px;
-	width: 100%; height: 200px;
-	background-color: #545454;
+.user-header {
+  width: 100%;
+  height: 33%;
+  h5 {
+    letter-spacing: 1px;
+  }
+  p {
+    letter-spacing: 1px;
+  }
+  p:nth-child(2) {
+    color: rgb(7,127,137);
+
+  }
+}
+.user-links {
+  width: 100%;
+  height: 67%;
+  a{
+    width: 100%;
+    height: 25%;
+    color: $header-color;
+    padding: 5px;
+  }
+  a:hover { color: $header-color; }
+  a:active { color: $header-color; }
+  .link-row {
+    width: 100%;
+    height: 100%;
+    background-color: $white;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.16), 0 2px 3px rgba(0,0,0,0.23);
+  }
+}
+#user-statistics {
+  max-width: 100%; height: 100%;
+  background: url('IMG_0054.JPG');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#user-flag {
+  max-width: 100%; height: 100%;
+  background: url('flag.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#user-settings{
+  max-width: 100%; height: 100%;
+  background: url('mac_tree.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#user-scorecards {
+  max-width: 100%; height: 100%;
+  background: url('Bandon_2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 #user-profile-info {
+  padding: 70px 0;
 	text-align: center;
 }
 #user-profile-info p {
@@ -17,12 +75,12 @@
 }
 #user-profile-info span {
 	font-size: 20px;
-	color: rgba(255,255,255, .8);
+  color: #333364;
+	// color: rgba(255,255,255, .8);
 }
 #user-image {
 	width: 110px; height: 110px;
 	border-radius: 50%;
-// 	background: url('joel.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -47,78 +105,39 @@ div#user-image { margin: 0 auto -10px; }
 	font-size: 18px;
 }
 #user-profile-middle {
-	background-color: rgba(56, 162,247,1);
-	width: 100%; height: calc(100% - 250px);
-	margin-bottom: 30px;
+	background-color: #f1f1f1;
+  width: 100%;
+  margin: 5px 10px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.16), 0 2px 3px rgba(0,0,0,0.23);
+  h1 {
+    font-size: 20px;
+    a {
+      color: rgba(56, 162,247,1);
+    }
+  }
 }
-#user-profile-middle p {
-	text-align: center;
-	border-bottom: 1px solid #545454;
+div.row#user-profile-middle:first-child {
+  margin-top: 10px;
 }
-#best-round {
-	width: 100%; max-height: 33%;
-	color: #545454;
-}
-#best-round {
-	font-size: 20px;
-}
-#best-round h5 {
-	font-size: 26px;
-}
-#best-round h5 span {
-	color: white;
-}
-#best-putting {
-	width: 100%; max-height: 33%;
-	color: #545454;
-}
-#best-putting p {
-	font-size: 20px;
-}
-#best-putting h5 {
-	font-size: 26px;
-}
-#best-putting h5 span {
-	color: white;
-}
-#tourn-average {
-	width: 100%; max-height: 34%;
-	color: #545454;
-}
-#tourn-average p {
-	font-size: 20px;
-}
-#tourn-average h5 {
-	text-align: center;
-	font-size: 26px;
-	color: white;
-}
-#profile_nav {
-	width: 100%; height: 50px;
-	background-color: #545454;
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	z-index: 1000;
-	color: white;
+.profile-links {
+  // border: 1px solid #999;
 }
 
 //  EDIT USER
-#user-edit-page {
+.user-edit {
 	width: 100%; height: 100%;
-	top: 0;
-	left: 0;
 	background-color: #545454;
 }
-#user-edit-page h2 {
+.user-edit h2 {
 	color: white;
 	font-size: 24px;
 }
-#form-container-edit {
-	width: 100%; height: 100%;
-	overflow: hidden;
+.form-container-edit {
 	padding: 40px 20px 0;
-	position: relative;
+
+  .button {
+    bottom: 0;
+  }
 }
 form { width: 100%; }
 #user-edit-form-wrapper {
@@ -147,6 +166,62 @@ label {
 	color: rgba(56, 162,247,1);
 }
 
+// Statistics SHOW
+.user-statistic-show {
+  width: 100%;
+  height: 100%;
+  background-color: $white;
+
+  p {
+    font-size: 12px;
+  }
+
+  .show-header {
+    width: 100%;
+    height: 100px;
+    padding-left: 10px;
+    color: $white;
+    position: fixed;
+    // background-color: rgb(7,127,137);
+    background-color: #999;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .show-stats {
+    height: 100%;
+    margin-top: 100px;
+    background-color: $light-gray;
+
+    h2, h3{ font-size: 20px; margin: 0;}
+
+    .stat-box {
+      background-color: $white;
+      padding: 10px;
+      margin: 5px;
+
+      h5 { margin: 0; }
+      .scoring-avg h3, p  {
+        display: inline-block;
+      }
+
+      .stat-title {
+        font-size: 14px;
+        color: rgb(7,127,137);
+        margin-bottom: 10px;
+      }
+      p {
+        color: rgb(7,127,137);
+      }
+      p.round-date {
+        color: #999;
+        font-size: 15px;
+      }
+    }
+  }
+}
 
 
 

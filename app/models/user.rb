@@ -5,11 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable,
          :validatable
   before_save { self.email = email.downcase }
-  attachment :profile_image
+  before_create :username
 
   has_many :rounds
   has_many :courses, through: :rounds
-  has_many :tournaments, through: :rounds
+  has_many :tournament_users
+  has_many :tournaments, through: :tournament_users
   has_many :leaderboards
   has_many :scorecards
   has_many :user_scores, through: :scorecards
@@ -18,10 +19,14 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :gender, presence: true
-  validates :handicap, presence: true
+  # validates :handicap, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+
+  def username
+    self.username = self.first_name + self.last_name
+  end
 end

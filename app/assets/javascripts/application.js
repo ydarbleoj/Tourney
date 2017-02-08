@@ -17,4 +17,15 @@
 //= require_tree .
 
 $(document).foundation();
-
+var scrollEffect = function() {
+  var trgt = $('.scroll-trgt').offset().top - 130;
+  var $w = $(window).scroll(function (){
+    if ($w.scrollTop() > trgt){
+      $('.scroll-effect').css({"box-shadow":"0 4px 6px -4px #222"})
+    } else {
+      $('.scroll-effect').css({"box-shadow":"0 0px 0px 0px #222"})
+    }
+ })
+};
+$(document).ready(scrollEffect);
+$(document).on('turbolinks:load', scrollEffect);

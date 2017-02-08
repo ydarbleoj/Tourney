@@ -1,0 +1,15 @@
+<div class="row expanded nc-index">
+  <div class="columns">
+
+    <% @new_courses.each do |course|  %>
+      <%= link_to(tournament_new_course_path(@tournament.id, course.id)) do %>
+      <div class="row align-middle text-center img-container" id="<%= course.name.split(' ').join('-') %>-index">
+        <div class="small-12 columns" >
+          <h1><%= course.name %></h1>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>

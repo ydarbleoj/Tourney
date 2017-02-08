@@ -1,0 +1,53 @@
+<div class="row expanded us-new-container">
+  <div class="columns">
+
+    <div class="row new-header">
+      <div class="columns">
+        <h5 class="text-center"><%= current_user.username %></h5>
+        <h5>Hole <%= @user_score.number %></h5>
+        <div class="row expanded text-center align-middle">
+          <div class="small-6 text-left columns">
+            <h5>Par <%= @course.par %> </h5>
+          </div>
+          <div class="small-6 text-right columns">
+            <h5><%= @course.yards  %> yds</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row expanded text-center align-middle form-header">
+      <div class="small-6 columns">
+        <h5>Score</h5>
+      </div>
+      <div class="small-6 columns">
+        <h5>Putts</h5>
+      </div>
+    </div>
+
+    <div class="row expanded align-center form-container">
+      <div class="columns align-center" >
+        <%= form_for([@tournament, @scorecard, @user_score]) do |f|%>
+        <div class="row align-middle form-row">
+          <%= f.hidden_field :number, value: @user_score.number %>
+          <%= f.hidden_field :par, value: @course.par %>
+          <%= f.hidden_field :handicap, value: @user_score.handicap  %>
+          <div class="small-6 columns">
+            <%= f.select :score, score_select, prompt: @user_score.score %>
+          </div>
+          <div class="small-6 columns">
+            <%= f.select :putts, putt_select, prompt: @user_score.putts %>
+          </div>
+          <div class="small-6 columns">
+            <%= link_to 'Back', :back, class: 'button secondary expanded'  %>
+          </div>
+          <div class="small-6 columns">
+            <%= f.submit 'Save', class: 'button expanded'  %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

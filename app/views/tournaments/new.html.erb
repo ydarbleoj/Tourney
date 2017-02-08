@@ -1,34 +1,40 @@
-<div class="row" id="new-tourn-form">
-    <% @tournaments.each do |t| %>
-    <div class="small-12">
-      <%= t.name  %>
-      <%= link_to t.year, tournament_path(t.id) %>
+<div class="row expanded align-center" id="new-tourn-form">
+  <div class="small-12 columns">
+    <h1>New Tournament</h1>
+  </div>
+  <div class="row expanded align-center">
+    <div class="small-8 columns align-center" >
+      <%= form_for @tournament do |f|%>
+      <div class="row">
+        <div class="small-8 columns">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :year %>
+          <%= f.number_field :year %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :num_players %>
+          <%= f.number_field :num_players %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :num_rounds %>
+          <%= f.number_field :num_rounds %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :start_date %>
+          <%= f.date_field :start_date %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :end_date %>
+          <%= f.date_field :end_date %>
+        </div>
+        <div class="small-12 columns">
+          <%= f.submit 'Next', class: 'button expanded'  %>
+        </div>
+      </div>
+      <% end %>
     </div>
-    <% end %>
-		<div class="small-6 columns tourn-header">
-			<h1>New Round - Tournament</h1>
-		</div>
-	<div class="row">
-		<%= form_for(@tournament) do |f| %>
-		<div class="row">
-			<div class="small-12 medium-4 large-3 medium-centered large-centered columns">
-				<%= f.label :name %>
-				<%= f.text_field :name %>
-			</div>
-			<div class="small-12 medium-4 large-3 medium-centered large-centered columns">
-				<%= f.label :year %>
-        <%= f.text_field :year %>
-			</div>
-			<div class="small-12 medium-4 large-3 medium-centered large-centered columns">
-				<%= f.label :number_of_players %>
-				<%= f.text_field :num_players %>
-			</div>
-				<div class="small-12 medium-4 large-3 medium-centered large-centered columns">
-				<%= f.label :number_of_rounds %>
-				<%= f.text_field :num_rounds %>
-			</div>
-		</div>
-	<%= submit_tag "Add", class: 'expanded button enlarge' %>
-	</div>
-	<% end %>
+  </div>
 </div>

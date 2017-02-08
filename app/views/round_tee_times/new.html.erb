@@ -1,0 +1,57 @@
+<div class="row tournament-admin">
+
+  <div class="row expanded tourn-admin-head" id="show-header-<%= @current_tournament.year %>">
+
+    <div class="column align-self-bottom" id="tourn-header">
+      <h3>
+        <%= @current_tournament.name %> <%= @current_tournament.year %> Tee Times
+      </h3>
+    </div>
+
+  </div>
+
+  <div class="row expanded admin-list">
+    <div class="small-12 columns text-center">
+       <h3>Add Times for Round <%= @rnd %></h3>
+      <div class=" columns">
+        <!-- <#%= form_for([@tournament_round, @round_tee_times]) do |f|%> -->
+        <%= form_tag tournament_round_tee_times_path method: :post do %> <!-- BEGINNING OF FORM -->
+        <% @round_tee_times.each do |tee_time| %>
+        <%= fields_for 'tee_times[]', tee_time do |f|  %>
+        <div class="row">
+          <div class="small-8 columns">
+            <%= f.label :group %>
+            <%= f.number_field :group, readonly: true %>
+          </div>
+          <div class="small-8 columns">
+            <%= f.label :tee_time %>
+            <%= f.text_field :tee_time  %>
+          </div>
+          <div class="small-8 columns">
+            <%= f.label :player_one %>
+            <%= f.select :player_one, @current_tournament.users.collect {|x| [x.username, x.username]} %>
+          </div>
+          <div class="small-8 columns">
+            <%= f.label :player_two %>
+            <%= f.select :player_two, @current_tournament.users.collect {|x| [x.username, x.username]} %>
+          </div>
+          <div class="small-8 columns">
+            <%= f.label :player_three %>
+            <%= f.select :player_three, @current_tournament.users.collect {|x| [x.username, x.username]} %>
+          </div>
+          <div class="small-8 columns">
+            <%= f.label :player_four %>
+            <%= f.select :player_four, @current_tournament.users.collect {|x| [x.username, x.username]} %>
+          </div>
+          <% end %>
+          <% end %>
+          <div class="small-12 columns">
+            <%= submit_tag 'Next', class: 'button expanded'  %>
+          </div>
+        </div>
+      <% end %> <!-- END OF FORM -->
+    </div>
+  </div>
+
+ <%= render 'shared/admin_nav'  %>
+</div>

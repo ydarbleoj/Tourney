@@ -1,0 +1,24 @@
+<div class="row expanded align-middle align-center invite-form">
+  <div class="small-12 columns">
+    <h4>Enter the email address for the user you'd like to invite.</h4>
+    <%= form_for @invitation, url: tournament_invitations_path(@tournament), method: :post do |f| %>
+    <div class="row align-center">
+      <div class="small-8 columns">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </div>
+       <div class="small-8 columns">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name %>
+      </div>
+       <div class="small-8 columns">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name %>
+      </div>
+      <div class="small-8 columns">
+        <%= f.submit 'Invite User', class: 'button expanded' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

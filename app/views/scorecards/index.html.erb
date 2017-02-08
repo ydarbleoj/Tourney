@@ -1,42 +1,43 @@
-<%= render 'devise/shared/navbar'  %>
-<div class="row" id="tourn-show-page">
-  <div class="row" id="stroke-lb-header">
-    <div class="row align-middle" id="title-header">
-      <div class="small-3 columns" id="tournament-name">
-        <p><%= @tournament.year %></p>
-      </div>
-      <div class="small-6 columns" id="stroke-lb-title">
-        <h5><%= @tournament.name %></h5>
-        <H5>Master List</H5>
-      </div>
+<div class="row expanded">
+
+  <div class="row align-middle scorecard-index">
+    <div class="small-12 text-left columns">
+      <h5><%= current_user.username %></h5>
     </div>
-    <div class="row align-middle" id="lb-header">
-      <div class="small-4 columns" id="player">PLAYER</div>
-      <div class="small-5 columns" id="player">EMAIL</div>
-      <div class="columns lb">DELETE</div>
+    <div class="small-12 text-center columns">
+      <h5>Scorecards</h5>
     </div>
   </div>
-  <div class="row" id="stroke-lb-container">
-    <% @scorecards.sort { |a, b| a.user.last_name <=> b.user.last_name }.each do |scorecard|  %>
-    <div class="row" id="lb-player">
-      <div class="small-4 columns" id="player">
-        <h5 class='admin-link'><%= scorecard.user.first_name %> <%= scorecard.user.last_name  %>
-        </h5>
-      </div>
-      <div class="small-5 columns email-master" id="player"><p><%= scorecard.user.email  %></p></div>
-      <div class="columns lb" id="delete-button"><%= link_to("X", scorecard, method: :delete) %></div>
+
+  <div class="row scorecard-list">
+    <div class="columns">
+      <% @scorecards.each do |scorecard| %>
+
+        <%= link_to(display_scorecard_path(scorecard.id)) do %>
+        <div class="row align-middle scorecard-links">
+
+          <div class="small-3 columns text-center">
+            <h2><%= scorecard.total_score %></h2>
+          </div>
+
+          <div class="small-9 columns">
+            <div class="row sc-row">
+              <div class="small-12 columns text-left">
+                <p><%= scorecard.created_at.strftime('%a, %m/%d/%y')  %></p>
+                <p><%= scorecard.new_course.name %></p>
+              </div>
+              <div class="small-12">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <% end %>
+
+      <% end %>
     </div>
-    <% end %>
   </div>
-  <div class="row align-middle" id="leaderboard_nav">
-    <div class="small-4 columns tourn-links">
-      <%= link_to "Home", tournaments_path  %>
-    </div>
-    <div class="small-4 columns tourn-links">
-      <%= link_to "Gross Skins", skins_leaderboard_tournament_path(@tournament) %>
-    </div>
-    <div class="columns tourn-links">
-      <%= link_to "Net Skins", net_skins_leaderboard_tournament_path(@tournament)%>
-    </div>
-  </div>
+
+
 </div>

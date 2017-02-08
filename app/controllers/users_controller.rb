@@ -15,14 +15,12 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @tournament = current_user.tournaments.where.not(end_date: nil).first
+    p current_user.first_name
+    # @tournament = current_user.tournaments.where.not(end_date: nil).first
 
     unless @user == current_user
       redirect_to root_path, :alert => "Access Denied"
     end
-    fewest_putts
-    lowest_net
-    avg_score
   end
 
   def edit

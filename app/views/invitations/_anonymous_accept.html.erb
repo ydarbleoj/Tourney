@@ -1,0 +1,34 @@
+<p class="text-center">
+  <%= link_to "Sign in as an existing user", new_user_session_path %>
+</p>
+  <%= form_for [:accepted, @invitation], as: :user, url: accepted_tournament_invitation_path(@invitation.tournament_id, @invitation.token), method: :patch do |f| %>
+  <div class="row align-middle align-center field-info">
+    <div class="small-10 columns field">
+      <%= f.label :email, class: 'label-login'  %>
+      <%= f.email_field :email, autofocus: true, value: @invitation.email, class: 'email-login' %>
+    </div>
+    <div class="small-10 columns field">
+      <%= f.label :first_name, class: 'label-login' %>
+      <%= f.text_field :first_name, value: @invitation.first_name %>
+    </div>
+    <div class="small-10 columns field">
+      <%= f.label :last_name, class: 'label-login' %>
+      <%= f.text_field :last_name, value: @invitation.last_name %>
+    </div>
+    <div class="small-10 columns field">
+      <%= f.label :password, class: 'label-login'  %>
+      <% if @validatable %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <% end %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="small-10 columns field">
+      <%= f.label :password_confirmation, class: 'label-login' %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <%= f.hidden_field :role, class: 'hidden', value: @invitation.role %>
+    <div class="small-10 columns">
+      <%= f.submit "Sign up", class: 'button expanded' %>
+    </div>
+  </div>
+<% end %>

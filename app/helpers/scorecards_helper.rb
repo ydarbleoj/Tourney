@@ -1,7 +1,14 @@
 module ScorecardsHelper
 
-  def current_tournament
-    Tournament.find(params[:id])
+  # def current_tournament
+  #   Tournament.find(params[:id])
+  # end
+  def linked_routes(hole_number, user_score)
+    if user_score[hole_number - 1].present?
+      edit_path = edit_tournament_scorecard_user_score_path(@tournament.id, @scorecard.id, @user_scores[hole_number - 1].id)
+    else
+      new_path = new_tournament_scorecard_user_score_path(@tournament.id, @scorecard.id, number: hole_number)
+    end
   end
 
   def out_gross_score(scorecard)
@@ -40,16 +47,52 @@ module ScorecardsHelper
     @scorecard.user.gender == 'M' ? 72.3 : 71.6
   end
 
+
   def total_gross_score(scorecard)
-    @total = scorecard.user_scores.sum(:score)
-    scorecard.update(total_score: @total)
-    @total
+    @scorecard = scorecard
+    results = @scorecard.user_scores
+      .pluck('SUM(score), SUM(net), SUM(putts)').flatten(1)
+
+    @total_score = results[0]
+    @total_net   = results[1]
+    @total_putts = results[2]
+
+    scorecard.update_column(:total_score, @total_score ||= 0)
+    round = scorecard.round_num
+
+    if round == 1
+      tournament = Tournament.find(scorecard.tournament_round.tournament.id)
+      LeaderboardLogic.new(tournament, @scorecard, current_user).round_one
+    end
+
+    if round == 2
+      tournament = Tournament.find(scorecard.tournament_round.tournament.id)
+      LeaderboardLogic.new(tournament, @scorecard, current_user).round_two
+    end
+
+    if round == 3
+      tournament = Tournament.find(scorecard.tournament_round.tournament.id)
+      LeaderboardLogic.new(tournament, @scorecard, current_user).round_three
+    end
+
+    @total_score
   end
 
-  def total_net_score(scorecard)
-    @net = scorecard.user_scores.sum(:net)
-    scorecard.update(total_net: @net)
-    @net
+
+  def total_putts
+    @scorecard.update_column(:total_putts, @total_putts ||= 0)
+   p @total_putts
+  end
+
+  def three_putts(scorecard)
+    putts = scorecard.user_scores.where('putts >= ?', 3).length
+    scorecard.update_column(:total_3putts, putts)
+    putts
+  end
+
+  def total_net_score
+    @scorecard.update_column(:total_net, @total_net ||= 0)
+    @total_net
   end
 
   def handicaped_holes(scorecard, number)

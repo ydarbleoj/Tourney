@@ -1,0 +1,105 @@
+<div class="row expanded user-statistic-show">
+  <div class="columns">
+
+    <div class="row show-header align-bottom scroll-effect">
+      <div class="columns text-left">
+        <h3>Statistics</h3>
+        <h5><%= @course.name  %></h5><p>par <%= @course.par  %></p>
+      </div>
+    </div>
+
+    <div class="row show-stats scroll-trgt">
+      <div class="columns">
+
+        <div class="row expanded align-middle stat-box">
+          <div class="columns">
+            <div class="row expanded">
+              <div class="small-12 columns">
+                <h5 class='stat-title'>Scoring Avg</h5>
+              </div>
+            </div>
+
+            <div class="row expanded text-center scoring-avg">
+              <div class="small-6 columns">
+                <h3><%= @net_scoring_avg ||= 0 %></h3> <p>net</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row align-middle stat-box">
+          <div class="small-9 columns text-left">
+            <h5 class='stat-title'>Lowest Round</h5>
+            <h5><%= @lowest_round.nil? ? 0 : @lowest_round.user.first_name + ' ' + @fewest_putts.user.last_name[0] %></h5>
+          </div>
+          <div class="small-3 columns text-center">
+            <h2><%= @lowest_round.nil? ? 0 : @lowest_round.total_net %></h2>
+            <p>NET</p>
+          </div>
+        </div>
+
+        <div class="row expanded align-middle stat-box">
+          <div class="columns">
+            <div class="row expanded">
+              <div class="small-12 columns">
+                <h5 class='stat-title'>Putting Avg</h5>
+              </div>
+            </div>
+
+            <div class="row expanded text-center scoring-avg">
+              <div class="small-6 columns">
+                <h3><%= @putting_avg ||= 0 %></h3> <p>p</p>
+              </div>
+              <div class="small-6 columns">
+                <h3><%= @three_putt_avg ||= 0 %></h3> <p>3p</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row align-middle stat-box">
+          <div class="small-9 columns text-left">
+            <h5 class='stat-title'>Fewest Putts</h5>
+            <h5><%= @fewest_putts.nil? ? 0 : @fewest_putts.user.first_name + ' ' + @fewest_putts.user.last_name[0] %></h5>
+          </div>
+          <div class="small-3 columns text-center">
+            <h2><%= @fewest_putts.nil? ? 0 : @fewest_putts.total_putts %></h2>
+          </div>
+        </div>
+
+
+
+        <div class="row align-middle stat-box">
+          <div class="columns">
+            <div class="row expanded">
+              <div class="small-12 columns">
+                <h5 class='stat-title'>Par Avgs</h5>
+              </div>
+            </div>
+            <div class="row text-center expanded">
+              <div class="small-4 columns">
+                <h5>Par 3</h5>
+                <h5><%= @par3_avg.nil? ? 0 : @par3_avg.round(1) %></h5>
+              </div>
+              <div class="small-4 columns">
+                <h5>Par 4</h5>
+                <h5><%= @par4_avg.nil? ? 0 : @par4_avg.round(1) %></h5>
+              </div>
+              <div class="small-4 columns">
+                <h5>Par 5</h5>
+                <h5><%= @par5_avg.nil? ? 0 : @par5_avg.round(1) %></h5>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,23 +1,77 @@
 // Courses SCSS
 // Index Page
+.nc-index {
+  width: 100%;
+  height: 100%;
+
+  a {
+    width: 100%;
+    height: 33%;
+    .img-container {
+      width: 100%;
+      height: 100%;
+      background-color: pink;
+      border-bottom: 1px solid $black;
+      div { height: 100%; }
+      h1 {
+        margin: 0;
+      }
+    }
+  }
+
+}
+
 .courses-container {
 	width: 100%; height: 100%;
 	position: absolute;
 }
-.row .back {
-  width: 100%; height: 20px;
-  position: absolute;
-  padding-left: 20px;
-  border-right: 2px solid rgba(45, 45, 46, .9);
-}
+// .row .back {
+//   width: 50px; height: 50px;
+//   position: absolute;
+//   z-index: 100;
+//   top: 0;
+//   border: 2px solid rgba(45, 45, 46, .9);
+//   a {
+//     color: $black;
+
+//   }
+// }
 .courses-link {
 	width: 100%; height: 25%;
 }
 .course-layer {
 	width: 100%; height: 100%;
-	background-color: rgba(45,45,46, .2);
+	background-color: rgba(45,45,46, .8);
 	box-shadow: 0 0 1px 0 #000000;
 	position: absolute;
+}
+#Pacific-Dunes-index {
+  width: 100%; height: 100%;
+  background: url('Pacific-Dunes.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#Bandon-Dunes-index {
+  width: 100%; height: 100%;
+  background: url('Bandon-Dunes.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#Bandon-Trails-index {
+  width: 100%; height: 100%;
+  background: url('Bandon-Trails.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#Old-Mac-index {
+  width: 100%; height: 100%;
+  background: url('Old-MacDonald.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 #Pacific-Dunes {
 	width: 100%; height: 25%;

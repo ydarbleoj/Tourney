@@ -7,7 +7,7 @@
 # pat = User.create!(username: 'Pat Anderson', handicap: 36, email: 'patrick.edward.anderson@gmail.com', password: 'anderson1234', password_confirmation: 'anderson1234')
 # robb = User.create!(username: 'Robb Page', handicap: 6.5, email: 'theswine19@gmail.com', password: 'page1234', password_confirmation: 'page1234')
 # scott = User.create!(username: 'Scott Kovesdy', handicap: 5.6, email: 'skovesdy@msn.com', password: 'kovesdy1234', password_confirmation: 'kovesdy1234')
-# rory = User.create!(username: 'Rory Tarquinio', handicap: nil, email: 'rtarquinio10@gmail.com', password: 'tarquinio1234', password_confirmation: 'tarquinio1234')
+# rory = User.create!(username: 'Rory Tarquinio', handicap: n, email: 'rtarquinio10@gmail.com', password: 'tarquinio1234', password_confirmation: 'tarquinio1234')
 # albino = User.create!(username: 'Albino Duran', handicap: 14, email: 'albino.duran@verizon.com', password: 'duran1234', password_confirmation: 'duran1234')
 # greg = User.create!(username: 'Greg Smith', handicap: 23, email: 'grs@yurik.net', password: 'smith1234', password_confirmation: 'smith1234')
 # rich = User.create!(username: 'Rich Guisti', handicap: nil, email: 'rich.giusti@masergy.com', password: 'guisti1234', password_confirmation: 'guisti1234')
@@ -16,7 +16,7 @@
 # matt = User.create!(username: 'Matt James', handicap: nil, email: 'mjiggity@gmail.com', password: 'james1234', password_confirmation: 'james1234')
 # jeremy = User.create!(username: 'Jeremy Emerson', handicap: 14, email: 'jeremy@wrightstrategies.com', password: 'emerson1234', password_confirmation: 'emerson1234')
 # david = User.create!(username: 'David Sanda', handicap: 21.8, email: 'david.sanda@verizon.com', password: 'sanda1234', password_confirmation: 'sanda1234')
-#
+# payne = User.where(email: 'michaeljamespayne@yahoo.com').first
 # bandon = Course.create!(par: 72, yardage: 6221, name: 'Bandon Dunes', rating: 71.4, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 352, h1_par: 4, h1_hcap: 13, h2_yds: 155, h2_par: 3, h2_hcap: 15, h3_yds: 489, h3_par: 5, h3_hcap: 3,
 # 	  h4_yds: 362, h4_par: 4, h4_hcap: 5, h5_yds: 400, h5_par: 4, h5_hcap: 1, h6_yds: 153, h6_par: 3, h6_hcap: 17,
@@ -33,7 +33,7 @@
 # 		h17_yds: 375, h17_par: 4, h17_hcap: 12,
 # 		h18_yds: 513, h18_par: 5, h18_hcap: 4,
 # 		in_yds: 3076, in_par: 36 )
-#
+
 # pacific = Course.create!(par: 71, yardage: 6142, name: 'Pacific Dunes', rating: 70.7, slope: 133, tee: 'Green', city: 'Bandon', state: 'Oregon',
 # 		h1_yds: 304, h1_par: 4, h1_hcap: 9,
 # 	  h2_yds: 335, h2_par: 4, h2_hcap: 11,
@@ -249,16 +249,313 @@
 # 	                 date_played: sun_fourth.strftime("%F"), tee_time: sun_fourth.strftime("%H:%M"))
 #
 # # Bandon 2015
-# bandon_2015 = Tournament.create!(name: 'Bandon', year: 2015, num_players: 12, num_rounds: 3,
-# 														 end_date: DateTime.new(2015, 2, 8,18,00,00))
+# ROUND One
+bandon_2015 = Tournament.where(name: 'Bandon', year: 2015).first
+
+trails  = NewCourse.find_by_name('Bandon Trails')
+bandon  = NewCourse.find_by_name('Bandon Dunes')
+pacific = NewCourse.find_by_name('Pacific Dunes')
+
+bandon_holes  = bandon.holes
+pacific_holes = pacific.holes
+
+rnd1 = bandon_2015.tournament_rounds.where(round_number: 1, new_course_id: trails.id).first
+rnd2 = bandon_2015.tournament_rounds.where(round_number: 2, new_course_id: bandon.id).first
+rnd3 = bandon_2015.tournament_rounds.where(round_number: 3, new_course_id: pacific.id).first
+
+user_ids = Round.where(tournament_id: bandon_2015.id).select(:user_id).uniq
+users = User.where(id: user_ids)
+
+users.each do |user|
+  bandon_2015.users << user
+  # user = User.where(email: user.email).first
+  user_rnd1 = Round.where(tournament_id: bandon_2015, user_id: user.id, round_num: 1).first
+  handicap = user_rnd1.handicap
+
+  rnd1_sc = rnd1.scorecards.create(user_id: user.id, new_course_id: trails.id,
+    total_score: user_rnd1.score,
+    total_putts: user_rnd1.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd1.score - handicap,
+    round_num: 1,
+    finished: true)
+
+  rnd1_sc.user_scores.create(number: 1, score: user_rnd1.send("s#{1}"), putts: user_rnd1.send("p#{1}"), par: 4, handicap: 13)
+  rnd1_sc.user_scores.create(number: 2, score: user_rnd1.send("s#{2}"), putts: user_rnd1.send("p#{2}"), par: 3, handicap: 17)
+  rnd1_sc.user_scores.create(number: 3, score: user_rnd1.send("s#{3}"), putts: user_rnd1.send("p#{3}"), par: 5, handicap: 3)
+  rnd1_sc.user_scores.create(number: 4, score: user_rnd1.send("s#{4}"), putts: user_rnd1.send("p#{4}"), par: 4, handicap: 5)
+  rnd1_sc.user_scores.create(number: 5, score: user_rnd1.send("s#{5}"), putts: user_rnd1.send("p#{5}"), par: 3, handicap: 15)
+  rnd1_sc.user_scores.create(number: 6, score: user_rnd1.send("s#{6}"), putts: user_rnd1.send("p#{6}"), par: 4, handicap: 9)
+  rnd1_sc.user_scores.create(number: 7, score: user_rnd1.send("s#{7}"), putts: user_rnd1.send("p#{7}"), par: 4, handicap: 7)
+  rnd1_sc.user_scores.create(number: 8, score: user_rnd1.send("s#{8}"), putts: user_rnd1.send("p#{8}"), par: 4, handicap: 11)
+  rnd1_sc.user_scores.create(number: 9, score: user_rnd1.send("s#{9}"), putts: user_rnd1.send("p#{9}"), par: 5, handicap: 1)
+  rnd1_sc.user_scores.create(number: 10, score: user_rnd1.send("s#{10}"), putts: user_rnd1.send("p#{10}"), par: 4, handicap: 10)
+  rnd1_sc.user_scores.create(number: 11, score: user_rnd1.send("s#{11}"), putts: user_rnd1.send("p#{11}"), par: 4, handicap: 4)
+  rnd1_sc.user_scores.create(number: 12, score: user_rnd1.send("s#{12}"), putts: user_rnd1.send("p#{12}"), par: 3, handicap: 18)
+  rnd1_sc.user_scores.create(number: 13, score: user_rnd1.send("s#{13}"), putts: user_rnd1.send("p#{13}"), par: 4, handicap: 12)
+  rnd1_sc.user_scores.create(number: 14, score: user_rnd1.send("s#{14}"), putts: user_rnd1.send("p#{14}"), par: 4, handicap: 14)
+  rnd1_sc.user_scores.create(number: 15, score: user_rnd1.send("s#{15}"), putts: user_rnd1.send("p#{15}"), par: 4, handicap: 8)
+  rnd1_sc.user_scores.create(number: 16, score: user_rnd1.send("s#{16}"), putts: user_rnd1.send("p#{16}"), par: 5, handicap: 2)
+  rnd1_sc.user_scores.create(number: 17, score: user_rnd1.send("s#{17}"), putts: user_rnd1.send("p#{17}"), par: 3, handicap: 16)
+  rnd1_sc.user_scores.create(number: 18, score: user_rnd1.send("s#{18}"), putts: user_rnd1.send("p#{18}"), par: 4, handicap: 6)
+
+  user_scores1 = rnd1_sc.user_scores
+  three_putts1 = user_scores1.map { |x| p x.putts if x.putts > 2 }.compact.length
+  rnd1_sc.update(total_3putts: three_putts1)
+
+  rnd1_score = user_rnd1.score - handicap
+
+  user_rnd2 = Round.where(tournament_id: bandon_2015, user_id: user.id, round_num: 2).first
+
+  rnd2_sc = rnd2.scorecards.create(user_id: user.id, new_course_id: bandon.id,
+    total_score: user_rnd2.score,
+    total_putts: user_rnd2.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd2.score - handicap,
+    round_num: 2,
+    finished: true)
+
+  rnd2_sc.user_scores.create(number: 1, score: user_rnd2.send("s#{1}"),putts: user_rnd2.send("p#{1}"), par: bandon_holes[0].par, handicap: bandon_holes[0].handicap)
+  rnd2_sc.user_scores.create(number: 2, score: user_rnd2.send("s#{2}"),putts: user_rnd2.send("p#{2}"), par: bandon_holes[1].par, handicap: bandon_holes[1].handicap)
+  rnd2_sc.user_scores.create(number: 3, score: user_rnd2.send("s#{3}"),putts: user_rnd2.send("p#{3}"), par: bandon_holes[2].par, handicap: bandon_holes[2].handicap)
+  rnd2_sc.user_scores.create(number: 4, score: user_rnd2.send("s#{4}"),putts: user_rnd2.send("p#{4}"), par: bandon_holes[3].par, handicap: bandon_holes[3].handicap)
+  rnd2_sc.user_scores.create(number: 5, score: user_rnd2.send("s#{5}"),putts: user_rnd2.send("p#{5}"), par: bandon_holes[4].par, handicap: bandon_holes[4].handicap)
+  rnd2_sc.user_scores.create(number: 6, score: user_rnd2.send("s#{6}"),putts: user_rnd2.send("p#{6}"), par: bandon_holes[5].par, handicap: bandon_holes[5].handicap)
+  rnd2_sc.user_scores.create(number: 7, score: user_rnd2.send("s#{7}"),putts: user_rnd2.send("p#{7}"), par: bandon_holes[6].par, handicap: bandon_holes[6].handicap)
+  rnd2_sc.user_scores.create(number: 8, score: user_rnd2.send("s#{8}"),putts: user_rnd2.send("p#{8}"), par: bandon_holes[7].par, handicap: bandon_holes[7].handicap)
+  rnd2_sc.user_scores.create(number: 9, score: user_rnd2.send("s#{9}"),putts: user_rnd2.send("p#{9}"), par: bandon_holes[8].par, handicap: bandon_holes[8].handicap)
+  rnd2_sc.user_scores.create(number: 10, score: user_rnd2.send("s#{10}"),putts: user_rnd2.send("p#{10}"), par: bandon_holes[9].par, handicap: bandon_holes[9].handicap)
+  rnd2_sc.user_scores.create(number: 11, score: user_rnd2.send("s#{11}"),putts: user_rnd2.send("p#{11}"), par: bandon_holes[10].par, handicap: bandon_holes[10].handicap)
+  rnd2_sc.user_scores.create(number: 12, score: user_rnd2.send("s#{12}"),putts: user_rnd2.send("p#{12}"), par: bandon_holes[11].par, handicap: bandon_holes[11].handicap)
+  rnd2_sc.user_scores.create(number: 13, score: user_rnd2.send("s#{13}"),putts: user_rnd2.send("p#{13}"), par: bandon_holes[12].par, handicap: bandon_holes[12].handicap)
+  rnd2_sc.user_scores.create(number: 14, score: user_rnd2.send("s#{14}"),putts: user_rnd2.send("p#{14}"), par: bandon_holes[13].par, handicap: bandon_holes[13].handicap)
+  rnd2_sc.user_scores.create(number: 15, score: user_rnd2.send("s#{15}"),putts: user_rnd2.send("p#{15}"), par: bandon_holes[14].par, handicap: bandon_holes[14].handicap)
+  rnd2_sc.user_scores.create(number: 16, score: user_rnd2.send("s#{16}"),putts: user_rnd2.send("p#{16}"), par: bandon_holes[15].par, handicap: bandon_holes[15].handicap)
+  rnd2_sc.user_scores.create(number: 17, score: user_rnd2.send("s#{17}"),putts: user_rnd2.send("p#{17}"), par: bandon_holes[16].par, handicap: bandon_holes[16].handicap)
+  rnd2_sc.user_scores.create(number: 18, score: user_rnd2.send("s#{18}"),putts: user_rnd2.send("p#{18}"), par: bandon_holes[17].par, handicap: bandon_holes[17].handicap)
+
+  user_scores2 = rnd2_sc.user_scores
+  three_putts2 = user_scores2.map { |x| p x.putts if x.putts > 2 }.compact.length
+
+  rnd2_score = user_rnd2.score - handicap
+  rnd2_sc.update(total_3putts: three_putts2)
+
+
+  user_rnd3 = Round.where(tournament_id: bandon_2015, user_id: user.id, round_num: 3).first
+
+  rnd3_sc = rnd3.scorecards.create(user_id: user.id, new_course_id: pacific.id,
+    total_score: user_rnd3.score,
+    total_putts: user_rnd3.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd3.score - handicap,
+    round_num: 3,
+    finished: true)
+
+  rnd3_sc.user_scores.create(number: 1, score: user_rnd3.send("s#{1}"),putts: user_rnd3.send("p#{1}"), par: pacific_holes[0].par, handicap: pacific_holes[0].handicap)
+  rnd3_sc.user_scores.create(number: 2, score: user_rnd3.send("s#{2}"),putts: user_rnd3.send("p#{2}"), par: pacific_holes[1].par, handicap: pacific_holes[1].handicap)
+  rnd3_sc.user_scores.create(number: 3, score: user_rnd3.send("s#{3}"),putts: user_rnd3.send("p#{3}"), par: pacific_holes[2].par, handicap: pacific_holes[2].handicap)
+  rnd3_sc.user_scores.create(number: 4, score: user_rnd3.send("s#{4}"),putts: user_rnd3.send("p#{4}"), par: pacific_holes[3].par, handicap: pacific_holes[3].handicap)
+  rnd3_sc.user_scores.create(number: 5, score: user_rnd3.send("s#{5}"),putts: user_rnd3.send("p#{5}"), par: pacific_holes[4].par, handicap: pacific_holes[4].handicap)
+  rnd3_sc.user_scores.create(number: 6, score: user_rnd3.send("s#{6}"),putts: user_rnd3.send("p#{6}"), par: pacific_holes[5].par, handicap: pacific_holes[5].handicap)
+  rnd3_sc.user_scores.create(number: 7, score: user_rnd3.send("s#{7}"),putts: user_rnd3.send("p#{7}"), par: pacific_holes[6].par, handicap: pacific_holes[6].handicap)
+  rnd3_sc.user_scores.create(number: 8, score: user_rnd3.send("s#{8}"),putts: user_rnd3.send("p#{8}"), par: pacific_holes[7].par, handicap: pacific_holes[7].handicap)
+  rnd3_sc.user_scores.create(number: 9, score: user_rnd3.send("s#{9}"),putts: user_rnd3.send("p#{9}"), par: pacific_holes[8].par, handicap: pacific_holes[8].handicap)
+  rnd3_sc.user_scores.create(number: 10, score: user_rnd3.send("s#{10}"),putts: user_rnd3.send("p#{10}"), par: pacific_holes[9].par, handicap: pacific_holes[9].handicap)
+  rnd3_sc.user_scores.create(number: 11, score: user_rnd3.send("s#{11}"),putts: user_rnd3.send("p#{11}"), par: pacific_holes[10].par, handicap: pacific_holes[10].handicap)
+  rnd3_sc.user_scores.create(number: 12, score: user_rnd3.send("s#{12}"),putts: user_rnd3.send("p#{12}"), par: pacific_holes[11].par, handicap: pacific_holes[11].handicap)
+  rnd3_sc.user_scores.create(number: 13, score: user_rnd3.send("s#{13}"),putts: user_rnd3.send("p#{13}"), par: pacific_holes[12].par, handicap: pacific_holes[12].handicap)
+  rnd3_sc.user_scores.create(number: 14, score: user_rnd3.send("s#{14}"),putts: user_rnd3.send("p#{14}"), par: pacific_holes[13].par, handicap: pacific_holes[13].handicap)
+  rnd3_sc.user_scores.create(number: 15, score: user_rnd3.send("s#{15}"),putts: user_rnd3.send("p#{15}"), par: pacific_holes[14].par, handicap: pacific_holes[14].handicap)
+  rnd3_sc.user_scores.create(number: 16, score: user_rnd3.send("s#{16}"),putts: user_rnd3.send("p#{16}"), par: pacific_holes[15].par, handicap: pacific_holes[15].handicap)
+  rnd3_sc.user_scores.create(number: 17, score: user_rnd3.send("s#{17}"),putts: user_rnd3.send("p#{17}"), par: pacific_holes[16].par, handicap: pacific_holes[16].handicap)
+  rnd3_sc.user_scores.create(number: 18, score: user_rnd3.send("s#{18}"),putts: user_rnd3.send("p#{18}"), par: pacific_holes[17].par, handicap: pacific_holes[17].handicap)
+
+  user_scores3 = rnd3_sc.user_scores
+  three_putts3 = user_scores3.map { |x| p x.putts if x.putts > 2 }.compact.length
+  rnd3_sc.update(total_3putts: three_putts3)
+
+  rnd3_score = user_rnd3.score - handicap
+
+  total_score = (rnd1_score + rnd2_score + rnd3_score) - (trails.par + bandon.par + pacific.par)
+
+
+  leaderboard = bandon_2015.leaderboards.create(user_id: user.id, handicap: handicap,
+    rnd1_score: rnd1_score,
+    rnd2_score: rnd2_score,
+    rnd3_score: rnd3_score,
+    rnd1_putts: user_rnd1.putts,
+    rnd2_putts: user_rnd2.putts,
+    rnd3_putts: user_rnd3.putts,
+    total_score: total_score,
+    total_putts: (user_rnd1.putts + user_rnd2.putts + user_rnd3.putts),
+    total_3_putts: (three_putts1 + three_putts2 + three_putts3),
+    net_total: (rnd1_score + rnd2_score + rnd3_score),
+    rn1_3putts: three_putts1,
+    rnd2_3putts: three_putts2,
+    rnd3_3putts: three_putts3)
+
+end
+
+bandon_2016 = Tournament.where(name: 'Bandon', year: 2016).first
+
+trails  = NewCourse.find_by_name('Bandon Trails')
+old_mac = NewCourse.find_by_name('Old Mac')
+bandon  = NewCourse.find_by_name('Bandon Dunes')
+
+bandon_holes  = bandon.holes
+old_mac_holes = old_mac.holes
+
+rnd1 = bandon_2016.tournament_rounds.where(round_number: 1, new_course_id: trails.id).first
+rnd2 = bandon_2016.tournament_rounds.where(round_number: 2, new_course_id: old_mac.id).first
+rnd3 = bandon_2016.tournament_rounds.where(round_number: 3, new_course_id: bandon.id).first
+
+user_ids = Round.where(tournament_id: bandon_2016.id).select(:user_id).uniq
+users = User.where(id: user_ids)
+
+users.each do |user|
+  bandon_2016.users << user
+  # user = User.where(email: user.email).first
+  user_rnd1 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 1).first
+  handicap = user_rnd1.handicap
+
+  rnd1_sc = rnd1.scorecards.create(user_id: user.id, new_course_id: trails.id,
+    total_score: user_rnd1.score,
+    total_putts: user_rnd1.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd1.score - handicap,
+    round_num: 1,
+    finished: true)
+
+  rnd1_sc.user_scores.create(number: 1, score: user_rnd1.send("s#{1}"), putts: user_rnd1.send("p#{1}"), par: 4, handicap: 13)
+  rnd1_sc.user_scores.create(number: 2, score: user_rnd1.send("s#{2}"), putts: user_rnd1.send("p#{2}"), par: 3, handicap: 17)
+  rnd1_sc.user_scores.create(number: 3, score: user_rnd1.send("s#{3}"), putts: user_rnd1.send("p#{3}"), par: 5, handicap: 3)
+  rnd1_sc.user_scores.create(number: 4, score: user_rnd1.send("s#{4}"), putts: user_rnd1.send("p#{4}"), par: 4, handicap: 5)
+  rnd1_sc.user_scores.create(number: 5, score: user_rnd1.send("s#{5}"), putts: user_rnd1.send("p#{5}"), par: 3, handicap: 15)
+  rnd1_sc.user_scores.create(number: 6, score: user_rnd1.send("s#{6}"), putts: user_rnd1.send("p#{6}"), par: 4, handicap: 9)
+  rnd1_sc.user_scores.create(number: 7, score: user_rnd1.send("s#{7}"), putts: user_rnd1.send("p#{7}"), par: 4, handicap: 7)
+  rnd1_sc.user_scores.create(number: 8, score: user_rnd1.send("s#{8}"), putts: user_rnd1.send("p#{8}"), par: 4, handicap: 11)
+  rnd1_sc.user_scores.create(number: 9, score: user_rnd1.send("s#{9}"), putts: user_rnd1.send("p#{9}"), par: 5, handicap: 1)
+  rnd1_sc.user_scores.create(number: 10, score: user_rnd1.send("s#{10}"), putts: user_rnd1.send("p#{10}"), par: 4, handicap: 10)
+  rnd1_sc.user_scores.create(number: 11, score: user_rnd1.send("s#{11}"), putts: user_rnd1.send("p#{11}"), par: 4, handicap: 4)
+  rnd1_sc.user_scores.create(number: 12, score: user_rnd1.send("s#{12}"), putts: user_rnd1.send("p#{12}"), par: 3, handicap: 18)
+  rnd1_sc.user_scores.create(number: 13, score: user_rnd1.send("s#{13}"), putts: user_rnd1.send("p#{13}"), par: 4, handicap: 12)
+  rnd1_sc.user_scores.create(number: 14, score: user_rnd1.send("s#{14}"), putts: user_rnd1.send("p#{14}"), par: 4, handicap: 14)
+  rnd1_sc.user_scores.create(number: 15, score: user_rnd1.send("s#{15}"), putts: user_rnd1.send("p#{15}"), par: 4, handicap: 8)
+  rnd1_sc.user_scores.create(number: 16, score: user_rnd1.send("s#{16}"), putts: user_rnd1.send("p#{16}"), par: 5, handicap: 2)
+  rnd1_sc.user_scores.create(number: 17, score: user_rnd1.send("s#{17}"), putts: user_rnd1.send("p#{17}"), par: 3, handicap: 16)
+  rnd1_sc.user_scores.create(number: 18, score: user_rnd1.send("s#{18}"), putts: user_rnd1.send("p#{18}"), par: 4, handicap: 6)
+
+  user_scores1 = rnd1_sc.user_scores
+  three_putts1 = user_scores1.map { |x| p x.putts if x.putts > 2 }.compact.length
+  rnd1_sc.update(total_3putts: three_putts1)
+
+  rnd1_score = user_rnd1.score - handicap
+
+  user_rnd2 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 2).first
+
+  rnd2_sc = rnd2.scorecards.create(user_id: user.id, new_course_id: old_mac.id,
+    total_score: user_rnd2.score,
+    total_putts: user_rnd2.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd2.score - handicap,
+    round_num: 2,
+    finished: true)
+
+  rnd2_sc.user_scores.create(number: 1, score: user_rnd2.send("s#{1}"),putts: user_rnd2.send("p#{1}"), par: old_mac_holes[0].par, handicap: old_mac_holes[0].handicap)
+  rnd2_sc.user_scores.create(number: 2, score: user_rnd2.send("s#{2}"),putts: user_rnd2.send("p#{2}"), par: old_mac_holes[1].par, handicap: old_mac_holes[1].handicap)
+  rnd2_sc.user_scores.create(number: 3, score: user_rnd2.send("s#{3}"),putts: user_rnd2.send("p#{3}"), par: old_mac_holes[2].par, handicap: old_mac_holes[2].handicap)
+  rnd2_sc.user_scores.create(number: 4, score: user_rnd2.send("s#{4}"),putts: user_rnd2.send("p#{4}"), par: old_mac_holes[3].par, handicap: old_mac_holes[3].handicap)
+  rnd2_sc.user_scores.create(number: 5, score: user_rnd2.send("s#{5}"),putts: user_rnd2.send("p#{5}"), par: old_mac_holes[4].par, handicap: old_mac_holes[4].handicap)
+  rnd2_sc.user_scores.create(number: 6, score: user_rnd2.send("s#{6}"),putts: user_rnd2.send("p#{6}"), par: old_mac_holes[5].par, handicap: old_mac_holes[5].handicap)
+  rnd2_sc.user_scores.create(number: 7, score: user_rnd2.send("s#{7}"),putts: user_rnd2.send("p#{7}"), par: old_mac_holes[6].par, handicap: old_mac_holes[6].handicap)
+  rnd2_sc.user_scores.create(number: 8, score: user_rnd2.send("s#{8}"),putts: user_rnd2.send("p#{8}"), par: old_mac_holes[7].par, handicap: old_mac_holes[7].handicap)
+  rnd2_sc.user_scores.create(number: 9, score: user_rnd2.send("s#{9}"),putts: user_rnd2.send("p#{9}"), par: old_mac_holes[8].par, handicap: old_mac_holes[8].handicap)
+  rnd2_sc.user_scores.create(number: 10, score: user_rnd2.send("s#{10}"),putts: user_rnd2.send("p#{10}"), par: old_mac_holes[9].par, handicap: old_mac_holes[9].handicap)
+  rnd2_sc.user_scores.create(number: 11, score: user_rnd2.send("s#{11}"),putts: user_rnd2.send("p#{11}"), par: old_mac_holes[10].par, handicap: old_mac_holes[10].handicap)
+  rnd2_sc.user_scores.create(number: 12, score: user_rnd2.send("s#{12}"),putts: user_rnd2.send("p#{12}"), par: old_mac_holes[11].par, handicap: old_mac_holes[11].handicap)
+  rnd2_sc.user_scores.create(number: 13, score: user_rnd2.send("s#{13}"),putts: user_rnd2.send("p#{13}"), par: old_mac_holes[12].par, handicap: old_mac_holes[12].handicap)
+  rnd2_sc.user_scores.create(number: 14, score: user_rnd2.send("s#{14}"),putts: user_rnd2.send("p#{14}"), par: old_mac_holes[13].par, handicap: old_mac_holes[13].handicap)
+  rnd2_sc.user_scores.create(number: 15, score: user_rnd2.send("s#{15}"),putts: user_rnd2.send("p#{15}"), par: old_mac_holes[14].par, handicap: old_mac_holes[14].handicap)
+  rnd2_sc.user_scores.create(number: 16, score: user_rnd2.send("s#{16}"),putts: user_rnd2.send("p#{16}"), par: old_mac_holes[15].par, handicap: old_mac_holes[15].handicap)
+  rnd2_sc.user_scores.create(number: 17, score: user_rnd2.send("s#{17}"),putts: user_rnd2.send("p#{17}"), par: old_mac_holes[16].par, handicap: old_mac_holes[16].handicap)
+  rnd2_sc.user_scores.create(number: 18, score: user_rnd2.send("s#{18}"),putts: user_rnd2.send("p#{18}"), par: old_mac_holes[17].par, handicap: old_mac_holes[17].handicap)
+
+  user_scores2 = rnd2_sc.user_scores
+  three_putts2 = user_scores2.map { |x| p x.putts if x.putts > 2 }.compact.length
+
+  rnd2_score = user_rnd2.score - handicap
+  rnd2_sc.update(total_3putts: three_putts2)
+
+
+  user_rnd3 = Round.where(tournament_id: bandon_2016, user_id: user.id, round_num: 3).first
+
+  rnd3_sc = rnd3.scorecards.create(user_id: user.id, new_course_id: bandon.id,
+    total_score: user_rnd3.score,
+    total_putts: user_rnd3.putts,
+    total_3putts: 0,
+    handicap: handicap,
+    total_net: user_rnd3.score - handicap,
+    round_num: 3,
+    finished: true)
+
+  rnd3_sc.user_scores.create(number: 1, score: user_rnd3.send("s#{1}"),putts: user_rnd3.send("p#{1}"), par: bandon_holes[0].par, handicap: bandon_holes[0].handicap)
+  rnd3_sc.user_scores.create(number: 2, score: user_rnd3.send("s#{2}"),putts: user_rnd3.send("p#{2}"), par: bandon_holes[1].par, handicap: bandon_holes[1].handicap)
+  rnd3_sc.user_scores.create(number: 3, score: user_rnd3.send("s#{3}"),putts: user_rnd3.send("p#{3}"), par: bandon_holes[2].par, handicap: bandon_holes[2].handicap)
+  rnd3_sc.user_scores.create(number: 4, score: user_rnd3.send("s#{4}"),putts: user_rnd3.send("p#{4}"), par: bandon_holes[3].par, handicap: bandon_holes[3].handicap)
+  rnd3_sc.user_scores.create(number: 5, score: user_rnd3.send("s#{5}"),putts: user_rnd3.send("p#{5}"), par: bandon_holes[4].par, handicap: bandon_holes[4].handicap)
+  rnd3_sc.user_scores.create(number: 6, score: user_rnd3.send("s#{6}"),putts: user_rnd3.send("p#{6}"), par: bandon_holes[5].par, handicap: bandon_holes[5].handicap)
+  rnd3_sc.user_scores.create(number: 7, score: user_rnd3.send("s#{7}"),putts: user_rnd3.send("p#{7}"), par: bandon_holes[6].par, handicap: bandon_holes[6].handicap)
+  rnd3_sc.user_scores.create(number: 8, score: user_rnd3.send("s#{8}"),putts: user_rnd3.send("p#{8}"), par: bandon_holes[7].par, handicap: bandon_holes[7].handicap)
+  rnd3_sc.user_scores.create(number: 9, score: user_rnd3.send("s#{9}"),putts: user_rnd3.send("p#{9}"), par: bandon_holes[8].par, handicap: bandon_holes[8].handicap)
+  rnd3_sc.user_scores.create(number: 10, score: user_rnd3.send("s#{10}"),putts: user_rnd3.send("p#{10}"), par: bandon_holes[9].par, handicap: bandon_holes[9].handicap)
+  rnd3_sc.user_scores.create(number: 11, score: user_rnd3.send("s#{11}"),putts: user_rnd3.send("p#{11}"), par: bandon_holes[10].par, handicap: bandon_holes[10].handicap)
+  rnd3_sc.user_scores.create(number: 12, score: user_rnd3.send("s#{12}"),putts: user_rnd3.send("p#{12}"), par: bandon_holes[11].par, handicap: bandon_holes[11].handicap)
+  rnd3_sc.user_scores.create(number: 13, score: user_rnd3.send("s#{13}"),putts: user_rnd3.send("p#{13}"), par: bandon_holes[12].par, handicap: bandon_holes[12].handicap)
+  rnd3_sc.user_scores.create(number: 14, score: user_rnd3.send("s#{14}"),putts: user_rnd3.send("p#{14}"), par: bandon_holes[13].par, handicap: bandon_holes[13].handicap)
+  rnd3_sc.user_scores.create(number: 15, score: user_rnd3.send("s#{15}"),putts: user_rnd3.send("p#{15}"), par: bandon_holes[14].par, handicap: bandon_holes[14].handicap)
+  rnd3_sc.user_scores.create(number: 16, score: user_rnd3.send("s#{16}"),putts: user_rnd3.send("p#{16}"), par: bandon_holes[15].par, handicap: bandon_holes[15].handicap)
+  rnd3_sc.user_scores.create(number: 17, score: user_rnd3.send("s#{17}"),putts: user_rnd3.send("p#{17}"), par: bandon_holes[16].par, handicap: bandon_holes[16].handicap)
+  rnd3_sc.user_scores.create(number: 18, score: user_rnd3.send("s#{18}"),putts: user_rnd3.send("p#{18}"), par: bandon_holes[17].par, handicap: bandon_holes[17].handicap)
+
+  user_scores3 = rnd3_sc.user_scores
+  three_putts3 = user_scores3.map { |x| p x.putts if x.putts > 2 }.compact.length
+  rnd3_sc.update(total_3putts: three_putts3)
+
+  rnd3_score = user_rnd3.score - handicap
+
+  total_score = (rnd1_score + rnd2_score + rnd3_score) - (trails.par + bandon.par + old_mac.par)
+
+
+  leaderboard = bandon_2016.leaderboards.create(user_id: user.id, handicap: handicap,
+    rnd1_score: rnd1_score,
+    rnd2_score: rnd2_score,
+    rnd3_score: rnd3_score,
+    rnd1_putts: user_rnd1.putts,
+    rnd2_putts: user_rnd2.putts,
+    rnd3_putts: user_rnd3.putts,
+    total_score: total_score,
+    total_putts: (user_rnd1.putts + user_rnd2.putts + user_rnd3.putts),
+    total_3_putts: (three_putts1 + three_putts2 + three_putts3),
+    net_total: (rnd1_score + rnd2_score + rnd3_score),
+    rn1_3putts: three_putts1,
+    rnd2_3putts: three_putts2,
+    rnd3_3putts: three_putts3)
+
+end
+
 #
 # # Round One
 # fifteen_fri = DateTime.new(2015, 2, 6)
 # fifteen_fri_first = DateTime.new(2015, 2, 6, 9, 50, 00)
-# fifteen_fri_sec = DateTime.new(2015, 2, 6, 10, 00, 00)
-# fifteen_fri_third = DateTime.new(2015, 2, 6, 10, 10, 00)
-# # First
-# payne_rnd1 = payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
+# # fifteen_fri_sec = DateTime.new(2015, 2, 6, 10, 00, 00)
+# # fifteen_fri_third = DateTime.new(2015, 2, 6, 10, 10, 00)
+# # # First
+# payne_rnd1 = payne.rounds.create!(tournament_id: bandon_2016.id, round_num: 1, course_id: 3,
 # 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
 # 	                 	s1: 7, s2: 4, s3: 6, s4: 6,
 # 	                  s5: 5, s6: 5, s7: 6, s8: 5,
@@ -270,7 +567,7 @@
 # 	                 	p9: 2, p10: 2, p11: 2, p12: 1,
 # 	                 	p13: 2, p14: 1, p15: 2, p16: 2,
 # 	                 	p17: 2, p18: 2,
-# 	                 	score: 93, putts: 35)
+# 	                 	score: 94, putts: 35)
 #
 # cory.rounds.create!(tournament_id: bandon_2015.id, round_num: 1, course: trails,
 # 	                 date_played: fifteen_fri_first.strftime("%F"), tee_time: fifteen_fri_first.strftime("%H:%M"),
@@ -423,8 +720,8 @@
 # fifteen_sat_first = DateTime.new(2015, 2, 7, 10, 30, 00)
 # fifteen_sat_sec = DateTime.new(2015, 2, 7, 10, 40, 00)
 # fifteen_sat_third = DateTime.new(2015, 2, 7, 10, 50, 00)
-# # First
-# payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course: bandon,
+# # # First
+# payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 2, course_id: 1,
 # 	                 date_played: fifteen_sat_first.strftime("%F"), tee_time: fifteen_sat_first.strftime("%H:%M"),
 # 	                 	s1: 4, s2: 4, s3: 6, s4: 6,
 # 	                  s5: 5, s6: 6, s7: 6, s8: 5,
@@ -681,7 +978,7 @@
 # 	                 	p13: 2, p14: 2, p15: 2, p16: 3,
 # 	                 	p17: 3, p18: 2,
 # 	                 	score: 107, putts: 42)
-# payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course: pacific,
+# payne.rounds.create!(tournament_id: bandon_2015.id, round_num: 3, course_id: 2,
 # 	                 date_played: fifteen_sun_sec.strftime("%F"), tee_time: fifteen_sun_sec.strftime("%H:%M"),
 # 	                 	s1: 5, s2: 5, s3: 7, s4: 5,
 # 	                  s5: 4, s6: 4, s7: 6, s8: 5,
@@ -738,110 +1035,16 @@
 # 	                 	score: 98, putts: 39)
 #
 #
-# rnds = bandon_2015.rounds
-# holes = 1..18
-# #  Rounds One
-# rnds.each do |r|
-# 	if (r.round_num == 1 && r.s1.nil?.!) == true
-# 		r1_shots, r1_p = [], []
-# 		holes.each do |i|
-# 			r1_shots << r["s#{i}"]
-# 		end
-# 		r1_score = r1_shots.compact.inject(0) {|sum, x| sum + x }
-#
-# 		holes.each do |i|
-# 			r1_p << r["p#{i}"]
-# 		end
-# 		r1_putts = r1_p.compact.inject(0) {|sum, x| sum + x }
-#
-# 		three_putts = r1_p.compact.select { |x| x if x > 2 }.map { |y| y }
-# 		h = ((r.user.handicap * 0.9) * 1).round
-#
-# 		Leaderboard.create(
-# 			tournament_id: bandon_2015.id,
-# 			handicap: h,
-# 			user_id: r.user_id,
-# 			rnd1_score: r1_score - h,
-# 			rnd1_putts: r1_putts,
-# 			total_score: (r1_score - h) - r.course.par,
-# 			total_putts: r1_putts,
-# 			total_3_putts: three_putts.length,
-# 			net_total: r1_score - h)
-# 	elsif (r.round_num == 2 && r.s1.nil?.!) == true
-# 		leaderboard = Leaderboard.where(tournament_id: r.tournament_id, user_id: r.user_id).first
-#
-# 		r2_shots, r2_p = [], []
-# 		holes.each do |i|
-# 			r2_shots << r["s#{i}"]
-# 		end
-# 		r2_score = r2_shots.compact.inject(0) {|sum, x| sum + x }
-#
-# 		holes.each do |i|
-# 			r2_p << r["p#{i}"]
-# 		end
-# 		r2_putts = r2_p.compact.inject(0) {|sum, x| sum + x }
-#
-# 		three_putts = r2_p.compact.select { |x| x if x > 2 }.map { |y| y }
-# 		h = r.handicap
-#
-# 		leaderboard.update(rnd2_score: r2_score - h, rnd2_putts: r2_putts, net_total: (leaderboard.net_total + (r2_score - h)),
-# 			                 total_putts: (leaderboard.total_putts + r2_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
-# 			                 total_score: (leaderboard.total_score + ((r2_score - h) - r.course.par)))
-# 	elsif (r.round_num == 3 && r.s1.nil?.!) == true
-# 		leaderboard = Leaderboard.where(tournament_id: r.tournament_id, user_id: r.user_id).first
-# 		r3_shots, r3_p = [], []
-# 		holes.each do |i|
-# 			r3_shots << r["s#{i}"]
-# 		end
-# 		r3_score = r3_shots.compact.inject(0) {|sum, x| sum + x }
-#
-# 		holes.each do |i|
-# 			r3_p << r["p#{i}"]
-# 		end
-# 		r3_putts = r3_p.compact.inject(0) {|sum, x| sum + x }
-# 		three_putts = r3_p.compact.select { |x| x if x > 2 }.map { |y| y }
-# 		h = r.handicap
-#
-# 		leaderboard.update(rnd3_score: r3_score - h, rnd3_putts: r3_putts, net_total: (leaderboard.net_total + (r3_score - h)),
-# 			                 total_putts: (leaderboard.total_putts + r3_putts), total_3_putts: (leaderboard.total_3_putts + three_putts.length),
-# 			                 total_score: (leaderboard.total_score + ((r3_score - h) - r.course.par)))
-# 	end
-#
+
+
+
+
+
+
+# test_tourn = Tournament.create(name: 'Royal JBS Tournament', year: 2016, num_players: 140, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
+# round_one = test_tourn.tournament_rounds.create(round_number: 1)
+
+# users.each do |user|
+#   sc = round_one.scorecards.create(user_id: user.id, new_course_id: 1)
+#   (1..18).each {|x| sc.user_scores.create(number: x, score: rand(2..7))}
 # end
-
-# dove = NewCourse.create!(name: 'Dove Mountain - Saguaro to Tortolita', slope: 134, rating: 72.3, tee: 'Copper', city: 'Marana', state: 'AZ', par: 72)
-
-# Hole.create(number: 1, par: 4, yards: 414, handicap: 7, new_course_id: dove.id)
-# Hole.create(number: 2, par: 5, yards: 493, handicap: 3, new_course_id: dove.id)
-# Hole.create(number: 3, par: 3, yards: 175, handicap: 17, new_course_id: dove.id)
-# Hole.create(number: 4, par: 4, yards: 369, handicap: 13, new_course_id: dove.id)
-# Hole.create(number: 5, par: 4, yards: 429, handicap: 5, new_course_id: dove.id)
-# Hole.create(number: 6, par: 3, yards: 161, handicap: 15, new_course_id: dove.id)
-# Hole.create(number: 7, par: 4, yards: 421, handicap: 9, new_course_id: dove.id)
-# Hole.create(number: 8, par: 5, yards: 539, handicap: 1, new_course_id: dove.id)
-# Hole.create(number: 9, par: 4, yards: 406, handicap: 11, new_course_id: dove.id)
-# Hole.create(number: 10, par: 4, yards: 428, handicap: 6, new_course_id: dove.id)
-# Hole.create(number: 11, par: 5, yards: 546, handicap: 4, new_course_id: dove.id)
-# Hole.create(number: 12, par: 3, yards: 180, handicap: 16, new_course_id: dove.id)
-# Hole.create(number: 13, par: 5, yards: 516, handicap: 2, new_course_id: dove.id)
-# Hole.create(number: 14, par: 4, yards: 398, handicap: 10, new_course_id: dove.id)
-# Hole.create(number: 15, par: 4, yards: 343, handicap: 12, new_course_id: dove.id)
-# Hole.create(number: 16, par: 3, yards: 174, handicap: 18, new_course_id: dove.id)
-# Hole.create(number: 17, par: 4, yards: 439, handicap: 8, new_course_id: dove.id)
-# Hole.create(number: 18, par: 4, yards: 379, handicap: 14, new_course_id: dove.id)
-
-# (1..10).each do |x|
-#   User.create(username: "user_tester#{x}", handicap: rand(2..32), email: "user_tester#{x}@mail.com", password: 'password', password_confirmation: 'password')
-# end
-
-
-
-
-
-test_tourn = Tournament.create(name: 'Royal JBS Tournament', year: 2016, num_players: 140, num_rounds: 1, end_date: DateTime.new(2016, 6, 13))
-round_one = test_tourn.tournament_rounds.create(round_number: 1)
-
-users.each do |user|
-  sc = round_one.scorecards.create(user_id: user.id, new_course_id: 1)
-  (1..18).each {|x| sc.user_scores.create(number: x, score: rand(2..7))}
-end

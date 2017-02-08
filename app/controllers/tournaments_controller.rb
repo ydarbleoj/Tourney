@@ -1,34 +1,38 @@
 class TournamentsController < ApplicationController
   cattr_accessor :current_tournament
-  before_filter :check_for_user
+  before_action :authenticate_user!
+  before_action :set_current_tournament
 
   def index
-      @tournaments = Tournament.all
-      current_tournament
+    @current_tournament
+    @tournaments = Tournament.where(name: 'Bandon').
+                    order(year: :desc).
+                    pluck(:year)
+    @courses = NewCourse.all.order(name: :asc).
+                 pluck(:name)
   end
 
   def show
-    @tournament = current_user.tournaments.where("end_date < ?", Date.today).first
-    stroke_leaderboard
-    putting_leaderboard
-    tee_times
+    @tournament = Tournament.find(params[:id])
+    authorize_user
   end
 
   def new
     @tournament = Tournament.new
-    'Tourn New'
-    @tournament.build_round
   end
 
   def create
-   @tournament = Tournament.new(tourn_params)
+    @tournament = Tournament.new(tourn_params)
 
-   if @tournament.save
-     flash[:succes] = "New Tournament Created"
-     redirect_to @tournament
-   else
-     redirect_to tournaments_path
-   end
+    if @tournament.save
+     p @tournament.tournament_users.create(user_id: current_user.id, role: 'admin')
+
+
+      flash[:succes] = "New Tournament Created"
+      redirect_to  new_tournament_tournament_round_path(@tournament.id)
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -44,22 +48,15 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def current_tournament
-    tourn = Tournament.where("end_date > ?", Date.today).first
-    user_tourn = current_user.tournament_rounds.where(tournament_id: tourn.id).first
-    user_tourn = user_tourn.nil? ? nil : user_tourn.tournament
-
-    @current_tournament ||= user_tourn
-  end
-
   def history
     @tournaments = Tournament.where("end_date < ?", Date.today).uniq
   end
 
   def stroke_leaderboard
-    @tournament = Tournament.find(params[:id])
+  p  @tournament = Tournament.find(params[:id])
     # user_tournaments
     current_tournament
+
 
     if @current_tournament.nil?.! && @tournament.id == @current_tournament
       tourn = @tournament
@@ -121,14 +118,23 @@ class TournamentsController < ApplicationController
     grouped_rounds = rounds.group_by {|x| x.total_score }.map {|x| x }
   end
 
+  def set_current_tournament
+    current_date = DateTime.now
+    @current_tournament = Tournament.where('end_date > ?', current_date).first
+    @current_tournament = @current_tournament.blank? ? Tournament.last : @current_tournament
+  end
+
+  def authorize_user
+   p @role = TournamentUser.where(tournament_id: @tournament.id,
+      user_id: current_user.id).first.role
+  end
+
   private
     def check_for_user
       redirect_to root_path if current_user.nil?
     end
 
     def tourn_params
-      params.require(:tournament).permit(:name, :year, :num_players, :num_rounds, rounds_attributes: [:id, :user_id, :course_id, :round_num, :s1, :s2, :s3, :s4, :s5, :s6,
-      :s7, :s8, :s9, :s10, :s11, :s12, :s13, :s14, :s15, :s16, :s17, :s18, :p1, :p2, :p3,
-      :p4, :p5, :p6, :p7, :p8, :p9, :p10, :p11, :p12, :p13, :p14, :p15, :p16, :p17, :p18])
+      params.require(:tournament).permit(:name, :year, :num_players, :num_rounds, :start_date, :end_date)
     end
 end

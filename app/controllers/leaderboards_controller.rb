@@ -4,10 +4,6 @@ class LeaderboardsController < ApplicationController
     @tournaments = current_user.tournaments.where("end_date < ?", Date.today).uniq
   end
 
-  def execute
-
-  end
-
   def new
   end
 

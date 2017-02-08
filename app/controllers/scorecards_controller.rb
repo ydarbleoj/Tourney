@@ -1,15 +1,21 @@
 class ScorecardsController < ApplicationController
-  before_filter :check_for_user
-  before_filter :current_tourn
+  before_filter :authenticate_user!
+  before_filter :current_tournament, only: [:show]
 
   def index
-    p params
-    @tournament = Tournament.find(params[:tournament_id])
-    @scorecards = @tournament.scorecards
+    @scorecards = current_user.scorecards.order(created_at: :asc).where(finished: true)
   end
 
   def show
-    @scorecard = current_user
+   p @scorecard = Scorecard.where(id: params[:id]).first
+    @user_scores = @scorecard.user_scores.order(number: :asc)
+    @course = NewCourse.joins(:holes).where(id: @scorecard.new_course_id).first
+  end
+
+  def display
+    @scorecard = Scorecard.where(id: params[:id]).first
+    p @user_scores = @scorecard.user_scores.order(number: :asc)
+    p @course = NewCourse.joins(:holes).where(id: @scorecard.new_course_id).first
   end
 
   def edit
@@ -32,8 +38,8 @@ class ScorecardsController < ApplicationController
     redirect_to tournament_scorecards_path(@current_tourn.id)
   end
 
-  def current_tourn
-    @current_tourn = Tournament.where("end_date > ?", Date.today).first
+  def current_tournament
+    @tournament = Tournament.find(params[:tournament_id])
   end
 
   private
@@ -41,7 +47,7 @@ class ScorecardsController < ApplicationController
   def scorecard_params
     params.require(:scorecard).permit(:total_score, :total_putts, :total_3putts,
       :new_course_id, :user_id, :tournament_round_id, :total_net, :handicap,
-      :net_skin_total, :gross_skin_total, user_scores_attributes: [:id, :number, :score, :putts, :skin, :net, :handicap, :net_skin])
+      user_scores_attributes: [:id, :number, :score, :putts, :skin, :net, :handicap, :net_skin])
   end
 
 end

@@ -1,40 +1,61 @@
-<div class="row" id="user-profile">
-	<div class="row align-middle" id="user-profile-top">
-		<div class="small-12 columns" id="user-profile-info">
-			<p id="profile-username"><%= current_user.first_name %> <%= current_user.last_name %></p>
-			<span> <%= current_user.home %></span>
-			<p id="user-handicap">Handicap  <span><%= current_user.handicap %></span></p>
-		</div>
+<div class="row expanded" id="user-profile">
+
+	<div class="row align-middle user-header">
+		<div class="small-12 medium-6 columns text-center">
+      <h5><%= current_user.first_name %> <%= current_user.last_name %></h5>
+      <p><%= current_user.home %></p>
+      <p><%= current_user.handicap %> handicap</p>
+    </div>
 	</div>
-	<div class="row align-center" id="user-profile-middle">
-		<div class="row align-middle">
-			<div class="columns" id="best-round">
-				<p>Best Round</p>
-				<h5><span><%= @low_net.nil?.! ? @low_net.score - @low_net.handicap : 0 %></span> at <%=  @course.nil?.! ? @course.name : "" %></h5>
-			</div>
-		</div>
-		<div class="row align-middle">
-			<div class="columns" id="best-putting">
-				<p>Fewest Putts</p>
-				<h5><span><%= @low_putt.nil?.! ? @low_putt.putts : 0 %></span> at <%= @putt_course.nil?.! ? @putt_course.name : ''%></h5>
-			</div>
-		</div>
-		<div class="row align-middle">
-			<div class="columns" id="tourn-average">
-				<p>Tournament Average</p>
-				<h5><%= @avg_score %></h5>
-			</div>
-		</div>
-	</div>
-	<div class="row align-middle" id="profile_nav">
-		<div class="small-4 columns tourn-links">
-			<%= link_to "Tournaments", tournaments_path  %>
-		</div>
-		<div class="small-4 columns tourn-links">
-			<%= link_to "Edit", edit_user_path(current_user.id)  %>
-		</div>
-		<div class="columns tourn-links">
-			<%= link_to "Log Out", destroy_user_session_path, method: :delete %>
-		</div>
-	</div>
+
+  <div class="row user-links">
+    <div class="columns">
+      <%= link_to(user_statistic_path(current_user)) do %>
+      <div class="row expanded align-middle link-row">
+        <div class="small-4 medium-4 large-4 columns" id="user-statistics"></div>
+        <div class="small-8 medium-8 large-8 columns text-center">
+          <h5>Statistics</h5>
+        </div>
+      </div>
+      <% end %>
+
+      <%= link_to(scorecards_path) do %>
+      <div class="row expanded align-middle link-row">
+        <div class="small-4 medium-4 large-4 columns" id="user-scorecards"></div>
+        <div class="small-8 medium-8 large-8 columns text-center">
+          <h5>Scorecards</h5>
+        </div>
+      </div>
+      <% end %>
+
+       <%= link_to(tournaments_path) do %>
+      <div class="row expanded align-middle link-row">
+        <div class="small-4 medium-4 large-4 columns" id="user-flag"></div>
+        <div class="small-8 medium-8 large-8 columns text-center">
+          <h5>Tournaments</h5>
+        </div>
+      </div>
+      <% end %>
+
+      <%= link_to(edit_user_path(current_user)) do %>
+      <div class="row expanded align-middle link-row">
+        <div class="small-4 medium-4 large-4 columns" id="user-settings"></div>
+        <div class="small-8 medium-8 large-8 columns text-center">
+          <h5>Settings</h5>
+        </div>
+      </div>
+      <% end %>
+
+      <%= link_to(new_tournament_path) do %>
+      <div class="row expanded align-middle link-row">
+        <div class="small-4 medium-4 large-4 columns" id="user-statistics"></div>
+        <div class="small-8 medium-8 large-8 columns text-center">
+          <h5>New Tournament</h5>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+
+  </div>
 </div>

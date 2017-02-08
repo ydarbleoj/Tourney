@@ -31,7 +31,8 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
-
+  config.action_mailer.perform_caching = false
+  # config.action_mailer.default_url_options = { host: 'olition-alpha.herokuapp.com'}
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug

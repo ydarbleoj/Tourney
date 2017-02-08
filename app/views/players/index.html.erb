@@ -1,0 +1,31 @@
+<div class="row tournament-admin">
+
+  <div class="row expanded admin-list">
+
+    <div class="columns">
+
+      <div class="row admin-header">
+        <div class="small-8 columns">
+          <h3>Players</h3>
+        </div>
+        <div class="small-4 text-center columns">
+          <h3>Handicap</h3>
+        </div>
+      </div>
+
+      <% @users.each do |user| %>
+      <div class="row admin-player-list">
+        <div class="small-10 columns player-name">
+          <p><%= user.first_name %> <%= user.last_name %></p>
+        </div>
+        <div class="small-2 columns text-left player-handicap">
+          <p><%= user.handicap.nil? ? 0 : user.handicap %></p>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+
+ <%= render 'shared/admin_nav'  %>
+</div>

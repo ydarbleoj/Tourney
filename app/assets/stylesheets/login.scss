@@ -10,48 +10,39 @@
 	width: 100%;
 }
 #login-form-line { border-top: 2px solid rgba(255,255,255,.4); }
-// .field-info { width: 100%; }
-i {
-	text-align: left;
-	color: rgba(255, 255, 255, .6);
-	padding: 0 0px 0 0;
-	font-size: 1.5em;
-}
-i.fi-at-sign { margin-left: 0px; }
-.login-submit {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	outline: none;
-	border: 0 solid transparent;
-}
 .fi-arrow-right { font-size: 2em; color: rgba(255,255,255,1); }
-.remember-me { padding-top: 5%; }
-.remem-me a { color: white; }
+.remember-me {
+  padding-top: 5%;
+  a {
+    color: $white;
+  }
+}
 .field input {
 	padding: 22px 0;
 	background-color: transparent;
 	border: 0 solid transparent;
-	font-size: 24px;
+	font-size: 16px;
 	text-align: left;
-	color: rgba(255,255,255,.8);
+	color: #666;
 	outline: none;
 }
 input::-webkit-input-placeholder {
-	color: rgba(255, 255, 255,.6);
+	color: #666;
 	letter-spacing: 2px;
 }
 
 input:-moz-placeholder { /* Firefox 18- */
-	color: rgba(255, 255, 255,.6);
+	color: #666;
 	letter-spacing: 2px;
 }
 
 input::-moz-placeholder {  /* Firefox 19+ */
-	color: rgba(255, 255, 255,.6);
+	color: #666;
 	letter-spacing: 2px;
 }
 
 input:-ms-input-placeholder {
-	color: rgba(255, 255, 255,.6);
+	color: #666;
 	letter-spacing: 2px;
 }
 input:active {
@@ -62,3 +53,21 @@ input:active {
 	background-color: white;
 	color: grey;
 }
+.field-info {
+
+  .field {
+    border-bottom: 1px solid $white;
+    padding-top: 30px;
+
+    .label-login {
+      color: $white;
+      padding-top: 10px;
+    }
+  }
+  .button {
+    margin-top: 100px;
+    background-color: $white;
+    color: rgba(237,131,47,1);
+  }
+}
+

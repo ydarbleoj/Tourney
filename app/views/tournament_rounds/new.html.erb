@@ -1,0 +1,28 @@
+<div class="row expanded align-center" id="new-tourn-form">
+  <div class="small-12 columns">
+    <h1>Add Round <%= @rnd %></h1>
+  </div>
+  <div class="row expanded align-center">
+    <div class="small-8 columns align-center" >
+      <%= form_for([@current_tournament, @tournament_rounds]) do |f|%>
+      <div class="row">
+        <div class="small-8 columns">
+          <%= f.label :round_number %>
+          <%= f.number_field :round_number, value: @rnd %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :round_date %>
+          <%= f.date_field :round_date %>
+        </div>
+        <div class="small-8 columns">
+          <%= f.label :new_course %>
+          <%= f.select :new_course_id, NewCourse.all.collect { |x| [x.name, x.id]}  %>
+        </div>
+        <div class="small-12 columns">
+          <%= f.submit 'Done', class: 'button expanded'  %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

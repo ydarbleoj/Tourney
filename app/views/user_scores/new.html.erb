@@ -1,0 +1,63 @@
+<div class="row expanded us-new-container">
+  <div class="columns">
+
+    <div class="row new-header">
+      <div class="columns">
+        <h5 class="text-center"><%= current_user.first_name %> <%= current_user.last_name[0]  %></h5>
+        <h5>Hole <%= @number %></h5>
+         <div class="row expanded text-center align-middle">
+          <div class="small-6 text-left columns">
+            <h5>Par <%= @course.par %> </h5>
+          </div>
+          <div class="small-6 text-right columns">
+            <h5><%= @course.yards  %> yds</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row expanded text-center align-middle form-header">
+      <div class="small-6 columns">
+        <h5>Score</h5>
+      </div>
+      <div class="small-6 columns">
+        <h5>Putts</h5>
+      </div>
+    </div>
+
+    <div class="row expanded align-center form-container">
+      <div class="columns align-center" >
+        <%= form_for([@tournament, @scorecard, @user_score]) do |f|%>
+        <div class="row align-middle form-row">
+          <%= f.hidden_field :number, value: @number%>
+          <%= f.hidden_field :par, value: @course.par  %>
+          <%= f.hidden_field :handicap, value: @scorecard.handicap %>
+          <div class="small-6 columns">
+            <%= f.select :score, score_select %>
+          </div>
+          <div class="small-6 columns">
+            <%= f.select :putts, putt_select %>
+          </div>
+          <div class="small-6 columns">
+            <%= link_to 'Back', :back, class: 'button secondary expanded'  %>
+          </div>
+          <% if @number == '18'  %>
+            <div class="small-6 columns">
+              <%= f.submit 'Finish', class: 'button expanded'  %>
+            </div>
+          <% else %>
+            <div class="small-6 columns">
+              <%= f.submit 'Save', class: 'button expanded'  %>
+            </div>
+          <% end %>
+        </div>
+        <% end %>
+          <% if @remaining_holes.present? %>
+            <div class="small-12 text-center columns">
+              remaining holes: <%= @remaining_holes.join(', ') %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>

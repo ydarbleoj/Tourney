@@ -1,24 +1,21 @@
 class Scorecard < ActiveRecord::Base
+  scope :finished, -> { where(finished: true) }
   belongs_to :new_course
-  belongs_to :user, touch: true
-  belongs_to :tournament_round, touch: true
+
+  belongs_to :user
+  belongs_to :tournament_round
 
   has_many :user_scores, dependent: :destroy
 
   accepts_nested_attributes_for :user_scores
 
   before_save :set_handicap
-  after_create :create_user_scores
+  # after_create :create_user_scores
 
   def set_handicap
     self.handicap = self.user.handicap
   end
 
-  def create_user_scores
-    Scorecard.transaction do
-      (1..18).each { |x| self.user_scores.create!(number: x) }
-    end
-  end
 
   def update_skins
     p "SCORECARD SKINS"

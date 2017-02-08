@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608152017) do
+ActiveRecord::Schema.define(version: 20170205171755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,18 @@ ActiveRecord::Schema.define(version: 20160608152017) do
 
   add_index "holes", ["new_course_id"], name: "index_holes_on_new_course_id", using: :btree
 
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email"
+    t.integer  "tournament_id"
+    t.string   "token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.boolean  "accepted",      default: false
+    t.string   "role"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
   create_table "leaderboards", force: :cascade do |t|
     t.integer  "rnd1_score"
     t.integer  "rnd2_score"
@@ -134,6 +146,20 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "round_tee_times", force: :cascade do |t|
+    t.integer  "tournament_round_id"
+    t.string   "group"
+    t.string   "player_one"
+    t.string   "player_two"
+    t.string   "player_three"
+    t.string   "player_four"
+    t.datetime "tee_time"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "round_tee_times", ["tournament_round_id"], name: "index_round_tee_times_on_tournament_round_id", using: :btree
 
   create_table "rounds", force: :cascade do |t|
     t.integer  "user_id"
@@ -214,8 +240,8 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.integer  "total_putts"
     t.integer  "total_3putts"
     t.integer  "new_course_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "handicap"
     t.integer  "user_id"
     t.integer  "tournament_round_id"
@@ -223,6 +249,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.integer  "round_num"
     t.integer  "net_skin_total"
     t.integer  "gross_skin_total"
+    t.boolean  "finished",            default: false
   end
 
   add_index "scorecards", ["new_course_id"], name: "index_scorecards_on_new_course_id", using: :btree
@@ -237,17 +264,36 @@ ActiveRecord::Schema.define(version: 20160608152017) do
 
   add_index "tournament_leaderboards", ["tournament_id"], name: "index_tournament_leaderboards_on_tournament_id", using: :btree
 
-  create_table "tournament_rounds", force: :cascade do |t|
+  create_table "tournament_new_courses", force: :cascade do |t|
+    t.integer  "new_course_id"
     t.integer  "tournament_id"
-    t.integer  "round_number"
-    t.datetime "tee_time"
-    t.datetime "tee_time_date"
-    t.integer  "group_number"
+    t.integer  "round_num"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
+  create_table "tournament_rounds", force: :cascade do |t|
+    t.integer  "tournament_id"
+    t.integer  "round_number"
+    t.datetime "round_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "new_course_id"
+  end
+
+  add_index "tournament_rounds", ["new_course_id"], name: "index_tournament_rounds_on_new_course_id", using: :btree
   add_index "tournament_rounds", ["tournament_id"], name: "index_tournament_rounds_on_tournament_id", using: :btree
+
+  create_table "tournament_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tournament_id"
+    t.string   "role",          default: "member"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "tournament_users", ["tournament_id"], name: "index_tournament_users_on_tournament_id", using: :btree
+  add_index "tournament_users", ["user_id"], name: "index_tournament_users_on_user_id", using: :btree
 
   create_table "tournaments", force: :cascade do |t|
     t.string   "name"
@@ -257,6 +303,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.datetime "end_date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "start_date"
   end
 
   create_table "user_scores", force: :cascade do |t|
@@ -270,6 +317,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
     t.datetime "updated_at",                   null: false
     t.integer  "handicap"
     t.boolean  "net_skin",     default: false
+    t.integer  "par"
   end
 
   add_index "user_scores", ["scorecard_id"], name: "index_user_scores_on_scorecard_id", using: :btree
@@ -301,6 +349,7 @@ ActiveRecord::Schema.define(version: 20160608152017) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "holes", "new_courses"
+  add_foreign_key "round_tee_times", "tournament_rounds"
   add_foreign_key "rounds", "courses"
   add_foreign_key "rounds", "new_courses"
   add_foreign_key "rounds", "tournaments"

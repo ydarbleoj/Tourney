@@ -1,0 +1,101 @@
+<div class="row expanded scorecard-display">
+  <div class="row back"><%= link_to image_tag("arrow-118-24.png", class: 'home-icon') , :back %></div>
+  <div class="row scorecard-show align-middle">
+    <div class="small-12 columns text-center">
+      <h5><%= @course.name %> </h5>
+      <p class="course-tee"><%= @course.tee  %> tees</p>
+    </div>
+    <div class="small-6 columns text-center">
+      <p>par <%= @course.par  %></p>
+    </div>
+    <div class="small-6 columns text-center">
+      <p>rating <%= @course.rating  %></p>
+    </div>
+    <div class="small-6 columns text-center">
+      <p><%= @course.holes.sum(:yards) %> yds</p>
+    </div>
+    <div class="small-6 columns text-center">
+      <p>slope <%= @course.slope  %></p>
+    </div>
+
+  </div>
+
+  <div class="row expanded align-middle scorecard-totals">
+
+    <div class="small-4 columns total-edge">
+      <div class="row text-center align-middle expanded">
+        <div class="small-12 columns">
+          <h5>Score</h5>
+        </div>
+        <div class="small-6 columns">
+          <p class="gross"><%= @scorecard.total_score %></p>
+        </div>
+        <div class="small-6 columns">
+          <p class="net"><%= @scorecard.total_net %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-4 columns total-edge">
+      <div class="row text-center align-middle expanded">
+        <div class="small-12 columns">
+          <h5>Putts</h5>
+        </div>
+        <div class="small-6 columns">
+          <p class="sc-input"><%= @scorecard.total_putts %> </p>
+        </div>
+         <div class="small-6 columns">
+           <p class="three_putts"><%= @scorecard.total_3putts %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="small-4 text-center columns">
+      <p>out <%= out_gross_score(@scorecard) %></p>
+      <p>in <%= in_gross_score(@scorecard) %></p>
+    </div>
+
+  </div>
+
+  <div class="row expanded scorecard-list">
+    <div class="columns">
+      <% @course.holes.each do |hole| %>
+
+          <div class="row align-middle scorecard-holes">
+            <div class="small-1 columns text-center">
+              <p><%= hole.number %></p>
+            </div>
+            <div class="small-10 columns">
+
+              <div class="row scorecard-rows">
+                <div class="small-4 columns text-center">
+                  <p>Par <%= hole.par %></p>
+                  <% if @user_scores[hole.number - 1].present? %>
+                    <p class='card-row sc-input'><%= @user_scores[hole.number - 1].score  %> </p> /
+                    <p class='card-row net'><%= @user_scores[hole.number - 1].net %></p>
+                    <p class="card-row">sc</p>
+                  <% end %>
+                </div>
+                 <div class="small-4 columns text-center">
+                  <p><%= hole.yards  %> yds</p>
+                  <% if @user_scores[hole.number - 1].present? %>
+                  <% putts = @user_scores[hole.number - 1].putts  %>
+                  <% color = putts > 2 ? 'three_putts' : 'putts'  %>
+                    <p class="card-row <%= color %>"><%= putts %></p>
+                    <p class="card-row">p</p>
+                  <% end %>
+                </div>
+                <div class="small-4 columns text-center">
+                  <p><%= hole.handicap  %> hcap</p>
+                  <h5 class="hcap_hole"><%= handicaped_holes(@scorecard, hole.number) %></h5>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

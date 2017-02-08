@@ -1,0 +1,18 @@
+<div class="row align-middle" id="admin-nav">
+
+  <div class="small-3 columns text-center admin-footer">
+    <%= link_to "Players", tournament_players_path(@current_tournament.id) %>
+  </div>
+
+  <div class="small-3 columns text-center admin-footer">
+    <%= link_to 'Invite', new_tournament_invitation_path(@current_tournament.id) %>
+  </div>
+
+  <div class="small-3 columns text-center admin-footer">
+    <%= link_to 'Invited', tournament_invitations_path(@current_tournament.id) %>
+  </div>
+
+  <div class="small-3 columns text-center admin-footer">
+    <%= link_to 'Tee Times', new_tournament_round_tee_time_path(@current_tournament.id) %>
+  </div>
+</div>

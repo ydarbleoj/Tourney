@@ -1,102 +1,85 @@
 class LeaderboardLogic
 
-	def initialize(tournament)
-		@tourn = tournament
+	def initialize(tournament, scorecard, player)
+		@tournament = tournament
+    @scorecard  = scorecard
 		@holes = 1..18
-	end
+    @leaderboard = @tournament.leaderboards.where(user_id: player.id).first
+  end
 
-	def execute
-		rnd1_calculation
-		rnd2_calculation
-		rnd3_calculation
-	end
+  def round_one
+    @round_one = @tournament.tournament_rounds.find_by_round_number(1)
+    @course = @round_one.new_course
+    @user_scores = @scorecard.user_scores
 
-	def rnd1_calculation
-		@rnd1 = @tourn.rounds.where(round_num: 1)
+    holes_played = @user_scores.map(&:number)
+    course_par = @course.holes.where(number: holes_played).sum(:par)
 
-		@rnd1.each do |r|
-			leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
-			@rnd1_course = Course.where("id = ?", r.course.id)
-			player_handicap = r.handicap.nil?.! ? r.handicap : 0
+    net_score = @user_scores.map(&:net).inject(0, :+)
+    putts = @user_scores.map(&:putts).inject(0, :+)
+    three_putts = @user_scores.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-			shots = add_shots(r)
-			shots = shots.select { |x| x if x != nil }.map { |x| x }
-			score = shots.compact.inject(0) { |sum, x| sum + x }
 
-			c = course_par(shots.length, @rnd1_course)
+    @leaderboard.update_attributes(
+        handicap: @scorecard.handicap,
+        rnd1_score: net_score,
+        total_score: net_score - course_par,
+        net_total: net_score,
+        rnd1_putts: putts,
+        rn1_3putts: three_putts,
+        total_putts: putts,
+        total_3_putts: three_putts)
+  end
 
-			c_hcap = course_handicap(@rnd1_course)
-			hcap = handicaped_holes(player_handicap, c_hcap, shots.length)
-			score = score != 0 ? score - hcap : 0
+  def round_two
+    @round_two = @tournament.tournament_rounds.find_by_round_number(2)
+    @course = @round_two.new_course
+    @user_scores = @scorecard.user_scores
 
-			leaderboard.update(
-				handicap: player_handicap,
-				user_id: r.user_id,
-				rnd1_score: score,
-				total_score: score - c,
-				net_total: score)
-		end
-	end
+    holes_played = @user_scores.map(&:number)
+    course_par = @course.holes.where(number: holes_played).sum(:par)
 
-	def rnd2_calculation
-		@rnd2 = @tourn.rounds.where(round_num: 2)
+    net_score = @user_scores.map(&:net).inject(0, :+)
+    putts = @user_scores.map(&:putts).inject(0, :+)
+    three_putts = @user_scores.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-		@rnd2.each do |r|
-			if r.s1.nil?.!
-				leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
-				@rnd2_course = Course.where("id = ?", r.course.id)
-		    player_handicap = r.handicap.nil?.! ? r.handicap : 0
+    round_one_total = @leaderboard.rnd1_score - @tournament.tournament_rounds.find_by_round_number(1).new_course.par
 
-		    shots = add_shots(r)
-		    shots = shots.select { |x| x if x != nil }.map { |x| x }
-				score = shots.compact.inject(0) { |sum, x| sum + x }
+    @leaderboard.update_attributes(
+        rnd2_score: net_score,
+        total_score: (round_one_total + (net_score - course_par)),
+        net_total: @leaderboard.rnd1_score + net_score,
+        rnd2_putts: putts,
+        rnd2_3putts: three_putts,
+        total_putts: @leaderboard.rnd1_putts + putts,
+        total_3_putts: @leaderboard.rn1_3putts + three_putts)
+  end
 
-		    c = course_par(shots.length, @rnd2_course)
+  def round_three
+    @round_three = @tournament.tournament_rounds.find_by_round_number(3)
+    @course = @round_three.new_course
+    @user_scores = @scorecard.user_scores
 
-		    c_hcap = course_handicap(@rnd2_course)
-		    hcap = handicaped_holes(player_handicap, c_hcap, shots.length)
-		    score = score != 0 ? score - hcap : 0
-		    net = leaderboard.rnd1_score + score
-		    total_score = (leaderboard.rnd1_score - @rnd1_course[0].par) + (score - c)
+    holes_played = @user_scores.map(&:number)
+    course_par = @course.holes.where(number: holes_played).sum(:par)
 
-				leaderboard.update(
-					user_id: r.user_id,
-					rnd2_score: score,
-					total_score: total_score,
-					net_total: net)
-			end
-		end
-	end
+    net_score = @user_scores.map(&:net).inject(0, :+)
+    putts = @user_scores.map(&:putts).inject(0, :+)
+    three_putts = @user_scores.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-	def rnd3_calculation
-		rounds = @tourn.rounds.where(round_num: 3)
+    round_one_total = @leaderboard.rnd1_score - @tournament.tournament_rounds.find_by_round_number(1).new_course.par
+    round_two_total = @leaderboard.rnd2_score - @tournament.tournament_rounds.find_by_round_number(2).new_course.par
 
-		rounds.each do |r|
-			if r.s1.nil?.!
-				leaderboard = @tourn.leaderboards.where(user_id: r.user_id).first
-				@rnd3_course = Course.where("id = ?", r.course.id)
-	      player_handicap = r.handicap.nil?.! ? r.handicap : 0
 
-	      shots = add_shots(r)
-	      shots = shots.select { |x| x if x != nil }.map { |x| x }
-				score = shots.compact.inject(0) { |sum, x| sum + x }
-
-	      c = course_par(shots.length, @rnd3_course)
-
-	      c_hcap = course_handicap(@rnd3_course)
-	      hcap = handicaped_holes(player_handicap, c_hcap, shots.length)
-	      score = score != 0 ? score - hcap : 0
-	      net = (leaderboard.rnd1_score + leaderboard.rnd2_score) + score
-	      total_score = (leaderboard.rnd1_score - @rnd1_course[0].par) + (leaderboard.rnd2_score - @rnd2_course[0].par) + (score - c)
-
-				leaderboard.update(
-					user_id: r.user_id,
-					rnd3_score: score,
-					total_score: total_score,
-					net_total: net)
-			end
-		end
-	end
+    @leaderboard.update_attributes(
+        rnd3_score: net_score,
+        total_score: ((round_one_total + round_two_total) + (net_score - course_par)),
+        net_total: net_score,
+        rnd3_putts: putts,
+        rnd3_3putts: three_putts,
+        total_putts: @leaderboard.rnd1_putts + @leaderboard.rnd2_putts + putts,
+        total_3_putts: @leaderboard.rn1_3putts + @leaderboard.rnd2_3putts + three_putts)
+  end
 
   def course_par(holes_played, course)
     par = []

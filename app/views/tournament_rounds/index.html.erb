@@ -1,0 +1,44 @@
+<div class="row tournament-show">
+ <div class="row back"><%= link_to image_tag("arrow-118-24.png", class: 'home-icon') , :back %></div>
+  <div class="row expanded tourn-show-head-cont" id="show-header-<%= @current_tournament.year %>">
+
+   <% if @role == 'admin' %>
+      <%= link_to tournament_players_path(@current_tournament.id)  do %>
+      <div class="column align-self-bottom" id="tourn-header">
+        <h1>
+          <%= @current_tournament.name %> <%= @current_tournament.year %>
+          Scorecards
+        </h1>
+      </div>
+      <% end %>
+    <% else %>
+    <div class="column align-self-bottom" id="tourn-header">
+      <h1>
+        <%= @current_tournament.name %> <%= @current_tournament.year %>
+      </h1>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="row expanded sc-links">
+    <div class="columns">
+
+      <% @scorecards.each do |round|  %>
+        <%= link_to(tournament_scorecard_path(@current_tournament.id, round.id)) do %>
+        <div class="row expanded align-middle sc-link" id="home-links">
+          <div class="small-8 columns">
+            <p>Round <%= round.round_num %></p>
+            <p><%= round.new_course.name  %></p>
+          </div>
+          <div class="small-4 columns text-center home-button-right">
+            <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+
+    </div>
+  </div>
+
+
+</div>
