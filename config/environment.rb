@@ -14,6 +14,4 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 
-ActionMailer::Base.raise_delivery_errors = false
-# SENDGRID_NAME=Joelbrady
-# SENDGRID_PASSWORD=20[Noble]04
+ActionMailer::Base.raise_delivery_errors = true
