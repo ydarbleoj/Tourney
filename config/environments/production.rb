@@ -36,7 +36,20 @@ Rails.application.configure do
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
-
+   config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+   :address              => "smtp.sendgrid.net",
+   :port                 => 587,
+   :user_name            => 'Joelbrady',
+   :domain               => 'tourney-app.com'
+   :password             => '20[Noble]04',
+   :authentication       => "plain",
+   :enable_starttls_auto => true
+  }
+  # Use the lowest log level to ensure availability of diagnostic information
+  # when problems arise.
+  config.log_level = :debug
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
