@@ -564,7 +564,7 @@ users.each do |user|
   user_scores2 = rnd2_sc.user_scores
   three_putts2 = user_scores2.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-  rnd2_score = lb.rnd2_score - handicap
+  rnd2_score = lb.rnd2_score
   rnd2_sc.update(total_3putts: three_putts2)
 
 
@@ -601,9 +601,9 @@ users.each do |user|
   user_scores3 = rnd3_sc.user_scores
   three_putts3 = user_scores3.map { |x| p x.putts if x.putts > 2 }.compact.length
 
-  rnd3_sc.update(total_3putts: three_putt3)
+  rnd3_sc.update(total_3putts: three_putts3)
 
-  rnd3_score = lb.rnd3_score - handicap
+  rnd3_score = lb.rnd3_score
 
   total_score = (rnd1_score + rnd2_score + rnd3_score) - (trails.par + bandon.par + old_mac.par)
 
