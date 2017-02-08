@@ -337,7 +337,7 @@ rnd2 = bandon_2015.tournament_rounds.create(round_number: 2, round_date: DateTim
 rnd3 = bandon_2015.tournament_rounds.create(round_number: 3, round_date: DateTime.new(2015, 2, 8), new_course_id: pacific.id)
 
 user_ids = Round.where(tournament_id: bandon_2015.id).select(:user_id).uniq
-users = User.where(id: user_ids)
+users = User.where.not(id: 6).where(id: user_ids)
 
 users.each do |user|
   bandon_2015.users << user
@@ -486,7 +486,7 @@ rnd2 = bandon_2016.tournament_rounds.create(round_number: 2, round_date: DateTim
 rnd3 = bandon_2016.tournament_rounds.create(round_number: 3, round_date: DateTime.new(2016, 3, 19), new_course_id: bandon.id)
 
 user_ids = Round.where(tournament_id: bandon_2016.id).select(:user_id).uniq
-users = User.where(id: user_ids)
+users = User.where.not(id: [6, 5]).where(id: user_ids)
 
 users.each do |user|
   bandon_2016.users << user
