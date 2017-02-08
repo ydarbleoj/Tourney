@@ -5,7 +5,7 @@
   width: 100%;
   background-color: $white;
   position: fixed;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
   z-index: 2;
   h5 {
     margin: 0px;
@@ -27,8 +27,9 @@ p.course-tee {
 }
 .scorecard-totals {
   width: 100%;
-  margin-top: 83px;
+  margin-top: 93px;
   position: fixed;
+  padding: 10px 0;
   background-color: $light-gray;
   z-index: 2;
   a {
@@ -40,11 +41,11 @@ p.course-tee {
 }
 .scorecard-list {
   width: 100%;
-  margin-top: 135px;
+  margin-top: 155px;
   z-index: 0;
   a {
     width: 100%;
-    height: 80px;
+    height: 110px;
     color: $header-color;
     border-bottom: 1px solid #999;
   }
@@ -110,16 +111,23 @@ p.course-tee {
 //
 // Scorecards INDEX
 //
+.user-scorecards {
+  width: 100%;
+  height: 100%;
+
+}
 .scorecard-index {
   width: 100%;
-  background-color: $white;
+  height: 100px;
+  background-color: #999;
   position: fixed;
   padding: 0 5px 5px 5px;
   z-index: 2;
+  color: $white;
   border-bottom: 1px solid #999;
   h5 {
-    padding: 10px 0;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
   }
 }
 

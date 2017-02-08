@@ -198,14 +198,14 @@ a { width: 100%; height: 100%; }
 
 }
 #stroke-lb-header {
-	width: 100%; height: 110px;
+	width: 100%; height: 130px;
 	background-color: rgba(56,162,247, 1);
 	position: fixed;
 	top: 0;
 	box-shadow: 0 0px 6px rgba(0,0,0,0.16), 0 0px 6px rgba(0,0,0,0.23);
 }
 #putting-lb-header {
-	width: 100%; height: 110px;
+	width: 100%; height: 130px;
 	background-color: rgba(237,131,47,1);
 	position: fixed;
 	top: 0;
@@ -241,12 +241,15 @@ p#purse-total {
 	color: white;
 	text-align: center;
 }
-#stroke-lb-title {
+.stroke-lb-title {
 	padding-top: 10px;
 	text-align: center;
 	color: white;
   h5 {
     margin: 0;
+  }
+  h5, p {
+    display: inline-block;
   }
 }
 #tournament-year {
@@ -260,14 +263,17 @@ p#purse-total {
 	padding-top: 10px;
 	text-align: center;
 	color: white;
+  p:first-child {
+    color: #999;
+  }
 }
 #stroke-lb-container {
   width: 100%;
-	height: calc(100% - 160px);
+	height: calc(100% - 180px);
 	overflow: auto;
 	overflow-y: scroll;
 	background-color: #E0E0E0;
-	margin: 112px 0 50px;
+	margin: 132px 0 50px;
 	bottom: 40px;
 }
 .lb-header {
@@ -275,11 +281,6 @@ p#purse-total {
 	background-color: inherit;
 	color: #f1f1f1;
 
-  .stroke-lb {
-    p {
-
-    }
-  }
 
 }
 #tournament-year {
@@ -287,12 +288,6 @@ p#purse-total {
 }
 #tournament-purse {
 	height: 30px;
-}
-#net-total {
-	text-align: center;
-}
-#net-total-title {
-	margin-left: 10px;
 }
 
 
@@ -337,7 +332,7 @@ p#purse-total {
 	position: fixed;
 	left: 0;
 	bottom: 0;
-	z-index: 1000;
+	z-index: 500;
 	color: white;
 }
 .tourn-links {

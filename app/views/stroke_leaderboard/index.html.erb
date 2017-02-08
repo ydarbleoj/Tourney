@@ -2,18 +2,16 @@
   <div class="row" id="stroke-lb-header">
 
     <div class="row align-middle title-header">
-      <div class="small-3 columns lb-purse">
-        <p>Purse</p>
-        <p>$<%= 30 * @tournament.users.length  %></p>
+      <div class="small-12 columns stroke-lb-title">
+        <h5>Leaderboard</h5> <p><%= @tournament.year %></p>
       </div>
-      <div class="small-6 columns" id="stroke-lb-title">
-        <h5>Leaderboard</h5>
-        <p><%= @tournament.year %></p>
+      <div class="small-12 columns stroke-lb-title">
+        <p>Purse</p> <p>$<%= 30 * @tournament.users.length  %></p>
       </div>
     </div>
 
-    <div class="row align-middle lb-header">
-      <div class="small-5 columns stroke-lb">
+    <div class="row align-middle text-center lb-header">
+      <div class="small-5 columns text-left stroke-lb">
         <p>Player</p>
       </div>
       <div class="small-2 columns stroke-lb">
@@ -28,7 +26,7 @@
       <div class="small-1 columns stroke-lb">
         <p>r3</p>
       </div>
-      <div class="columns lb" id="net-total-title">
+      <div class="small-2 columns lb" id="net-total-title">
         <p>net</p>
       </div>
     </div>
@@ -38,20 +36,20 @@
   <div class="row" id="stroke-lb-container">
     <div class="columns">
       <% @lb.each do |s| %>
-      <div class="row align-middle lb-player">
-        <div class="small-5 columns player">
+      <div class="row align-middle text-center lb-player">
+        <div class="small-5 columns text-left player">
           <h5><%= s.user.first_name %> <%= s.user.last_name[0]  %></h5>
           <p><%= s.handicap ||= 0%> handicap</p>
         </div>
-        <div class="small-2 columns" id="lb-total-score"><%= s.total_score %></div>
-        <div class="small-1 columns lb" id="round-one-score"><%= s.rnd1_score %></div>
-        <div class="small-1 columns lb" id="round-two-score">
+        <div class="small-2 columns"><%= s.total_score %></div>
+        <div class="small-1 columns lb"><%= s.rnd1_score %></div>
+        <div class="small-1 columns lb">
           <%= s.rnd2_score != 0 ? s.rnd2_score : '' %>
         </div>
-        <div class="small-1 columns lb" id="round-three-score">
+        <div class="small-1 columns lb">
           <%= s.rnd3_score != 0 ? s.rnd3_score : '' %>
         </div>
-        <div class="columns lb text-center" id="net-total"><%= s.net_total %></div>
+        <div class="small-2 columns lb text-center" id="net-total"><%= s.net_total %></div>
       </div>
       <% end %>
     </div>

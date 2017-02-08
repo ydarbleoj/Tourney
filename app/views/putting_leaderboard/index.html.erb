@@ -2,13 +2,11 @@
   <div class="row" id="putting-lb-header">
 
     <div class="row align-middle title-header">
-      <div class="small-3 columns lb-purse">
-        <p>Purse</p>
-        <p>$<%= @three_putts %></p>
+     <div class="small-12 columns stroke-lb-title">
+        <h5>Putting LB</h5> <p><%= @tournament.year %></p>
       </div>
-      <div class="small-6 columns" id="stroke-lb-title">
-        <h5>Putting Leaderboard</h5>
-        <p><%= @tournament.year %></p>
+      <div class="small-12 columns stroke-lb-title">
+        <p>Purse</p> <p>$<%= @three_putts %></p>
       </div>
     </div>
 
@@ -29,7 +27,7 @@
       <div class="small-1 columns stroke-lb">
         <p>r3</p>
       </div>
-      <div class="columns stroke-lb">
+      <div class="small-2 columns stroke-lb">
         <p>Total</p>
       </div>
     </div>
@@ -40,16 +38,16 @@
     <div class="columns">
 
       <% @putting_lb.each do |s| %>
-      <div class="row align-middle lb-player">
-        <div class="small-5 columns player">
+      <div class="row align-middle text-center lb-player">
+        <div class="small-5 columns text-left player">
           <h5><%= s.user.first_name %> <%= s.user.last_name[0]  %></h5>
           <p><%= s.handicap ||= 0%> handicap</p>
         </div>
-        <div class="small-2 columns" id="lb-total-score"><%= s.total_3_putts %></div>
-        <div class="small-1 columns lb" id="round-one-score"><%= s.rnd1_putts %></div>
-        <div class="small-1 columns lb" id="round-two-score"><%= s.rnd2_putts %></div>
-        <div class="small-1 columns lb" id="round-three-score"><%= s.rnd3_putts.nil?.! ? s.rnd3_putts : '' %></div>
-        <div class="columns lb" id="net-total"><%= s.total_putts %></div>
+        <div class="small-2 columns" ><%= s.total_3_putts %></div>
+        <div class="small-1 columns lb" ><%= s.rnd1_putts %></div>
+        <div class="small-1 columns lb" ><%= s.rnd2_putts %></div>
+        <div class="small-1 columns lb" ><%= s.rnd3_putts.nil?.! ? s.rnd3_putts : '' %></div>
+        <div class="small-2 columns lb" id="net-total"><%= s.total_putts %></div>
       </div>
       <% end %>
 
