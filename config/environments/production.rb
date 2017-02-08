@@ -42,7 +42,7 @@ Rails.application.configure do
    :address              => "smtp.sendgrid.net",
    :port                 => 587,
    :user_name            => 'Joelbrady',
-   :domain               => 'tourney-app.com'
+   :domain               => 'tourney-app.com',
    :password             => '20[Noble]04',
    :authentication       => "plain",
    :enable_starttls_auto => true
