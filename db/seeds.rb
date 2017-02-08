@@ -332,9 +332,9 @@ pacific = NewCourse.find_by_name('Pacific Dunes')
 bandon_holes  = bandon.holes
 pacific_holes = pacific.holes
 
-rnd1 = bandon_2015.tournament_rounds.where(round_number: 1, new_course_id: trails.id).first
-rnd2 = bandon_2015.tournament_rounds.where(round_number: 2, new_course_id: bandon.id).first
-rnd3 = bandon_2015.tournament_rounds.where(round_number: 3, new_course_id: pacific.id).first
+rnd1 = bandon_2015.tournament_rounds.create(round_number: 1, new_course_id: trails.id)
+rnd2 = bandon_2015.tournament_rounds.create(round_number: 2, new_course_id: bandon.id)
+rnd3 = bandon_2015.tournament_rounds.create(round_number: 3, new_course_id: pacific.id)
 
 user_ids = Round.where(tournament_id: bandon_2015.id).select(:user_id).uniq
 users = User.where(id: user_ids)
@@ -481,9 +481,9 @@ bandon  = NewCourse.find_by_name('Bandon Dunes')
 bandon_holes  = bandon.holes
 old_mac_holes = old_mac.holes
 
-rnd1 = bandon_2016.tournament_rounds.where(round_number: 1, new_course_id: trails.id).first
-rnd2 = bandon_2016.tournament_rounds.where(round_number: 2, new_course_id: old_mac.id).first
-rnd3 = bandon_2016.tournament_rounds.where(round_number: 3, new_course_id: bandon.id).first
+rnd1 = bandon_2016.tournament_rounds.create(round_number: 1, new_course_id: trails.id)
+rnd2 = bandon_2016.tournament_rounds.create(round_number: 2, new_course_id: old_mac.id)
+rnd3 = bandon_2016.tournament_rounds.create(round_number: 3, new_course_id: bandon.id)
 
 user_ids = Round.where(tournament_id: bandon_2016.id).select(:user_id).uniq
 users = User.where(id: user_ids)
