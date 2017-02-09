@@ -3,7 +3,7 @@ class InvitationMailer < ApplicationMailer
     @invitation = invitation
     mail(
         to: invitation.email,
-        subject: "You've been invited to this years Tourney At Bandon!",
+        subject: "Tourney At Bandon! You're invited",
       )
   end
 end

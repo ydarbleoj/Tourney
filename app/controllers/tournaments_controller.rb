@@ -119,7 +119,7 @@ class TournamentsController < ApplicationController
   end
 
   def set_current_tournament
-    @current_tournament = Tournament.where(name: 'Bandon').order(year: :asc).first
+    @current_tournament = Tournament.where(name: 'Bandon').order(year: :desc).first
   end
 
   def authorize_user

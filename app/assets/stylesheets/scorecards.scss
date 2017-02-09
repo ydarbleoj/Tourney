@@ -89,7 +89,7 @@ p.course-tee {
   }
 
   .form-container {
-    height: 60%;
+    height: 100%;
 
     form {
       height: 100%;
@@ -97,6 +97,9 @@ p.course-tee {
       .form-row {
         height: 100%;
 
+        .us-select {
+          margin: 20px 0;
+        }
         div:nth-child(1) {
           border-right: 2px solid #999;
         }

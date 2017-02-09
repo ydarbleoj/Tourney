@@ -32,10 +32,10 @@
           <%= f.hidden_field :number, value: @number%>
           <%= f.hidden_field :par, value: @course.par  %>
           <%= f.hidden_field :handicap, value: @scorecard.handicap %>
-          <div class="small-6 columns">
+          <div class="small-6 columns us-select">
             <%= f.select :score, score_select %>
           </div>
-          <div class="small-6 columns">
+          <div class="small-6 columns us-select">
             <%= f.select :putts, putt_select %>
           </div>
           <div class="small-6 columns">

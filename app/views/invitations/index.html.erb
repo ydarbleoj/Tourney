@@ -2,16 +2,16 @@
   <div class="medium-12 columns align-center">
     <h2>This Years Players</h2>
   </div>
-  <div class="medium-6 columns align-center">
-    <%= link_to "Players Accepted" %>
-  </div>
-  <div class="medium-6 columns align-center">
-    <%= link_to "Pending Invitations" %>
-  </div>
 </div>
 <div class="row expanded">
   <% @invited.each do |invite| %>
-  <div class="medium-10 columns">
+  <div class="medium-6 columns">
+    <%= invite.first_name %> <%= invite.last_name %>
+  </div>
+  <% end %>
+
+  <% @accpeted.each do |invite| %>
+  <div class="medium-6 columns">
     <%= invite.first_name %> <%= invite.last_name %>
   </div>
   <% end %>

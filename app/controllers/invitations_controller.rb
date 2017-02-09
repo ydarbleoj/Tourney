@@ -5,6 +5,8 @@ class InvitationsController < ApplicationController
   def index
     @invited = @tournament.invitations
 
+    @accpeted = @tournament.invitations.where(accepted: true)
+
   end
 
   def new

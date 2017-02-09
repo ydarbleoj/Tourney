@@ -3,7 +3,7 @@ class NewCoursesController < ApplicationController
   before_action :set_tournament
 
   def index
-    p @new_courses = @tournament.tournament_rounds
+    @new_courses = @tournament.tournament_rounds
       .joins(:new_course)
       .order(round_number: :asc)
       .select('new_courses.id, new_courses.name')
