@@ -24,8 +24,9 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    store_location_for(:user, request.fullpath)
-    @invitation = Invitation.find_by!(token: params[:id])
+    p 'accpet'
+    p store_location_for(:user, request.fullpath)
+    p @invitation = Invitation.find_by!(token: params[:id])
   end
 
   def accepted
@@ -42,10 +43,12 @@ class InvitationsController < ApplicationController
         :password_confirmation
       )
 
-      user = User.create!(user_params)
-      @invitation.update(accepted: true)
+      p "here"
+
+      p user = User.create!(user_params)
+     p @invitation.update(accepted: true)
       @tournament.leaderboards.create(user_id: user.id)
-      TournamentUser.create(tournament_id: @invitation.tournament_id, user_id: user.id, role: @invitation.role)
+      TournamentUser.create(tournament_id: @invitation.tournament_id, user_id: user.id)
 
       sign_in(user)
     end
