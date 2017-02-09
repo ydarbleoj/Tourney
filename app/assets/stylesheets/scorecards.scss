@@ -97,8 +97,11 @@ p.course-tee {
       .form-row {
         height: 100%;
 
-        .us-select {
-          margin: 20px 0;
+        #user_score_score {
+          margin: 30px 0;
+        }
+        #user_score_putts {
+          margin: 30px 0;
         }
         div:nth-child(1) {
           border-right: 2px solid #999;

@@ -44,37 +44,39 @@
       </div>
       <% end %>
 
-      <%= link_to(tournaments_path) do %>
-      <div class="row expanded align-middle show-link" id="home-links">
-        <div class="small-8 columns">
-          <p>Tee Times</p>
+      <% if @users.include?(current_user.id) %>
+        <%= link_to(tournaments_path) do %>
+        <div class="row expanded align-middle show-link" id="home-links">
+          <div class="small-8 columns">
+            <p>Tee Times</p>
+          </div>
+          <div class="small-4 columns text-center home-button-right">
+            <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
+          </div>
         </div>
-        <div class="small-4 columns text-center home-button-right">
-          <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
-        </div>
-      </div>
-      <% end %>
+        <% end %>
 
-      <%= link_to(tournament_new_courses_path(@current_tournament.id)) do %>
-      <div class="row expanded align-middle show-link" id="home-links">
-        <div class="small-8 columns">
-           <p>Course Statistics</p>
+        <%= link_to(tournament_new_courses_path(@current_tournament.id)) do %>
+        <div class="row expanded align-middle show-link" id="home-links">
+          <div class="small-8 columns">
+             <p>Course Statistics</p>
+          </div>
+          <div class="small-4 columns text-center home-button-right">
+            <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
+          </div>
         </div>
-        <div class="small-4 columns text-center home-button-right">
-          <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
-        </div>
-      </div>
-      <% end %>
+        <% end %>
 
-      <%= link_to(tournament_tournament_rounds_path(@tournament.id)) do %>
-      <div class="row expanded align-middle show-link" id="home-links">
-        <div class="small-8 columns">
-          <p>Scorecards</p>
+        <%= link_to(tournament_tournament_rounds_path(@tournament.id)) do %>
+        <div class="row expanded align-middle show-link" id="home-links">
+          <div class="small-8 columns">
+            <p>Scorecards</p>
+          </div>
+          <div class="small-4 columns text-center home-button-right">
+            <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
+          </div>
         </div>
-        <div class="small-4 columns text-center home-button-right">
-          <%= image_tag("arrow-30-16.png", class: 'home-icon')%>
-        </div>
-      </div>
+        <% end %>
       <% end %>
 
     </div>

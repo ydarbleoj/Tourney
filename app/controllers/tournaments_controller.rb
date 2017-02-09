@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+    @users = @tournament.users.pluck(:id)
     authorize_user
   end
 
@@ -50,6 +51,7 @@ class TournamentsController < ApplicationController
 
   def history
     @tournaments = Tournament.where("end_date < ? AND name = ?", Date.today, 'Bandon').uniq
+
   end
 
   def stroke_leaderboard
