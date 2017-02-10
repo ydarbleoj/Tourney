@@ -21,7 +21,7 @@
 
             <div class="row expanded text-center scoring-avg">
               <div class="small-6 columns">
-                <h3><%= @net_scoring_avg ||= 0 %></h3> <p>net</p>
+                <h3><%= @net_scoring_avg.blank? ? 0 : @net_scoring_avg.round(1) %></h3> <p>net</p>
               </div>
             </div>
 
@@ -49,10 +49,10 @@
 
             <div class="row expanded text-center scoring-avg">
               <div class="small-6 columns">
-                <h3><%= @putting_avg ||= 0 %></h3> <p>p</p>
+                <h3><%= @putting_avg.blank? ? 0 : @putting_avg.round(1) %></h3> <p>p</p>
               </div>
               <div class="small-6 columns">
-                <h3><%= @three_putt_avg ||= 0 %></h3> <p>3p</p>
+                <h3><%= @three_putt_avg.blank? ? 0 : @three_putt_avg.round(1) %></h3> <p>3p</p>
               </div>
             </div>
 
