@@ -16,7 +16,7 @@ gem 'rails_12factor', group: :produciton
 # gem 'aws-sdk'
 gem "refile", require: "refile/rails"
 gem "refile-mini_magick"
-
+gem "sendgrid-ruby"
 gem 'figaro'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

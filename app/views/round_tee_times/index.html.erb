@@ -1,0 +1,42 @@
+<div class="row tee-time-wrapper">
+  <div class="columns">
+
+    <div class="row align-middle tee-time-header">
+      <div class="small-12 text-center columns">
+        <h5><%= @tournament.year  %> Tee times</h5>
+      </div>
+    </div>
+
+
+    <div class="row tee-times">
+      <div class="columns">
+
+        <div class="row tee-times-round">
+          <div class="small-6 text-center columns">
+            <h4>ROUND 1</h4>
+          </div>
+           <div class="small-6 text-center columns">
+            <h4><%= @round_one.first.tournament_round.new_course.name %></h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  <div class="row align-middle" id="tee-time-nav">
+    <div class="small-3 columns tourn-links">
+      <%= link_to "Home", tournaments_path  %>
+    </div>
+    <div class="small-3 columns tourn-links">
+      <%= link_to "Stroke", tournament_stroke_leaderboard_index_path(@tournament.id)  %>
+    </div>
+    <div class="small-3 columns tourn-links">
+      <%= link_to "Putting", tournament_putting_leaderboard_index_path(@tournament.id) %>
+    </div>
+    <div class="columns tourn-links">
+      <%= link_to "+ Rnd", tournament_tournament_rounds_path(@tournament)  %>
+    </div>
+  </div>
+
+</div>

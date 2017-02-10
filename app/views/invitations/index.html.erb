@@ -1,18 +1,18 @@
 <div class="row expanded">
-  <div class="medium-12 columns align-center">
+  <div class="small-12 columns align-center">
     <h2>This Years Players</h2>
   </div>
 </div>
 <div class="row expanded">
+  <div class="medium-6 columns">
   <% @invited.each do |invite| %>
-  <div class="medium-6 columns">
-    <%= invite.first_name %> <%= invite.last_name %>
-  </div>
+    <p><%= invite.first_name %> <%= invite.last_name %></p>
   <% end %>
+  </div>
 
-  <% @accpeted.each do |invite| %>
   <div class="medium-6 columns">
-    <%= invite.first_name %> <%= invite.last_name %>
-  </div>
+  <% @accpeted.each do |invite| %>
+    <p><%= invite.first_name %> <%= invite.last_name %></p>
   <% end %>
+  </div>
 </div>

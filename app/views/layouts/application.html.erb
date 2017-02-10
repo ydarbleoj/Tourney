@@ -13,14 +13,6 @@
 
   <body data-no-turbolink="true">
     <div class="container" id="main-container">
-    <% flash.each do |key, value| %>
-      <div class="<%= key %> callout floating error-alert" data-closable>
-        <h5><%= value %></h5>
-        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    <% end %>
     <% if user_signed_in? %>
      <div class="back-container"><%= link_to 'back', :back %></div>
       <menu class="button_container" id="toggle">

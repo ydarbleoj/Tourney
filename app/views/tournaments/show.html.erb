@@ -45,7 +45,7 @@
       <% end %>
 
       <% if @users.include?(current_user.id) %>
-        <%= link_to(tournaments_path) do %>
+        <%= link_to(tournament_round_tee_times_path(@tournament.id)) do %>
         <div class="row expanded align-middle show-link" id="home-links">
           <div class="small-8 columns">
             <p>Tee Times</p>
@@ -56,7 +56,7 @@
         </div>
         <% end %>
 
-        <%= link_to(tournament_new_courses_path(@current_tournament.id)) do %>
+        <%= link_to(tournament_new_courses_path(@tournament.id)) do %>
         <div class="row expanded align-middle show-link" id="home-links">
           <div class="small-8 columns">
              <p>Course Statistics</p>

@@ -31,9 +31,16 @@ class InvitationsController < ApplicationController
 
   def accepted
     @invitation = Invitation.find_by!(token: params[:id])
+    @user = User.where(email: @invitation.email).first
 
-    if user_signed_in?
-      user = current_user
+    if @user.present?
+      p "current_user"
+      @invitation.update(accepted: true)
+      @tournament.leaderboards.create(user_id: @user.id)
+      TournamentUser.create(tournament_id: @invitation.tournament_id, user_id: @user.id)
+
+
+      sign_in(@user)
     else
       user_params = params[:user].permit(
         :first_name,
@@ -43,7 +50,6 @@ class InvitationsController < ApplicationController
         :password_confirmation
       )
 
-      p "here"
 
       p user = User.create!(user_params)
      p @invitation.update(accepted: true)

@@ -102,7 +102,6 @@ class TournamentsController < ApplicationController
   def tee_times
     @tournament = Tournament.find(params[:id])
     @rounds = Round.where(tournament_id: @tournament.id)
-    # user_tournaments
   end
 
   def stroke_purse
