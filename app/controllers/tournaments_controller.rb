@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+
     @users = @tournament.users.pluck(:id)
     authorize_user
   end

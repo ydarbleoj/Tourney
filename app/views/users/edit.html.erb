@@ -1,50 +1,42 @@
 <div class="row expanded user-edit">
 	<div class="columns">
 
-    <div class="row">
-      <h2>Account</h2>
+  	<div class="row form-container-edit">
+      <div class="columns">
+        <h3>Personal Info</h3>
+    	  <%= form_for @user do |f| %>
+    		<div class="row align-center" id="user-edit-form-wrapper">
+    			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
+    				<%= f.label :first_name %> <br>
+    				<%= f.text_field :first_name, class: 'edit-user-form'%>
+    			</div>
+          <div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
+            <%= f.label :last_name %> <br>
+            <%= f.text_field :last_name, class: 'edit-user-form'%>
+          </div>
+    			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-email">
+    				<%= f.label :email %> <br>
+    				<%= f.email_field :email, class: 'edit-user-form' %>
+    			</div>
+    			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
+    				<%= f.label :home %> (Add City, State)<br>
+    				<%= f.text_field :home, class: 'edit-user-form'%>
+    			</div>
+    			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-handicap">
+    				<%= f.label :handicap%> <br>
+    				<%= f.number_field :handicap, :step => 'any', class: 'edit-user-form' %>
+    			</div>
+          <div class="small-12 medium-8 large-stack align-middle columns">
+            <%= link_to 'Edit Password', edit_user_registration_path(current_user), class: 'button expanded secondary' %>
+          </div>
+          <div class="small-12 medium-8 large-stack columns">
+            <%= f.submit 'Update', class: 'button expanded' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
     </div>
 
-  	<div class="row form-container-edit">
-  	  <%= form_for @user do |f| %>
-  		<div class="row align-center" id="user-edit-form-wrapper">
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
-  				<%= f.label :first_name %> <br>
-  				<%= f.text_field :first_name, class: 'edit-user-form'%>
-  			</div>
-        <div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-name">
-          <%= f.label :last_name %> <br>
-          <%= f.text_field :last_name, class: 'edit-user-form'%>
-        </div>
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-email">
-  				<%= f.label :email %> <br>
-  				<%= f.email_field :email, class: 'edit-user-form' %>
-  			</div>
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
-  				<%= f.label :password %> <br>
-  				<%= f.text_field :password, class: 'edit-user-form'%>
-  			</div>
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
-  				<%= f.label :password_confirmation %> <br>
-  				<%= f.text_field :password_confirmation, class: 'edit-user-form'%>
-  			</div>
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-home">
-  				<%= f.label :home %> <br>
-  				<%= f.text_field :home, class: 'edit-user-form'%>
-  			</div>
-  			<div class="small-12 medium-8 large-stack columns edit-border" id="user-edit-handicap">
-  				<%= f.label :handicap%> <br>
-  				<%= f.number_field :handicap, :step => 'any', class: 'edit-user-form' %>
-  			</div>
-        <div class="small-6 medium-4 large-stack columns">
-          <%= link_to 'Back', :back, class: 'button expanded secondary' %>
-        </div>
-  			<div class="small-6 medium-4 large-stack columns">
-  				<%= f.submit 'Update', class: 'button expanded' %>
-  			</div>
-  		</div>
-  		<% end %>
-  	</div>
 
   </div>
 </div>

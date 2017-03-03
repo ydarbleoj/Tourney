@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+  # def to_param
+  #   "#{self.username}"
+  # end
 
   def username
     self.username = self.first_name + self.last_name
