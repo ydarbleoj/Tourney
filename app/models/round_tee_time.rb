@@ -1,3 +1,3 @@
-class RoundTeeTime < ActiveRecord::Base
+class RoundTeeTime < ApplicationRecord
   belongs_to :tournament_round
 end

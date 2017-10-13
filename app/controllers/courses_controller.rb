@@ -1,8 +1,10 @@
 class CoursesController < ApplicationController
-  before_filter :check_for_user
+  # before_filter :check_for_user
 
 	def index
-		@courses = Course.all
+		# @courses = Course.all
+    p "HERE"
+    render json: {this: 'that'}
 	end
 
   def show

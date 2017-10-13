@@ -1,4 +1,4 @@
-class RemoveUserIdFromUserScores < ActiveRecord::Migration
+class RemoveUserIdFromUserScores < ActiveRecord::Migration[5.1]
   def change
     remove_reference :user_scores, :user
   end

@@ -1,9 +1,5 @@
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable,
-         :validatable
+class User < ApplicationRecord
+  has_secure_password
   before_save { self.email = email.downcase }
   before_create :username
 
@@ -25,9 +21,13 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  # def to_param
-  #   "#{self.username}"
-  # end
+  def to_token_payload
+    {
+      sub: id,
+      email: email,
+      username: username
+    }
+  end
 
   def username
     self.username = self.first_name + self.last_name

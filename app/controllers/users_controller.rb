@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_filter :check_for_user, only: [:index, :show, :edit]
-  # before_filter :authenticate_user!
+  before_action :authenticate_user
 
 
   def index
-    @users = User.all
-    @user = current_user
-    @rounds = Round.where(user_id: @user)
+   p @users = User.all
+   p @user = current_user
+  #   @rounds = Round.where(user_id: @user)
+    render json: @users
   end
 
   def new
@@ -14,11 +14,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-
-    unless @user == current_user
-      redirect_to root_path, :alert => "Access Denied"
-    end
+    p @user = current_user
+    render json: @user
+    # unless @user == current_user
+    #   redirect_to root_path, :alert => "Access Denied"
+    # end
   end
 
   def edit

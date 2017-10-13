@@ -1,4 +1,4 @@
-class CreateHoles < ActiveRecord::Migration
+class CreateHoles < ActiveRecord::Migration[5.1]
   def change
     create_table :holes do |t|
       t.integer :number

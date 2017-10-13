@@ -1,4 +1,4 @@
-class CreateTournamentCourses < ActiveRecord::Migration
+class CreateTournamentCourses < ActiveRecord::Migration[5.1]
   def change
     create_table :tournament_courses do |t|
       t.belongs_to :new_course

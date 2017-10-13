@@ -1,4 +1,4 @@
-class CreateRoundTeeTimes < ActiveRecord::Migration
+class CreateRoundTeeTimes < ActiveRecord::Migration[5.1]
   def change
     create_table :round_tee_times do |t|
       t.references :tournament_round, index: true, foreign_key: true

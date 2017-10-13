@@ -1,5 +1,5 @@
-class NewCourse < ActiveRecord::Base
-  has_many :holes, dependent: :destroy
+class NewCourse < ApplicationRecord
+  has_many :holes, dependent: :delete_all
   has_many :scorecards
 
   has_many :tournament_new_courses
@@ -7,7 +7,7 @@ class NewCourse < ActiveRecord::Base
   has_many :tournament_rounds
 
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :par, presence: true
   validates :slope, presence: true
   validates :rating, presence: true

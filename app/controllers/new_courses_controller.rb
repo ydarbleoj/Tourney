@@ -1,12 +1,18 @@
 class NewCoursesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :set_tournament
 
   def index
-    @new_courses = @tournament.tournament_rounds
-      .joins(:new_course)
-      .order(round_number: :asc)
-      .select('new_courses.id, new_courses.name')
+    p current_user
+    p params
+    p @new_courses = @tournament.new_courses.includes(:holes).first
+    # @new_courses = @tournament.tournament_rounds
+    #   .joins(:new_course)
+    #   .order(round_number: :asc)
+    #   .select('new_courses.id, new_courses.name')
+    p "HERE"
+    render json: @new_courses
+
   end
 
   def show
@@ -70,7 +76,7 @@ class NewCoursesController < ApplicationController
 
   private
   def set_tournament
-    @tournament = Tournament.find(params[:tournament_id])
+    @tournament = Tournament.find(params['tournament_id'])
   end
   def find_model
     @model = NewCourses.find(params[:id]) if params[:id]

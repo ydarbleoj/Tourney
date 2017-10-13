@@ -1,4 +1,4 @@
-class AddNetDetailsToRound < ActiveRecord::Migration
+class AddNetDetailsToRound < ActiveRecord::Migration[5.1]
   def change
     add_column :rounds, :net1, :integer
     add_column :rounds, :net2, :integer

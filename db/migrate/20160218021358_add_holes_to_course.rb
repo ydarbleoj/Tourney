@@ -1,4 +1,4 @@
-class AddHolesToCourse < ActiveRecord::Migration
+class AddHolesToCourse < ActiveRecord::Migration[5.1]
   def change
   	add_column :courses, :h1_yds, :integer
   	add_column :courses, :h2_yds, :integer

@@ -4,6 +4,6 @@ FactoryGirl.define do
     par 4
     yards 1
     handicap 1
-    new_course nil
+    new_course
   end
 end

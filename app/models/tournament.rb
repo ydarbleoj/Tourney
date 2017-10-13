@@ -1,10 +1,10 @@
-class Tournament < ActiveRecord::Base
+class Tournament < ApplicationRecord
 	# has_many :rounds
 	# has_many :courses, through: :rounds
 
-  has_many :tournament_users
+  has_many :tournament_users, dependent: :delete_all
   has_many :users, through: :tournament_users
-  has_many :tournament_new_courses
+  has_many :tournament_new_courses, dependent: :delete_all
   has_many :new_courses, through: :tournament_new_courses
 
   has_many :leaderboards

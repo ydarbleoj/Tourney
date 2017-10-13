@@ -1,4 +1,4 @@
-class TournamentRound < ActiveRecord::Base
+class TournamentRound < ApplicationRecord
   belongs_to :tournament, touch: true
   belongs_to :new_course
 
