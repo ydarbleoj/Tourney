@@ -1,5 +1,5 @@
 module Tournaments
-  class CoursesController < Tournaments::BaseController
+  class RoundsController < Tournaments::BaseController
     # before_action :authenticate_user!
 
     def index

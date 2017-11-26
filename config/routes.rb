@@ -4,10 +4,23 @@ Rails.application.routes.draw do
   resources :courses
   resources :users, only: [:index, :show, :edit, :update]
   resources :user_statistics
-  resources :leaderboards
 
   resources :tournaments do
     # BUild routing for admin
+    #
+    resources :courses
+    resources :rounds
+
+    namespace :leaderboards do
+      namespace :skins do
+        resources :previews, only: [:index]
+        resources :totals, only: [:index]
+      end
+      resources :stroke_previews, only: [:index]
+      resources :putting_previews, only: [:index]
+      resources :team_previews, only: [:index]
+    end
+
     resources :new_courses
     resources :players
     resources :round_tee_times
@@ -29,6 +42,7 @@ Rails.application.routes.draw do
       get 'putting_leaderboard'
       get 'tee_times'
     end
+
     collection do
       get 'history'
     end

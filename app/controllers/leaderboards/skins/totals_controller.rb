@@ -1,17 +1,20 @@
-class PuttingLeaderboardController  < ApplicationController
+class Leaderboards::Skins::TotalsController  < ApplicationController
   before_action :authenticate_user
   before_action :set_tournament
 
   def index
-    payload = @tournament.leaderboards.putting
-    payload = set_position(payload)
+    p "skins"
+    leaderboards = @tournament.scorecards.skins_total
+    payload = set_position(leaderboards)
+
     render json: payload
   end
+
 
   private
   def set_position(scores)
     new_payload = []
-    payload = scores.group_by { |x| x[:total_putts] }.sort.map { |x| x[1] }
+    payload = scores.group_by { |x| x[:total] }.sort.map { |x| x[1] }.reverse
     pos = 0
     payload.each do |x|
       pos = pos == 0 ? 1 : pos
@@ -20,9 +23,9 @@ class PuttingLeaderboardController  < ApplicationController
     end
     new_payload.flatten(1)
   end
+
   def set_tournament
     @tournament = Tournament.find(params[:tournament_id])
   end
-
 
 end

@@ -18,8 +18,22 @@ class Scorecard < ApplicationRecord
     self.handicap = self.user.handicap
   end
 
-  def update_leaderboard
+  def self.skins_preview
+    joins(:user_scores, :user)
+    .where('user_scores.net_skin = ?', true)
+    .group('users.id')
+    .select('users.username AS username, COUNT(users.id) AS total')
+    .map { |x| { username: x.username, total: x.total } }
+    .sort_by { |x| x[:total] }.reverse.first(5)
+  end
 
+  def self.skins_total
+    joins(:user_scores, :user)
+    .where('user_scores.net_skin = ?', true)
+    .group('users.id')
+    .select('users.username AS username, COUNT(users.id) AS total')
+    .map { |x| { username: x.username, total: x.total } }
+    .sort_by { |x| x[:total] }.reverse
   end
 
 

@@ -1,22 +1,21 @@
 class RoundTeeTimesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :current_tournament
-  before_action :authorize_user, only: [:new, :create, :edit]
 
   def index
-    @tournament  = @current_tournament
-    @round_one   = @tournament.tournament_rounds.where(round_number: 1).first
-    @round_two   = @tournament.tournament_rounds.where(round_number: 2).first
-    @round_three = @tournament.tournament_rounds.where(round_number: 3).first
+    tee_time = @current_tournament.round_tee_times
+      .where('round_number = ?
+        AND (player_one = ? OR player_two = ? OR player_three = ? OR player_four = ?)',
+        params[:round], current_user.username, current_user.username, current_user.username, current_user.username).first
 
+    times = @current_tournament.round_tee_times
+      .where('round_number = ? AND round_tee_times.group != ?', params[:round], tee_time.group)
 
-    @round_one = @round_one.round_tee_times
-    @round_two = @round_two.round_tee_times
-    @round_three = @round_three.round_tee_times
+    tee_times = { user: tee_time, round: times }
+    render json: tee_times
   end
 
   def show
-
   end
 
   def new

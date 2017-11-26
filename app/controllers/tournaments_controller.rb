@@ -1,15 +1,23 @@
 class TournamentsController < ApplicationController
-  cattr_accessor :current_tournament
-  before_action :authenticate_user!
+  # cattr_accessor :current_tournament
+  before_action :authenticate_user
   before_action :set_current_tournament
 
   def index
-    @current_tournament
-    @tournaments = Tournament.where(name: 'Bandon').
-                    order(year: :desc).
-                    pluck(:year)
-    @courses = NewCourse.all.order(name: :asc).
-                 pluck(:name)
+    # @current_tournament
+  p  params
+    tournaments = Tournament.where(name: 'Bandon').order(year: :desc)
+      .select(:id, :name, :year)
+      .map do |tourn|
+        {
+          id: tourn.id,
+          name: tourn.name,
+          year: tourn.year,
+          rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, round_number: x.round_number }}
+        }
+      end
+
+    render json: tournaments
   end
 
   def show

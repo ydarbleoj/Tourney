@@ -11,10 +11,11 @@ class UserScore < ApplicationRecord
 
   before_save :calculate_net
   # after_save :set_skins
-  # after_save :set_net_skins
+  after_save :set_net_skins
   # after_save :update_skins
 
   # after_save :update_scorecard
+
 
   def update_scorecard
     scorecard = Scorecard.find(self.scorecard_id)
@@ -25,17 +26,6 @@ class UserScore < ApplicationRecord
   def calculate_net
     scorecard  = Scorecard.find(self.scorecard_id)
     tournament = scorecard.tournament_round.tournament
-
-    # if (scorecard.round_num == 1 && self.number == 1)
-    #   user = scorecard.user
-    #   scorecards = tournament.scorecards.where(user_id: user.id).pluck(:id)
-
-    #   hcap = ((user.handicap * 0.9) * 1)
-    #   self.handicap = hcap
-    #   Scorecard.where(id: scorecards).update_all(handicap: hcap)
-    #   Leaderboard.where(tournament_id: tournament.id, user_id: user.id).update_all(handicap: hcap)
-    # end
-
   p 'calculate_net'
     course_par = self.scorecard.new_course.holes[self.number - 1].par
     course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap

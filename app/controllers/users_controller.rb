@@ -3,10 +3,9 @@ class UsersController < ApplicationController
 
 
   def index
-   p @users = User.all
-   p @user = current_user
-  #   @rounds = Round.where(user_id: @user)
-    render json: @users
+    p 'current_user'
+    p current_user
+    render json: current_user
   end
 
   def new
@@ -27,24 +26,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    p "update"
     @user = current_user
+    @user.update(user_params)
 
-    if user_params[:password_confirmation].blank?
-      user_params.delete(:password)
-      user_params.delete(:password_confirmation)
-    end
-
-    successfully_updated = if needs_password?(@user, user_params)
-                             @user.update(user_params)
-                           else
-                             @user.update_without_password(user_params)
-                           end
-
-    if successfully_updated
-      redirect_to @user
-    else
-      render "edit"
-    end
+    render json: @user
   end
 
   def destroy

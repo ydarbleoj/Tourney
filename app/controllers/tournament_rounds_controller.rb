@@ -1,11 +1,19 @@
 class TournamentRoundsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :current_tournament
-  before_action :authorize_user
+  # before_action :authorize_user
 
   def index
-    set_scorecards
+    p 'rounds'
+    p rounds = @current_tournament.tournament_rounds
+    # set_scorecards
+    render json: rounds
   end
+
+  def show
+
+  end
+
 
   def new
     if @current_tournament.tournament_rounds.exists?
