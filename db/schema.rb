@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918011230) do
+ActiveRecord::Schema.define(version: 20171128030143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,15 @@ ActiveRecord::Schema.define(version: 20170918011230) do
     t.integer "yardage"
   end
 
+  create_table "putting_moneys", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.integer "money", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "round_tee_times", force: :cascade do |t|
     t.bigint "tournament_round_id"
     t.string "group"
@@ -247,6 +256,56 @@ ActiveRecord::Schema.define(version: 20170918011230) do
     t.index ["new_course_id"], name: "index_scorecards_on_new_course_id"
     t.index ["tournament_round_id"], name: "index_scorecards_on_tournament_round_id"
     t.index ["user_id"], name: "index_scorecards_on_user_id"
+  end
+
+  create_table "skins_moneys", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "user_id"
+    t.integer "round_one", default: 0
+    t.integer "round_two", default: 0
+    t.integer "round_three", default: 0
+    t.integer "total", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stroke_moneys", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.integer "money", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "team_moneys", force: :cascade do |t|
+    t.integer "tournament_id"
+    t.integer "user_id"
+    t.integer "round_one", default: 0
+    t.integer "round_two", default: 0
+    t.integer "round_three", default: 0
+    t.integer "total", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "team_scorecards", force: :cascade do |t|
+    t.integer "round_tee_time_id"
+    t.integer "new_course_id"
+    t.integer "tournament_round_id"
+    t.boolean "finished", default: false
+    t.integer "total_net", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "team_scores", force: :cascade do |t|
+    t.integer "team_scorecard_id"
+    t.integer "number"
+    t.integer "net"
+    t.integer "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tournament_leaderboards", force: :cascade do |t|

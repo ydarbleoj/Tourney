@@ -4,8 +4,6 @@ class TournamentsController < ApplicationController
   before_action :set_current_tournament
 
   def index
-    # @current_tournament
-  p  params
     tournaments = Tournament.where(name: 'Bandon').order(year: :desc)
       .select(:id, :name, :year)
       .map do |tourn|
@@ -24,7 +22,6 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
 
     @users = @tournament.users.pluck(:id)
-    authorize_user
   end
 
   def new

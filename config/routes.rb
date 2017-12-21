@@ -21,6 +21,10 @@ Rails.application.routes.draw do
       resources :team_previews, only: [:index]
     end
 
+    namespace :stats do
+      resources :courses, only: [:index]
+    end
+
     resources :new_courses
     resources :players
     resources :round_tee_times
@@ -54,6 +58,7 @@ Rails.application.routes.draw do
   end
 
   resources :scorecards, only: [:index] do
+    resources :user_scores
     member do
       get 'display'
     end

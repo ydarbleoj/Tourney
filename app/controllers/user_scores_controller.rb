@@ -1,11 +1,12 @@
 class UserScoresController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :set_tournament
   before_action :set_scorecard
 
 
   def show
-    @user_score = UserScore.find(params[:id])
+    user_score = UserScore.find(params[:id])
+    render json: user_score
   end
 
   def new
@@ -41,6 +42,7 @@ class UserScoresController < ApplicationController
   end
 
   def update
+    p params
     us = params[:user_score]
     @user_score = UserScore.find(params[:id])
 

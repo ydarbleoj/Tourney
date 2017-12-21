@@ -3,13 +3,13 @@ class Leaderboards::Skins::TotalsController  < ApplicationController
   before_action :set_tournament
 
   def index
-    p "skins"
     leaderboards = @tournament.scorecards.skins_total
+
     payload = set_position(leaderboards)
+    payload = merge_money(payload)
 
     render json: payload
   end
-
 
   private
   def set_position(scores)
@@ -22,6 +22,11 @@ class Leaderboards::Skins::TotalsController  < ApplicationController
       pos += x.length
     end
     new_payload.flatten(1)
+  end
+
+  def merge_money(payload)
+    money = @tournament.skins_moneys.skins_won.as_json
+    [payload.as_json, money].flatten(1).group_by { |x| x['user_id'] }.map { |x| x[1][0].merge(x[1][1]) }
   end
 
   def set_tournament

@@ -1,36 +1,18 @@
 class ScorecardsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :current_tournament, only: [:show]
+  before_action :authenticate_user
+  before_action :set_tournament
 
   def index
     @scorecards = current_user.scorecards.order(created_at: :asc).where(finished: true)
   end
 
   def show
-   p @scorecard = Scorecard.where(id: params[:id]).first
-    @user_scores = @scorecard.user_scores.order(number: :asc)
-    @course = NewCourse.joins(:holes).where(id: @scorecard.new_course_id).first
-  end
+    p "SCORECARD"
+    scorecard = Scorecard.find(params[:id])
+    scores = scorecard.user_scores.order(number: :asc)
 
-  def display
-    @scorecard = Scorecard.where(id: params[:id]).first
-    p @user_scores = @scorecard.user_scores.order(number: :asc)
-    p @course = NewCourse.joins(:holes).where(id: @scorecard.new_course_id).first
-  end
-
-  def edit
-    @scorecard = Scorecard.find(params[:id])
-    @user_scores = @scorecard.user_scores
-  end
-
-  def update
-    @scorecard = Scorecard.find(params[:id])
-
-    respond_to do |format|
-      if @scorecard.update(scorecard_params)
-        format.html { redirect_to edit_scorecard_path(@scorecard.id) }
-      end
-    end
+    payload = [{ scorecard: scorecard, scores: scores }]
+    render json: payload
   end
 
   def destroy
@@ -38,11 +20,10 @@ class ScorecardsController < ApplicationController
     redirect_to tournament_scorecards_path(@current_tourn.id)
   end
 
-  def current_tournament
+  private
+  def set_tournament
     @tournament = Tournament.find(params[:tournament_id])
   end
-
-  private
 
   def scorecard_params
     params.require(:scorecard).permit(:total_score, :total_putts, :total_3putts,

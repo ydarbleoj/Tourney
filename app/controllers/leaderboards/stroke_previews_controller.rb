@@ -10,7 +10,6 @@ class Leaderboards::StrokePreviewsController  < ApplicationController
     render json: payload
   end
 
-
   private
   def preview_with_player(leaderboards, player)
     player_id = player[:user_id]

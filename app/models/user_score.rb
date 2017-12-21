@@ -1,7 +1,7 @@
 class UserScore < ApplicationRecord
   # attr_accessible :number
-
   belongs_to :scorecard, touch: true
+  has_one :user, through: :scorecard
 
 
   validates :scorecard_id, presence: true
@@ -12,10 +12,13 @@ class UserScore < ApplicationRecord
   before_save :calculate_net
   # after_save :set_skins
   after_save :set_net_skins
-  # after_save :update_skins
-
+  after_commit :update_team_scorecard
   # after_save :update_scorecard
 
+
+  def update_team_scorecard
+
+  end
 
   def update_scorecard
     scorecard = Scorecard.find(self.scorecard_id)

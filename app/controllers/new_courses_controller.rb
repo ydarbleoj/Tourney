@@ -1,31 +1,22 @@
 class NewCoursesController < ApplicationController
-  # before_action :authenticate_user
+  before_action :authenticate_user
   before_action :set_tournament
 
   def index
-    # p current_user
     p "params #{params}"
     p @new_courses = Tournament.find(params[:tournament_id]).new_courses.includes(:holes)
-    # @new_courses = @tournament.tournament_rounds
-    #   .joins(:new_course)
-    #   .order(round_number: :asc)
-    #   .select('new_courses.id, new_courses.name')
-    p "HERE"
     render json: @new_courses
-
   end
 
   def show
+    scorecard_id = @tournament.tournament_rounds
+      .where(new_course_id: params[:id]).first
+      .scorecards.where(user_id: current_user.id).pluck(:id)
+
     course = @tournament.new_courses.find(params[:id])
 
-    render json: course
-    # lowest_round
-    # scoring_avg
-    # putting_avg
-    # fewest_putts
-    # par_three_avg
-    # par_four_avg
-    # par_five_avg
+    payload = [{ scorecard_id: scorecard_id, course: course }]
+    render json: payload
   end
 
   def lowest_round

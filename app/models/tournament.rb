@@ -7,10 +7,19 @@ class Tournament < ApplicationRecord
   has_many :tournament_new_courses, dependent: :delete_all
   has_many :new_courses, through: :tournament_new_courses
 
+  has_many :stroke_moneys
+  has_many :skins_moneys
+  has_many :putting_moneys
+  has_many :team_moneys
+
   has_many :leaderboards
   has_many :tournament_rounds, dependent: :destroy
   has_many :round_tee_times, through: :tournament_rounds
+
   has_many :scorecards, through: :tournament_rounds
+  has_many :team_scorecards, through: :tournament_rounds
+
+
   has_many :invitations
   has_one :tournament_leaderboard
 

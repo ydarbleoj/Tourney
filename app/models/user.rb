@@ -13,6 +13,12 @@ class User < ApplicationRecord
   has_many :tournament_rounds, through: :scorecards
 
 
+  has_many :stroke_moneys
+  has_many :skins_moneys
+  has_many :putting_moneys
+  has_many :team_moneys
+
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   # validates :handicap, presence: true
