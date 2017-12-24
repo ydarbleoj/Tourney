@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :scorecards
   has_many :user_scores, through: :scorecards
   has_many :tournament_rounds, through: :scorecards
-
+  has_many :tee_times
 
   has_many :stroke_moneys
   has_many :skins_moneys
@@ -36,6 +36,6 @@ class User < ApplicationRecord
   end
 
   def username
-    self.username = self.first_name + self.last_name
+    self.username = self.first_name + '' + self.last_name
   end
 end

@@ -6,10 +6,11 @@ class Stats::CoursesController < ApplicationController
     user = {}
     round = {}
     payload = {}
-    p "STATS"
+
     user = { user: map_user_stats }
     course = { course: map_course_stats }
     payload = user.merge(course)
+
     render json: payload
   end
 
@@ -48,7 +49,7 @@ class Stats::CoursesController < ApplicationController
   end
 
   def user_fewest_putts
-    @course.scorecards.where(user_id: current_user.id).order(total_net: :asc)
+    @course.scorecards.where(user_id: current_user.id).order(total_putts: :asc)
       .pluck(:total_putts).first
   end
 
@@ -58,8 +59,8 @@ class Stats::CoursesController < ApplicationController
   end
 
   def user_par3_avg
-    @course.scorecards.joins(:user_scores)
-      .where('scorecards.user_id = ? AND user_scores.par = ?', current_user.id, 3)
+    current_user.scorecards.where(new_course_id: @course.id)
+      .joins(:user_scores).where('user_scores.par = ?', 3)
       .average(:net).round(1)
   end
 
@@ -85,7 +86,7 @@ class Stats::CoursesController < ApplicationController
   end
 
    def course_fewest_putts
-    x = @course.scorecards.joins(:user).order(total_net: :asc)
+    x = @course.scorecards.joins(:user).order(total_putts: :asc)
       .pluck('users.username, scorecards.total_putts').first
     { username: x[0], total: x[1] }
   end

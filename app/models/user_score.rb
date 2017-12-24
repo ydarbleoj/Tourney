@@ -16,10 +16,6 @@ class UserScore < ApplicationRecord
   # after_save :update_scorecard
 
 
-  def update_team_scorecard
-
-  end
-
   def update_scorecard
     scorecard = Scorecard.find(self.scorecard_id)
 
@@ -138,13 +134,9 @@ class UserScore < ApplicationRecord
   end
 
   def update_skins
-    p "SCORECARD SKINS"
-    sc = self.scorecard
-   p skin = sc.user_scores.where({skin: true}).count
-   p  net_skin = sc.user_scores.where({net_skin: true}).count
-
+    net_skin = self.user_scores.where(net_skin: true).count
     Scorecard.transaction do
-      sc.update_columns(gross_skin_total: skin, net_skin_total: net_skin)
+      self.update_columns(net_skin_total: net_skin)
     end
   end
 end

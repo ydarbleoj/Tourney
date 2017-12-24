@@ -7,9 +7,9 @@ class SkinsMoney < ApplicationRecord
   after_commit :update_total
 
 
+    # where.not(total: 0)
   def self.skins_won
-    where.not(total: 0)
-    .select(:user_id, :round_one, :round_two, :round_three, :total)
+    select(:user_id, :round_one, :round_two, :round_three, :total)
     .map do |x|
       {
         user_id: x[:user_id],
@@ -37,7 +37,7 @@ class SkinsMoney < ApplicationRecord
     scorecards = TournamentRound.find(scorecard.tournament_round_id).scorecards.skins_total
 
     total_skins = scorecards.inject(0) { |sum, total| sum + total[:total] }
-    money = (tournament.num_players * 10) / total_skins
+    money = ((tournament.num_players * 10) / total_skins).round(2)
 
     scorecards.each do |sc|
       skins_money = SkinsMoney.where(user_id: sc[:user_id], tournament_id: tournament.id)

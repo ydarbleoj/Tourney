@@ -8,7 +8,7 @@ class ScorecardsController < ApplicationController
 
   def show
     p "SCORECARD"
-    scorecard = Scorecard.find(params[:id])
+    scorecard = Scorecard.where(id: params[:id]).course_info.first
     scores = scorecard.user_scores.order(number: :asc)
 
     payload = [{ scorecard: scorecard, scores: scores }]

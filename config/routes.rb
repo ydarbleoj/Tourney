@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
     resources :new_courses
     resources :players
-    resources :round_tee_times
+    resources :tee_times
     resources :stroke_leaderboard, only: [:index]
     resources :putting_leaderboard, only: [:index]
 

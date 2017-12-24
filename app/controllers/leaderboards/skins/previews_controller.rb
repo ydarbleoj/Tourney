@@ -3,11 +3,12 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
   before_action :set_tournament
 
   def index
+    p "SKINS"
     leaderboards = @tournament.scorecards.skins_preview
     player = current_user.scorecards.user_skins(@tournament.id, current_user).first
 
     payload = preview_with_player(leaderboards, player)
-    payload = merge_money(payload)
+    p payload = merge_money(payload)
 
     render json: payload
   end
@@ -54,7 +55,15 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
   def merge_money(payload)
     user_ids = payload.map { |x| x[:user_id] }
     money = @tournament.skins_moneys.where(user_id: user_ids).skins_won.as_json
-    [payload.as_json, money].flatten(1).group_by { |x| x['user_id'] }.map { |x| x[1][0].merge(x[1][1]) }
+
+    [payload.as_json, money].flatten(1).group_by { |x| x['user_id'] }
+      .map do |x|
+        if x[1][1].present?
+          x[1][0].merge(x[1][1])
+        else
+          x[1][0]
+        end
+      end
   end
 
   def set_tournament

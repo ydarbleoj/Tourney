@@ -11,7 +11,7 @@ FactoryGirl.define do
   trait :setup do
     after :create do |tourn|
       courses = NewCourse.last(tourn.num_rounds)
-      users = User.all
+      users = User.first(16)
       admin_user = users[0]
       admin_user.leaderboards.create(tournament_id: tourn.id)
       tourn.tournament_users.create(user_id: admin_user.id, role: 'admin')
@@ -33,9 +33,20 @@ FactoryGirl.define do
         tourn.tournament_new_courses.create(new_course_id: courses[dd].id, round_num: rnd)
 
         users.each_slice(4).with_index do |user, i|
-          groups = ['Group A', 'Group B', 'Group C', 'Group D']
-          min = [10, 20, 30, 40]
-          FactoryGirl.create(:round_tee_time, group: groups[i], player_one: user[0].username, player_two: user[1].username, player_three: user[2].username, player_four: user[3].username, tournament_round_id: tournament_round.id, tee_time: DateTime.new(add_date.year, add_date.month, add_date.day) + 10.hours + min[i].minutes)
+          if rnd == 1
+            groups = ['Group A', 'Group B', 'Group C', 'Group D']
+            min = [10, 20, 30, 40]
+          elsif rnd == 2
+             groups = ['Group B', 'Group C', 'Group D', 'Group A']
+            min = [20, 30, 40, 10]
+          else
+            groups = ['Group C', 'Group D', 'Group A', 'Group B',]
+            min = [30, 40, 10, 20,]
+          end
+
+          user.each do |x|
+            FactoryGirl.create(:tee_time, group: groups[i], tournament_round_id: tournament_round.id, user_id: x.id, tee_time: DateTime.new(add_date.year, add_date.month, add_date.day) + 10.hours + min[i].minutes)
+          end
 
         end
 
@@ -46,7 +57,7 @@ FactoryGirl.define do
             LeaderboardLogic.new(tourn, scorecard, user).round_one
           elsif rnd == 2
             LeaderboardLogic.new(tourn, scorecard, user).round_two
-          else
+          elsif rnd == 3
             LeaderboardLogic.new(tourn, scorecard, user).round_three
           end
         end

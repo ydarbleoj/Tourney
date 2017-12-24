@@ -13,6 +13,13 @@ class Scorecard < ApplicationRecord
   before_save :set_handicap
   after_save :check_for_last_scorecard
 
+  def self.course_info
+    joins(:new_course)
+    .select('scorecards.id, scorecards.total_score, scorecards.total_putts,
+      scorecards.total_3putts, scorecards.handicap, scorecards.total_net,
+      new_courses.name, new_courses.slope, new_courses.rating, new_courses.tee, new_courses.par, new_courses.yardage')
+  end
+
   def check_for_last_scorecard
    p last_scorecard = TournamentRound.find(self.tournament_round_id).scorecards.round_open
 
@@ -33,7 +40,7 @@ class Scorecard < ApplicationRecord
     when 3
       SkinsMoney.update_player_money(scorecard)
       # TeamMoney.update_player_money(scorecard)
-      # PuttingMoney.update_player_money(scorecard.tournament_round.tournament)
+      PuttingMoney.update_player_money(scorecard.tournament_round.tournament)
       # StrokeMoney.update_player_money(scorecard.tournament_round.tournament)
     else
       return
@@ -89,12 +96,9 @@ class Scorecard < ApplicationRecord
   end
 
   def update_skins
-    p "SCORECARD SKINS"
-   p skin = self.user_scores.where({skin: true}).count
-   p  net_skin = self.user_scores.where({net_skin: true}).count
-
+    net_skin = self.user_scores.where(net_skin: true).count
     Scorecard.transaction do
-      sc.update_columns(gross_skin_total: skin, net_skin_total: net_skin)
+      self.update_columns(net_skin_total: net_skin)
     end
   end
 
