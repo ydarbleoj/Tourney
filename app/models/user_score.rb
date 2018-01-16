@@ -10,16 +10,43 @@ class UserScore < ApplicationRecord
   validates :putts, presence: true
 
   before_save :calculate_net
-  # after_save :set_skins
   after_save :set_net_skins
-  after_commit :update_team_scorecard
-  # after_save :update_scorecard
+  after_save :update_scorecard
+  # after_save :update_team_score
 
+  def update_team_score
+    sc    = self.scorecard
+    tr_id = sc.tournament_round_id
+
+    group = TeeTime.grab_group(tr_id, sc.user_id)
+    ids   = TeeTime.group_ids(group, tr_id)
+
+    if Scorecard.check_scores(tr_id, ids, self.number) == ids.size
+      score = Scorecard.add_team_score(tr_id, ids, self.number)
+    end
+    return if score.blank?
+
+    if TeamScorecard.where(tournament_round_id: tr_id, group: group).exists?
+      team_sc = TeamScorecard.where(tournament_round_id: tr_id, group: group).first
+    else
+      team_sc = TeamScorecard.create(new_course_id: sc.new_course_id, tournament_round_id: tr_id, group: group)
+    end
+
+
+    if team_sc.team_scores.where(number: self.number).exists?
+      team_sc.team_scores.where(number: self.number).update(net: score)
+    else
+      team_sc.team_scores.create!(number: self.number, net: score, par: self.par)
+    end
+  end
 
   def update_scorecard
     scorecard = Scorecard.find(self.scorecard_id)
+    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts,SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
 
-
+    scorecard.update(scores.except!('id'))
+  rescue => e
+    p e.inspect
   end
 
   def calculate_net

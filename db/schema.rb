@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171221163901) do
+ActiveRecord::Schema.define(version: 20171231163011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,13 +290,14 @@ ActiveRecord::Schema.define(version: 20171221163901) do
   end
 
   create_table "team_scorecards", force: :cascade do |t|
-    t.integer "round_tee_time_id"
     t.integer "new_course_id"
     t.integer "tournament_round_id"
     t.boolean "finished", default: false
     t.integer "total_net", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "group"
+    t.boolean "is_won", default: false
   end
 
   create_table "team_scores", force: :cascade do |t|
@@ -315,6 +316,7 @@ ActiveRecord::Schema.define(version: 20171221163901) do
     t.string "group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "team_scorecard_id"
   end
 
   create_table "tournament_leaderboards", force: :cascade do |t|

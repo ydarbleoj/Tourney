@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
           id: tourn.id,
           name: tourn.name,
           year: tourn.year,
-          rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, round_number: x.round_number }}
+          rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, scorecard_id: x.scorecards.first.id, round_number: x.round_number }}
         }
       end
 

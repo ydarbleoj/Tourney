@@ -20,6 +20,7 @@ class PuttingLeaderboardController  < ApplicationController
     end
     new_payload.flatten(1)
   end
+
   def set_tournament
     @tournament = Tournament.find(params[:tournament_id])
   end

@@ -8,10 +8,10 @@ class ScorecardsController < ApplicationController
 
   def show
     p "SCORECARD"
-    scorecard = Scorecard.where(id: params[:id]).course_info.first
-    scores = scorecard.user_scores.order(number: :asc)
+    payload = []
+    p scorecard = Scorecard.where(id: params[:id]).course_info.first
 
-    payload = [{ scorecard: scorecard, scores: scores }]
+    payload = scorecard
     render json: payload
   end
 

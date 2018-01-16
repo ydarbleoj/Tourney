@@ -3,16 +3,6 @@ class RoundTeeTimesController < ApplicationController
   before_action :current_tournament
 
   def index
-    tee_time = @current_tournament.round_tee_times
-      .where('round_number = ?
-        AND (player_one = ? OR player_two = ? OR player_three = ? OR player_four = ?)',
-        params[:round], current_user.username, current_user.username, current_user.username, current_user.username).first
-
-    times = @current_tournament.round_tee_times
-      .where('round_number = ? AND round_tee_times.group != ?', params[:round], tee_time.group)
-
-    tee_times = { user: tee_time, round: times }
-    render json: tee_times
   end
 
   def show

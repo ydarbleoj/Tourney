@@ -3,12 +3,11 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
   before_action :set_tournament
 
   def index
-    p "SKINS"
     leaderboards = @tournament.scorecards.skins_preview
     player = current_user.scorecards.user_skins(@tournament.id, current_user).first
 
     payload = preview_with_player(leaderboards, player)
-    p payload = merge_money(payload)
+    payload = merge_money(payload)
 
     render json: payload
   end

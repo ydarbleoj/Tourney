@@ -1,8 +1,12 @@
 class UserScoresController < ApplicationController
   before_action :authenticate_user
-  before_action :set_tournament
   before_action :set_scorecard
 
+  def index
+    p "HERE HI"
+    payload = course_data
+    render json: payload
+  end
 
   def show
     user_score = UserScore.find(params[:id])
@@ -38,22 +42,19 @@ class UserScoresController < ApplicationController
 
   def edit
     @user_score = UserScore.find(params[:id])
-    @course = @scorecard.new_course.holes.where(number: @user_score.number).first
   end
 
   def update
-    p params
-    us = params[:user_score]
-    @user_score = UserScore.find(params[:id])
+    user_score = UserScore.find(params[:id])
+    user_score.update(score: params['params']['shots'], putts: params['params']['putts'])
 
-    @user_score.update_attributes(score: us['score'], putts: us['putts'], par: us[:par])
-    if @user_score.save
-      hole = @user_score.number
-      anchor = hole
-      redirect_to tournament_scorecard_path(@tournament.id, @scorecard.id, anchor: anchor)
+    if user_score.save!
+      scorecard = Scorecard.where(id: params[:scorecard_id]).course_info.first
+      payload = [{sc: scorecard, us: course_data}]
+
+      render json: payload
     else
-      flash[:notice] = 'Your edit did not save'
-      redirect_to tournament_scorecard_path(@tournament.id, @scorecard.id)
+      render json: "failed to update"
     end
   end
 
@@ -62,8 +63,29 @@ class UserScoresController < ApplicationController
     @scorecard = Scorecard.find(params[:scorecard_id])
   end
 
-  def set_tournament
-    @tournament = Tournament.find(params[:tournament_id])
+  def course_data
+    course = @scorecard.new_course.holes
+    scores = @scorecard.user_scores
+
+    grouped = group_data(course, scores)
+  end
+
+  def group_data(course, scores)
+    [course, scores].flatten(1).group_by { |x| x.number }
+      .map { |x| map_course_data(x[1]) }
+  end
+
+  def map_course_data(group)
+    {
+      number: group[0].number,
+      par: group[0].par,
+      handicap: group[0].handicap,
+      yards: group[0].yards,
+      user_score_id: group[1].blank? ? nil : group[1].id,
+      score: group[1].blank? ? nil : group[1].score,
+      putts: group[1].blank? ? nil : group[1].putts,
+      net: group[1].blank? ? nil : group[1].net,
+    }
   end
 
   def user_scores_params

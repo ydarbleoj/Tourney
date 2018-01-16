@@ -6,25 +6,70 @@ class Scorecard < ApplicationRecord
   belongs_to :tournament_round
   belongs_to :new_course
 
+  has_one :tournament, through: :tournament_round
   has_many :user_scores, dependent: :destroy
 
   accepts_nested_attributes_for :user_scores
 
   before_save :set_handicap
   after_save :check_for_last_scorecard
+  after_save :update_leaderboard
+  after_save :update_skins
 
   def self.course_info
-    joins(:new_course)
+    includes(:user_scores)
     .select('scorecards.id, scorecards.total_score, scorecards.total_putts,
-      scorecards.total_3putts, scorecards.handicap, scorecards.total_net,
-      new_courses.name, new_courses.slope, new_courses.rating, new_courses.tee, new_courses.par, new_courses.yardage')
+      scorecards.total_3putts, scorecards.handicap, scorecards.total_net')
+    .map do |sc|
+      {
+        id: sc.id,
+        total_net: sc.total_net,
+        total_score: sc.total_score,
+        total_putts: sc.total_putts,
+        total_3putts: sc.total_3putts,
+        handicap: sc.handicap,
+        in_net: in_scores(sc, 'net'),
+        in_gross: in_scores(sc, 'score'),
+        out_net: out_scores(sc, 'net'),
+        out_gross: out_scores(sc, 'score')
+      }
+    end
+  end
+
+  def update_leaderboard
+    LeaderboardLogic.new(self).execute
+  end
+
+  def self.in_scores(sc, type)
+    sc.user_scores.select { |x| x if x.number > 9 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
+  end
+
+  def self.out_scores(sc, type)
+    sc.user_scores.select { |x| x if x.number < 10 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
+  end
+
+  def self.check_scores(tr_id, ids, number)
+    joins(:user_scores)
+    .where('tournament_round_id = ? AND user_id IN (?)AND user_scores.number = ?', tr_id, ids, number)
+    .pluck(:user_id).size
+  end
+
+  def self.add_team_score(tr_id, ids, number)
+    joins(:user_scores)
+    .where('tournament_round_id = ?
+      AND user_id IN (?)AND user_scores.number = ?', tr_id, ids, number)
+    .order('user_scores.net ASC').pluck('user_scores.net').first(2).sum
   end
 
   def check_for_last_scorecard
-   p last_scorecard = TournamentRound.find(self.tournament_round_id).scorecards.round_open
+    last_scorecard = TournamentRound.find(self.tournament_round_id).scorecards.round_open
 
     if last_scorecard.blank?
-      update_money_lists(self)
+      begin
+        update_money_lists(self)
+      rescue => e
+        p e
+      end
     end
   end
 
@@ -33,15 +78,12 @@ class Scorecard < ApplicationRecord
     case rnd_number
     when 1
       SkinsMoney.update_player_money(scorecard)
-      # TeamMoney.update_player_money(scorecard)
     when 2
       SkinsMoney.update_player_money(scorecard)
-      # TeamMoney.update_player_money(scorecard)
     when 3
       SkinsMoney.update_player_money(scorecard)
-      # TeamMoney.update_player_money(scorecard)
       PuttingMoney.update_player_money(scorecard.tournament_round.tournament)
-      # StrokeMoney.update_player_money(scorecard.tournament_round.tournament)
+      StrokeMoney.update_player_money(scorecard.tournament_round.tournament)
     else
       return
     end
@@ -95,7 +137,9 @@ class Scorecard < ApplicationRecord
     array.inject({}) { |agg, hash| agg.merge(hash) { |k, a, b| a + b }.except(:user_id, :username) }
   end
 
+  # add to callbacks but ensure there isn't an update loop
   def update_skins
+    p 'skin update'
     net_skin = self.user_scores.where(net_skin: true).count
     Scorecard.transaction do
       self.update_columns(net_skin_total: net_skin)

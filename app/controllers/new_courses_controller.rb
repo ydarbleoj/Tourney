@@ -9,13 +9,16 @@ class NewCoursesController < ApplicationController
   end
 
   def show
-    scorecard_id = @tournament.tournament_rounds
-      .where(new_course_id: params[:id]).first
-      .scorecards.where(user_id: current_user.id).pluck(:id)
+    payload = []
+    # scorecard = @tournament.tournament_rounds
+    #   .where(new_course_id: params[:id]).first
+    #   .scorecards.where(user_id: current_user.id)
+    #   .select('scorecards.id AS id, scorecards.handicap AS handicap,
+    #     scorecards.total_score AS total_score, scorecards.total_putts AS total_putts,
+    #     scorecards.total_3putts AS total_3putts, scorecards.total_net AS total_net')
 
     course = @tournament.new_courses.find(params[:id])
-
-    payload = [{ scorecard_id: scorecard_id, course: course }]
+    p payload = course
     render json: payload
   end
 

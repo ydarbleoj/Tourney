@@ -18,7 +18,22 @@ Rails.application.routes.draw do
       end
       resources :stroke_previews, only: [:index]
       resources :putting_previews, only: [:index]
-      resources :team_previews, only: [:index]
+      namespace :teams do
+        resources :previews, only: [:index]
+        resources :totals, only: [:index]
+      end
+    end
+
+    namespace :info do
+      namespace :money_list do
+        resources :previews, only: [:index]
+        resources :totals, only: [:index]
+      end
+
+      namespace :stats do
+        resources :previews, only: [:index]
+        resources :totals, only: [:index]
+      end
     end
 
     namespace :stats do

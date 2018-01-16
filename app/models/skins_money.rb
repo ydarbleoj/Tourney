@@ -6,8 +6,6 @@ class SkinsMoney < ApplicationRecord
 
   after_commit :update_total
 
-
-    # where.not(total: 0)
   def self.skins_won
     select(:user_id, :round_one, :round_two, :round_three, :total)
     .map do |x|
