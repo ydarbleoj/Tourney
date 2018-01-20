@@ -20,14 +20,7 @@ gem 'rails_12factor', group: :produciton
 # gem 'aws-sdk'
 gem "sendgrid-ruby"
 gem 'figaro'
-# Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-# gem 'active_model_serializers'
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem 'annotate'
 gem 'puma'
 # gem 'devise'
