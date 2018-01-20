@@ -1,7 +1,7 @@
-class UserScore < ActiveRecord::Base
+class UserScore < ApplicationRecord
   # attr_accessible :number
-
   belongs_to :scorecard, touch: true
+  has_one :user, through: :scorecard
 
 
   validates :scorecard_id, presence: true
@@ -10,26 +10,48 @@ class UserScore < ActiveRecord::Base
   validates :putts, presence: true
 
   before_save :calculate_net
-  # after_save :set_skins
-  # after_save :set_net_skins
-  # after_save :update_skins
+  after_save :set_net_skins
+  after_save :update_scorecard
+  # after_save :update_team_score
+
+  def update_team_score
+    sc    = self.scorecard
+    tr_id = sc.tournament_round_id
+
+    group = TeeTime.grab_group(tr_id, sc.user_id)
+    ids   = TeeTime.group_ids(group, tr_id)
+
+    if Scorecard.check_scores(tr_id, ids, self.number) == ids.size
+      score = Scorecard.add_team_score(tr_id, ids, self.number)
+    end
+    return if score.blank?
+
+    if TeamScorecard.where(tournament_round_id: tr_id, group: group).exists?
+      team_sc = TeamScorecard.where(tournament_round_id: tr_id, group: group).first
+    else
+      team_sc = TeamScorecard.create(new_course_id: sc.new_course_id, tournament_round_id: tr_id, group: group)
+    end
 
 
+    if team_sc.team_scores.where(number: self.number).exists?
+      team_sc.team_scores.where(number: self.number).update(net: score)
+    else
+      team_sc.team_scores.create!(number: self.number, net: score, par: self.par)
+    end
+  end
+
+  def update_scorecard
+    scorecard = Scorecard.find(self.scorecard_id)
+    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts,SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
+
+    scorecard.update(scores.except!('id'))
+  rescue => e
+    p e.inspect
+  end
 
   def calculate_net
     scorecard  = Scorecard.find(self.scorecard_id)
     tournament = scorecard.tournament_round.tournament
-
-    if (scorecard.round_num == 1 && self.number == 1)
-      user = scorecard.user
-      scorecards = tournament.scorecards.where(user_id: user.id).pluck(:id)
-
-      hcap = ((user.handicap * 0.9) * 1)
-      self.handicap = hcap
-      Scorecard.where(id: scorecards).update_all(handicap: hcap)
-      Leaderboard.where(tournament_id: tournament.id, user_id: user.id).update_all(handicap: hcap)
-    end
-
   p 'calculate_net'
     course_par = self.scorecard.new_course.holes[self.number - 1].par
     course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
@@ -139,13 +161,9 @@ class UserScore < ActiveRecord::Base
   end
 
   def update_skins
-    p "SCORECARD SKINS"
-    sc = self.scorecard
-   p skin = sc.user_scores.where({skin: true}).count
-   p  net_skin = sc.user_scores.where({net_skin: true}).count
-
+    net_skin = self.user_scores.where(net_skin: true).count
     Scorecard.transaction do
-      sc.update_columns(gross_skin_total: skin, net_skin_total: net_skin)
+      self.update_columns(net_skin_total: net_skin)
     end
   end
 end

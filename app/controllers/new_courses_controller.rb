@@ -1,27 +1,25 @@
 class NewCoursesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :set_tournament
 
   def index
-    @new_courses = @tournament.tournament_rounds
-      .joins(:new_course)
-      .order(round_number: :asc)
-      .select('new_courses.id, new_courses.name')
+    p "params #{params}"
+    p @new_courses = Tournament.find(params[:tournament_id]).new_courses.includes(:holes)
+    render json: @new_courses
   end
 
   def show
-    @course = NewCourse.find(params[:id])
-    @round_num = TournamentRound.where(tournament_id: @tournament.id, new_course_id: @course.id).pluck(:id)
+    payload = []
+    # scorecard = @tournament.tournament_rounds
+    #   .where(new_course_id: params[:id]).first
+    #   .scorecards.where(user_id: current_user.id)
+    #   .select('scorecards.id AS id, scorecards.handicap AS handicap,
+    #     scorecards.total_score AS total_score, scorecards.total_putts AS total_putts,
+    #     scorecards.total_3putts AS total_3putts, scorecards.total_net AS total_net')
 
-    return if @course.blank?
-
-    lowest_round
-    scoring_avg
-    putting_avg
-    fewest_putts
-    par_three_avg
-    par_four_avg
-    par_five_avg
+    course = @tournament.new_courses.find(params[:id])
+    p payload = course
+    render json: payload
   end
 
   def lowest_round
@@ -70,7 +68,7 @@ class NewCoursesController < ApplicationController
 
   private
   def set_tournament
-    @tournament = Tournament.find(params[:tournament_id])
+    @tournament = Tournament.find(params['tournament_id'])
   end
   def find_model
     @model = NewCourses.find(params[:id]) if params[:id]

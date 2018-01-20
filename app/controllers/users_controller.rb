@@ -1,12 +1,11 @@
 class UsersController < ApplicationController
-  before_filter :check_for_user, only: [:index, :show, :edit]
-  # before_filter :authenticate_user!
+  before_action :authenticate_user
 
 
   def index
-    @users = User.all
-    @user = current_user
-    @rounds = Round.where(user_id: @user)
+    p 'current_user'
+    p current_user
+    render json: current_user
   end
 
   def new
@@ -14,11 +13,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-
-    unless @user == current_user
-      redirect_to root_path, :alert => "Access Denied"
-    end
+    p @user = current_user
+    render json: @user
+    # unless @user == current_user
+    #   redirect_to root_path, :alert => "Access Denied"
+    # end
   end
 
   def edit
@@ -27,24 +26,11 @@ class UsersController < ApplicationController
   end
 
   def update
+    p "update"
     @user = current_user
+    @user.update(user_params)
 
-    if user_params[:password_confirmation].blank?
-      user_params.delete(:password)
-      user_params.delete(:password_confirmation)
-    end
-
-    successfully_updated = if needs_password?(@user, user_params)
-                             @user.update(user_params)
-                           else
-                             @user.update_without_password(user_params)
-                           end
-
-    if successfully_updated
-      redirect_to @user
-    else
-      render "edit"
-    end
+    render json: @user
   end
 
   def destroy

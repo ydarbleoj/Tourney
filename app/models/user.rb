@@ -1,9 +1,5 @@
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable,
-         :validatable
+class User < ApplicationRecord
+  has_secure_password
   before_save { self.email = email.downcase }
   before_create :username
 
@@ -15,6 +11,13 @@ class User < ActiveRecord::Base
   has_many :scorecards
   has_many :user_scores, through: :scorecards
   has_many :tournament_rounds, through: :scorecards
+  has_many :tee_times
+  has_many :team_scorecards, through: :tee_times
+
+  has_many :stroke_moneys
+  has_many :skins_moneys
+  has_many :putting_moneys
+  has_many :team_moneys
 
 
   validates :first_name, presence: true
@@ -25,11 +28,15 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  # def to_param
-  #   "#{self.username}"
-  # end
+  def to_token_payload
+    {
+      sub: id,
+      email: email,
+      username: username
+    }
+  end
 
   def username
-    self.username = self.first_name + self.last_name
+    self.username = self.first_name + '' + self.last_name
   end
 end

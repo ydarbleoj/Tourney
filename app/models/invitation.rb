@@ -1,4 +1,4 @@
-class Invitation < ActiveRecord::Base
+class Invitation < ApplicationRecord
   belongs_to :tournament
 
   before_create :generate_token

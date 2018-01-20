@@ -1,4 +1,4 @@
-class AddShotsAndPuttsToRound < ActiveRecord::Migration
+class AddShotsAndPuttsToRound < ActiveRecord::Migration[5.1]
   def change
   	add_column :rounds, :s1, :integer
   	add_column :rounds, :s2, :integer

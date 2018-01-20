@@ -1,4 +1,4 @@
-class AddPlayersToTournamentRound < ActiveRecord::Migration
+class AddPlayersToTournamentRound < ActiveRecord::Migration[5.1]
   def change
     # add_column :tournament_rounds, :player1, :string
     # add_column :tournament_rounds, :player2, :string

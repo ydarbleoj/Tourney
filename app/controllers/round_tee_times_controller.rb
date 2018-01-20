@@ -1,22 +1,11 @@
 class RoundTeeTimesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user
   before_action :current_tournament
-  before_action :authorize_user, only: [:new, :create, :edit]
 
   def index
-    @tournament  = @current_tournament
-    @round_one   = @tournament.tournament_rounds.where(round_number: 1).first
-    @round_two   = @tournament.tournament_rounds.where(round_number: 2).first
-    @round_three = @tournament.tournament_rounds.where(round_number: 3).first
-
-
-    @round_one = @round_one.round_tee_times
-    @round_two = @round_two.round_tee_times
-    @round_three = @round_three.round_tee_times
   end
 
   def show
-
   end
 
   def new
