@@ -5,12 +5,13 @@ class TournamentsController < ApplicationController
 
   def index
     tournaments = Tournament.where(name: 'Bandon').order(year: :desc)
-      .select(:id, :name, :year)
+      .select(:id, :name, :year, :num_players)
       .map do |tourn|
         {
           id: tourn.id,
           name: tourn.name,
           year: tourn.year,
+          num_players: tourn.num_players,
           rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, scorecard_id: x.scorecards.first.id, round_number: x.round_number }}
         }
       end

@@ -16,6 +16,10 @@ class Scorecard < ApplicationRecord
   after_save :update_leaderboard
   after_save :update_skins
 
+  def update_leaderboard
+    LeaderboardLogic.new(self).execute
+  end
+
   def self.course_info
     includes(:user_scores)
     .select('scorecards.id, scorecards.total_score, scorecards.total_putts,
@@ -29,19 +33,28 @@ class Scorecard < ApplicationRecord
         total_3putts: sc.total_3putts,
         handicap: sc.handicap,
         in_net: in_scores(sc, 'net'),
-        in_gross: in_scores(sc, 'score'),
         out_net: out_scores(sc, 'net'),
-        out_gross: out_scores(sc, 'score')
+        in_gross: in_scores(sc, 'score'),
+        out_gross: out_scores(sc, 'score'),
+        in_putts: in_scores(sc, 'putts'),
+        out_putts: out_scores(sc, 'putts'),
+        in_3putts: in_3putts(sc),
+        out_3putts: out_3putts(sc),
       }
     end
   end
 
-  def update_leaderboard
-    LeaderboardLogic.new(self).execute
+  def self.in_3putts(sc)
+    sc.user_scores.select { |x| x if x.number > 9 && x.putts > 2 }.map { |y| y }.length
+  end
+
+  def self.out_3putts(sc)
+    sc.user_scores.select { |x| x if x.number < 10 && x.putts > 2 }.map { |y| y }.length
   end
 
   def self.in_scores(sc, type)
     sc.user_scores.select { |x| x if x.number > 9 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
+
   end
 
   def self.out_scores(sc, type)
