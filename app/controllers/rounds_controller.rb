@@ -1,6 +1,6 @@
 class RoundsController < ApplicationController
-  before_filter :current_tourn
-  before_filter :check_for_user
+  before_action :current_tourn
+  before_action :check_for_user
 
   def index
     @tourn_rounds = Round.where(tournament_id: params["tournament_id"]).where(user_id: current_user.id).order(round_num: :asc)
