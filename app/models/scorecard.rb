@@ -110,23 +110,23 @@ class Scorecard < ApplicationRecord
     joins(:user_scores, :tournament_round)
     .where('user_scores.net_skin = ? AND tournament_rounds.tournament_id = ?', true, tournament_id)
     .select('COUNT(user_scores.id) AS total')
-    .map { |x| { user_id: user.id, username: user.username, total: x.total } }
+    .map { |x| { user_id: user.id, username: user.first_name + ' ' + user.last_name.first, total: x.total } }
   end
 
   def self.skins_preview
     joins(:user_scores, :user)
     .where('user_scores.net_skin = ?', true)
     .group('users.id')
-    .select('users.id AS user_id, users.username AS username, COUNT(users.id) AS total')
-    .map { |x| { user_id: x.user_id, username: x.username, total: x.total } }
+    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, COUNT(users.id) AS total')
+    .map { |x| { user_id: x.user_id, username: x.first_name + ' ' + x.last_name.first, total: x.total } }
     .sort_by { |x| x[:total] }.reverse.first(5)
   end
 
   def self.skins_total
     joins(:user_scores, :user)
     .where('user_scores.net_skin = ?', true)
-    .select('users.id AS user_id, users.username AS username, scorecards.round_num, user_scores.number, user_scores.net')
-    .group_by { |x| [x.user_id, x.username] }
+    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, scorecards.round_num, user_scores.number, user_scores.net')
+    .group_by { |x| [x.user_id, x.first_name + ' ' + x.last_name.first] }
     .map do |x|
       {
         username: x[0][1],

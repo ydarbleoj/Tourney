@@ -3,11 +3,10 @@ class TeeTimesController < ApplicationController
   before_action :set_tournament
 
   def index
-    p params
-    p "tee"
+
     tee_time = TeeTime.where(tournament_round_id: @current_round.id, group: @group)
       .group_by { |x| [x[:group], x[:tee_time].strftime('%H:%M')] }
-      .map { |x| [x[0], x[1].map { |x| { user: x.user.username } }] }.flatten(1)
+      .map { |x| [x[0], x[1].map { |x| { user: x.user.first_name + ' ' + x.user.last_name.first } }] }.flatten(1)
 
     render json: tee_time
   end

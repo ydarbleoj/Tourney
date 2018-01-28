@@ -1,4 +1,4 @@
-class Info::MoneyList::TotalsController  < ApplicationController
+class Info::MoneyList::TotalsController < ApplicationController
   before_action :authenticate_user
   before_action :set_tournament
 
@@ -13,7 +13,7 @@ class Info::MoneyList::TotalsController  < ApplicationController
             team = t.team_moneys.exists? ? t.team_moneys.first.total: 0
             total = (stroke + putting + skins + team)
           {
-            user: t.username,
+            username: t.first_name + ' ' + t.last_name.first,
             user_id: t.id,
             stroke: stroke,
             putting: putting,
@@ -39,6 +39,10 @@ class Info::MoneyList::TotalsController  < ApplicationController
       pos += x.length
     end
     new_payload.flatten(1)
+  end
+
+  def set_tournament
+    @tournament = Tournament.find(params[:tournament_id])
   end
 
 end

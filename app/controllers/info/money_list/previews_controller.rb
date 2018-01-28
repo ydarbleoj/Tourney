@@ -5,22 +5,11 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   def index
     money_list = Tournament.where(id: params[:tournament_id])
       .includes(:stroke_moneys, :putting_moneys, :skins_moneys, :team_moneys, :users)
-      .map do |x|
-        x.users.map do |t|
-            stroke = t.stroke_moneys.exists? ? t.stroke_moneys.first.money : 0
-            putting = t.putting_moneys.exists? ? t.putting_moneys.first.money : 0
-            skins = t.skins_moneys.exists? ? t.skins_moneys.first.total : 0
-            team = t.team_moneys.exists? ? t.team_moneys.first.total: 0
-            total = (stroke + putting + skins + team)
-          {
-            user: t.username,
-            user_id: t.id,
-            total: total
-          }
-        end
-      end.flatten(1)
 
+    money_list = map_list(money_list)
+    money_list = set_position(money_list)
     payload = preview_with_player(money_list).flatten(1)
+
     render json: payload
   end
 
@@ -35,6 +24,27 @@ class Info::MoneyList::PreviewsController  < ApplicationController
     end
   end
 
+  def map_list(money_list)
+    money_list.map do |x|
+      x.users.map do |t|
+        stroke = t.stroke_moneys.exists? ? t.stroke_moneys.first.money : 0
+        putting = t.putting_moneys.exists? ? t.putting_moneys.first.money : 0
+        skins = t.skins_moneys.exists? ? t.skins_moneys.first.total : 0
+        team = t.team_moneys.exists? ? t.team_moneys.first.total: 0
+        total = (stroke + putting + skins + team)
+        {
+          username: t.first_name + ' ' + t.last_name.first,
+          user_id: t.id,
+          stroke: stroke,
+          putting: putting,
+          team: team,
+          skins: skins,
+          total: total
+        }
+      end
+    end.flatten(1)
+  end
+
   def set_position(scores)
     new_payload = []
     payload = scores.group_by { |x| x[:total] }.sort.map { |x| x[1] }.reverse
@@ -47,4 +57,7 @@ class Info::MoneyList::PreviewsController  < ApplicationController
     new_payload.flatten(1)
   end
 
+  def set_tournament
+    @tournament = Tournament.find(params[:tournament_id])
+  end
 end

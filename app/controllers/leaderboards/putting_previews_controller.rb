@@ -1,4 +1,4 @@
-class Leaderboards::PuttingPreviewsController  < ApplicationController
+class Leaderboards::PuttingPreviewsController < ApplicationController
   before_action :authenticate_user
   before_action :set_tournament
 

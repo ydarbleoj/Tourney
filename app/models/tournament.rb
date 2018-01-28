@@ -15,7 +15,7 @@ class Tournament < ApplicationRecord
   has_many :leaderboards
   has_many :tournament_rounds, dependent: :destroy
   has_many :round_tee_times, through: :tournament_rounds
-  has_many :tee_times
+  has_many :tee_times, through: :tournament_rounds
 
   has_many :scorecards, through: :tournament_rounds
   has_many :team_scorecards, through: :tournament_rounds

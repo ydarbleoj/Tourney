@@ -8,7 +8,7 @@ class Leaderboard < ApplicationRecord
   def self.stroke_top_five
     joins(:user)
     .order('leaderboards.total_score asc')
-    .select('users.id AS user_id, users.username AS username, leaderboards.handicap, leaderboards.net_total, leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score, leaderboards.total_score').first(5)
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.handicap, leaderboards.net_total, leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score, leaderboards.total_score").first(5)
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -26,8 +26,8 @@ class Leaderboard < ApplicationRecord
   def self.stroke
     joins(:user)
     .order('leaderboards.total_score asc')
-    .select('users.id AS user_id, users.username AS username, leaderboards.handicap,
-      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score,  leaderboards.rnd1_putts, leaderboards.rnd2_putts, leaderboards.rnd3_putts, leaderboards.net_total, leaderboards.total_score')
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.handicap,
+      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score,  leaderboards.rnd1_putts, leaderboards.rnd2_putts, leaderboards.rnd3_putts, leaderboards.net_total, leaderboards.total_score")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -49,9 +49,8 @@ class Leaderboard < ApplicationRecord
   def self.user_preview_stroke(tournament_id)
     joins(:user)
     .where(tournament_id: tournament_id)
-    .select('users.id AS user_id, users.username AS username, leaderboards.handicap,
-      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score,
-      leaderboards.net_total, leaderboards.total_score')
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.handicap, leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score,
+      leaderboards.net_total, leaderboards.total_score")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -69,7 +68,7 @@ class Leaderboard < ApplicationRecord
   def self.putting
     joins(:user)
     .order('leaderboards.total_putts asc')
-    .select('users.id AS user_id, users.username AS username, leaderboards.rnd1_putts, leaderboards.rnd2_putts, leaderboards.rnd3_putts, leaderboards.total_3_putts, leaderboards.total_putts')
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.rnd1_putts, leaderboards.rnd2_putts, leaderboards.rnd3_putts, leaderboards.total_3_putts, leaderboards.total_putts")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -86,7 +85,7 @@ class Leaderboard < ApplicationRecord
   def self.putting_money
     joins(:user)
     .order('leaderboards.total_putts asc')
-    .select('users.id AS user_id, leaderboards.total_3_putts, leaderboards.total_putts')
+    .select("users.id AS user_id, leaderboards.total_3_putts, leaderboards.total_putts")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -99,8 +98,8 @@ class Leaderboard < ApplicationRecord
   def self.stroke_money
     joins(:user)
     .order('leaderboards.total_score asc')
-    .select('users.id AS user_id, users.username AS username, leaderboards.handicap,
-      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score, leaderboards.net_total, leaderboards.total_score')
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.handicap,
+      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score, leaderboards.net_total, leaderboards.total_score")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -114,7 +113,7 @@ class Leaderboard < ApplicationRecord
   def self.putting_top_five
     joins(:user)
     .order('leaderboards.total_putts asc')
-    .select('users.id AS user_id, users.username AS username, leaderboards.total_3_putts, leaderboards.total_putts').first(5)
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.total_3_putts, leaderboards.total_putts").first(5)
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -129,7 +128,7 @@ class Leaderboard < ApplicationRecord
   def self.user_preview_putting(tournament_id)
     joins(:user)
     .where(tournament_id: tournament_id)
-    .select('users.id AS user_id, users.username AS username, leaderboards.total_3_putts, leaderboards.total_putts')
+    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.total_3_putts, leaderboards.total_putts")
     .map do |lb|
       {
         user_id: lb.user_id,
