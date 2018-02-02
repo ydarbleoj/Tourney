@@ -37,6 +37,6 @@ class User < ApplicationRecord
   end
 
   def username
-    self.username = self.first_name + '' + self.last_name
+    self.username = self.first_name + ' ' + self.last_name
   end
 end

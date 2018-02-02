@@ -12,7 +12,7 @@ class UserScore < ApplicationRecord
   before_save :calculate_net
   after_save :set_net_skins
   after_save :update_scorecard
-  # after_save :update_team_score
+  after_save :update_team_score
 
   def update_team_score
     sc    = self.scorecard
@@ -31,7 +31,6 @@ class UserScore < ApplicationRecord
     else
       team_sc = TeamScorecard.create(new_course_id: sc.new_course_id, tournament_round_id: tr_id, group: group)
     end
-
 
     if team_sc.team_scores.where(number: self.number).exists?
       team_sc.team_scores.where(number: self.number).update(net: score)

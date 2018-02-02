@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   include Knock::Authenticable
-  before_action :test_params
+  # before_action :authenticate
 
 
   def test_params

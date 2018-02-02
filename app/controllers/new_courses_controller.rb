@@ -3,7 +3,6 @@ class NewCoursesController < ApplicationController
   before_action :set_tournament
 
   def index
-    p "params #{params}"
     @new_courses = Tournament.find(params[:tournament_id]).new_courses.includes(:holes)
     render json: @new_courses
   end

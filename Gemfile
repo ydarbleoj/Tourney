@@ -28,7 +28,7 @@ gem 'foundation-rails'
 # gem 'sass-rails', '~> 5.0'
 gem 'autoprefixer-rails'
 gem 'foundation-icons-sass-rails', '~> 3.0.0'
-gem 'active_model_serializers'
+# gem 'active_model_serializers'
 # gem 'figaro'
 
 group :development, :test do

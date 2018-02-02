@@ -103,6 +103,8 @@ class Scorecard < ApplicationRecord
   end
 
   def set_handicap
+    p "update scorecard"
+    p self.user.leaderboards
     self.handicap = self.user.handicap
   end
 

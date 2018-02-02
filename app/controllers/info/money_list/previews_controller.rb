@@ -3,10 +3,7 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   before_action :set_tournament
 
   def index
-    money_list = Tournament.where(id: params[:tournament_id])
-      .includes(:stroke_moneys, :putting_moneys, :skins_moneys, :team_moneys, :users)
-
-    money_list = map_list(money_list)
+    money_list = map_list
     money_list = set_position(money_list)
     payload = preview_with_player(money_list).flatten(1)
 
@@ -24,25 +21,25 @@ class Info::MoneyList::PreviewsController  < ApplicationController
     end
   end
 
-  def map_list(money_list)
-    money_list.map do |x|
-      x.users.map do |t|
-        stroke = t.stroke_moneys.exists? ? t.stroke_moneys.first.money : 0
-        putting = t.putting_moneys.exists? ? t.putting_moneys.first.money : 0
-        skins = t.skins_moneys.exists? ? t.skins_moneys.first.total : 0
-        team = t.team_moneys.exists? ? t.team_moneys.first.total: 0
-        total = (stroke + putting + skins + team)
-        {
-          username: t.first_name + ' ' + t.last_name.first,
-          user_id: t.id,
-          stroke: stroke,
-          putting: putting,
-          team: team,
-          skins: skins,
-          total: total
-        }
-      end
-    end.flatten(1)
+  def map_list
+    teams = @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
+    skins = @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
+    stroke = @tournament.stroke_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
+    # putting = @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+
+    [teams, skins, stroke].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
+  end
+
+  def build_hash(arr)
+    hsh = arr[0]
+    arr[1..-1].each do |t|
+      hsh.merge!(t)
+    end
+    hsh.merge!(sum_total(hsh))
+  end
+
+  def sum_total(hsh)
+    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins]) }
   end
 
   def set_position(scores)
