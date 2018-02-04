@@ -6,7 +6,6 @@ class Leaderboards::Teams::TotalsController  < ApplicationController
     p 'team'
     p payload = (1..@rounds).map { |x| map_rounds(x) }
 
-
     render json: payload
   end
 

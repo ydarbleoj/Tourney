@@ -54,11 +54,11 @@ FactoryGirl.define do
           scorecard = FactoryGirl.create(:scorecard, :with_scores, user_id: user.id, tournament_round_id: tournament_round.id, round_num: rnd, handicap: user.handicap, new_course_id: courses[dd].id)
 
           if rnd == 1
-            LeaderboardLogic.new(tourn, scorecard, user).round_one
+            LeaderboardLogic.new(scorecard).execute
           elsif rnd == 2
-            LeaderboardLogic.new(tourn, scorecard, user).round_two
+            LeaderboardLogic.new(scorecard).execute
           elsif rnd == 3
-            LeaderboardLogic.new(tourn, scorecard, user).round_three
+            LeaderboardLogic.new(scorecard).execute
           end
         end
 

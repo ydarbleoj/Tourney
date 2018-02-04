@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :remember_token, :activation_token, :reset_token
   has_secure_password
   before_save { self.email = email.downcase }
   before_create :username
@@ -38,5 +39,9 @@ class User < ApplicationRecord
 
   def username
     self.username = self.first_name + ' ' + self.last_name
+  end
+
+  def create_reset_digest
+    self
   end
 end

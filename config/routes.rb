@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :courses
   resources :users, only: [:index, :show, :edit, :update]
   resources :user_statistics
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
   resources :tournaments do
     # BUild routing for admin

@@ -13,4 +13,20 @@ class TeeTime < ApplicationRecord
     where(group: group, tournament_round_id: tr_id).pluck(:user_id)
   end
 
+  def self.bulk_update(ids, team_card)
+    where(id: ids)
+    .update_all(group: team_card['group'], tee_time: team_card['tee_time'], team_scorecard_id: team_card['team_scorecard_id'])
+  end
+
+  def self.bulk_create(tr, ids, card)
+    ids.each do |x|
+      TeeTime.create(
+        tournament_round_id: tr.id,
+        team_scorecard_id: card['team_scorecard_id'],
+        user_id: x,
+        tee_time: card['tee_time'],
+        group: card['group'])
+    end
+  end
+
 end
