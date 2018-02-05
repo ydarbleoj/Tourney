@@ -26,8 +26,11 @@ class Leaderboards::Skins::TotalsController  < ApplicationController
 
   def merge_money(payload)
     money = @tournament.skins_moneys.where.not(total: 0).skins_won.as_json
+
     [payload.as_json, money].flatten(1).group_by { |x| x['user_id'] }
-      .map { |x| x[1][0].merge(x[1][1]) }
+      .map do |x|
+        x[1][0].merge(x[1][1])
+      end
   end
 
   def set_tournament

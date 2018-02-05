@@ -26,17 +26,20 @@ class UserScoresController < ApplicationController
   end
 
   def create
-    us = params[:user_score]
-    @user_score = @scorecard.user_scores.create(score: us['score'], handicap: us['handicap'],
-      putts: us['putts'], number: us['number'], par: us['par'])
+    user_score = @scorecard.user_scores.create(score: params['user_score']['shots'], handicap: params['user_score']['handicap'],
+      putts: params['user_score']['putts'], number: params['user_score']['number'], par: params['user_score']['par'])
 
-    if @user_score.save
-      if @user_score.number == 18
+    if user_score.save!
+      if user_score.number == 18
         @scorecard.update_attribute(:finished, true)
       end
-      redirect_to tournament_scorecard_path(@tournament.id, @scorecard.id, anchor: @user_score.number)
+
+      scorecard = Scorecard.where(id: params[:scorecard_id]).course_info.first
+      payload = [{sc: scorecard, us: course_data}]
+
+      render json: payload
     else
-      'new'
+      render json: 'failted to create'
     end
   end
 

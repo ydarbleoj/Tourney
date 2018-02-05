@@ -7,9 +7,10 @@ class Info::MoneyList::TotalsController < ApplicationController
     teams = @tournament.team_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
     skins = @tournament.skins_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
     stroke = @tournament.stroke_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
-    # putting = @tournament.putting_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+    p 'putting'
+  p  putting = @tournament.putting_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
 
-   money_list = [teams, skins, stroke].flatten(1)
+   money_list = [teams, skins, stroke, putting].flatten(1)
       .group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
 
     payload = set_position(money_list)
@@ -27,7 +28,7 @@ class Info::MoneyList::TotalsController < ApplicationController
   end
 
   def sum_total(hsh)
-    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins]) }
+    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins] + hsh[:putting]) }
   end
 
   def set_position(scores)

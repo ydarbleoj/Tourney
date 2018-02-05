@@ -94,6 +94,7 @@ class Scorecard < ApplicationRecord
     when 2
       SkinsMoney.update_player_money(scorecard)
     when 3
+      p 'did we get here'
       SkinsMoney.update_player_money(scorecard)
       PuttingMoney.update_player_money(scorecard.tournament_round.tournament)
       StrokeMoney.update_player_money(scorecard.tournament_round.tournament)

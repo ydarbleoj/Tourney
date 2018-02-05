@@ -25,9 +25,9 @@ class Info::MoneyList::PreviewsController  < ApplicationController
     teams = @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
     skins = @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
     stroke = @tournament.stroke_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
-    # putting = @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+    putting = @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
 
-    [teams, skins, stroke].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
+    [teams, skins, stroke, putting].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
   end
 
   def build_hash(arr)
@@ -39,7 +39,7 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   end
 
   def sum_total(hsh)
-    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins]) }
+    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins] + hsh[:putting]) }
   end
 
   def set_position(scores)

@@ -6,7 +6,7 @@ class PuttingMoney < ApplicationRecord
   def self.update_player_money(tournament)
     scores = tournament.leaderboards.putting_money
     players = set_position(scores)
-
+    'puttin money'
     set_money(players, tournament)
   end
 
@@ -33,10 +33,15 @@ class PuttingMoney < ApplicationRecord
     purse = players.inject(0) { |sum, hash| sum + hash[:total_3_putts] }
     first_player = players.shift
 
-    tournament.putting_moneys.create(user_id: first_player[:user_id], position: first_player[:pos], money: purse)
+    winner(first_player, tournament, purse)
 
     players.each do |x|
-      tournament.putting_moneys.create(user_id: x[:user_id], position: x[:pos])
+      PuttingMoney.where(tournament_id: tournament.id, user_id: x[:user_id]).update(position: x[:pos], money: 0)
     end
+  end
+
+  def self.winner(player, tourn, purse)
+    p 'winner'
+    PuttingMoney.where(tournament_id: tourn.id, user_id: player[:user_id]).first.update(position: player[:pos], money: purse)
   end
 end
