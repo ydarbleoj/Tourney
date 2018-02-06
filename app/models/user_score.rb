@@ -12,7 +12,7 @@ class UserScore < ApplicationRecord
   before_save :calculate_net
   after_save :set_net_skins
   after_save :update_scorecard
-  after_save :update_team_score
+  # after_save :update_team_score
 
   def update_team_score
     sc    = self.scorecard
