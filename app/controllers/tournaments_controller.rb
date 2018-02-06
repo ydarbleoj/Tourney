@@ -12,7 +12,7 @@ class TournamentsController < ApplicationController
           name: tourn.name,
           year: tourn.year,
           num_players: tourn.num_players,
-          rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, scorecard_id: x.scorecards.first.id, round_number: x.round_number }}
+          rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, scorecard_id: find_scorecard(x), round_number: x.round_number }}
         }
       end
 
@@ -54,6 +54,11 @@ class TournamentsController < ApplicationController
       render "edit"
     end
   end
+
+  def find_scorecard(tournament_round)
+    tournament_round.scorecard.where(user_id: current_user.id).pluck(:id)
+  end
+
 
   def history
     @tournaments = Tournament.where("end_date < ? AND name = ?", Date.today, 'Bandon').uniq
