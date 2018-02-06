@@ -54,6 +54,7 @@ class UserScore < ApplicationRecord
   p 'calculate_net'
   p  course_par = self.scorecard.new_course.holes[self.number - 1].par
   p  course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
+  p self.score
 
     if self.score.nil?.!
       if self.handicap < 19
