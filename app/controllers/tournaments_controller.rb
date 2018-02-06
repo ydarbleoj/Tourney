@@ -56,7 +56,7 @@ class TournamentsController < ApplicationController
   end
 
   def find_scorecard(tournament_round)
-    tournament_round.scorecard.where(user_id: current_user.id).pluck(:id)
+    tournament_round.scorecards.where(user_id: current_user.id).pluck(:id)
   end
 
 
