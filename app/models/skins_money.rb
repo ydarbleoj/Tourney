@@ -6,8 +6,26 @@ class SkinsMoney < ApplicationRecord
 
   after_commit :update_total
 
-  def self.skins_won
-    select(:user_id, :round_one, :round_two, :round_three, :total)
+  def self.total_leaderboard
+    order(total: :desc)
+    .select(:user_id, :round_one, :round_two, :round_three, :total)
+    .map do |x|
+      {
+        user_id: x[:user_id],
+        money: [{
+          round_one: x.round_one,
+          round_two: x.round_two,
+          round_three: x.round_three,
+          money_total: x.total
+        }]
+      }
+    end
+  end
+
+   def self.preview_leaderboard(user_ids)
+    order(total: :desc)
+    .where(user_id: user_ids)
+    .select(:user_id, :round_one, :round_two, :round_three, :total)
     .map do |x|
       {
         user_id: x[:user_id],

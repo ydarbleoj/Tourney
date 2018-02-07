@@ -125,23 +125,41 @@ class Scorecard < ApplicationRecord
     .sort_by { |x| x[:total] }.reverse.first(5)
   end
 
+    # .where('user_scores.net_skin = ?', true)
   def self.skins_total
     joins(:user_scores, :user)
-    .where('user_scores.net_skin = ?', true)
-    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, scorecards.round_num, user_scores.number, user_scores.net')
+    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, scorecards.round_num, user_scores.number, user_scores.net, user_scores.net_skin')
     .group_by { |x| [x.user_id, x.first_name + ' ' + x.last_name.first] }
     .map do |x|
       {
         username: x[0][1],
         user_id: x[0][0],
-        total: x[1].length,
+        total: sum_skins(x[1]),
       }.merge(merge_rounds(group_rounds(x[1])))
     end.sort_by { |x| x[:total] }.reverse
   end
 
+  def self.skins_preview_total
+    joins(:user_scores, :user)
+    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, scorecards.round_num, user_scores.number, user_scores.net, user_scores.net_skin')
+    .group_by { |x| [x.user_id, x.first_name + ' ' + x.last_name.first] }
+    .map { |y| sum_skins(y[1]) }
+    .group_by { |x| x }.map { |x| x[1] }.sort_by {|x| x }.reverse
+  end
+
+  def self.sum_skins(arr)
+    arr.select { |x| x if x.net_skin == true }.map { |x| x }.length
+  end
+
   def self.group_rounds(array)
-    array.group_by { |x| x.round_num }
+    arr = array.select { |x| x if x.net_skin == true }.map { |x| x }
+
+    if arr.blank?
+      [{ :rnd1 => '', :rnd1holes => '', :rnd2 => '', :rnd2holes => '', :rnd3 => '', :rnd3holes => '' }]
+    else
+      arr.group_by { |x| x.round_num }
       .map { |x| { "rnd#{x[0]}".to_sym => x[1].length, "rnd#{x[0]}holes".to_sym => set_holes(x[1]) } }
+    end
   end
 
   def self.set_holes(array)
