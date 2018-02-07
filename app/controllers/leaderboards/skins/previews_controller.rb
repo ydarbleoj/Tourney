@@ -46,12 +46,12 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
 
   def find_player_position(player)
     new_player = {}
-    scores = @tournament.skins_moneys.pluck(:total)
+  p  scores = @tournament.skins_moneys.pluck(:total)
       .sort.group_by { |x| x }.map { |x| x[1] }.reverse
     pos = 0
     scores.each do |x|
       pos = pos == 0 ? 1 : pos
-      new_player = player.merge({pos: pos}) if player[:total] == x.first
+  p    new_player = player.merge({pos: pos}) if player[:total] == x.first
       pos += x.length
     end
     new_player
