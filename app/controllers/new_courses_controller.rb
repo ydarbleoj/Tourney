@@ -20,7 +20,7 @@ class NewCoursesController < ApplicationController
     else
       tee_times = []
     end
-    course = @tournament.new_courses.find(params[:id])
+    course = NewCourse.find(params[:id])
 
     payload = [{course: course, tee_times: tee_times}]
     render json: payload

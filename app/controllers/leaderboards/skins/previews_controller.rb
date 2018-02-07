@@ -27,6 +27,7 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
   def preview_with_player(leaderboards, player)
     player_id = player.blank? ? nil : player[:user_id]
     inc = leaderboards.any? { |x| x[:user_id] == player_id }
+
     if inc == true || player_id.blank?
       p 'yeah'
       set_position(leaderboards)
