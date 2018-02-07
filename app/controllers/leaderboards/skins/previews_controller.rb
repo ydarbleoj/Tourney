@@ -3,8 +3,10 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
   before_action :set_tournament
 
   def index
-    leaderboards = @tournament.scorecards.skins_preview
-    player = current_user.scorecards.user_skins(@tournament.id, current_user).first
+    p leaderboards = @tournament.scorecards.skins_preview
+
+    p player = current_user.scorecards.user_skins(@tournament.id, current_user).first
+
 
     payload = preview_with_player(leaderboards, player)
     payload = merge_money(payload)

@@ -52,13 +52,12 @@ class UserScore < ApplicationRecord
     scorecard  = Scorecard.find(self.scorecard_id)
     tournament = scorecard.tournament_round.tournament
   p 'calculate_net'
-  p  course_par = self.scorecard.new_course.holes[self.number - 1].par
-  p  course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
-  p self.score
-  p self.handicap
+    course_par = self.scorecard.new_course.holes[self.number - 1].par
+    course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
+
     if self.score.nil?.!
       if self.handicap < 19
-       p self.net = self.handicap >= course_hcap ? self.score - 1 : self.score
+        self.net = self.handicap >= course_hcap ? self.score - 1 : self.score
       else
         new_cap = self.handicap - 18
         self.net = new_cap >= course_hcap ? self.score - 2 : self.score - 1

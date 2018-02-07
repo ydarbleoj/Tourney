@@ -4,11 +4,10 @@ class Info::MoneyList::TotalsController < ApplicationController
 
   def index
     p 'MONEY'
-    teams = @tournament.team_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
-    skins = @tournament.skins_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
-    stroke = @tournament.stroke_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
-    p 'putting'
-  p  putting = @tournament.putting_moneys.includes(:user).map { |x| { username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+    team    = teams
+    skin    = skins
+    stroke  = strokes
+    putting = puttings
 
    money_list = [teams, skins, stroke, putting].flatten(1)
       .group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
@@ -18,7 +17,21 @@ class Info::MoneyList::TotalsController < ApplicationController
   end
 
   private
-        # putting: putting,
+  def teams
+    @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
+  end
+
+  def skins
+    @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
+  end
+
+  def strokes
+    @tournament.stroke_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
+  end
+
+  def puttings
+    @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+  end
   def build_hash(arr)
     hsh = arr[0]
     arr[1..-1].each do |t|
@@ -28,7 +41,11 @@ class Info::MoneyList::TotalsController < ApplicationController
   end
 
   def sum_total(hsh)
-    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins] + hsh[:putting]) }
+    team    = hsh[:team].blank? ? 0 : hsh[:team]
+    stroke  = hsh[:stroke].blank? ? 0 : hsh[:stroke]
+    skins   = hsh[:skins].blank? ? 0 : hsh[:skins]
+    putting = hsh[:putting].blank? ? 0 : hsh[:putting]
+    { total: (team + stroke + skins + putting) }
   end
 
   def set_position(scores)

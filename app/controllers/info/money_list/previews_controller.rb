@@ -12,7 +12,7 @@ class Info::MoneyList::PreviewsController  < ApplicationController
 
   private
   def preview_with_player(money_list)
-    top_five = money_list.select { |x| x if x[:pos] < 6 }.map { |x| x }
+    top_five = money_list.select { |x| x if x[:pos] < 6 }.map { |x| x }.first(5)
 
     if top_five.any? {|x| x[:user_id] == current_user.id }
       top_five
@@ -22,12 +22,31 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   end
 
   def map_list
-    teams = @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
-    skins = @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
-    stroke = @tournament.stroke_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
-    putting = @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
+    p 'MONEYLIST PREVIEW'
+    team    = teams
+    skin    = skins
+    stroke  = strokes
+    putting = puttings
 
-    [teams, skins, stroke, putting].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
+    [team, skin, stroke, putting].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
+  end
+
+  def teams
+    @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
+    []
+  end
+
+  def skins
+    @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
+
+  end
+
+  def strokes
+    @tournament.stroke_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, stroke: x.money } }
+  end
+
+  def puttings
+    @tournament.putting_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, putting: x.money } }
   end
 
   def build_hash(arr)
@@ -39,7 +58,11 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   end
 
   def sum_total(hsh)
-    { total: (hsh[:team] + hsh[:stroke] + hsh[:skins] + hsh[:putting]) }
+    team    = hsh[:team].blank? ? 0 : hsh[:team]
+    stroke  = hsh[:stroke].blank? ? 0 : hsh[:stroke]
+    skins   = hsh[:skins].blank? ? 0 : hsh[:skins]
+    putting = hsh[:putting].blank? ? 0 : hsh[:putting]
+    { total: (team + stroke + skins + putting) }
   end
 
   def set_position(scores)
