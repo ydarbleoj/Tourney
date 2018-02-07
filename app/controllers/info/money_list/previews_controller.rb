@@ -11,8 +11,8 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   end
 
   private
-  def check_player
-    @tournament.users.where(user_id: current_user.id)
+  def check_user
+    @tournament.stroke_moneys.where(user_id: current_user.id)
   end
 
   def preview_with_player(money_list)

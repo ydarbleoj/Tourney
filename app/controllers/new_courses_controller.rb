@@ -9,7 +9,9 @@ class NewCoursesController < ApplicationController
 
   def show
     payload = []
-    user_group = @tournament.tee_times.where(tournament_round_id: params[:round], user_id: current_user.id).first
+
+    p 'NEW COURSE'
+    p user_group = @tournament.tee_times.where(tournament_round_id: params[:round], user_id: current_user.id).first
 
     if user_group.present?
       user_group = user_group.group
