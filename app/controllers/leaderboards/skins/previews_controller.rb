@@ -18,13 +18,16 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
 
   private
   def preview_with_player(leaderboards, player)
-    player_id = player[:user_id]
-    inc = leaderboards.any? { |x| x[:user_id] == player_id }
+  p  player_id = player[:user_id]
+  p  inc = leaderboards.any? { |x| x[:user_id] == player_id }
     if inc == true
+      p 'here'
       set_position(leaderboards)
     else
+      p 'ok'
       leaderboards = set_position(leaderboards)
-      player = find_player_position(player)
+      p "_______"
+      p player = find_player_position(player)
       leaderboards << player
     end
   end
