@@ -13,7 +13,7 @@ class Leaderboards::Skins::PreviewsController  < ApplicationController
     end
 
     payload = preview_with_player(leaderboards, player)
-   p payload = merge_money(payload)
+    payload = merge_money(payload)
 
     render json: payload
   end

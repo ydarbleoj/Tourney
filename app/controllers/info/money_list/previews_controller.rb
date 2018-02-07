@@ -11,10 +11,15 @@ class Info::MoneyList::PreviewsController  < ApplicationController
   end
 
   private
+  def check_player
+    @tournament.users.where(user_id: current_user.id)
+  end
+
   def preview_with_player(money_list)
     top_five = money_list.select { |x| x if x[:pos] < 6 }.map { |x| x }.first(5)
+    inc = top_five.any? {|x| x[:user_id] == current_user.id }
 
-    if top_five.any? {|x| x[:user_id] == current_user.id }
+    if inc == true || check_user.blank?
       top_five
     else
       top_five << money_list.select { |x| x if x[:user_id] == current_user.id }.map { |x| x }
@@ -38,7 +43,6 @@ class Info::MoneyList::PreviewsController  < ApplicationController
 
   def skins
     @tournament.skins_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, skins: x.total } }
-
   end
 
   def strokes

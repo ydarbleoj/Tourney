@@ -4,7 +4,12 @@ class Leaderboards::PuttingPreviewsController < ApplicationController
 
   def index
     leaderboards = @tournament.leaderboards.putting_top_five
-    player = current_user.leaderboards.user_preview_putting(@tournament.id)
+
+    if check_user.blank?
+      player = nil
+    else
+      player = current_user.leaderboards.user_preview_putting(@tournament.id)
+    end
 
     payload = preview_with_player(leaderboards, player)
     render json: payload
@@ -12,10 +17,15 @@ class Leaderboards::PuttingPreviewsController < ApplicationController
 
 
   private
+  def check_user
+    @tournament.putting_moneys.where(user_id: current_user.id)
+  end
+
+
   def preview_with_player(leaderboards, player)
-    player_id = player[:user_id]
+    player_id = player.blank? ? nil : player[:user_id]
     inc = leaderboards.any? { |x| x[:user_id] == player_id }
-    if inc == true
+    if inc == true || player_id.blank?
       set_position(leaderboards)
     else
       leaderboards = set_position(leaderboards)

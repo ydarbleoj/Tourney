@@ -11,10 +11,14 @@ class Leaderboards::StrokePreviewsController  < ApplicationController
   end
 
   private
+  def check_user
+    @tournament.stroke_moneys.where(user_id: current_user.id)
+  end
+
   def preview_with_player(leaderboards, player)
-    player_id = player[:user_id]
+    player_id = player.blank? ? nil : player[:user_id]
     inc = leaderboards.any? { |x| x[:user_id] == player_id }
-    if inc == true
+    if inc == true || player_id.blank?
       set_position(leaderboards)
     else
       leaderboards = set_position(leaderboards)
