@@ -1,15 +1,17 @@
 class TournamentsController < ApplicationController
-  # cattr_accessor :current_tournament
   before_action :authenticate_user
-  before_action :set_current_tournament
+  # before_action :set_tournament
 
   def index
-    tournaments = Tournament.where(name: 'Bandon').order(year: :desc)
-      .select(:id, :name, :year, :num_players)
+    tournaments = Tournament.where(name: 'Bandon').order(year: :desc).select(:id, :name, :year, :num_players)
       .map do |tourn|
+        lead_id = tourn.leaderboards.where(user_id: current_user.id)
+        lead_id = lead_id.blank? ? nil : lead_id.first.id
         {
           id: tourn.id,
           name: tourn.name,
+          handicap: tourn.leaderboards.first.handicap.present? ? true : false,
+          leaderboard_id: lead_id,
           year: tourn.year,
           num_players: tourn.num_players,
           rounds: tourn.tournament_rounds.map { |x| { round_id: x.id, round_date: x.round_date.strftime('%F'), course_id: x.new_course_id, scorecard_id: find_scorecard(x), round_number: x.round_number }}
@@ -17,6 +19,10 @@ class TournamentsController < ApplicationController
       end
 
     render json: tournaments
+  end
+
+  def set_tournament
+    @tournament = Tournament.find(params[:tournament_id])
   end
 
   def show

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :courses
     resources :rounds
 
+    resources :leaderboards, only: [:update]
+
     namespace :leaderboards do
       namespace :skins do
         resources :previews, only: [:index]

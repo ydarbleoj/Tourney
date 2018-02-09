@@ -11,20 +11,22 @@ class LeaderboardLogic
 
   def execute
     p "Leaderboard LOGIC"
-    p @scorecard
+    scores = @scorecard.user_scores.exists?
+    return if scores.blank?
+
     # Round specific scores
-   p  @net_score   = @user_scores.map(&:net).inject(0, :+)
-   p @putts       = @user_scores.map(&:putts).inject(0, :+)
-   p  @three_putts = @user_scores.map { |x| x.putts if x.putts > 2 }.compact.length
+    @net_score   = @user_scores.map(&:net).inject(0, :+)
+    @putts       = @user_scores.map(&:putts).inject(0, :+)
+    @three_putts = @user_scores.map { |x| x.putts if x.putts > 2 }.compact.length
 
     # Leaderboard totals
-    p @course_par = holes_played
-    p @ttl_score  = total_scores
-    p @ttl_putts  = total_putts
+    @course_par = holes_played
+    @ttl_score  = total_scores
+    @ttl_putts  = total_putts
     @ttl_3putts = total_3putts
-   p @net_total  = net_totals
+    @net_total  = net_totals
 
-   p data        = set_round_data.merge(total_setup)
+    data        = set_round_data.merge(total_setup)
 
     Leaderboard.transaction do
      p @lb.update_attributes(data)

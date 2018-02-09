@@ -28,9 +28,9 @@ class Info::MoneyList::PreviewsController  < ApplicationController
 
   def map_list
     p 'MONEYLIST PREVIEW'
-    team    = teams
-    skin    = skins
-    stroke  = strokes
+   p team    = teams
+   p skin    = skins
+   p stroke  = strokes
     putting = puttings
 
     [team, skin, stroke, putting].flatten(1).group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
@@ -38,7 +38,6 @@ class Info::MoneyList::PreviewsController  < ApplicationController
 
   def teams
     @tournament.team_moneys.includes(:user).map { |x| { user_id: x.user.id, username: x.user.first_name + ' ' + x.user.last_name.first, team: x.total } }
-    []
   end
 
   def skins

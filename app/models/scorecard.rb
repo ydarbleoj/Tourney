@@ -11,7 +11,6 @@ class Scorecard < ApplicationRecord
 
   accepts_nested_attributes_for :user_scores
 
-  before_save :set_handicap
   after_save :check_for_last_scorecard
   after_save :update_leaderboard
   after_save :update_skins
@@ -101,12 +100,6 @@ class Scorecard < ApplicationRecord
     else
       return
     end
-  end
-
-  def set_handicap
-    p "update scorecard"
-    self.user.leaderboards
-    self.handicap = self.user.handicap
   end
 
   def self.user_skins(tournament_id, user)

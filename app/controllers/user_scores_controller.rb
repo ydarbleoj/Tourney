@@ -14,7 +14,7 @@ class UserScoresController < ApplicationController
   end
 
   def new
-    @number = params[:number]
+   p @number = params[:number]
     @user_score = @scorecard.user_scores.new(user_scores_params)
     @course = @scorecard.new_course.holes.where(number: @user_score.number).first
 
