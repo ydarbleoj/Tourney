@@ -61,9 +61,9 @@ class LeaderboardLogic
 
   def total_scores
     total_score = []
-    current_round = @net_score - @course_par
-    rnds = (1..@tournament.num_rounds).to_a - [@tourn_rnd.round_number]
-
+   p current_round = @net_score - @course_par
+   p rnds = (1..@tournament.num_rounds).to_a - [@tourn_rnd.round_number]
+   p 'HERE'
     total_score << current_round
 
     rnds.each do |round|
@@ -72,8 +72,8 @@ class LeaderboardLogic
       if score == 0
         total_score << 0
       else
-        course = @tournament.tournament_rounds.where(round_number: round).first.new_course.par
-        arr = score - course
+      p  course = @tournament.tournament_rounds.where(round_number: round).first.new_course.par
+        p arr = score - course
         total_score << arr
       end
     end
