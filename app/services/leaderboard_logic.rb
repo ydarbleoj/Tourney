@@ -22,11 +22,14 @@ class LeaderboardLogic
     # Leaderboard totals
     @course_par = holes_played
     @ttl_score  = total_scores
+    p "now"
     @ttl_putts  = total_putts
+    p 'here2'
     @ttl_3putts = total_3putts
+    p 'here3'
     @net_total  = net_totals
 
-    data        = set_round_data.merge(total_setup)
+  p  data        = set_round_data.merge(total_setup)
 
     Leaderboard.transaction do
      p @lb.update_attributes(data)
@@ -67,8 +70,8 @@ class LeaderboardLogic
     total_score << current_round
 
     rnds.each do |round|
-      rnd = "rnd#{round}_score"
-      score = @lb.send(rnd)
+     p rnd = "rnd#{round}_score"
+    p  score = @lb.send(rnd)
       if score == 0
         total_score << 0
       else

@@ -30,10 +30,6 @@ class UserScoresController < ApplicationController
       putts: params['user_score']['putts'], number: params['user_score']['number'], par: params['user_score']['par'])
 
     if user_score.save!
-      if user_score.number == 18
-        @scorecard.update_attribute(:finished, true)
-      end
-
       scorecard = Scorecard.where(id: params[:scorecard_id]).course_info.first
       payload = [{sc: scorecard, us: course_data}]
 

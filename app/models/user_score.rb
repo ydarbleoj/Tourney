@@ -41,6 +41,9 @@ class UserScore < ApplicationRecord
 
   def update_scorecard
     scorecard = Scorecard.find(self.scorecard_id)
+    if self.number == 18
+      scorecard.update_column(:finished, true)
+    end
     scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts,SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
 
     scorecard.update(scores.except!('id'))
