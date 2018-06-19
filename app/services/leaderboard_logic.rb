@@ -29,10 +29,10 @@ class LeaderboardLogic
     p 'here3'
     @net_total  = net_totals
 
-  p  data        = set_round_data.merge(total_setup)
+    data        = set_round_data.merge(total_setup)
 
     Leaderboard.transaction do
-     p @lb.update_attributes(data)
+      @lb.update_attributes(data)
     end
   end
 
@@ -64,19 +64,19 @@ class LeaderboardLogic
 
   def total_scores
     total_score = []
-   p current_round = @net_score - @course_par
-   p rnds = (1..@tournament.num_rounds).to_a - [@tourn_rnd.round_number]
-   p 'HERE'
+    current_round = @net_score - @course_par
+    rnds = (1..@tournament.num_rounds).to_a - [@tourn_rnd.round_number]
+
     total_score << current_round
 
     rnds.each do |round|
-     p rnd = "rnd#{round}_score"
-    p  score = @lb.send(rnd)
+      rnd = "rnd#{round}_score"
+      score = @lb.send(rnd)
       if score == 0
         total_score << 0
       else
-      p  course = @tournament.tournament_rounds.where(round_number: round).first.new_course.par
-        p arr = score - course
+        course = @tournament.tournament_rounds.where(round_number: round).first.new_course.par
+        arr = score - course
         total_score << arr
       end
     end
