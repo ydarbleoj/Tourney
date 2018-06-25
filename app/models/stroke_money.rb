@@ -45,7 +45,6 @@ class StrokeMoney < ApplicationRecord
   def self.purse(pos, group_length, i)
     case pos
     when 1
-      p 'first'
       if i == 0
         (@purse * 0.5625)
       else
@@ -56,14 +55,12 @@ class StrokeMoney < ApplicationRecord
         end
       end
     when 2
-      p 'sec'
       if i == 0 && group_length == 1
         (@purse * 0.25)
       else
         (@purse * 0.4375) / group_length
       end
     when 3
-      p 'third'
        (@purse * 0.1875) / group_length
     else
       0

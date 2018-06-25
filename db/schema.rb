@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202233301) do
+ActiveRecord::Schema.define(version: 20180619213902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,24 +110,24 @@ ActiveRecord::Schema.define(version: 20180202233301) do
   end
 
   create_table "leaderboards", force: :cascade do |t|
-    t.integer "rnd1_score"
-    t.integer "rnd2_score"
-    t.integer "rnd3_score"
-    t.integer "rnd1_putts"
-    t.integer "rnd2_putts"
-    t.integer "rnd3_putts"
-    t.integer "total_score"
-    t.integer "total_putts"
-    t.integer "total_3_putts"
-    t.integer "net_total"
+    t.integer "rnd1_score", default: 0
+    t.integer "rnd2_score", default: 0
+    t.integer "rnd3_score", default: 0
+    t.integer "rnd1_putts", default: 0
+    t.integer "rnd2_putts", default: 0
+    t.integer "rnd3_putts", default: 0
+    t.integer "total_score", default: 0
+    t.integer "total_putts", default: 0
+    t.integer "total_3_putts", default: 0
+    t.integer "net_total", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "tournament_id"
     t.bigint "user_id"
-    t.integer "handicap"
-    t.integer "rn1_3putts"
-    t.integer "rnd2_3putts"
-    t.integer "rnd3_3putts"
+    t.integer "handicap", default: 0
+    t.integer "rn1_3putts", default: 0
+    t.integer "rnd2_3putts", default: 0
+    t.integer "rnd3_3putts", default: 0
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
   end

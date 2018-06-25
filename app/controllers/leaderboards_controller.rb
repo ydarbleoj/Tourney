@@ -27,6 +27,7 @@ class LeaderboardsController < ApplicationController
   def set_tournament
     @tournament = Tournament.find(params[:tournament_id])
   end
+
   def board_params
     params.require(:leaderboard)
           .permit(:tournament_id, :user_id, :rnd1_score, :rnd1_putts, :rnd2_score, :rnd2_putts,
