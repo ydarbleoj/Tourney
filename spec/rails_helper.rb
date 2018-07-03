@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require "shoulda/matchers"
 require 'capybara/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -18,7 +19,15 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration[5.1].maintain_test_schema!
 
+
+
 RSpec.configure do |config|
+  # Shoulda::Matchers.configure do |config|
+  #   config.integrate do |with|
+  #     with.test_framework :rspec
+  #     with.library :rails
+  #   end
+  # end
   config.include FactoryGirl::Syntax::Methods
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

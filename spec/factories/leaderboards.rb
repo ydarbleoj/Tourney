@@ -1,13 +1,24 @@
 FactoryGirl.define do
   factory :leaderboard do
-    rnd1_score 1
-    rnd2_score 1
-    rnd3_score 1
-    rnd1_putts 1
-    rnd2_putts 1
-    rnd3_putts 1
-    total_score 1
-    total_putts 1
+    rnd1_score 0
+    rnd2_score 0
+    rnd3_score 0
+    rnd1_putts 0
+    rnd2_putts 0
+    rnd3_putts 0
+    user
+    tournament
+    handicap { user.handicap }
+    rnd1_3putts 0
+    rnd2_3putts 0
+    rnd3_3putts 0
+    total_score 0
+    total_putts 0
+    total_3_putts 0
+  end
+
+  trait :with_scorecards do
+
   end
 
 end

@@ -7,6 +7,8 @@ class Scorecard < ApplicationRecord
   belongs_to :new_course
 
   has_one :tournament, through: :tournament_round
+  has_one :leaderboard_scorecard
+  has_one :leaderboard, through: :leaderboard_scorecard
   has_many :user_scores, dependent: :destroy
 
   accepts_nested_attributes_for :user_scores
@@ -15,8 +17,46 @@ class Scorecard < ApplicationRecord
   after_save :update_leaderboard
   after_save :update_skins
 
+  def total_user_scores
+    self.update_columns(:finished, true) if self.finished.blank? && self.played_eighteen?
+    scores = self.user_scores.select('SUM(score) AS total_score, SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
+
+    self.update_columns(scores.except!('id'))
+  rescue => e
+    p e.inspect
+  end
+
+  def played_eighteen?
+    self.user_scores.size == 18
+  end
+
   def update_leaderboard
-    LeaderboardLogic.new(self).execute
+    Leaderboard.new.scorecard_update(self)
+  end
+
+  def _total_net
+    return self.total_net if self.finished
+    self.user_scores.map(&:net).inject(0, :+)
+  end
+
+  def _total_putts
+    return self.total_putts if self.finished
+    self.user_scores.map(&:putts).inject(0, :+)
+  end
+
+  def _total_3putts
+    return self.total_3putts if self.finished
+    self.user_scores.map { |x| x.putts if x.putts > 2 }.compact.length
+  end
+
+  def _course_par_played
+    return self.new_course.par if self.finished
+    holes = self.user_scores.map(&:number)
+    self.new_course.holes.where(number: holes).sum(:par)
+  end
+
+  def score
+    self.total_net - _course_par_played
   end
 
   def self.course_info

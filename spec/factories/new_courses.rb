@@ -1,6 +1,33 @@
 FactoryGirl.define do
   factory :new_course do
-
+    name { Faker::Name.first_name }
+    slope 133
+    yardage 6221
+    rating 71.4
+    tee 'Green'
+    state 'Oregon'
+    city 'Bandon'
+    par 72
+    after :create do |new_course|
+      new_course.holes.create(number: 1, par: 4, yards: 352, handicap: 13)
+      new_course.holes.create(number: 2, par: 3, yards: 155, handicap: 15)
+      new_course.holes.create(number: 3, par: 5, yards: 489, handicap: 3)
+      new_course.holes.create(number: 4, par: 4, yards: 362, handicap: 5)
+      new_course.holes.create(number: 5, par: 4, yards: 400, handicap: 1)
+      new_course.holes.create(number: 6, par: 3, yards: 153, handicap: 17)
+      new_course.holes.create(number: 7, par: 4, yards: 372, handicap: 7)
+      new_course.holes.create(number: 8, par: 4, yards: 342, handicap: 11)
+      new_course.holes.create(number: 9, par: 5, yards: 520, handicap: 9)
+      new_course.holes.create(number: 10, par: 4, yards: 339, handicap: 8)
+      new_course.holes.create(number: 11, par: 4, yards: 351, handicap: 2)
+      new_course.holes.create(number: 12, par: 3, yards: 153, handicap: 18)
+      new_course.holes.create(number: 13, par: 5, yards: 537, handicap: 6)
+      new_course.holes.create(number: 14, par: 4, yards: 332, handicap: 16)
+      new_course.holes.create(number: 15, par: 3, yards: 131, handicap: 14)
+      new_course.holes.create(number: 16, par: 4, yards: 345, handicap: 10)
+      new_course.holes.create(number: 17, par: 4, yards: 375, handicap: 12)
+      new_course.holes.create(number: 18, par: 5, yards: 513, handicap: 4)
+    end
   end
 
   trait :bandon_dunes do

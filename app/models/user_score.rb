@@ -14,6 +14,18 @@ class UserScore < ApplicationRecord
   after_save :update_scorecard
   # after_save :update_team_score
 
+
+  def update_scorecard
+    Scorecard.find(self.scorecard_id).total_user_scores
+    # self.update_column(:finished, true) if self.number == 18
+
+    # scores = self.user_scores.select('SUM(score) AS total_score, SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
+
+    # self.update(scores.except!('id'))
+  # rescue => e
+  #   p e.inspect
+  end
+
   def update_team_score
     sc    = self.scorecard
     tr_id = sc.tournament_round_id
@@ -39,17 +51,6 @@ class UserScore < ApplicationRecord
     end
   end
 
-  def update_scorecard
-    scorecard = Scorecard.find(self.scorecard_id)
-    if self.number == 18
-      scorecard.update_column(:finished, true)
-    end
-    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts,SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
-
-    scorecard.update(scores.except!('id'))
-  rescue => e
-    p e.inspect
-  end
 
   def calculate_net
     scorecard  = Scorecard.find(self.scorecard_id)

@@ -31,15 +31,16 @@ gem 'foundation-icons-sass-rails', '~> 3.0.0'
 # gem 'active_model_serializers'
 # gem 'figaro'
 
+gem 'web-console', group: :development
 group :development, :test do
   gem 'byebug'
   gem 'listen', '~> 3.0.4'
   gem 'shoulda'
+  gem 'shoulda-matchers'
   gem 'rspec-rails', '~> 3.5.0', '>= 3.5.2'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'web-console', '~> 2.0'
   gem 'awesome_print'
   gem 'faker'
   gem 'better_errors'

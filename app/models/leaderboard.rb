@@ -2,8 +2,21 @@ class Leaderboard < ApplicationRecord
 	belongs_to :tournament
 	belongs_to :user
 	has_many :rounds, through: :tournaments
-	# has_many :users, through: :tournaments
+  has_many :leaderboard_scorecards
+  has_many :scorecards, through: :leaderboard_scorecards
 
+
+  def scorecard_update(sc)
+    Leaderboards::Update.new(sc).execute
+  end
+
+  def calculate_total_score
+    total = []
+    self.scorecards.each do |sc|
+      total << sc.score
+    end
+    total.inject(0, :+)
+  end
 
   def self.stroke_top_five
     joins(:user)

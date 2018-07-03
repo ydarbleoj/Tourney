@@ -886,7 +886,7 @@ mac.holes.create(number: 18, par: 4, yards: 426, handicap: 8)
 #     total_putts: (user_rnd1.putts + user_rnd2.putts + user_rnd3.putts),
 #     total_3_putts: (three_putts1 + three_putts2 + three_putts3),
 #     net_total: (rnd1_score + rnd2_score + rnd3_score),
-#     rn1_3putts: three_putts1,
+#     rnd1_3putts: three_putts1,
 #     rnd2_3putts: three_putts2,
 #     rnd3_3putts: three_putts3)
 
@@ -1031,7 +1031,7 @@ mac.holes.create(number: 18, par: 4, yards: 426, handicap: 8)
 #   leaderboard = bandon_2016.leaderboards.where(user_id: user.id)
 #     .update_all(
 #     total_3_putts: (three_putts1 + three_putts2 + three_putts3),
-#     rn1_3putts: three_putts1,
+#     rnd1_3putts: three_putts1,
 #     rnd2_3putts: three_putts2,
 #     rnd3_3putts: three_putts3)
 
