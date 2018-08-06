@@ -29,27 +29,14 @@ module Leaderboards
       def preview_with_player(leaderboards, player)
         player_id = player.blank? ? nil : player[:user_id]
         inc = leaderboards.any? { |x| x[:user_id] == player_id }
+        lbs = Leaderboards::SetPositions.new.by_scores(leaderboards, 'total')
 
         if inc == true || player_id.blank?
-          p 'yeah'
-          set_position(leaderboards)
+          lbs
         else
-          leaderboards = set_position(leaderboards)
           player = find_player_position(player)
-          leaderboards << player
+          lbs << player
         end
-      end
-
-      def set_position(scores)
-        new_payload = []
-        payload = scores.group_by { |x| x[:total] }.sort.map { |x| x[1] }.reverse
-        pos = 0
-        payload.each do |x|
-          pos = pos == 0 ? 1 : pos
-          new_payload << x.map { |x| x.merge({pos: pos}) }
-          pos += x.length
-        end
-        new_payload.flatten(1)
       end
 
       def find_player_position(player)

@@ -55,10 +55,6 @@ class Leaderboard < ApplicationRecord
     end
   end
 
-  def self.greens_in_reg(num, card)
-
-  end
-
   def self.user_preview_stroke(tournament_id)
     joins(:user)
     .where(tournament_id: tournament_id)

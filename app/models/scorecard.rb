@@ -18,7 +18,7 @@ class Scorecard < ApplicationRecord
   after_save :update_skins
 
   def total_user_scores
-    self.update_columns(:finished, true) if self.finished.blank? && self.played_eighteen?
+    self.update_columns(finished: true) if self.finished.blank? && self.played_eighteen?
     scores = self.user_scores.select('SUM(score) AS total_score, SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
 
     self.update_columns(scores.except!('id'))

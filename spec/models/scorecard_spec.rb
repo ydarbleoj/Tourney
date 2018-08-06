@@ -12,8 +12,13 @@ RSpec.describe Scorecard, :type => :model do
   context "when user updates scores" do
     describe "#total_user_scores" do
       it "should update finished to true" do
-        scorecard.update_columns(finished: true)
-        expect(scorecard.finished).to eq(true)
+        finished = scorecard.played_eighteen?
+        if finished
+          scorecard.update_columns(finished: true)
+          expect(scorecard.finished).to eq(true)
+        else
+          expect(scorecard.finished).to eq(false)
+        end
       end
 
       it "should update attributes" do
@@ -24,9 +29,9 @@ RSpec.describe Scorecard, :type => :model do
 
         scorecard.update_columns(total_score: total_score + 1, total_putts: total_putts + 1, total_net: total_net + 1)
 
-        expect(scorecard.total_score). to eq(total_score + 1)
-        expect(scorecard.total_putts). to eq(total_putts + 1)
-        expect(scorecard.total_net). to eq(total_net + 1)
+        expect(scorecard.total_score).to eq(total_score + 1)
+        expect(scorecard.total_putts).to eq(total_putts + 1)
+        expect(scorecard.total_net).to eq(total_net + 1)
       end
     end
   end

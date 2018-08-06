@@ -22,7 +22,8 @@ FactoryGirl.define do
       (0..17).each do |i|
         FactoryGirl.create(:user_score, scorecard_id: scorecard.id, number: (i + 1), score: rand(2..8), putts: rand(0..3), handicap: scorecard.handicap, par: course.holes[i])
       end
-      total_score  = scorecard.user_scores.sum(:score)
+      p 'factory'
+      p total_score  = scorecard.user_scores.sum(:score)
       total_putts  = scorecard.user_scores.sum(:putts)
       total_net    = scorecard.user_scores.sum(:net)
       total_3putts = scorecard.user_scores.where('putts > ?', 2).size

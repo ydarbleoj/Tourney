@@ -4,8 +4,6 @@ module Stats
     before_action :set_tournament
 
     def index
-      user = {}
-      round = {}
       payload = {}
 
       user = { user: map_user_stats }
