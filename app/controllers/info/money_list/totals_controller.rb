@@ -14,7 +14,7 @@ module Info
        money_list = [teams, skins, stroke, putting].flatten(1)
           .group_by { |x| x[:username] }.map { |t| build_hash(t[1]) }
 
-        payload = set_position(money_list)
+        payload = Leaderboards::SetPositions.new.by_scores(money_list, 'total')
         render json: payload
       end
 
@@ -48,18 +48,6 @@ module Info
         skins   = hsh[:skins].blank? ? 0 : hsh[:skins]
         putting = hsh[:putting].blank? ? 0 : hsh[:putting]
         { total: (team + stroke + skins + putting) }
-      end
-
-      def set_position(scores)
-        new_payload = []
-        payload = scores.group_by { |x| x[:total] }.sort.map { |x| x[1] }.reverse
-        pos = 0
-        payload.each do |x|
-          pos = pos == 0 ? 1 : pos
-          new_payload << x.map { |x| x.merge({pos: pos}) }
-          pos += x.length
-        end
-        new_payload.flatten(1)
       end
 
       def set_tournament
