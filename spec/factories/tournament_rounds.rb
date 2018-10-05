@@ -1,10 +1,9 @@
 FactoryGirl.define do
   factory :tournament_round do
-    tournament nil
-    scorecard nil
+    tournament
+    new_course
     round_number 1
-    tee_time ""
-    tee_time_date ""
-    group_number 1
+    round_date { DateTime.now }
+    tee_time_date { round_date }
   end
 end

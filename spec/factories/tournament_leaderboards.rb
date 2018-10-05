@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :tournament_leaderboard do
-    tournament nil
+    tournament
+    leaderboard
   end
 end
