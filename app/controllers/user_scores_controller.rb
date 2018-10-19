@@ -26,6 +26,7 @@ class UserScoresController < ApplicationController
   end
 
   def create
+
     user_score = @scorecard.user_scores.create(score: params['user_score']['shots'], handicap: params['user_score']['handicap'],
       putts: params['user_score']['putts'], number: params['user_score']['number'], par: params['user_score']['par'])
 

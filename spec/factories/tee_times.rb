@@ -1,8 +1,9 @@
 FactoryGirl.define do
   factory :tee_time do
-    tournament_round_id 1
-    group "MyString"
-    user_id 1
-    tee_time "2017-11-28 06:29:48"
+    tournament_round
+    user
+    team_scorecard
+    tee_time { tournament_round.tee_time_date }
+    group { ['Group B', 'Group C', 'Group D', 'Group A'].sample }
   end
 end
