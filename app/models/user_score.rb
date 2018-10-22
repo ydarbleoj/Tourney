@@ -65,9 +65,9 @@ class UserScore < ApplicationRecord
   end
 
   def current_skin(number, type)
-    type = type == 'skin' ? :skin : :net_skin
+    score = type == 'net_skin' ? 'net' : 'score'
     where(number: number)
-    .where("#{type} = true OR MIN(net)")
+    .select('id AS id, type AS skin, score AS score')
   end
 
   def set_skins

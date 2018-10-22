@@ -12,7 +12,7 @@ RSpec.describe UserScore, :type => :model do
 
 
   describe "calculate_net" do
-    it "should return correct net score below 18 handicap" doå
+    it "should return correct net score below 18 handicap" do
       scorecard1 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap)
       user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
       user1_score2 = create(:user_score, score: 5, scorecard_id: scorecard1.id, number: hole2.number, par: hole2.par, handicap: user1.handicap)
@@ -39,13 +39,13 @@ RSpec.describe UserScore, :type => :model do
   end
 
   describe "current skin" do
-    it "should return user score wher skin true" do
+    it "should return user score wher skin true net" do
       scorecard1 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap)
       user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par, )
       scorecard2 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user2.id, handicap: user2.handicap )
       user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, par: hole1.par)
 
-      p user2_score1
+      p scores = tourn_round.user_scores.current_skin(user2_score1.number, 'net')
 
     end
   end
