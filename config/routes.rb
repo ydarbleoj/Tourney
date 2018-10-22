@@ -6,6 +6,14 @@ Rails.application.routes.draw do
   resources :user_statistics
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
+
+  namespace :api do
+    namespace :v2 do
+      namespace :tournaments do
+
+      end
+    end
+  end
   resources :tournaments do
     # BUild routing for admin
     #

@@ -1,6 +1,13 @@
 FactoryGirl.define do
   factory :new_course do
-
+    name 'Bandon Dunes'
+    slope 133
+    yardage 6221
+    rating 71.4
+    tee 'Green'
+    state 'Oregon'
+    city 'Bandon'
+    par 72
   end
 
   trait :bandon_dunes do

@@ -31,8 +31,9 @@ gem 'fast_jsonapi'
 # gem 'foundation-icons-sass-rails', '~> 3.0.0'
 # gem 'active_model_serializers'
 # gem 'figaro'
-
+gem 'web-console', group: :development
 group :development, :test do
+  gem 'bullet'
   gem 'byebug'
   gem 'listen', '~> 3.0.4'
   gem 'shoulda'
@@ -40,7 +41,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'web-console', '~> 2.0'
   gem 'awesome_print'
   gem 'faker'
   gem 'better_errors'

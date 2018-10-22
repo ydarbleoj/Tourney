@@ -1,8 +1,7 @@
 class UserScore < ApplicationRecord
-  # attr_accessible :number
   belongs_to :scorecard, touch: true
   has_one :user, through: :scorecard
-
+  has_one :tournament_round, through: :scorecard
 
   validates :scorecard_id, presence: true
   validates :number, presence: true
@@ -10,8 +9,8 @@ class UserScore < ApplicationRecord
   validates :putts, presence: true
 
   before_save :calculate_net
-  after_save :set_net_skins
-  after_save :update_scorecard
+  # after_save :set_net_skins
+  # after_save :update_scorecard
   # after_save :update_team_score
 
   def update_team_score
@@ -44,28 +43,31 @@ class UserScore < ApplicationRecord
     if self.number == 18
       scorecard.update_column(:finished, true)
     end
-    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts,SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
+    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
 
     scorecard.update(scores.except!('id'))
-  rescue => e
+  rescue StandardError => e
     p e.inspect
   end
 
   def calculate_net
-    scorecard  = Scorecard.find(self.scorecard_id)
-    tournament = scorecard.tournament_round.tournament
-  p 'calculate_net'
-    course_par = self.scorecard.new_course.holes[self.number - 1].par
-    course_hcap = self.scorecard.new_course.holes[self.number - 1].handicap
+    return if score.blank?
+    scorecard  = Scorecard.find(scorecard_id)
+    handicap   = scorecard.handicap
+    hole_hcap  = scorecard.holes.find_by_number(number).handicap
 
-    if self.score.nil?.!
-      if self.handicap < 19
-        self.net = self.handicap >= course_hcap ? self.score - 1 : self.score
-      else
-        new_cap = self.handicap - 18
-        self.net = new_cap >= course_hcap ? self.score - 2 : self.score - 1
-      end
+    if handicap < 19
+      self.net = handicap >= hole_hcap ? score - 1 : score
+    else
+      new_cap = handicap - 18
+      self.net = new_cap >= hole_hcap ? score - 2 : score - 1
     end
+  end
+
+  def current_skin(number, type)
+    type = type == 'skin' ? :skin : :net_skin
+    where(number: number)
+    .where("#{type} = true OR MIN(net)")
   end
 
   def set_skins

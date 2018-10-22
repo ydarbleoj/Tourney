@@ -1,6 +1,6 @@
 class LeaderboardLogic
 
-	def initialize(scorecard)
+  def initialize(scorecard)
     @scorecard   = scorecard
     @course      = scorecard.new_course
     @tourn_rnd   = scorecard.tournament_round

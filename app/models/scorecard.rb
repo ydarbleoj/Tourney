@@ -8,6 +8,7 @@ class Scorecard < ApplicationRecord
 
   has_one :tournament, through: :tournament_round
   has_many :user_scores, dependent: :destroy
+  has_many :holes, through: :new_course
 
   accepts_nested_attributes_for :user_scores
 
