@@ -9,6 +9,7 @@ class UserScore < ApplicationRecord
   validates :putts, presence: true
 
   before_save :calculate_net
+  after_save :update_scorecard
 
   def update_team_score
     sc    = self.scorecard
@@ -36,15 +37,7 @@ class UserScore < ApplicationRecord
   end
 
   def update_scorecard
-    scorecard = Scorecard.find(self.scorecard_id)
-    if self.number == 18
-      scorecard.update_column(:finished, true)
-    end
-    scores = scorecard.user_scores.select('SUM(score) AS total_score,SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
-
-    scorecard.update(scores.except!('id'))
-  rescue StandardError => e
-    p e.inspect
+    scorecard.update_totals
   end
 
   def calculate_net

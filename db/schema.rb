@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619213902) do
+ActiveRecord::Schema.define(version: 20181023182554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(version: 20180619213902) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leaderboard_scorecards", force: :cascade do |t|
+    t.integer "leaderboard_id"
+    t.integer "scorecard_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "leaderboards", force: :cascade do |t|
     t.integer "rnd1_score", default: 0
     t.integer "rnd2_score", default: 0
@@ -125,7 +132,7 @@ ActiveRecord::Schema.define(version: 20180619213902) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
-    t.integer "rn1_3putts", default: 0
+    t.integer "rnd1_3putts", default: 0
     t.integer "rnd2_3putts", default: 0
     t.integer "rnd3_3putts", default: 0
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
@@ -253,6 +260,7 @@ ActiveRecord::Schema.define(version: 20180619213902) do
     t.integer "net_skin_total"
     t.integer "gross_skin_total"
     t.boolean "finished", default: false
+    t.integer "leaderboard_id"
     t.index ["new_course_id"], name: "index_scorecards_on_new_course_id"
     t.index ["tournament_round_id"], name: "index_scorecards_on_tournament_round_id"
     t.index ["user_id"], name: "index_scorecards_on_user_id"

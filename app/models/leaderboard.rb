@@ -1,9 +1,8 @@
 class Leaderboard < ApplicationRecord
 	belongs_to :tournament
 	belongs_to :user
-	has_many :rounds, through: :tournaments
-	# has_many :users, through: :tournaments
-
+	has_many :tournament_rounds, through: :tournament
+  has_many :scorecards
 
   def self.stroke_top_five
     joins(:user)

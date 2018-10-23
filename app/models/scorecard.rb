@@ -5,6 +5,7 @@ class Scorecard < ApplicationRecord
   belongs_to :user
   belongs_to :tournament_round
   belongs_to :new_course
+  belongs_to :leaderboard
 
   has_one :tournament, through: :tournament_round
   has_many :user_scores, dependent: :destroy
@@ -71,6 +72,11 @@ class Scorecard < ApplicationRecord
     .where('tournament_round_id = ?
       AND user_id IN (?)AND user_scores.number = ?', tr_id, ids, number)
     .order('user_scores.net ASC').pluck('user_scores.net').first(2).sum
+  end
+
+  def update_totals
+    scores = self.user_scores.select('SUM(score) AS total_score, SUM(net) AS total_net, SUM(putts) AS total_putts, SUM(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS total_3putts')[0].as_json
+    update(scores.except!('id'))
   end
 
   def check_for_last_scorecard

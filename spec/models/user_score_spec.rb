@@ -1,15 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UserScore, :type => :model do
-  # let(:course) { create(:new_course, name: 'The Course') }
-  # let(:tourn_round) { create(:tournament_round, new_course_id: course.id)}
-  # let(:user1) { create(:user, handicap: 9) }
-  # let(:user2) { create(:user, handicap: 22) }
-  # let(:user3) { create(:user, handicap: 32) }
-  # let(:hole1) { create(:hole, new_course_id: course.id, par: 4, handicap: 4, number: 1) }
-  # let(:hole2) { create(:hole, new_course_id: course.id, par: 5, handicap: 14, number: 2) }
-  # let(:hole3) { create(:hole, new_course_id: course.id, par: 3, handicap: 18, number: 3) }
-
 
   describe "calculate_net" do
     it "should return correct net score below 18 handicap" do

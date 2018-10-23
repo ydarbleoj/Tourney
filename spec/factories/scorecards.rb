@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :scorecard do
+    leaderboard
     total_score 0
     total_putts 0
     total_3putts 0
