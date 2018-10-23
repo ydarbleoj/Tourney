@@ -13,8 +13,7 @@ class Scorecard < ApplicationRecord
   accepts_nested_attributes_for :user_scores
 
   after_save :check_for_last_scorecard
-  after_save :update_leaderboard
-  after_save :update_skins
+  # after_save :update_leaderboard
 
   def update_leaderboard
     LeaderboardLogic.new(self).execute
@@ -164,13 +163,10 @@ class Scorecard < ApplicationRecord
     array.inject({}) { |agg, hash| agg.merge(hash) { |k, a, b| a + b }.except(:user_id, :username) }
   end
 
-  # add to callbacks but ensure there isn't an update loop
-  def update_skins
-    p 'skin update'
-    net_skin = self.user_scores.where(net_skin: true).count
-    Scorecard.transaction do
-      self.update_columns(net_skin_total: net_skin)
-    end
+  def update_skins(type)
+    total = type == 'net_skin' ? 'net_skin_total' : 'gross_skin_total'
+    n = self.user_scores.where(type.to_sym => true).size
+    self.update_columns(total.to_sym => n)
   end
 
 end

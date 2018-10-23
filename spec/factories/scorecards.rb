@@ -4,6 +4,8 @@ FactoryGirl.define do
     total_putts 0
     total_3putts 0
     total_net 0
+    net_skin_total 0
+    gross_skin_total 0
   end
 
   trait :with_scores do
