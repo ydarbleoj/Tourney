@@ -14,10 +14,10 @@ class Scorecard < ApplicationRecord
   accepts_nested_attributes_for :user_scores
 
   after_save :check_for_last_scorecard
-  # after_save :update_leaderboard
+  after_save :update_leaderboard
 
   def update_leaderboard
-    LeaderboardLogic.new(self).execute
+    Leaderboards::Scoring.call(self)
   end
 
   def self.course_info

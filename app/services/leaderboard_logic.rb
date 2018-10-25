@@ -80,7 +80,7 @@ class LeaderboardLogic
         total_score << arr
       end
     end
-    total_score.inject(0, :+)
+    total.inject(0, :+)
   end
 
   def net_totals
