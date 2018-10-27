@@ -1,6 +1,6 @@
 require'rails_helper'
 
-RSpec.describe Leaderboards::Scoring do
+RSpec.describe Leaderboards::Updates do
 
   describe 'call' do
     let(:tournament) { create(:tournament) }
@@ -29,7 +29,7 @@ RSpec.describe Leaderboards::Scoring do
       create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, par: hole2.par, putts: 3)
       create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, par: hole3.par)
 
-      Leaderboards::Scoring.call(scorecard1.id)
+      Leaderboards::Updates.call(scorecard1.id)
       lb = leaderboard.reload
 
       expect(lb.rnd1_score).to eq(11)
@@ -53,7 +53,7 @@ RSpec.describe Leaderboards::Scoring do
       create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole22.number, par: hole22.par, putts: 3)
       create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole23.number, par: hole23.par)
 
-      Leaderboards::Scoring.call(scorecard2.id)
+      Leaderboards::Updates.call(scorecard2.id)
       lb = leaderboard2.reload
 
       expect(lb.rnd2_score).to eq(11)
@@ -83,7 +83,7 @@ RSpec.describe Leaderboards::Scoring do
       create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole33.number, par: hole33.par)
 
 
-      Leaderboards::Scoring.call(scorecard3.id)
+      Leaderboards::Updates.call(scorecard3.id)
       lb = leaderboard.reload
 
       expect(lb.rnd1_score).to eq(79)

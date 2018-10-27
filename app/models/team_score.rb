@@ -12,4 +12,6 @@ class TeamScore < ApplicationRecord
 
     sc.update(total_net.except!('id'))
   end
+
+
 end

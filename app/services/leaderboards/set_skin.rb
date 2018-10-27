@@ -1,12 +1,12 @@
 module Leaderboards
   class SetSkin
 
-    def self.call(id, type)
-      new(id, type).call
+    def self.call(user_score, type)
+      new(user_score, type).call
     end
 
-    def initialize(id, type)
-      @user_score = UserScore.find(id)
+    def initialize(user_score, type)
+      @user_score = user_score
       @scorecard  = user_score.scorecard
       @round      = user_score.tournament_round
       @type       = type

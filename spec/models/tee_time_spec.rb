@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe TeeTime, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe "find group" do
+    it "should return user ids by group" do
+
+    end
+  end
 end
