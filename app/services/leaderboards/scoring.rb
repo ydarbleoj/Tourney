@@ -6,15 +6,13 @@ module Leaderboards
     end
 
     def initialize(id)
-      @user_score = UserScore.includes({ tournament_round: [{ new_course: [:holes] }], scorecard: :user_scores }, :user).find(id)
+      @user_score = UserScore.includes({ tournament_round: [new_course: :holes],  scorecard: [:user_scores, :new_course] }, :user).find(id)
       @scorecard  = user_score.scorecard
-      @tournament_round = scorecard.tournament_round
+      @tournament_round = user_score.tournament_round
     end
 
     def call
-      # update_leaderboard
-      # tournament_round
-      user_score
+      update_leaderboard
     end
 
     private

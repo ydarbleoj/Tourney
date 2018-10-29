@@ -14,10 +14,12 @@ class Scorecard < ApplicationRecord
   accepts_nested_attributes_for :user_scores
 
   after_save :check_for_last_scorecard
-  after_save :update_leaderboard
 
-  def update_leaderboard
-    Leaderboards::Scoring.call(self)
+
+  def self.adding_total_score
+    joins(:new_course)
+    .where(finished: true)
+    .select('SUM(total_net - new_courses.par) AS net_total')[0].attributes['net_total']
   end
 
   def self.course_info

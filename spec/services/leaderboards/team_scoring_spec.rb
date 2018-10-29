@@ -32,9 +32,6 @@ RSpec.describe Leaderboards::TeamScoring do
       Leaderboards::Scoring.call(scorecard1.id)
       lb = leaderboard.reload
 
-      expect(lb.rnd1_score).to eq(11)
-      expect(lb.rnd1_putts).to eq(7)
-      expect(lb.rnd1_3putts).to eq(1)
       expect(lb.net_total).to eq(11)
       expect(lb.total_putts).to eq(7)
       expect(lb.total_3_putts).to eq(1)
@@ -56,9 +53,7 @@ RSpec.describe Leaderboards::TeamScoring do
       Leaderboards::Scoring.call(scorecard2.id)
       lb = leaderboard2.reload
 
-      expect(lb.rnd2_score).to eq(11)
-      expect(lb.rnd2_putts).to eq(7)
-      expect(lb.rnd2_3putts).to eq(1)
+
       expect(lb.net_total).to eq(90)
       expect(lb.total_putts).to eq(37)
       expect(lb.total_3_putts).to eq(3)
@@ -86,15 +81,6 @@ RSpec.describe Leaderboards::TeamScoring do
       Leaderboards::Scoring.call(scorecard3.id)
       lb = leaderboard.reload
 
-      expect(lb.rnd1_score).to eq(79)
-      expect(lb.rnd1_putts).to eq(30)
-      expect(lb.rnd1_3putts).to eq(2)
-      expect(lb.rnd2_score).to eq(74)
-      expect(lb.rnd2_putts).to eq(29)
-      expect(lb.rnd2_3putts).to eq(1)
-      expect(lb.rnd3_score).to eq(11)
-      expect(lb.rnd3_putts).to eq(7)
-      expect(lb.rnd3_3putts).to eq(1)
       expect(lb.net_total).to eq(164)
       expect(lb.total_putts).to eq(66)
       expect(lb.total_3_putts).to eq(4)

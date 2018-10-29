@@ -29,12 +29,9 @@ RSpec.describe Leaderboards::Updates do
       create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, par: hole2.par, putts: 3)
       create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, par: hole3.par)
 
-      Leaderboards::Updates.call(scorecard1.id)
+      Leaderboards::Updates.call(scorecard1.reload, tourn_round)
       lb = leaderboard.reload
 
-      expect(lb.rnd1_score).to eq(11)
-      expect(lb.rnd1_putts).to eq(7)
-      expect(lb.rnd1_3putts).to eq(1)
       expect(lb.net_total).to eq(11)
       expect(lb.total_putts).to eq(7)
       expect(lb.total_3_putts).to eq(1)
@@ -43,7 +40,7 @@ RSpec.describe Leaderboards::Updates do
 
     it "leaderboard model should reflect the appropriate totals after 2nd round" do
       leaderboard2 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap,
-        rnd1_score: 79, rnd1_putts: 30, rnd1_3putts: 2, total_score: 8, total_putts: 30, total_3_putts: 2, net_total: 79)
+        total_score: 8, total_putts: 30, total_3_putts: 2, net_total: 79)
       create(:scorecard, leaderboard_id: leaderboard2.id, user_id: user1.id, tournament_round_id: tourn_round.id,
         total_score: 88, total_putts: 30, total_3putts: 2, new_course_id: tourn_round.new_course_id, total_net: 79, handicap: user1.handicap,
         round_num: 1, finished: true)
@@ -53,12 +50,9 @@ RSpec.describe Leaderboards::Updates do
       create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole22.number, par: hole22.par, putts: 3)
       create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole23.number, par: hole23.par)
 
-      Leaderboards::Updates.call(scorecard2.id)
+      Leaderboards::Updates.call(scorecard2.reload, tourn_round2)
       lb = leaderboard2.reload
 
-      expect(lb.rnd2_score).to eq(11)
-      expect(lb.rnd2_putts).to eq(7)
-      expect(lb.rnd2_3putts).to eq(1)
       expect(lb.net_total).to eq(90)
       expect(lb.total_putts).to eq(37)
       expect(lb.total_3_putts).to eq(3)
@@ -67,7 +61,6 @@ RSpec.describe Leaderboards::Updates do
 
     it "leaderboard model should reflect the appropriate totals after 3nd round" do
       leaderboard = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap,
-        rnd1_score: 79, rnd1_putts: 30, rnd1_3putts: 2, rnd2_score: 74, rnd2_putts: 29, rnd2_3putts: 1,
         total_score: 10, total_putts: 59, total_3_putts: 3, net_total: 153)
       create(:scorecard, leaderboard_id: leaderboard.id, user_id: user1.id, tournament_round_id: tourn_round.id,
         total_score: 88, total_putts: 30, total_3putts: 2, new_course_id: tourn_round.new_course_id, total_net: 79, handicap: user1.handicap,
@@ -83,18 +76,9 @@ RSpec.describe Leaderboards::Updates do
       create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole33.number, par: hole33.par)
 
 
-      Leaderboards::Updates.call(scorecard3.id)
+      Leaderboards::Updates.call(scorecard3.reload, tourn_round3)
       lb = leaderboard.reload
 
-      expect(lb.rnd1_score).to eq(79)
-      expect(lb.rnd1_putts).to eq(30)
-      expect(lb.rnd1_3putts).to eq(2)
-      expect(lb.rnd2_score).to eq(74)
-      expect(lb.rnd2_putts).to eq(29)
-      expect(lb.rnd2_3putts).to eq(1)
-      expect(lb.rnd3_score).to eq(11)
-      expect(lb.rnd3_putts).to eq(7)
-      expect(lb.rnd3_3putts).to eq(1)
       expect(lb.net_total).to eq(164)
       expect(lb.total_putts).to eq(66)
       expect(lb.total_3_putts).to eq(4)

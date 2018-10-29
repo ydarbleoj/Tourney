@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023182554) do
+ActiveRecord::Schema.define(version: 20181027201420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,12 +117,6 @@ ActiveRecord::Schema.define(version: 20181023182554) do
   end
 
   create_table "leaderboards", force: :cascade do |t|
-    t.integer "rnd1_score", default: 0
-    t.integer "rnd2_score", default: 0
-    t.integer "rnd3_score", default: 0
-    t.integer "rnd1_putts", default: 0
-    t.integer "rnd2_putts", default: 0
-    t.integer "rnd3_putts", default: 0
     t.integer "total_score", default: 0
     t.integer "total_putts", default: 0
     t.integer "total_3_putts", default: 0
@@ -132,9 +126,6 @@ ActiveRecord::Schema.define(version: 20181023182554) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
-    t.integer "rnd1_3putts", default: 0
-    t.integer "rnd2_3putts", default: 0
-    t.integer "rnd3_3putts", default: 0
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
   end

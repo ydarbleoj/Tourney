@@ -42,7 +42,7 @@ class UserScore < ApplicationRecord
 
   def calculate_net
     return if score.blank?
-    scorecard  = Scorecard.find(scorecard_id)
+    handicap  = scorecard.handicap
     handicap   = scorecard.handicap
     hole_hcap  = scorecard.holes.find_by_number(number).handicap
 

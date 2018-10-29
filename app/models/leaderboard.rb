@@ -4,6 +4,15 @@ class Leaderboard < ApplicationRecord
 	has_many :tournament_rounds, through: :tournament
   has_many :scorecards
 
+
+  def scorecard_totals
+    scorecards.select('SUM(total_net) AS net_total, SUM(scorecards.total_putts) AS total_putts, SUM(total_3putts) AS total_3_putts')[0].as_json.except!('id')
+  end
+
+  def current_total_score
+    scorecards.adding_total_score
+  end
+
   def self.stroke_top_five
     joins(:user)
     .order('leaderboards.total_score asc')
