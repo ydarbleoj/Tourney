@@ -16,11 +16,11 @@ RSpec.describe Leaderboards::SetSkin do
       scorecard1 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap)
       scorecard2 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user2.id, handicap: user2.handicap )
       scorecard3 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user3.id, handicap: user3.handicap )
-      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, par: hole1.par, net_skin: true)
-      user3_score1 = create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole1.number, par: hole1.par)
+      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, hole_id: hole1.id, net_skin: true)
+      user3_score1 = create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole1.number, hole_id: hole1.id)
 
-      Leaderboards::SetSkin.call(user3_score1.id, 'net_skin')
+      Leaderboards::SetSkin.call(user3_score1, 'net_skin')
 
       expect(scorecard3.reload.net_skin_total).to eq(0)
       expect(scorecard2.reload.net_skin_total).to eq(0)
@@ -31,11 +31,11 @@ RSpec.describe Leaderboards::SetSkin do
       scorecard1 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap)
       scorecard2 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user2.id, handicap: user2.handicap )
       scorecard3 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user3.id, handicap: user3.handicap )
-      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, par: hole1.par, net_skin: true)
-      user3_score1 = create(:user_score, score: 3, scorecard_id: scorecard3.id, number: hole1.number, par: hole1.par)
+      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, hole_id: hole1.id, net_skin: true)
+      user3_score1 = create(:user_score, score: 3, scorecard_id: scorecard3.id, number: hole1.number, hole_id: hole1.id)
 
-      Leaderboards::SetSkin.call(user3_score1.id, 'net_skin')
+      Leaderboards::SetSkin.call(user3_score1, 'net_skin')
 
       expect(scorecard3.reload.net_skin_total).to eq(1)
       expect(scorecard2.reload.net_skin_total).to eq(0)
@@ -47,11 +47,11 @@ RSpec.describe Leaderboards::SetSkin do
       scorecard1 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap)
       scorecard2 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user2.id, handicap: user2.handicap )
       scorecard3 = create(:scorecard, new_course_id: course.id, tournament_round_id: tourn_round.id, user_id: user3.id, handicap: user3.handicap )
-      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, par: hole1.par)
-      user3_score1 = create(:user_score, score: 5, scorecard_id: scorecard3.id, number: hole1.number, par: hole1.par)
+      user1_score1 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      user2_score1 = create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, hole_id: hole1.id)
+      user3_score1 = create(:user_score, score: 5, scorecard_id: scorecard3.id, number: hole1.number, hole_id: hole1.id)
 
-      Leaderboards::SetSkin.call(user3_score1.id, 'net_skin')
+      Leaderboards::SetSkin.call(user3_score1, 'net_skin')
 
       expect(scorecard2.reload.net_skin_total).to eq(1)
       expect(user2_score1.reload.net_skin).to eq(true)

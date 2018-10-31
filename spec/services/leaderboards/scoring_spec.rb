@@ -36,19 +36,14 @@ RSpec.describe Leaderboards::Scoring do
       scorecard4 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
         tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard4.id)
 
-      create(:user_score, user_id: user1.id score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      create(:user_score, user_id: user2.id score: 4, scorecard_id: scorecard2.id, number: hole1.number, par: hole1.par, putts: 3)
-      create(:user_score, user_id: user3.id score: 4, scorecard_id: scorecard3.id, number: hole1.number, par: hole1.par)
-      create(:user_score, user_id: user4.id score: 4, scorecard_id: scorecard4.id, number: hole1.number, par: hole1.par)
+      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole1.number, hole_id: hole1.id, putts: 3)
+      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole1.number, hole_id: hole1.id)
+      user_score = create(:user_score, score: 4, scorecard_id: scorecard4.id, number: hole1.number, hole_id: hole1.id)
 
 
-      Leaderboards::Scoring.call(scorecard1.reload, tourn_round)
-      # lb = leaderboard.reload
-
-      # expect(lb.net_total).to eq(11)
-      # expect(lb.total_putts).to eq(7)
-      # expect(lb.total_3_putts).to eq(1)
-      # expect(lb.total_score).to eq(-1)
+      res = Leaderboards::Scoring.call(user_score.id)
+      expect(res).to eq(true)
     end
 
   end

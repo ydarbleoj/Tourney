@@ -62,16 +62,9 @@ class Scorecard < ApplicationRecord
     sc.user_scores.select { |x| x if x.number < 10 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
   end
 
-  def self.check_scores(tr_id, ids, number)
+  def self.add_team_score(ids, number)
     joins(:user_scores)
-    .where('tournament_round_id = ? AND user_id IN (?)AND user_scores.number = ?', tr_id, ids, number)
-    .pluck(:user_id).size
-  end
-
-  def self.add_team_score(tr_id, ids, number)
-    joins(:user_scores)
-    .where('tournament_round_id = ?
-      AND user_id IN (?)AND user_scores.number = ?', tr_id, ids, number)
+    .where('user_id IN (?) AND user_scores.number = ?', ids, number)
     .order('user_scores.net ASC').pluck('user_scores.net').first(2).sum
   end
 

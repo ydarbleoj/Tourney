@@ -12,9 +12,13 @@ module Leaderboards
     end
 
     def call
-      # update_leaderboard
-      set_skins
-
+      ActiveRecord::Base.transaction do
+        update_leaderboard
+        set_skins
+        update_team_scorecard
+      end
+    rescue StandardError => e
+      p "error #{e}"
     end
 
     private
@@ -25,11 +29,11 @@ module Leaderboards
     end
 
     def set_skins
-      Leaderboards::SetSkins.call(user_score, 'net_skin')
+      Leaderboards::SetSkin.call(user_score, 'net_skin')
     end
 
     def update_team_scorecard
-
+      Leaderboards::TeamScoring.call(user_score)
     end
   end
 end

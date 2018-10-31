@@ -9,8 +9,9 @@ class TeeTime < ApplicationRecord
   validates :group, presence: true
   validates :tee_time, presence: true
 
-  def self.group_ids(group, tr_id)
-    where(group: group, tournament_round_id: tr_id).pluck(:user_id)
+  def self.groups_users(user_id)
+    includes(team_scorecard: :users)
+    .where(user_id: user_id).first
   end
 
   def self.bulk_update(ids, team_card)

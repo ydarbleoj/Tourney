@@ -5,87 +5,64 @@ RSpec.describe Leaderboards::TeamScoring do
   describe 'call' do
     let(:tournament) { create(:tournament) }
     let(:course) { create(:new_course, name: "The Course #{rand(1..99)}") }
-    let(:course2) { create(:new_course, name: "The Course #{rand(1..99)}") }
-    let(:course3) { create(:new_course, name: "The Course #{rand(1..99)}") }
     let(:tourn_round) { create(:tournament_round, new_course_id: course.id, round_number: 1, tournament_id: tournament.id) }
-    let(:tourn_round2) { create(:tournament_round, new_course_id: course2.id, round_number: 2, tournament_id: tournament.id) }
-    let(:tourn_round3) { create(:tournament_round, new_course_id: course3.id, round_number: 3, tournament_id: tournament.id) }
     let(:user1) { create(:user, handicap: 9) }
+    let(:user2) { create(:user, handicap: 15) }
+    let(:user3) { create(:user, handicap: 32) }
+    let(:user4) { create(:user, handicap: 22) }
+    let(:user5) { create(:user, handicap: 22) }
     let(:hole1) { create(:hole, new_course_id: course.id, par: 4, handicap: 4, number: 1) }
     let(:hole2) { create(:hole, new_course_id: course.id, par: 5, handicap: 14, number: 2) }
     let(:hole3) { create(:hole, new_course_id: course.id, par: 3, handicap: 18, number: 3) }
-    let(:hole21) { create(:hole, new_course_id: course2.id, par: 4, handicap: 4, number: 1) }
-    let(:hole22) { create(:hole, new_course_id: course2.id, par: 5, handicap: 14, number: 2) }
-    let(:hole23) { create(:hole, new_course_id: course2.id, par: 3, handicap: 18, number: 3) }
-    let(:hole31) { create(:hole, new_course_id: course3.id, par: 4, handicap: 4, number: 1) }
-    let(:hole32) { create(:hole, new_course_id: course3.id, par: 5, handicap: 14, number: 2) }
-    let(:hole33) { create(:hole, new_course_id: course3.id, par: 3, handicap: 18, number: 3) }
 
     it "leaderboard model should reflect the appropriate totals after 1st round" do
-      leaderboard = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap)
+      team_scorecard = create(:team_scorecard, tournament_round_id: tourn_round.id, group: 'A', new_course_id: course.id)
+      team_scorecard2 = create(:team_scorecard, tournament_round_id: tourn_round.id, group: 'B', new_course_id: course.id)
+      create(:tee_time, user_id: user1.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
+      create(:tee_time, user_id: user2.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
+      create(:tee_time, user_id: user3.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
+      create(:tee_time, user_id: user4.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
+      create(:tee_time, user_id: user5.id, tournament_round_id: tourn_round.id, group: 'B', tee_time: DateTime.now - 10.minutes, team_scorecard_id: team_scorecard2.id)
+      leaderboard1 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap)
+      leaderboard2 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user2.id, handicap: user2.handicap)
+      leaderboard3 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user3.id, handicap: user3.handicap)
+      leaderboard4 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user4.id, handicap: user4.handicap)
+      leaderboard5 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user5.id, handicap: user5.handicap)
+
       scorecard1 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
-        tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard.id)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, par: hole2.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, par: hole3.par)
+        tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard1.id)
+      scorecard2 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
+        tournament_round_id: tourn_round.id, user_id: user2.id, handicap: user2.handicap, leaderboard_id: leaderboard2.id)
+      scorecard3 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
+        tournament_round_id: tourn_round.id, user_id: user3.id, handicap: user3.handicap, leaderboard_id: leaderboard3.id)
+      scorecard4 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
+        tournament_round_id: tourn_round.id, user_id: user4.id, handicap: user4.handicap, leaderboard_id: leaderboard4.id)
+      scorecard5 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
+        tournament_round_id: tourn_round.id, user_id: user5.id, handicap: user5.handicap, leaderboard_id: leaderboard5.id)
 
-      Leaderboards::Scoring.call(scorecard1.id)
-      lb = leaderboard.reload
 
-      expect(lb.net_total).to eq(11)
-      expect(lb.total_putts).to eq(7)
-      expect(lb.total_3_putts).to eq(1)
-      expect(lb.total_score).to eq(-1)
+      create(:user_score, score: 3, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, hole_id: hole2.id, putts: 3)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
+      create(:user_score, score: 5, scorecard_id: scorecard2.id, number: hole1.number, hole_id: hole1.id)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, hole_id: hole2.id, putts: 3)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
+      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole1.number, hole_id: hole1.id)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, hole_id: hole2.id, putts: 3)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
+      user_score4 = create(:user_score, score: 4, scorecard_id: scorecard4.id, number: hole1.number, hole_id: hole1.id)
+      user_score5 = create(:user_score, score: 3, scorecard_id: scorecard5.id, number: hole1.number, hole_id: hole1.id)
+      # create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, hole_id: hole2.id, putts: 3)
+      # user_score4 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
+
+      Leaderboards::TeamScoring.call(user_score4)
+      team_sc = team_scorecard.reload
+
+      expect(team_sc.total_net).to eq(4)
+      expect(team_sc.team_scores.first.net).to eq(4)
+
     end
 
-    it "leaderboard model should reflect the appropriate totals after 2nd round" do
-      leaderboard2 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap,
-        rnd1_score: 79, rnd1_putts: 30, rnd1_3putts: 2, total_score: 8, total_putts: 30, total_3_putts: 2, net_total: 79)
-      create(:scorecard, leaderboard_id: leaderboard2.id, user_id: user1.id, tournament_round_id: tourn_round.id,
-        total_score: 88, total_putts: 30, total_3putts: 2, new_course_id: tourn_round.new_course_id, total_net: 79, handicap: user1.handicap,
-        round_num: 1, finished: true)
-      scorecard2 = create(:scorecard, new_course_id: course2.id, round_num: tourn_round2.round_number,
-        tournament_round_id: tourn_round2.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard2.id)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole21.number, par: hole21.par)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole22.number, par: hole22.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole23.number, par: hole23.par)
-
-      Leaderboards::Scoring.call(scorecard2.id)
-      lb = leaderboard2.reload
-
-
-      expect(lb.net_total).to eq(90)
-      expect(lb.total_putts).to eq(37)
-      expect(lb.total_3_putts).to eq(3)
-      expect(lb.total_score).to eq(6)
-    end
-
-    it "leaderboard model should reflect the appropriate totals after 3nd round" do
-      leaderboard = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap,
-        rnd1_score: 79, rnd1_putts: 30, rnd1_3putts: 2, rnd2_score: 74, rnd2_putts: 29, rnd2_3putts: 1,
-        total_score: 10, total_putts: 59, total_3_putts: 3, net_total: 153)
-      create(:scorecard, leaderboard_id: leaderboard.id, user_id: user1.id, tournament_round_id: tourn_round.id,
-        total_score: 88, total_putts: 30, total_3putts: 2, new_course_id: tourn_round.new_course_id, total_net: 79, handicap: user1.handicap,
-        round_num: 1, finished: true)
-      create(:scorecard, leaderboard_id: leaderboard.id, user_id: user1.id, tournament_round_id: tourn_round2.id,
-        total_score: 83, total_putts: 29, total_3putts: 1, new_course_id: tourn_round2.new_course_id, total_net: 74, handicap: user1.handicap,
-        round_num: 2, finished: true)
-
-      scorecard3 = create(:scorecard, new_course_id: course3.id, round_num: tourn_round3.round_number,
-        tournament_round_id: tourn_round3.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard.id)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole31.number, par: hole31.par)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole32.number, par: hole32.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole33.number, par: hole33.par)
-
-
-      Leaderboards::Scoring.call(scorecard3.id)
-      lb = leaderboard.reload
-
-      expect(lb.net_total).to eq(164)
-      expect(lb.total_putts).to eq(66)
-      expect(lb.total_3_putts).to eq(4)
-      expect(lb.total_score).to eq(8)
-    end
   end
 
 end

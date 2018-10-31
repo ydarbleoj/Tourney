@@ -13,57 +13,55 @@ class TeamScorecard < ApplicationRecord
   after_commit :check_for_last_scorecard
 
 
- def check_for_last_scorecard
+  def check_for_last_scorecard
     last_scorecard = TournamentRound.find(self.tournament_round_id).team_scorecards.card_open
     if last_scorecard.blank?
-      begin
-        update_money_lists(self)
-      rescue => e
-        p e
-      end
+      update_money_lists(self)
     end
+  rescue => e
+    sp e
   end
 
-  def update_money_lists(scorecard)
-    p "update"
-    p scorecard
-    tr = TournamentRound.find(scorecard.tournament_round_id)
-   p team_won = tr.team_scorecards.where(is_won: true)
-    low_net = tr.team_scorecards.minimum(:total_net)
-   p low_scorecards = tr.team_scorecards.includes(:users).where(total_net: low_net)
+  # def update_money_lists(scorecard)
+  #   p "update"
+  #   p scorecard
+  #   tr = TournamentRound.find(scorecard.tournament_round_id)
+  #  p team_won = tr.team_scorecards.where(is_won: true)
+  #   low_net = tr.team_scorecards.minimum(:total_net)
+  #  p low_scorecards = tr.team_scorecards.includes(:users).where(total_net: low_net)
 
-    if team_won.blank?
+  #   if team_won.blank?
 
-      if low_scorecards.size == 1
-        p 'here'
-        user_ids = low_scorecards.first.users.pluck(:id)
-        low_scorecards.first.update_columns(is_won: true)
-        TeamMoney.update_round(tr.tournament_id, user_ids, tr.round_number)
-      else
-    #   if team_won.total_net == low_net
-    #     p 'all set'
-    #   else
+  #     if low_scorecards.size == 1
+  #       p 'here'
+  #       user_ids = low_scorecards.first.users.pluck(:id)
+  #       low_scorecards.first.update_columns(is_won: true)
+  #       TeamMoney.update_round(tr.tournament_id, user_ids, tr.round_number)
+  #     else
+  #   #   if team_won.total_net == low_net
+  #   #     p 'all set'
+  #   #   else
 
-      end
-    else
-      if low_scorecards.size == 1
-        if low_scorecards.first.id == team_won.first.id
-          p 'ALL GOOD'
-        else
-          team_won.first.update_columns(is_won: false)
-          remove_users = team_won.users.pluck(:id)
-          TeamMoney.remove_money(tr.tournament_id, remove_users, tr.round_number)
+  #     end
+  #   else
+  #     if low_scorecards.size == 1
+  #       if low_scorecards.first.id == team_won.first.id
+  #         p 'ALL GOOD'
+  #       else
+  #         team_won.first.update_columns(is_won: false)
+  #         remove_users = team_won.users.pluck(:id)
+  #         TeamMoney.remove_money(tr.tournament_id, remove_users, tr.round_number)
 
-          low_scorecards.first.update_columns(is_won: true)
-          user_ids = low_scorecards.first.users.pluck(:id)
-          TeamMoney.update_round(tr.tournament_round_id, user_ids, tr.round_number)
-        end
-      else
+  #         low_scorecards.first.update_columns(is_won: true)
+  #         user_ids = low_scorecards.first.users.pluck(:id)
+  #         TeamMoney.update_round(tr.tournament_round_id, user_ids, tr.round_number)
+  #       end
+  #     else
 
-      end
-    end
+  #     end
+  #   end
 
-  end
+  # end
 
 
   def self.find_lowest(team_scorecards, tr)

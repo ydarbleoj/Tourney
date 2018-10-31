@@ -7,11 +7,8 @@ class TeamScore < ApplicationRecord
   after_save :update_team_scorecard
 
   def update_team_scorecard
-    sc = self.team_scorecard
     total_net = team_scorecard.team_scores.select('SUM(net) AS total_net')[0].as_json
-
-    sc.update(total_net.except!('id'))
+    team_scorecard.update(total_net.except!('id'))
   end
-
 
 end
