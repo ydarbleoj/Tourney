@@ -15,7 +15,6 @@ class Scorecard < ApplicationRecord
 
   after_save :check_for_last_scorecard
 
-
   def self.adding_total_score
     joins(:new_course)
     .where(finished: true)

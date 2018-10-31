@@ -1,46 +1,44 @@
 module Leaderboards
   class Updates
 
-    def self.call(scorecard, tournament_round)
-      new(scorecard, tournament_round).call
+    def self.call(id)
+      new(id).call
     end
 
-    def initialize(scorecard, tournament_round)
-      @scorecard   = scorecard
-      @course      = tournament_round.new_course
-      @round       = scorecard.round_num
-      @leaderboard = scorecard.leaderboard
-      @played      = course_par
+    def initialize(id)
+      @leaderboard = Leaderboard.scorecard_totals(id)
     end
 
     def call
-      scores_hash = totals_agg
+      map_totals
       ActiveRecord::Base.transaction do
-        leaderboard.update(scores_hash.merge(total_score))
+        leaderboard.update(totals)
       end
     rescue StandardError => e
       p "error #{e}"
     end
 
     private
-    attr_reader :scorecard, :course, :leaderboard, :round, :played, :rnds
+    attr_reader :leaderboard, :totals
 
-    def totals_agg
-      leaderboard.scorecard_totals
+    def map_totals
+      @totals = Hash.new(0)
+      leaderboard.scorecards.each do |scorecard|
+        totals[:net_total] += scorecard.total_net
+        totals[:total_putts] += scorecard.total_putts
+        totals[:total_3_putts] += scorecard.total_3putts
+        totals[:total_score] += total_score(scorecard)
+      end
+      totals
     end
 
-    def total_score
-      total = []
-      total << scorecard.total_net - played
-      total << leaderboard.current_total_score
-      total.compact.inject(0, :+)
-      { "total_score" => total.compact.inject(0, :+) }
-    end
-
-    def course_par
-      return course.par if scorecard.finished
-      num = scorecard.user_scores.sort_by(&:number).last.number
-      course.current_par(num)
+    def total_score(scorecard)
+      if scorecard.finished
+        scorecard.total_net - scorecard.new_course.par
+      else
+        par_so_far = scorecard.user_scores.map { |x| x.hole.par }.inject(0, :+)
+        scorecard.user_scores.map(&:net).inject(0, :+) - par_so_far
+      end
     end
 
   end

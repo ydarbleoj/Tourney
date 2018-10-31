@@ -5,8 +5,9 @@ class Leaderboard < ApplicationRecord
   has_many :scorecards
 
 
-  def scorecard_totals
-    scorecards.select('SUM(total_net) AS net_total, SUM(scorecards.total_putts) AS total_putts, SUM(total_3putts) AS total_3_putts')[0].as_json.except!('id')
+    # scorecards.select('SUM(total_net) AS net_total, SUM(scorecards.total_putts) AS total_putts, SUM(total_3putts) AS total_3_putts')[0].as_json.except!('id')
+  def self.scorecard_totals(id)
+    includes(scorecards: [{ user_scores: :hole }, :new_course]).find(id)
   end
 
   def current_total_score

@@ -19,5 +19,7 @@ class TournamentRound < ApplicationRecord
   validates :tournament_id, presence: true
   validates :round_date, presence: true
   validates :new_course_id, presence: true
+
+
 end
 

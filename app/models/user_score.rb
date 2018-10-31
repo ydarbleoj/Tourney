@@ -1,5 +1,6 @@
 class UserScore < ApplicationRecord
   belongs_to :scorecard, touch: true
+  belongs_to :hole
   has_one :user, through: :scorecard
   has_one :tournament_round, through: :scorecard
 
@@ -43,8 +44,7 @@ class UserScore < ApplicationRecord
   def calculate_net
     return if score.blank?
     handicap  = scorecard.handicap
-    handicap   = scorecard.handicap
-    hole_hcap  = scorecard.holes.find_by_number(number).handicap
+    hole_hcap = hole.handicap
 
     if handicap < 19
       self.net = handicap >= hole_hcap ? score - 1 : score

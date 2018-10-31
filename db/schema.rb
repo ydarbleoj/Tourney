@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181027201420) do
+ActiveRecord::Schema.define(version: 20181029183544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -372,16 +372,15 @@ ActiveRecord::Schema.define(version: 20181027201420) do
 
   create_table "user_scores", force: :cascade do |t|
     t.bigint "scorecard_id"
-    t.integer "number"
     t.integer "score"
     t.integer "putts"
     t.boolean "skin", default: false
     t.integer "net"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "handicap"
     t.boolean "net_skin", default: false
-    t.integer "par"
+    t.integer "hole_id"
+    t.integer "number", default: 1
     t.index ["scorecard_id"], name: "index_user_scores_on_scorecard_id"
   end
 

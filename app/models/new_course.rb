@@ -1,5 +1,4 @@
 class NewCourse < ApplicationRecord
-  # scope :current_par, -> (id, number) { joins(:holes).where(id: id, holes: { number: (1..number).to_a }).sum('holes.par') }
   has_many :holes, dependent: :delete_all
   has_many :scorecards
 
@@ -17,8 +16,4 @@ class NewCourse < ApplicationRecord
   validates :tee, presence: true
 
 
-  def current_par(played)
-    holes.sort_by(&:number).select { |x| x if x.number <= played }
-    .map { |x| x.par }.compact.inject(0, :+)
-  end
 end

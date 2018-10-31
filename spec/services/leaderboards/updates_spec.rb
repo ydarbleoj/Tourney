@@ -25,11 +25,11 @@ RSpec.describe Leaderboards::Updates do
       leaderboard = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap)
       scorecard1 = create(:scorecard, new_course_id: course.id, round_num: tourn_round.round_number,
         tournament_round_id: tourn_round.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard.id)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, par: hole1.par)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, par: hole2.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, par: hole3.par)
+      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole1.number, hole_id: hole1.id)
+      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole2.number, hole_id: hole2.id, putts: 3)
+      create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
 
-      Leaderboards::Updates.call(scorecard1.reload, tourn_round)
+      Leaderboards::Updates.call(leaderboard.id)
       lb = leaderboard.reload
 
       expect(lb.net_total).to eq(11)
@@ -46,11 +46,11 @@ RSpec.describe Leaderboards::Updates do
         round_num: 1, finished: true)
       scorecard2 = create(:scorecard, new_course_id: course2.id, round_num: tourn_round2.round_number,
         tournament_round_id: tourn_round2.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard2.id)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole21.number, par: hole21.par)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole22.number, par: hole22.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole23.number, par: hole23.par)
+      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole21.number, hole_id: hole21.id)
+      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole22.number, hole_id: hole22.id, putts: 3)
+      create(:user_score, score: 4, scorecard_id: scorecard2.id, number: hole23.number, hole_id: hole23.id)
 
-      Leaderboards::Updates.call(scorecard2.reload, tourn_round2)
+      Leaderboards::Updates.call(leaderboard2.id)
       lb = leaderboard2.reload
 
       expect(lb.net_total).to eq(90)
@@ -71,12 +71,12 @@ RSpec.describe Leaderboards::Updates do
 
       scorecard3 = create(:scorecard, new_course_id: course3.id, round_num: tourn_round3.round_number,
         tournament_round_id: tourn_round3.id, user_id: user1.id, handicap: user1.handicap, leaderboard_id: leaderboard.id)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole31.number, par: hole31.par)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole32.number, par: hole32.par, putts: 3)
-      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole33.number, par: hole33.par)
+      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole31.number, hole_id: hole31.id)
+      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole32.number, hole_id: hole32.id, putts: 3)
+      create(:user_score, score: 4, scorecard_id: scorecard3.id, number: hole33.number, hole_id: hole33.id)
 
 
-      Leaderboards::Updates.call(scorecard3.reload, tourn_round3)
+      Leaderboards::Updates.call(leaderboard.id)
       lb = leaderboard.reload
 
       expect(lb.net_total).to eq(164)
