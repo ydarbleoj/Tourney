@@ -4,17 +4,20 @@ class Tournament < ApplicationRecord
 
   has_many :tournament_users, dependent: :delete_all
   has_many :users, through: :tournament_users
-  has_many :tournament_new_courses, dependent: :delete_all
-  has_many :new_courses, through: :tournament_new_courses
+  has_many :tournament_rounds, dependent: :destroy
+  # has_many :tournament_new_courses, dependent: :delete_all
+  has_many :new_courses, through: :tournament_rounds
+  has_many :holes, through: :new_courses
+
+  has_many :tournament_aggs
 
   has_many :stroke_moneys
   has_many :skins_moneys
   has_many :putting_moneys
   has_many :team_moneys
 
-  has_many :leaderboards
-  has_many :tournament_rounds, dependent: :destroy
   has_many :round_tee_times, through: :tournament_rounds
+  has_many :leaderboards
   has_many :tee_times, through: :tournament_rounds
 
   has_many :scorecards, through: :tournament_rounds
@@ -22,7 +25,7 @@ class Tournament < ApplicationRecord
 
 
   has_many :invitations
-  has_one :tournament_leaderboard
+  has_one :tournament_leaderboard #nesc?
 
 	# accepts_nested_attributes_for :rounds
   accepts_nested_attributes_for :scorecards
@@ -33,6 +36,8 @@ class Tournament < ApplicationRecord
   validates :num_rounds, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+
+
 
 
 

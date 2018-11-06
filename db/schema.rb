@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181029183544) do
+ActiveRecord::Schema.define(version: 20181105200554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,22 @@ ActiveRecord::Schema.define(version: 20181029183544) do
     t.integer "money", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "round_aggs", force: :cascade do |t|
+    t.bigint "tournament_id"
+    t.integer "new_course_id"
+    t.string "net_lowest"
+    t.integer "par3_avg"
+    t.integer "par4_avg"
+    t.integer "par5_avg"
+    t.string "hardest_hole"
+    t.string "easiest_hole"
+    t.integer "net_avg"
+    t.integer "putts_avg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id"], name: "index_round_aggs_on_tournament_id"
   end
 
   create_table "round_tee_times", force: :cascade do |t|
@@ -319,6 +335,22 @@ ActiveRecord::Schema.define(version: 20181029183544) do
     t.integer "team_scorecard_id"
   end
 
+  create_table "tournament_aggs", force: :cascade do |t|
+    t.bigint "tournament_id"
+    t.integer "putts_avg"
+    t.integer "net_avg"
+    t.string "lowest_round"
+    t.string "highest_round"
+    t.integer "par3_avg"
+    t.integer "par4_avg"
+    t.integer "par5_avg"
+    t.string "hardest_hole"
+    t.string "easiest_hole"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id"], name: "index_tournament_aggs_on_tournament_id"
+  end
+
   create_table "tournament_leaderboards", force: :cascade do |t|
     t.bigint "tournament_id"
     t.datetime "created_at", null: false
@@ -370,6 +402,31 @@ ActiveRecord::Schema.define(version: 20181029183544) do
     t.datetime "start_date"
   end
 
+  create_table "user_aggs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "gross_avg"
+    t.decimal "net_avg"
+    t.decimal "putts_avg"
+    t.decimal "three_putts_avg"
+    t.decimal "greens_in_reg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_hole_aggs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "hole_id"
+    t.decimal "net_avg"
+    t.decimal "gross_avg"
+    t.decimal "putts_avg"
+    t.decimal "three_putts_avg"
+    t.integer "count"
+    t.decimal "greens_in_reg"
+    t.integer "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_scores", force: :cascade do |t|
     t.bigint "scorecard_id"
     t.integer "score"
@@ -409,6 +466,7 @@ ActiveRecord::Schema.define(version: 20181029183544) do
   end
 
   add_foreign_key "holes", "new_courses"
+  add_foreign_key "round_aggs", "tournaments"
   add_foreign_key "round_tee_times", "tournament_rounds"
   add_foreign_key "rounds", "courses"
   add_foreign_key "rounds", "tournaments"

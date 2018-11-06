@@ -13,6 +13,8 @@ class TournamentRound < ApplicationRecord
   has_many :round_tee_times, dependent: :destroy
   has_many :tee_times
 
+  has_many :tournament_round_aggs
+
   accepts_nested_attributes_for :scorecards
 
   validates :round_number, presence: true

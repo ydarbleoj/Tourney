@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :tournament do
-    name 'Bandon'
-    year 2016
+    name { "Bandon#{rand(1..99)}"}
+    year { [2016, 2017, 2015, 2018].sample }
     start_date { DateTime.new(year, 2, 8) }
     end_date { DateTime.new(year, 2, 10) }
     num_players 16
