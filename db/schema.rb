@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181105200554) do
+ActiveRecord::Schema.define(version: 20181106011103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(version: 20181105200554) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leaderboard_scorecards", force: :cascade do |t|
+    t.integer "leaderboard_id"
+    t.integer "scorecard_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "leaderboards", force: :cascade do |t|
     t.integer "total_score", default: 0
     t.integer "total_putts", default: 0
@@ -119,7 +126,6 @@ ActiveRecord::Schema.define(version: 20181105200554) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
-    t.integer "rn1_3putts", default: 0
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
   end
@@ -403,6 +409,23 @@ ActiveRecord::Schema.define(version: 20181105200554) do
     t.decimal "putts_avg"
     t.decimal "three_putts_avg"
     t.decimal "greens_in_reg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_course_aggs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "new_course_id"
+    t.decimal "gross_avg"
+    t.decimal "net_avg"
+    t.decimal "putts_avg"
+    t.decimal "three_putts_avg"
+    t.decimal "greens_in_reg"
+    t.decimal "par3_avg"
+    t.decimal "par4_avg"
+    t.decimal "par5_avg"
+    t.integer "easiest_hole"
+    t.integer "hardest_hole"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
