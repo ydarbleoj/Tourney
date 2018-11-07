@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :team_moneys
 
   has_many :user_hole_aggs
+  has_many :user_course_aggs
 
   validates :first_name, presence: true
   validates :last_name, presence: true

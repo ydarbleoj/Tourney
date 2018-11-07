@@ -1,7 +1,8 @@
 class UserHoleAgg < ApplicationRecord
-  belongs_to :user
   belongs_to :hole
+  belongs_to :user_course_agg
 
+  has_one :user, through: :user_course_agg
   has_many :scorecards, through: :user
   has_many :user_scores, through: :scorecards
 
