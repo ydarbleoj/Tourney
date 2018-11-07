@@ -17,12 +17,14 @@ class UserCourseAgg < ApplicationRecord
       AVG(total_3putts) AS three_putts_avg")
   end
 
-    # .select('AVG(CASE WHEN par = 4 THEN user_hole_aggs.net_avg ELSE 0 END) AS par4_avg')
-  def hole_aggs(course_id)
-    .where(new_course_id: course_id)
-    .group(:par)
-    .average(:net_avg)
-    .average(:gross_avg)
-    .average
+  def hole_par_avgs
+    user_hole_aggs
+    .group(:par).average(:net_avg)
+  end
+
+  def hole_difficulty
+    user_hole_aggs.joins(:hole)
+    .select('user_hole_aggs.par, holes.number, holes.handicap, net_avg, (net_avg - user_hole_aggs.par) AS hole_diff')
+    .order('hole_diff DESC').as_json
   end
 end
