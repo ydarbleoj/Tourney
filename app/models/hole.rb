@@ -3,5 +3,6 @@ class Hole < ApplicationRecord
   has_many :scorecards, through: :new_course
   has_many :user_scores
 
+  has_many :hole_aggs
   has_many :user_hole_aggs
 end

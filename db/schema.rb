@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181107020849) do
+ActiveRecord::Schema.define(version: 20181107032618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "course_aggs", force: :cascade do |t|
+    t.bigint "new_course_id"
+    t.decimal "gross_avg"
+    t.decimal "net_avg"
+    t.decimal "putts_avg"
+    t.decimal "three_putts_avg"
+    t.decimal "greens_in_reg"
+    t.decimal "par3_avg"
+    t.decimal "par4_avg"
+    t.decimal "par5_avg"
+    t.string "easiest_hole"
+    t.string "hardest_hole"
+    t.string "lowest_round"
+    t.string "highest_round"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "name"
@@ -84,6 +102,20 @@ ActiveRecord::Schema.define(version: 20181107020849) do
     t.integer "in_yds"
     t.integer "out_par"
     t.integer "in_par"
+  end
+
+  create_table "hole_aggs", force: :cascade do |t|
+    t.bigint "course_agg_id"
+    t.bigint "hole_id"
+    t.decimal "net_avg"
+    t.decimal "gross_avg"
+    t.decimal "putts_avg"
+    t.decimal "three_putts_avg"
+    t.integer "count"
+    t.decimal "greens_in_reg"
+    t.integer "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "holes", force: :cascade do |t|
