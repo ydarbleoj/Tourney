@@ -52,8 +52,8 @@ RSpec.describe UserCourseAgg, type: :model do
       UserHoleAgg.create(user_course_agg_id: course_agg.id, hole_id: hole3.id, par: hole3.par, net_avg: 5.2, gross_avg: 6.2, putts_avg: 3.1)
       UserHoleAgg.create(user_course_agg_id: course_agg.id, hole_id: hole4.id, par: hole4.par, net_avg: 4.4, gross_avg: 5.4, putts_avg: 1.5)
 
-      p agg = UserCourseAgg.find(course_agg.id)
-      p arg = agg.hole_par_avgs
+      agg = UserCourseAgg.find(course_agg.id)
+      arg = agg.hole_par_avgs
 
       expect(arg[4].to_f.round(1)).to eq(3.9)
       expect(arg[5].to_f.round(1)).to eq(4.8)
@@ -67,7 +67,6 @@ RSpec.describe UserCourseAgg, type: :model do
     UserHoleAgg.create(user_course_agg_id: course_agg.id, hole_id: hole3.id, par: hole3.par, net_avg: 5.2, gross_avg: 6.2, putts_avg: 3.1)
     UserHoleAgg.create(user_course_agg_id: course_agg.id, hole_id: hole4.id, par: hole4.par, net_avg: 4.4, gross_avg: 5.4, putts_avg: 1.5)
 
-    holes = course_agg.hole_difficulty
-    p holes
+    holes = course_agg.hole_diffculty
   end
 end

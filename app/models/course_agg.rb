@@ -1,15 +1,15 @@
 class CourseAgg < ApplicationRecord
   belongs_to :new_course
 
+  has_many :round_agg, through: :new_course
   has_many :hole_aggs
 
   def hole_averages
-    hole_aggs
+    round_aggs
     .select("AVG(gross_avg) AS gross_avg,
-      COUNT(hole_aggs.id) AS count,
       AVG(putts_avg) AS putts_avg,
       AVG(net_avg) AS net_avg,
-      AVG(three_putts_avg) AS three_putts_avg")
+      AVG(total_3putts) AS three_putts_avg")
   end
 
   def hole_par_avgs

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181107032618) do
+ActiveRecord::Schema.define(version: 20181113180300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,19 +179,19 @@ ActiveRecord::Schema.define(version: 20181107032618) do
   end
 
   create_table "round_aggs", force: :cascade do |t|
-    t.bigint "tournament_id"
-    t.integer "new_course_id"
     t.string "net_lowest"
-    t.integer "par3_avg"
-    t.integer "par4_avg"
-    t.integer "par5_avg"
+    t.integer "par3_avg", default: 0
+    t.integer "par4_avg", default: 0
+    t.integer "par5_avg", default: 0
     t.string "hardest_hole"
     t.string "easiest_hole"
-    t.integer "net_avg"
-    t.integer "putts_avg"
+    t.integer "net_avg", default: 0
+    t.integer "putts_avg", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tournament_id"], name: "index_round_aggs_on_tournament_id"
+    t.bigint "tournament_round_id"
+    t.integer "count", default: 0
+    t.integer "gross_avg", default: 0
   end
 
   create_table "round_tee_times", force: :cascade do |t|
@@ -511,7 +511,6 @@ ActiveRecord::Schema.define(version: 20181107032618) do
   end
 
   add_foreign_key "holes", "new_courses"
-  add_foreign_key "round_aggs", "tournaments"
   add_foreign_key "round_tee_times", "tournament_rounds"
   add_foreign_key "rounds", "courses"
   add_foreign_key "rounds", "tournaments"
