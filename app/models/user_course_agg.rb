@@ -24,7 +24,7 @@ class UserCourseAgg < ApplicationRecord
 
   def hole_difficulty
     user_hole_aggs.joins(:hole)
-    .select('user_hole_aggs.par, holes.number, holes.handicap, net_avg, (net_avg - user_hole_aggs.par) AS hole_diff')
-    .order('hole_diff DESC').as_json
+    .select('user_hole_aggs.par, holes.number, holes.handicap, net_avg, (net_avg::decimal - user_hole_aggs.par) AS hole_diff')
+    .order('hole_diff DESC')
   end
 end

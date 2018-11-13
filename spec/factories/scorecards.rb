@@ -9,17 +9,41 @@ FactoryGirl.define do
     gross_skin_total 0
   end
 
-  trait :with_scores do
+   # scorecard handicap will be 5
+   # total_score: 81, total_putts: 37, total_3putts: 1, total_net: 76
+  trait :low_scores do
     after :create do |scorecard|
       course = scorecard.new_course
-      (0..17).each do |i|
-        FactoryGirl.create(:user_score, scorecard_id: scorecard.id, number: (i + 1), score: rand(2..8), putts: rand(0..3), handicap: scorecard.handicap, par: course.holes[i])
+      course.holes.each do |hole|
+        par = hole.par
+        putts = hole.handicap > 1 ? 2 : 3
+        score = hole.handicap > 9 ? par : par + 1
+        FactoryGirl.create(:user_score, scorecard_id: scorecard.id, number: hole.number, hole_id: hole.id, score: score, putts: putts)
       end
-      total_score = scorecard.user_scores.sum(:score)
-      total_putts = scorecard.user_scores.sum(:putts)
-      total_net   = scorecard.user_scores.sum(:net)
-      total_3putts = scorecard.user_scores.where('putts > ?', 2).size
-      scorecard.update(total_score: total_score, total_putts: total_putts, total_net: total_net, total_3putts: total_3putts)
+    end
+  end
+  # scorecard handicap will be 15
+  # total_score: 90, total_putts: 38, total_3putts: 2, total_net: 75
+  trait :mid_scores do
+    after :create do |scorecard|
+      course = scorecard.new_course
+      course.holes.each do |hole|
+        par = hole.par
+        putts = hole.handicap >= 3 ? 2 : 3
+        FactoryGirl.create(:user_score, scorecard_id: scorecard.id, number: hole.number, hole_id: hole.id, score: par + 1, putts: putts)
+      end
+    end
+  end
+  # scorecard handicap will be 25
+  # # total_score: 108, total_putts: 41, total_3putts: 5, total_net: 83
+  trait :high_scores do
+    after :create do |scorecard|
+      course = scorecard.new_course
+      course.holes.each do |hole|
+        par = hole.par
+        putts = hole.handicap >= 6 ? 2 : 3
+        FactoryGirl.create(:user_score, scorecard_id: scorecard.id, number: hole.number, hole_id: hole.id, score: par + 2, putts: putts)
+      end
     end
   end
 end

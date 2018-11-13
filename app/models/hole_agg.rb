@@ -2,7 +2,7 @@ class HoleAgg < ApplicationRecord
   belongs_to :course_agg
   belongs_to :hole
 
-  has_one :new_course, through: :hole
+  has_one :new_course, through: :course_agg
   has_many :user_hole_aggs, through: :hole
 
   # SUM(((user_hole_aggs.count / self.count) * 1.0)) determines weight of users avg

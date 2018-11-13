@@ -8,12 +8,15 @@ class Scorecard < ApplicationRecord
   belongs_to :leaderboard
 
   has_one :tournament, through: :tournament_round
+  has_one :course_agg, through: :new_course
+
   has_many :user_scores, dependent: :destroy
   has_many :holes, through: :new_course
 
   has_many :tournament_aggs, through: :tournament
   has_many :touranment_round_aggs, through: :tournament_round
   has_many :user_hole_aggs, through: :user
+
 
   accepts_nested_attributes_for :user_scores
 
