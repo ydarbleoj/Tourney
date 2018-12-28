@@ -22,51 +22,14 @@ class Scorecard < ApplicationRecord
 
   after_save :check_for_last_scorecard
 
+  def self.for_user_round(user_id, round_id)
+    includes(:user_scores).where(user_id: user_id, tournament_round_id: round_id).first
+  end
+
   def self.adding_total_score
     joins(:new_course)
     .where(finished: true)
     .select('SUM(total_net - new_courses.par) AS net_total')[0].attributes['net_total']
-  end
-
-  def self.course_info
-    includes(:user_scores)
-    .select('scorecards.id, scorecards.total_score, scorecards.total_putts,
-      scorecards.total_3putts, scorecards.handicap, scorecards.total_net')
-    .map do |sc|
-      {
-        id: sc.id,
-        total_net: sc.total_net,
-        total_score: sc.total_score,
-        total_putts: sc.total_putts,
-        total_3putts: sc.total_3putts,
-        handicap: sc.handicap,
-        in_net: in_scores(sc, 'net'),
-        out_net: out_scores(sc, 'net'),
-        in_gross: in_scores(sc, 'score'),
-        out_gross: out_scores(sc, 'score'),
-        in_putts: in_scores(sc, 'putts'),
-        out_putts: out_scores(sc, 'putts'),
-        in_3putts: in_3putts(sc),
-        out_3putts: out_3putts(sc),
-      }
-    end
-  end
-
-  def self.in_3putts(sc)
-    sc.user_scores.select { |x| x if x.number > 9 && x.putts > 2 }.map { |y| y }.length
-  end
-
-  def self.out_3putts(sc)
-    sc.user_scores.select { |x| x if x.number < 10 && x.putts > 2 }.map { |y| y }.length
-  end
-
-  def self.in_scores(sc, type)
-    sc.user_scores.select { |x| x if x.number > 9 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
-
-  end
-
-  def self.out_scores(sc, type)
-    sc.user_scores.select { |x| x if x.number < 10 }.map { |y| y.send(type) }.inject(0) { |sum, i| sum + i }
   end
 
   def self.add_team_score(ids, number)
@@ -136,14 +99,6 @@ class Scorecard < ApplicationRecord
         total: sum_skins(x[1]),
       }.merge(merge_rounds(group_rounds(x[1])))
     end.sort_by { |x| x[:total] }.reverse
-  end
-
-  def self.skins_preview_total
-    joins(:user_scores, :user)
-    .select('users.id AS user_id, users.first_name AS first_name, users.last_name AS last_name, scorecards.round_num, user_scores.number, user_scores.net, user_scores.net_skin')
-    .group_by { |x| [x.user_id, x.first_name + ' ' + x.last_name.first] }
-    .map { |y| sum_skins(y[1]) }
-    .group_by { |x| x }.map { |x| x[1] }.sort_by {|x| x }.reverse
   end
 
   def self.sum_skins(arr)

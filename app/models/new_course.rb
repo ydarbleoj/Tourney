@@ -2,9 +2,10 @@ class NewCourse < ApplicationRecord
   has_many :holes, dependent: :delete_all
   has_many :scorecards
 
+  has_one :course_agg
   has_many :user_course_aggs
   has_many :user_hole_aggs
-  has_many :tournament_round_aggs
+  has_many :round_aggs
 
   has_many :team_scorecards
 

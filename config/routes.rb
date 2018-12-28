@@ -9,8 +9,18 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v2 do
-      namespace :tournaments do
 
+      resources :tournaments, only: [:index]
+      namespace :leaderboards do
+        resources :strokes, only: [:index]
+        resources :putts, only: [:index]
+        resources :skins, only: [:index]
+      end
+
+      namespace :rounds do
+        resources :courses, only: [:index]
+        resources :lists, only: [:index]
+        resources :scorecards, only: [:index]
       end
     end
   end
