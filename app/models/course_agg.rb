@@ -1,6 +1,7 @@
 class CourseAgg < ApplicationRecord
   belongs_to :new_course
 
+  has_many :tournament_rounds, through: :new_course
   has_many :scorecards, through: :new_course
   has_many :hole_aggs
 

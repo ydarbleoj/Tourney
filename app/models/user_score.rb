@@ -3,6 +3,7 @@ class UserScore < ApplicationRecord
   belongs_to :hole
   has_one :user, through: :scorecard
   has_one :tournament_round, through: :scorecard
+  has_one :leaderboard, through: :scorecard
 
   validates :scorecard_id, presence: true
   validates :number, presence: true

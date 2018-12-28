@@ -2,10 +2,15 @@ class UserCourseAgg < ApplicationRecord
   belongs_to :user
   belongs_to :new_course
 
+  has_many :tournament_rounds, through: :new_course
   has_many :user_hole_aggs
   has_many :scorecards, through: :user
   # has_many :user_scores, through: :scorecards
 
+
+  def self.overall(course_id)
+    where(new_course_id: course_id).first
+  end
 
   def scorecard_averages(course_id)
     scorecards
