@@ -1,4 +1,7 @@
-# class NewCourseSerializer < ActiveModel::Serializer
-#   attributes :id, :name, :slope, :rating, :tee, :state, :city, :par, :yardage
-#   # has_many :tournaments
-# end
+class NewCourseSerializer
+  include FastJsonapi::ObjectSerializer
+  set_type :new_course
+  set_id :id
+
+  attributes :name, :par, :slope, :rating, :tee
+end

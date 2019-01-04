@@ -39,6 +39,11 @@ class Tournament < ApplicationRecord
 
 
 
+  def self.current_and_list(name)
+    includes(:tournament_rounds)
+    .where(name: name)
+    .order(id: :asc)
+  end
 
 
 

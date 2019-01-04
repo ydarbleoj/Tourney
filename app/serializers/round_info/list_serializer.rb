@@ -9,18 +9,18 @@ module RoundInfo
     attributes :round_number, :round_date, :new_course_id
 
     attribute :slope do |obj|
-      "#{obj.new_course.slope}"
+      obj.new_course.slope
     end
 
     attribute :rating do |obj|
-      "#{obj.new_course.rating}"
+      obj.new_course.rating
     end
 
     attribute :name do |obj|
       "#{obj.new_course.name}"
     end
     attribute :par do |obj|
-      "#{obj.new_course.par}"
+      obj.new_course.par
     end
 
   end
