@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user
 
-
   def index
     p 'current_user'
     p current_user
-    render json: current_user
+    render json: UserSerializer.new(current_user).serialized_json
   end
 
   def new

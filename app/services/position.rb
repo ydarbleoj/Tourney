@@ -9,7 +9,7 @@ class Position
   end
 
   def initialize(objects, field)
-    @objects = objects
+   p @objects = objects.sort_by { |x| x.send(field) }
     @field   = field.to_sym
   end
 

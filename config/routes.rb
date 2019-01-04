@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         resources :strokes, only: [:index]
         resources :putts, only: [:index]
         resources :skins, only: [:index]
+        resources :teams, only: [:index]
       end
 
       namespace :rounds do
