@@ -33,4 +33,9 @@ class Leaderboard < ApplicationRecord
     includes({ scorecards: :user_scores }, :user, :skins_money)
     .where(tournament_id: tournament_id)
   end
+
+  def self.admin_users(tournament_id)
+    includes(:user)
+    .where(tournament_id: tournament_id)
+  end
 end

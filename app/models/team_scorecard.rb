@@ -17,15 +17,21 @@ class TeamScorecard < ApplicationRecord
   def check_for_last_scorecard
     last_scorecard = TournamentRound.find(self.tournament_round_id).team_scorecards.card_open
     if last_scorecard.blank?
-      update_money_lists(self)
+      # update_money_lists(self)
     end
-  rescue => e
-    sp e
+  rescue StandardError => e
+    p "error #{e}"
   end
 
   def self.leaderboard(round_id)
     includes({tee_times: [:user]}, :team_scores, :new_course)
     .where(tournament_round_id: round_id)
+    .order(group: :asc)
+  end
+
+  def self.admin_tee_times(tr_id)
+    includes({ tee_times: [:user] })
+    .where(tournament_round_id: tr_id)
     .order(group: :asc)
   end
   # def update_money_lists(scorecard)
