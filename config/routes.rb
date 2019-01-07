@@ -11,6 +11,14 @@ Rails.application.routes.draw do
     namespace :v2 do
 
       resources :tournaments, only: [:index]
+
+      namespace :tournaments do
+        namespace :admin do
+          resources :leaderboards
+          resources :tee_times
+        end
+      end
+
       namespace :leaderboards do
         resources :strokes, only: [:index]
         resources :putts, only: [:index]

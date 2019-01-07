@@ -2,7 +2,7 @@ class TournamentRound < ApplicationRecord
   belongs_to :tournament, touch: true
   belongs_to :new_course
 
-  has_one :leaderboard, through: :tournament
+  has_many :leaderboard, through: :tournament
   has_many :users, through: :scorecards
 
   has_many :scorecards, dependent: :destroy
