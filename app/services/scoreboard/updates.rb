@@ -1,4 +1,4 @@
-module Leaderboards
+module Scoreboard
   class Updates
 
     def self.call(id)

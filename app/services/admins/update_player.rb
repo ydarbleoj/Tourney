@@ -13,8 +13,8 @@ module Admins
 
     def call
       ActiveRecord::Base.transaction do
-        update_user if @role
-        update_leaderboard if @handicap
+        update_user if @role.present?
+        update_leaderboard if @handicap.present?
       end
       true
     rescue StandardError => e
@@ -46,7 +46,7 @@ module Admins
     end
 
     def update_leaderboard_scoring(score)
-      Leaderboards::Scoring.call(score)
+      Scoreboard::Scoring.call(score)
     end
   end
 end

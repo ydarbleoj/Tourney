@@ -6,8 +6,6 @@ module API
       before_action :check_tournament_user
 
       def set_tournament
-        p 'BASE'
-        p params
         @tournament = Tournament.find(params['tournament_id'])
       end
 

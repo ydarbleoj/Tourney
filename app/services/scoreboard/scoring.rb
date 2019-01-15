@@ -1,4 +1,4 @@
-module Leaderboards
+module Scoreboard
   class Scoring
 
     def self.call(id)
@@ -14,26 +14,28 @@ module Leaderboards
     def call
       ActiveRecord::Base.transaction do
         update_leaderboard
-        set_skins
-        update_team_scorecard
+        # set_skins
+        # update_team_scorecard
       end
+      true
     rescue StandardError => e
       p "error #{e}"
+      false
     end
 
     private
     attr_reader :user_score, :scorecard, :tournament_round
 
     def update_leaderboard
-      Leaderboards::Updates.call(scorecard.leaderboard_id)
+      Scoreboard::Updates.call(scorecard.leaderboard_id)
     end
 
     def set_skins
-      Leaderboards::SetSkin.call(user_score, 'net_skin')
+      Scoreboard::SetSkin.call(user_score, 'net_skin')
     end
 
     def update_team_scorecard
-      Leaderboards::TeamScoring.call(user_score)
+      Scoreboard::TeamScoring.call(user_score)
     end
   end
 end

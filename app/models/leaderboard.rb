@@ -13,6 +13,10 @@ class Leaderboard < ApplicationRecord
     includes(scorecards: [{ user_scores: :hole }, :new_course]).find(id)
   end
 
+  def self.admin_user_scorecards(id)
+    includes(scorecards: [{new_course: :holes}, :user_scores]).find(id)
+  end
+
   def current_total_score
     scorecards.adding_total_score
   end

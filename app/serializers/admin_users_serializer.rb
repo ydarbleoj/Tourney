@@ -22,4 +22,8 @@ class AdminUsersSerializer
     object.user.admin ? 'admin' : 'member'
   end
 
+  attribute :pending do |object|
+    false
+  end
+
 end

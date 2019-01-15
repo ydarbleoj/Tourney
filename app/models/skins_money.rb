@@ -7,7 +7,7 @@ class SkinsMoney < ApplicationRecord
 
   after_commit :update_total
 
-   def self.preview_leaderboard(user_ids)
+  def self.preview_leaderboard(user_ids)
     order(total: :desc)
     .where(user_id: user_ids)
     .select(:user_id, :round_one, :round_two, :round_three, :total)

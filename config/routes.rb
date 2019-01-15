@@ -10,13 +10,20 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v2 do
 
-      resources :tournaments, only: [:index]
+      resources :tournaments, only: [:index, :create]
+      resources :user_scores
 
       namespace :tournaments do
+        resources :rounds, only: [:create]
+
         namespace :admin do
-          resources :leaderboards
+          resources :user_scorecards
+          resources :users
+          resources :invitations
           resources :tee_times
+          resource :edits
         end
+
       end
 
       namespace :leaderboards do

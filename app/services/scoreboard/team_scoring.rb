@@ -1,4 +1,4 @@
-module Leaderboards
+module Scoreboard
   class TeamScoring
 
     def self.call(user_score)

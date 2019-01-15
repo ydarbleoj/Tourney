@@ -1,4 +1,4 @@
-module Leaderboards
+module Scoreboard
   class SetSkin
 
     def self.call(user_score, type)

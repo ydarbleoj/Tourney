@@ -1,6 +1,6 @@
 require'rails_helper'
 
-RSpec.describe Leaderboards::Scoring do
+RSpec.describe Scoreboard::Scoring do
 
   describe 'call' do
     let(:tournament) { create(:tournament) }
@@ -42,7 +42,7 @@ RSpec.describe Leaderboards::Scoring do
       user_score = create(:user_score, score: 4, scorecard_id: scorecard4.id, number: hole1.number, hole_id: hole1.id)
 
 
-      res = Leaderboards::Scoring.call(user_score.id)
+      res = Scoreboard::Scoring.call(user_score.id)
       expect(res).to eq(true)
     end
 
