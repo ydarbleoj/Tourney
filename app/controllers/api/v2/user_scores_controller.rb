@@ -16,8 +16,7 @@ module API
       end
 
       def update
-        p params
-        p user_score = UserScore.find(params['user_score_id'])
+        user_score = UserScore.find(params['user_score_id'])
         user_score.update!(user_scores_params)
         @scorecard.reload
 
