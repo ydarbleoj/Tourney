@@ -14,6 +14,11 @@ module API
             }
           end
 
+          def create
+            res = TeeTime.bulk_set(params['tee_time'])
+            p params
+          end
+
           private
           def set_tee_times
             @tee_times = TeamScorecard.admin_tee_times(params[:tournament_round_id])

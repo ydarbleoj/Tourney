@@ -30,7 +30,7 @@ class TeamScorecard < ApplicationRecord
   end
 
   def self.admin_tee_times(tr_id)
-    includes({ tee_times: [:user] })
+    includes({ tee_times: [:user] }, :new_course)
     .where(tournament_round_id: tr_id)
     .order(group: :asc)
   end

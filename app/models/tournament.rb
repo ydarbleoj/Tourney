@@ -40,7 +40,7 @@ class Tournament < ApplicationRecord
 
 
   def self.current_and_list(name)
-    includes(:tournament_rounds)
+    includes({ tournament_rounds: :new_course })
     .where(name: name)
     .order(id: :asc)
   end

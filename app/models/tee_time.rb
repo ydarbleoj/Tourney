@@ -14,20 +14,39 @@ class TeeTime < ApplicationRecord
     .where(user_id: user_id).first
   end
 
-  def self.bulk_update(ids, team_card)
-    where(id: ids)
-    .update_all(group: team_card['group'], tee_time: team_card['tee_time'], team_scorecard_id: team_card['team_scorecard_id'])
+  def self.bulk_set(params)
+    @card_id  = params['id']
+    @tee_time = params['group_time']
+    @tr_id    = params['tournament_round_id']
+    @group    = params['group']
+
+    params['players'].each do |x|
+      user = x['attributes'].blank? ? x : x['attributes']
+      p x
+      if user['tee_time_id'].blank?
+        _create(user['user_id'])
+      else
+        _update(user['tee_time_id'])
+      end
+    end
   end
 
-  def self.bulk_create(tr, ids, card)
-    ids.each do |x|
-      TeeTime.create(
-        tournament_round_id: tr.id,
-        team_scorecard_id: card['team_scorecard_id'],
-        user_id: x,
-        tee_time: card['tee_time'],
-        group: card['group'])
-    end
+  def self._update(id)
+    TeeTime.find(id).update(
+      group: @group,
+      team_scorecard_id: @card_id,
+      tee_time: @tee_time,
+    )
+  end
+
+  def self._create(user_id)
+    TeeTime.create(
+      tournament_round_id: @tr_id,
+      team_scorecard_id: @card_id,
+      group: @group,
+      tee_time: @tee_time,
+      user_id: user_id,
+    )
   end
 
 end
