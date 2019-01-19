@@ -4,6 +4,7 @@ module API
       module Admin
         class InvitationsController < TournamentBaseController
           skip_before_action :authenticate_user
+          before_action :set_invitation, only: [:accept]
 
           def create
             res = send_invites
@@ -23,15 +24,51 @@ module API
             end
           end
 
+          def accept
+            if @invitation
+              render json: InvitationSerializer.new(@invitation).serialized_json
+            else
+              render json: { message: 'error' }
+            end
+          end
+
+          def accepted
+            @invitation = Invitation.find(params['id'])
+            @invitation.update(accepted: true)
+
+            if @invitation.save!
+              res = PlayerBuild.call(@tournament, current_user, params['handicap'])
+              if res
+                render json: { success: true }
+              else
+                render json: { success: false }
+              end
+            else
+              render json: { success: false }
+            end
+          end
+
+          def destroy
+            invitation = Invitation.find(params['id'])
+            if invitation.delete
+              render json: { success: true, id: params['id'] }
+            else
+              render json: { success: false }
+            end
+          end
 
           private
+          def set_invitation
+            @invitation = Invitation.includes(:tournament).find_by!(token: params['token'])
+          end
+
           def send_invites
             emails = params['invitation']
             ActiveRecord::Base.transaction do
               emails.each do |email|
                 user = User.find_by_email(email)
                 inv = Invitation.create!(email: email, first_name: user.first_name, last_name: user.last_name, tournament_id: @tournament.id)
-                # InvitationMailer.invite(inv).deliver_now
+                InvitationMailer.invite(inv).deliver_now
               end
             end
             true
@@ -50,8 +87,8 @@ module API
           end
 
           def invitees
-            emails = [@invited.map(&:email), @users.map(&:email)].flatten
-            inv = Tournament.invite_list(@tournament.name, emails)
+            emails = [@invited.map(&:email), @users.map {|x| x.user.email }].flatten
+            inv = Tournament.invite_list(@tournament.name)
             @invitees = tournament_full ? [] : inv
           end
 

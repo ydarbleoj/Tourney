@@ -4,7 +4,7 @@ class AdminUsersSerializer
   set_id :id
   belongs_to :user
 
-  attributes :handicap
+  attributes :handicap, :dnf
 
   attribute :first_name do |object|
     object.user.first_name
@@ -25,5 +25,7 @@ class AdminUsersSerializer
   attribute :pending do |object|
     false
   end
+
+
 
 end

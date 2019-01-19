@@ -7,14 +7,16 @@ module Admins
 
     def initialize(params)
       @leaderboard = Leaderboard.includes({scorecards: :user_scores}).find(params['id'])
-      @role = params['role'].blank? ? nil : params['role']
-      @handicap = params['handicap'].blank? ? nil : params['handicap']
+      @role        = params['role'].blank? ? nil : params['role']
+      @handicap    = params['handicap'].blank? ? nil : params['handicap']
+      @dnf         = params['dnf'].nil? ? nil : params['dnf']
+      @lb_hash     = lb_hash
     end
 
     def call
       ActiveRecord::Base.transaction do
         update_user if @role.present?
-        update_leaderboard if @handicap.present?
+        update_leaderboard unless @lb_hash.blank?
       end
       true
     rescue StandardError => e
@@ -29,8 +31,12 @@ module Admins
     end
 
     def update_leaderboard
-      @leaderboard.update(handicap: @handicap)
-      update_scorecards
+      @leaderboard.update(@lb_hash)
+      update_scorecards if @handicap
+    end
+
+    def lb_hash
+      { handicap: @handicap, dnf: @dnf }.compact
     end
 
     def update_scorecards

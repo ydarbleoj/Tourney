@@ -47,7 +47,6 @@ module Admins
     end
 
     attributes :holes do |object|
-      p 'hitting here'
       holes = object.new_course.holes.sort_by(&:number)
       scores = object.user_scores.sort_by(&:number)
 

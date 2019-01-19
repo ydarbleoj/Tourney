@@ -27,6 +27,21 @@ module API
             end
           end
 
+          def destroy
+            p params
+            leaderboard = Leaderboard.find(params['id'])
+            user = leaderboard.user
+            ActiveRecord::Base.transaction do
+              TournamentUser.where(tournament_id: @tournament.id, user_id: user.id).first.delete
+              leaderboard.destroy
+            end
+            true
+            render json: { success: true }
+          rescue StandardError => e
+            p "error #{e.message}"
+            render json: { success: false }
+          end
+
           private
           def set_users
             @users = Leaderboard.admin_users(@tournament.id)
@@ -39,8 +54,7 @@ module API
           def invitees
             return false if tournament_full
             inv = Tournament.invite_list(@tournament.name)
-            p remove
-            @inv = inv.select { |x| x unless remove.include?(x['email']) }.map { |xx| xx }
+            @inv = inv.select { |x| x if !remove.include?(x['user_email']) }.map { |xx| p xx }
           end
 
           def remove

@@ -10,7 +10,7 @@ module API
       end
 
       def check_tournament_user
-        @tournament_user = @tournament.users.where(id: current_user.id).exists?
+        @tournament_user = current_user.blank? ? false : @tournament.users.where(id: current_user.id).exists?
       end
     end
   end

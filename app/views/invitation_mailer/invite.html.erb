@@ -154,11 +154,7 @@
                   <td class="text" style="padding:0 75px 0">
                     <p></p>
                     <p>
-                      <% accept_url = accept_tournament_invitation_url(
-                      @invitation.tournament_id,
-                      @invitation.token
-                      ) %>
-
+                      <% accept_url = "http://localhost:8080/tournament/accept-invitation/#{@invitation.tournament_id}:#{@invitation.token}" %>
                     </p>
                   </td>
                 </tr>
@@ -185,7 +181,7 @@
                 <tr>
                   <td style="color: #999; font-family: Helvetica, sans-serif; font-size: 11px; font-weight: 300;line-height:11px; padding:30px;" class="stack">
                     <br>
-                    Copyright © 2017 Tourney. All rights reserved.</p>
+                    Copyright © 2019 Tourney. All rights reserved.</p>
                   </td>
                   <td style="padding:30px;text-align:right;" class="stack social">
                   </td>

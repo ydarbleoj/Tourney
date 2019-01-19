@@ -19,7 +19,14 @@ Rails.application.routes.draw do
         namespace :admin do
           resources :user_scorecards
           resources :users
-          resources :invitations
+          resources :invitations do
+            member do
+              patch :accepted
+            end
+            collection do
+              get :accept
+            end
+          end
           resources :tee_times
           resource :edits
         end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181219234223) do
+ActiveRecord::Schema.define(version: 20190117232551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20181219234223) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
+    t.boolean "dnf", default: false
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
   end
@@ -301,6 +302,7 @@ ActiveRecord::Schema.define(version: 20181219234223) do
     t.integer "gross_skin_total"
     t.boolean "finished", default: false
     t.integer "leaderboard_id"
+    t.boolean "dnf", default: false
     t.index ["new_course_id"], name: "index_scorecards_on_new_course_id"
     t.index ["tournament_round_id"], name: "index_scorecards_on_tournament_round_id"
     t.index ["user_id"], name: "index_scorecards_on_user_id"

@@ -6,8 +6,8 @@ class Leaderboard < ApplicationRecord
   has_one :skins_money
 
   has_many :tournament_rounds, through: :tournament
-  has_many :scorecards
-  has_many :user_scores, through: :scorecards
+  has_many :scorecards, dependent: :delete_all
+  has_many :user_scores, through: :scorecards, dependent: :delete_all
 
   def self.scorecard_totals(id)
     includes(scorecards: [{ user_scores: :hole }, :new_course]).find(id)
