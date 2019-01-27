@@ -3,10 +3,10 @@ module RoundInfo
     include FastJsonapi::ObjectSerializer
     set_type :scorecard
     set_id :id
-    belongs_to :tournament_round
-    belongs_to :user
-    belongs_to :new_course
-    has_many :user_scores
+
+    has_many :user_scores, serializer: UserScoreSerializer
+    has_one :new_course, serializer: NewCourseSerializer
+    has_many :holes, through: :new_course, serializer: HoleSerializer
 
     attributes :total_score, :total_putts, :total_3putts, :new_course_id, :user_id, :tournament_round_id,
       :total_net, :round_num, :handicap, :finished
@@ -40,6 +40,29 @@ module RoundInfo
     end
     attribute :out_3putts do |obj|
       obj.user_scores.select { |x| x if x.number < 10 && x.putts > 2 }.map(&:id).length
+    end
+
+    attribute :course_name do |object|
+      object.new_course.name
+    end
+
+    attributes :holes do |object|
+      holes = object.new_course.holes.sort_by(&:number)
+      scores = object.user_scores.sort_by(&:number)
+      p object.id
+      (0..17).map do |num|
+        {
+          number: (num + 1),
+          par: holes[num].par,
+          handicap: holes[num].handicap,
+          score: scores[num].blank? ? nil : scores[num].score,
+          net: scores[num].blank? ? nil : scores[num].net,
+          putts: scores[num].blank? ? nil : scores[num].putts,
+          hole_id: holes[num].id,
+          user_score_id: scores[num].blank? ? nil : scores[num].id
+        }
+      end
+
     end
   end
 end

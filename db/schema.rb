@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190117232551) do
+ActiveRecord::Schema.define(version: 20190127014802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,11 @@ ActiveRecord::Schema.define(version: 20190117232551) do
     t.decimal "par3_avg"
     t.decimal "par4_avg"
     t.decimal "par5_avg"
-    t.string "easiest_hole"
-    t.string "hardest_hole"
-    t.string "lowest_round"
-    t.string "highest_round"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "easiest_hole_id"
+    t.bigint "hardest_hole_id"
+    t.bigint "lowest_round_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -186,12 +185,9 @@ ActiveRecord::Schema.define(version: 20190117232551) do
   end
 
   create_table "round_aggs", force: :cascade do |t|
-    t.string "net_lowest"
     t.decimal "par3_avg", default: "0.0"
     t.decimal "par4_avg", default: "0.0"
     t.decimal "par5_avg", default: "0.0"
-    t.string "hardest_hole"
-    t.string "easiest_hole"
     t.decimal "net_avg", default: "0.0"
     t.decimal "putts_avg", default: "0.0"
     t.datetime "created_at", null: false
@@ -200,6 +196,10 @@ ActiveRecord::Schema.define(version: 20190117232551) do
     t.integer "count", default: 0
     t.decimal "gross_avg", default: "0.0"
     t.decimal "three_putts_avg", precision: 3, scale: 1, default: "0.0", null: false
+    t.bigint "lowest_round_id"
+    t.bigint "easiest_hole_id"
+    t.bigint "hardest_hole_id"
+    t.decimal "hcap_diff", precision: 3, scale: 1, default: "0.0", null: false
   end
 
   create_table "round_tee_times", force: :cascade do |t|
@@ -287,19 +287,19 @@ ActiveRecord::Schema.define(version: 20190117232551) do
   end
 
   create_table "scorecards", force: :cascade do |t|
-    t.integer "total_score"
-    t.integer "total_putts"
-    t.integer "total_3putts"
+    t.integer "total_score", default: 0
+    t.integer "total_putts", default: 0
+    t.integer "total_3putts", default: 0
     t.bigint "new_course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "tournament_round_id"
-    t.integer "total_net"
+    t.integer "total_net", default: 0
     t.integer "round_num"
-    t.integer "handicap"
-    t.integer "net_skin_total"
-    t.integer "gross_skin_total"
+    t.integer "handicap", default: 0
+    t.integer "net_skin_total", default: 0
+    t.integer "gross_skin_total", default: 0
     t.boolean "finished", default: false
     t.integer "leaderboard_id"
     t.boolean "dnf", default: false
@@ -447,6 +447,12 @@ ActiveRecord::Schema.define(version: 20190117232551) do
     t.decimal "greens_in_reg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "hcap_diff", default: "0.0"
+    t.bigint "lowest_round_id"
+    t.decimal "par3_avg", default: "0.0"
+    t.decimal "par4_avg", default: "0.0"
+    t.decimal "par5_avg", default: "0.0"
+    t.decimal "hcap_avg", default: "0.0"
   end
 
   create_table "user_course_aggs", force: :cascade do |t|
@@ -460,11 +466,12 @@ ActiveRecord::Schema.define(version: 20190117232551) do
     t.decimal "par3_avg"
     t.decimal "par4_avg"
     t.decimal "par5_avg"
-    t.integer "easiest_hole"
-    t.integer "hardest_hole"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "count", default: 0
+    t.decimal "hcap_diff", default: "0.0"
+    t.bigint "easiest_hole_id"
+    t.bigint "hardest_hole_id"
   end
 
   create_table "user_hole_aggs", force: :cascade do |t|

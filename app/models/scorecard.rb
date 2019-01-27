@@ -23,7 +23,7 @@ class Scorecard < ApplicationRecord
   after_save :check_for_last_scorecard
 
   def self.for_user_round(user_id, round_id)
-    includes(:user_scores).where(user_id: user_id, tournament_round_id: round_id).first
+    includes({new_course: :holes}, :user_scores).where(user_id: user_id, tournament_round_id: round_id).first
   end
 
   def self.adding_total_score
@@ -71,6 +71,61 @@ class Scorecard < ApplicationRecord
     end
   end
 
+  #
+  # AGGS
+  #
+  def self.hole_averages(user_id, course_id, hole_id)
+    joins(user_scores: :hole)
+    .where(user_scores: { hole_id: hole_id }, new_course_id: course_id, user_id: user_id)
+    .select("AVG(net) AS net_avg,
+      AVG(score) AS gross_avg,
+      COUNT(scorecards.id) AS count,
+      AVG(putts) AS putts_avg,
+      AVG(CASE WHEN putts > 2 THEN 1 ELSE 0 END) AS three_putts_avg,
+      AVG(CASE WHEN score = holes.par
+        AND putts > 1 THEN 1 ELSE 0 END) AS greens_in_reg")
+  end
+
+  def self.user_course_averages(user_id, course_id)
+    joins(:new_course)
+    .where(new_course_id: course_id, user_id: user_id)
+    .select("AVG(total_score) AS gross_avg,
+      COUNT(scorecards.id) AS count,
+      AVG(total_putts) AS putts_avg,
+      AVG(total_net) AS net_avg,
+      AVG(total_3putts) AS three_putts_avg")
+  end
+
+  def self.course_averages(course_id)
+    joins(:new_course)
+    .where(new_course_id: course_id)
+    .select("AVG(total_score) AS gross_avg,
+      AVG(total_putts) AS putts_avg,
+      AVG(total_net) AS net_avg,
+      AVG(total_3putts) AS three_putts_avg")
+  end
+
+  def self.lowest_round
+    where(finished: true).order(total_net: :asc).first
+  end
+
+  def self.user_hcap_diff
+    joins(:new_course)
+    .select("ROUND(AVG((scorecards.total_net::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff,
+     ROUND(AVG(scorecards.handicap::decimal), 2) AS hcap_avg")
+  end
+
+  def self.round_averages
+    joins(:new_course)
+    .select("ROUND(AVG(total_score), 2) AS gross_avg,
+      ROUND(AVG(total_putts), 2) AS putts_avg,
+      ROUND(AVG(total_net), 2) AS net_avg,
+      ROUND(AVG(total_3putts), 2) AS three_putts_avg,
+      ROUND(AVG((scorecards.total_net::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff,
+      ROUND(AVG(scorecards.handicap::decimal), 2) AS hcap_avg")
+
+  end
+#----> NEEDS REFACTORING OR REMOVAL
   def self.user_skins(tournament_id, user)
     joins(:user_scores, :tournament_round)
     .where('user_scores.net_skin = ? AND tournament_rounds.tournament_id = ?', true, tournament_id)

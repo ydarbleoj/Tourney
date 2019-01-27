@@ -9,17 +9,12 @@ class RoundAgg < ApplicationRecord
   has_many :user_scores, through: :scorecards
 
   def scorecard_avgs
-    scorecards
-    .select("AVG(scorecards.total_net) AS net_avg,
-      AVG(scorecards.total_score) AS gross_avg,
-      COUNT(scorecards.id) AS count,
-      AVG(scorecards.total_putts) AS putts_avg,
-      AVG(scorecards.total_3putts) AS three_putts_avg")[0].attributes
+    scorecards.round_averages
   end
 
   def hole_par_avgs
-    user_scores.joins(:hole)
-    .group('holes.par').average(:net)
+    user_scores
+    .group(:par).average(:net)
   end
 
   def hole_difficulty

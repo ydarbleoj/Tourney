@@ -2,6 +2,10 @@ class UserCourseAgg < ApplicationRecord
   belongs_to :user
   belongs_to :new_course
 
+  has_one :user_agg, through: :user
+  has_one :easiest_hole, class_name: 'UserHoleAgg', primary_key: :easiest_hole_id, foreign_key: :id
+  has_one :hardest_hole, class_name: 'UserHoleAgg', primary_key: :hardest_hole_id, foreign_key: :id
+  has_many :holes, through: :new_course
   has_many :tournament_rounds, through: :new_course
   has_many :user_hole_aggs
   has_many :scorecards, through: :user
@@ -12,16 +16,6 @@ class UserCourseAgg < ApplicationRecord
     where(new_course_id: course_id).first
   end
 
-  def scorecard_averages(course_id)
-    scorecards
-    .where(new_course_id: course_id)
-    .select("AVG(total_score) AS gross_avg,
-      COUNT(scorecards.id) AS count,
-      AVG(total_putts) AS putts_avg,
-      AVG(total_net) AS net_avg,
-      AVG(total_3putts) AS three_putts_avg")
-  end
-
   def hole_par_avgs
     user_hole_aggs
     .group(:par).average(:net_avg)
@@ -29,7 +23,7 @@ class UserCourseAgg < ApplicationRecord
 
   def hole_difficulty
     user_hole_aggs.joins(:hole)
-    .select('user_hole_aggs.par, holes.number, holes.handicap, net_avg, (net_avg::decimal - user_hole_aggs.par) AS hole_diff')
+    .select('user_hole_aggs.id AS agg_id, (net_avg::decimal - user_hole_aggs.par) AS hole_diff')
     .order('hole_diff DESC')
   end
 end
