@@ -1,5 +1,5 @@
 class TournamentUsersSerializer
-  incldue FastJsonapi::ObjectSerializer
+  include FastJsonapi::ObjectSerializer
   set_type :tournament_user
   set_id :id
 
