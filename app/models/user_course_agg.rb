@@ -5,6 +5,8 @@ class UserCourseAgg < ApplicationRecord
   has_one :user_agg, through: :user
   has_one :easiest_hole, class_name: 'UserHoleAgg', primary_key: :easiest_hole_id, foreign_key: :id
   has_one :hardest_hole, class_name: 'UserHoleAgg', primary_key: :hardest_hole_id, foreign_key: :id
+  has_one :lowest_round, class_name: 'Scorecard', primary_key: :lowest_round_id, foreign_key: :id
+
   has_many :holes, through: :new_course
   has_many :tournament_rounds, through: :new_course
   has_many :user_hole_aggs
@@ -14,6 +16,10 @@ class UserCourseAgg < ApplicationRecord
 
   def self.overall(course_id)
     where(new_course_id: course_id).first
+  end
+
+  def lowest_round
+    scorecards.lowest_round
   end
 
   def hole_par_avgs

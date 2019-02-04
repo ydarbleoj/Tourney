@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190127014802) do
+ActiveRecord::Schema.define(version: 20190130022541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20190127014802) do
     t.bigint "easiest_hole_id"
     t.bigint "hardest_hole_id"
     t.bigint "lowest_round_id"
+    t.decimal "hcap_diff", precision: 3, scale: 1, default: "0.0", null: false
   end
 
   create_table "courses", force: :cascade do |t|
@@ -472,6 +473,7 @@ ActiveRecord::Schema.define(version: 20190127014802) do
     t.decimal "hcap_diff", default: "0.0"
     t.bigint "easiest_hole_id"
     t.bigint "hardest_hole_id"
+    t.bigint "lowest_round_id"
   end
 
   create_table "user_hole_aggs", force: :cascade do |t|

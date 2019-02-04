@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :putting_moneys
   has_many :team_moneys
 
+  has_one :user_agg
   has_many :user_hole_aggs
   has_many :user_course_aggs
 

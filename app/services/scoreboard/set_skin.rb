@@ -62,17 +62,17 @@ module Scoreboard
     end
 
     def current_user_win
-      user_score.update(type.to_sym => true)
+      user_score.update_columns(type.to_sym => true)
       scorecard.update_skins(type)
     end
 
     def remove_skin
-      current_skin.update(type.to_sym => false)
+      current_skin.update_columns(type.to_sym => false)
       current_skin.scorecard.update_skins(type)
     end
 
     def lowest_score_win
-      lowest_scores.first.update(type.to_sym => true)
+      lowest_scores.first.update_columns(type.to_sym => true)
       lowest_scores.first.scorecard.update_skins(type)
     end
   end

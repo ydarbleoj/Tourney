@@ -9,7 +9,7 @@ module Admins
     has_many :holes, through: :new_course, serializer: HoleSerializer
 
     attributes :total_score, :total_putts, :total_3putts, :new_course_id, :user_id, :tournament_round_id,
-      :total_net, :round_num, :handicap, :finished
+      :total_net, :round_num, :handicap, :finished, :id
 
     attribute :out_net do |obj|
       obj.user_scores.select { |x| x if x.number < 10 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
@@ -50,16 +50,18 @@ module Admins
       holes = object.new_course.holes.sort_by(&:number)
       scores = object.user_scores.sort_by(&:number)
 
-      (0..17).map do |num|
+      [holes, scores].flatten.group_by { |x| x.number }.map do |num, arr|
+        hole = arr.select { |x| x if x.is_a?(Hole) }.map {|xx| xx}[0]
+        score = arr.select { |x| x if x.is_a?(UserScore) }.map {|xx| xx}[0]
         {
-          number: (num + 1),
-          par: holes[num].par,
-          handicap: holes[num].handicap,
-          score: scores[num].blank? ? nil : scores[num].score,
-          net: scores[num].blank? ? nil : scores[num].net,
-          putts: scores[num].blank? ? nil : scores[num].putts,
-          hole_id: holes[num].id,
-          user_score_id: scores[num].blank? ? nil : scores[num].id
+          number: num,
+          par: hole.par,
+          handicap: hole.handicap,
+          score: score.blank? ? nil : score.score,
+          net: score.blank? ? nil : score.net,
+          putts: score.blank? ? nil : score.putts,
+          hole_id: hole.id,
+          user_score_id: score.blank? ? nil : score.id
         }
       end
 

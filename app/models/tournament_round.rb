@@ -29,7 +29,10 @@ class TournamentRound < ApplicationRecord
   end
 
   def self.course_data(tr_id)
-    includes(:course_aggs, :round_aggs, :user_course_aggs).find(tr_id)
+    includes({
+      course_aggs: [{ easiest_hole: :hole, hardest_hole: :hole, lowest_round: :user }],
+      round_aggs: [ :easiest_hole, :hardest_hole, { scorecards: :user_scores, lowest_round: :user }],
+    }).find(tr_id)
   end
 
 

@@ -33,7 +33,9 @@ module Scoreboard
     end
 
     def total_score(scorecard)
-      if scorecard.finished
+      p "SCOF"
+      p scorecard
+      if scorecard.finished && !scorecard.dnf
         scorecard.total_net - scorecard.new_course.par
       else
         par_so_far = scorecard.user_scores.map { |x| x.hole.par }.inject(0, :+)

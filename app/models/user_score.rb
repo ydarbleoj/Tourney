@@ -1,4 +1,5 @@
 class UserScore < ApplicationRecord
+  attr_accessor :finished
   belongs_to :scorecard, touch: true
   belongs_to :hole
   has_one :user, through: :scorecard
@@ -21,7 +22,6 @@ class UserScore < ApplicationRecord
     return if score.blank?
     handicap  = scorecard.handicap
     hole_hcap = hole.handicap
-
     if handicap < 19
       self.net = handicap >= hole_hcap ? score - 1 : score
     else

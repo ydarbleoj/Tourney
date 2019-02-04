@@ -9,7 +9,7 @@ class Position
   end
 
   def initialize(objects, field)
-   p @objects = objects.sort_by { |x| x.send(field) }
+    @objects = objects
     @field   = field.to_sym
   end
 
@@ -24,6 +24,7 @@ class Position
 
   def call
     return false if @objects.blank?
+    @objects = @objects.sort_by { |x| x.send(@field) }
     grouped = @objects.group_by { |x| x[@field] }.map { |x| x[1] }
     set_position(grouped)
   rescue StandardError => e
@@ -48,8 +49,8 @@ class Position
 
   def total_skins
     @objects.each do |lb|
-      total = lb.scorecards.map { |x| x.net_skin_total }.reduce(:+)
-      lb.total_skins = total
+      total = lb.scorecards.map { |x| x.net_skin_total if x.net_skin_total.present? }.compact.reduce(:+)
+      lb.total_skins = total ||= 0
     end
   end
 

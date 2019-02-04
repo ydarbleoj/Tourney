@@ -15,15 +15,15 @@ module Scoreboard
     end
 
     attribute :rnd1_score do |object|
-      object.scorecards.first.total_net if object.scorecards.first.present?
+      object.scorecards.select { |x| x if x.round_num == 1 }.map { |xx| xx.total_net }[0]  if object.scorecards.first.present?
     end
 
     attribute :rnd2_score do |object|
-      object.scorecards.second.total_net if object.scorecards.second.present?
+      object.scorecards.select { |x| x if x.round_num == 2 }.map { |xx| xx.total_net }[0] if object.scorecards.second.present?
     end
 
     attribute :rnd3_score do |object|
-      object.scorecards.third.total_net if object.scorecards.third.present?
+      object.scorecards.select { |x| x if x.round_num == 3 }.map { |xx| xx.total_net }[0] if object.scorecards.third.present?
     end
 
   end
