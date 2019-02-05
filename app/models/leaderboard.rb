@@ -46,7 +46,7 @@ class Leaderboard < ApplicationRecord
   def self.putting_money
     joins(:user)
     .order('leaderboards.total_putts asc')
-    .select("users.id AS user_id, leaderboards.total_3_putts, leaderboards.total_putts")
+    .select("user_id, total_3_putts, total_putts")
     .map do |lb|
       {
         user_id: lb.user_id,
@@ -57,14 +57,11 @@ class Leaderboard < ApplicationRecord
   end
 
   def self.stroke_money
-    joins(:user)
-    .order('leaderboards.total_score asc')
-    .select("users.id AS user_id, (users.first_name || ' ' || substring(users.last_name from 1 for 1)) AS username, leaderboards.handicap,
-      leaderboards.rnd1_score, leaderboards.rnd2_score, leaderboards.rnd3_score, leaderboards.net_total, leaderboards.total_score")
+    order('leaderboards.total_score asc')
+    .select("user_id, net_total, total_score")
     .map do |lb|
       {
         user_id: lb.user_id,
-        scores: [lb.rnd1_score, lb.rnd2_score, lb.rnd3_score].sort,
         net_total: lb.net_total,
         total_score: lb.total_score
       }

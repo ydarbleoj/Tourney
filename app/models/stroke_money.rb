@@ -68,3 +68,8 @@ class StrokeMoney < ApplicationRecord
   end
 
 end
+def run_all(id, num)
+ r1 = TournamentRound.includes({new_course: :holes}).where(tournament_id: id, round_number: num).first
+ r1_course = r1.new_course
+ r1.scorecards.each { |x| x.user_scores.each { |xx| xx.update(hole_id: r1_course.holes.where(number: xx.number).first.id) } }
+end

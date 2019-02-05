@@ -20,7 +20,7 @@ class Scorecard < ApplicationRecord
 
   accepts_nested_attributes_for :user_scores
 
-  # after_save :check_for_last_scorecard
+  after_save :check_for_last_scorecard
 
   def self.for_user_round(user_id, round_id)
     includes({new_course: :holes}, :user_scores).where(user_id: user_id, tournament_round_id: round_id).first
@@ -111,7 +111,7 @@ class Scorecard < ApplicationRecord
 
   def self.user_hcap_diff
     joins(:new_course)
-    .select("ROUND(AVG((scorecards.total_net::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff,
+    .select("ROUND(AVG((scorecards.total_score::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff,
      ROUND(AVG(scorecards.handicap::decimal), 2) AS hcap_avg")
   end
 
