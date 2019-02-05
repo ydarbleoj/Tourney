@@ -9,30 +9,47 @@ class Position
   end
 
   def initialize(objects, field)
-    @objects = objects
-    @field   = field.to_sym
+    @objects     = objects
+    @field       = field.to_sym
   end
 
   def skins_setter
     return false if @objects.blank?
     total_skins
     grouped = group_skins
-    set_position(grouped)
+    ordered_scores = set_position(grouped)
   rescue StandardError => e
     p "error #{e}"
   end
 
   def call
     return false if @objects.blank?
-    @objects = @objects.sort_by { |x| x.send(@field) }
-    grouped = @objects.group_by { |x| x[@field] }.map { |x| x[1] }
-    set_position(grouped)
+    group_dnf
+    grouped = group_by_field
+    p grouped.each { |x| p x }
+    ordered_scores = set_position(grouped)
+    ordered_scores.push(dnfs)
   rescue StandardError => e
     p "error #{e}"
   end
 
   private
-  attr_reader :skins
+  attr_reader :skins, :dnfs, :valid_group
+  def group_dnf
+    g = @objects.group_by { |x| x.dnf }.map { |x| x }
+    g.each do |x|
+      if x[0] == true
+        @dnfs = x[1].map { |x| x.position = 99 }
+      else
+        @valid_group = x[1]
+      end
+    end
+  end
+
+  def group_by_field
+    @valid_group.sort_by { |x| x.send(@field) }.group_by { |x| x[@field] }
+      .map { |x| x[1] }
+  end
 
   def set_position(groups)
     pos = 0

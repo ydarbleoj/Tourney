@@ -12,15 +12,18 @@ RSpec.describe Position do
     @leaderboard1 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user1.id, handicap: @user1.handicap, total_score: 0)
     @leaderboard2 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user2.id, handicap: @user2.handicap, total_score: 2)
     @leaderboard3 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user3.id, handicap: @user3.handicap, total_score: 2)
-    @leaderboard4 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user4.id, handicap: @user4.handicap, total_score: 7)
+    @leaderboard4 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user4.id, handicap: @user4.handicap, total_score: 7, dnf: true)
     @leaderboard5 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user5.id, handicap: @user5.handicap, total_score: 8)
     @leaderboard6 = create(:leaderboard, tournament_id: @tournament1.id, user_id: @user6.id, handicap: @user6.handicap, total_score: 10)
   end
 
   describe "setter" do
     it "should set the pos for each leaderboard" do
-      lbs = @tournament1.leaderboards.stroke
+      p lbs = Leaderboard.strokes(@tournament1.id)
       p res = Position.setter(lbs, :total_score)
+      res.each { |x| p x.position }
+
+      p @leaderboard4.position
     end
   end
 end

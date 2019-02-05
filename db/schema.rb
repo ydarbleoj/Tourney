@@ -141,13 +141,6 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "leaderboard_scorecards", force: :cascade do |t|
-    t.integer "leaderboard_id"
-    t.integer "scorecard_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "leaderboards", force: :cascade do |t|
     t.integer "total_score", default: 0
     t.integer "total_putts", default: 0
@@ -158,6 +151,7 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
+    t.integer "rn1_3putts", default: 0
     t.boolean "dnf", default: false
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
@@ -502,8 +496,6 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.boolean "net_skin", default: false
     t.integer "hole_id"
     t.integer "number", default: 1
-    t.integer "handicap"
-    t.integer "par"
     t.index ["scorecard_id"], name: "index_user_scores_on_scorecard_id"
   end
 

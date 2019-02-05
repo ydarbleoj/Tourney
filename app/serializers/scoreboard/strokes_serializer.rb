@@ -3,7 +3,7 @@ module Scoreboard
     include FastJsonapi::ObjectSerializer
     set_type :leaderboard
     set_id :id
-    attributes :total_score, :total_putts, :total_3_putts, :net_total, :handicap, :tournament_id, :position, :user_id,
+    attributes :total_score, :total_putts, :total_3_putts, :net_total, :handicap, :tournament_id, :user_id,
       :rnd1_gnr, :rnd2_gnr, :rnd3_gnr
 
     belongs_to :tournament
@@ -24,6 +24,10 @@ module Scoreboard
 
     attribute :rnd3_score do |object|
       object.scorecards.select { |x| x if x.round_num == 3 }.map { |xx| xx.total_net }[0] if object.scorecards.third.present?
+    end
+
+    attribute :position do |object|
+      object.position == 99 ? 'DNF' : object.position
     end
 
   end

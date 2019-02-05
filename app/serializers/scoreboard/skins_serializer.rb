@@ -1,7 +1,7 @@
 module Scoreboard
   class SkinsSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :handicap, :tournament_id, :position, :user_id, :total_skins, :skins_money
+    attributes :handicap, :tournament_id, :user_id, :position, :total_skins, :skins_money
     set_type :leaderboard
     set_id :id
 

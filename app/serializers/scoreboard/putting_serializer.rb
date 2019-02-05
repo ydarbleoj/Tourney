@@ -7,10 +7,14 @@ module Scoreboard
     belongs_to :user, serializer: UserSerializer
     has_many :scorecards, serializer: Scorecards::PuttingSerializer
 
-    attributes :total_putts, :total_3_putts, :handicap, :tournament_id, :position, :user_id
+    attributes :total_putts, :total_3_putts, :handicap, :tournament_id, :user_id
 
     attribute :username do |object|
       "#{object.user.first_name} #{object.user.last_name}"
+    end
+
+    attribute :position do |object|
+      object.position == 99 ? 'DNF' : object.position
     end
 
     attribute :rnd1_putts do |object|

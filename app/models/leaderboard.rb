@@ -24,13 +24,13 @@ class Leaderboard < ApplicationRecord
   def self.strokes(tournament_id)
     includes({ scorecards: :user_scores }, :user)
     .where(tournament_id: tournament_id)
-    .order('leaderboards.total_score asc')
+    .order('leaderboards.dnf asc, leaderboards.total_score asc')
   end
 
   def self.putting(tournament_id)
     includes(:scorecards, :user)
     .where(tournament_id: tournament_id)
-    .order('leaderboards.total_putts asc')
+    .order('leaderboards.dnf asc, leaderboards.total_putts asc')
   end
 
   def self.skins(tournament_id)
