@@ -16,10 +16,8 @@ module Aggs
       holes = hole_avgs
       lr    = lowest_round
       diff  = hole_diff
-      p diff  = diff.merge(lr)
+      diff  = diff.merge(lr)
       stats = avgs.merge(holes.merge(diff).compact)
-      p 'STATS'
-      p stats
       ActiveRecord::Base.transaction do
         round.update(stats.compact)
       end
@@ -38,7 +36,6 @@ module Aggs
 
     def hole_avgs
       h = {}
-      p 'hole_avgs'
       res = round.hole_par_avgs
       h['par3_avg'] = '%.2f' % res[3] ||= 0
       h['par4_avg'] = '%.2f' % res[4] ||= 0
@@ -47,8 +44,7 @@ module Aggs
     end
 
     def lowest_round
-      p 'lowest_round'
-p      h = round.lowest_round
+      h = round.lowest_round
       h.blank? ? {} : { lowest_round_id: h.id }
     end
 
@@ -56,7 +52,6 @@ p      h = round.lowest_round
       res = round.hole_difficulty
       return {} if res[0]['hole_diff'].blank?
       h = {}
-      p 'hole_difficulty'
       h['easiest_hole_id'] = res[-1]['hole_id']
       h['hardest_hole_id'] = res[0]['hole_id']
       h

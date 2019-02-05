@@ -20,7 +20,7 @@ class Scorecard < ApplicationRecord
 
   accepts_nested_attributes_for :user_scores
 
-  after_save :check_for_last_scorecard
+  # after_save :check_for_last_scorecard
 
   def self.for_user_round(user_id, round_id)
     includes({new_course: :holes}, :user_scores).where(user_id: user_id, tournament_round_id: round_id).first
