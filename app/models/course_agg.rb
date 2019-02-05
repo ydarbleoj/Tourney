@@ -22,8 +22,13 @@ class CourseAgg < ApplicationRecord
     .order('hole_diff DESC')
   end
 
-  def lowest_round
-    scorecards.lowest_round
+  def get_lowest_round
+    id = self.new_course_id
+    scorecards.lowest_round(id)
+  end
+
+  def calc_hcap_diff
+    scorecards.course_hcap_diff
   end
 
 end

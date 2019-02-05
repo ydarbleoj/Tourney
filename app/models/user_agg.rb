@@ -24,6 +24,6 @@ class UserAgg < ApplicationRecord
   end
 
   def lowest_round
-    scorecards.lowest_round
+    scorecards.total_lowest_round
   end
 end

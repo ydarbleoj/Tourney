@@ -76,7 +76,7 @@ class Scorecard < ApplicationRecord
   #
   def self.hole_averages(user_id, course_id, hole_id)
     joins(user_scores: :hole)
-    .where(user_scores: { hole_id: hole_id }, new_course_id: course_id, user_id: user_id)
+    .where(user_scores: { hole_id: hole_id }, new_course_id: course_id, user_id: user_id, dnf: false)
     .select("ROUND(AVG(net), 2) AS net_avg,
       ROUND(AVG(score), 2) AS gross_avg,
       COUNT(scorecards.id) AS count,
@@ -88,7 +88,7 @@ class Scorecard < ApplicationRecord
 
   def self.user_course_averages(user_id, course_id)
     joins(:new_course)
-    .where(new_course_id: course_id, user_id: user_id)
+    .where(new_course_id: course_id, user_id: user_id, dnf: false)
     .select("ROUND(AVG(total_score), 2) AS gross_avg,
       COUNT(scorecards.id) AS count,
       ROUND(AVG(total_putts), 2) AS putts_avg,
@@ -98,25 +98,45 @@ class Scorecard < ApplicationRecord
 
   def self.course_averages(course_id)
     joins(:new_course)
-    .where(new_course_id: course_id)
+    .where(new_course_id: course_id, dnf: false)
     .select("ROUND(AVG(total_score), 2) AS gross_avg,
       ROUND(AVG(total_putts), 2) AS putts_avg,
       ROUND(AVG(total_net), 2) AS net_avg,
       ROUND(AVG(total_3putts), 2) AS three_putts_avg")
   end
 
-  def self.lowest_round
-    completed.order(total_net: :asc).first
+  def self.lowest_round(course_id)
+    where(finished: true, dnf: false, new_course_id: course_id)
+    .order(total_net: :asc).first
+  end
+
+   def self.total_lowest_round
+    where(finished: true, dnf: false)
+    .order(total_net: :asc).first
+  end
+
+  def self.course_hcap_diff
+    joins(:new_course)
+    .where(dnf: false)
+    .select("ROUND(AVG((scorecards.total_score::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff")
+  end
+
+  def self.user_course_hcap_diff(course_id)
+    joins(:new_course)
+    .where(dnf: false, new_course_id: course_id)
+    .select("ROUND(AVG((scorecards.total_score::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff")
   end
 
   def self.user_hcap_diff
     joins(:new_course)
+    .where(dnf: false)
     .select("ROUND(AVG((scorecards.total_score::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff,
      ROUND(AVG(scorecards.handicap::decimal), 2) AS hcap_avg")
   end
 
   def self.round_averages
     joins(:new_course)
+    .where(dnf: false)
     .select("ROUND(AVG(total_score), 2) AS gross_avg,
       ROUND(AVG(total_putts), 2) AS putts_avg,
       ROUND(AVG(total_net), 2) AS net_avg,

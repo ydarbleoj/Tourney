@@ -12,12 +12,14 @@ module Aggs
 
     def call
       p "ROUND #{round_id}"
-      avgs  = card_avgs
-      holes = hole_avgs
-      lr    = lowest_round
-      diff  = hole_diff
-      diff  = diff.merge(lr)
-      stats = avgs.merge(holes.merge(diff).compact)
+      avgs   = card_avgs
+      holes  = hole_avgs
+      lr     = lowest_round
+      h_diff = get_hcap_diff
+      diff   = hole_diff
+      diff   = diff.merge(h_diff).compact
+      diff   = diff.merge(lr)
+      stats  = avgs.merge(holes.merge(diff).compact)
       ActiveRecord::Base.transaction do
         round.update(stats.compact)
       end
@@ -55,6 +57,10 @@ module Aggs
       h['easiest_hole_id'] = res[-1]['hole_id']
       h['hardest_hole_id'] = res[0]['hole_id']
       h
+    end
+
+    def get_hcap_diff
+      round.calc_hcap_diff[0].attributes.except('id')
     end
 
     def set_round

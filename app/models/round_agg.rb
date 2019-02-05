@@ -1,7 +1,7 @@
 class RoundAgg < ApplicationRecord
   belongs_to :tournament_round
 
-  has_one :new_course, through: :touranment_round
+  has_one :new_course, through: :tournament_round
   has_one :course_agg, through: :new_course
   has_one :tournament, through: :tournament_round
 
@@ -16,7 +16,7 @@ class RoundAgg < ApplicationRecord
   end
 
   def lowest_round
-    scorecards.lowest_round
+    scorecards.total_lowest_round
   end
 
   def hole_par_avgs
@@ -28,5 +28,9 @@ class RoundAgg < ApplicationRecord
     user_scores.joins(:hole)
     .select('holes.id AS hole_id, (net::decimal - holes.par) AS hole_diff')
     .order('hole_diff DESC')
+  end
+
+  def calc_hcap_diff
+    scorecards.course_hcap_diff
   end
 end

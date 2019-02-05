@@ -17,12 +17,15 @@ module Aggs
       @course    = user_id.blank? ? course_agg : user_course
     end
 
+    # this is getting fuggly
     def call
       avgs      = card_avgs(course_id)
       hole_avgs = hole_avgs(course)
       lr        = lowest_round
+      h_diff    = get_hcap_diff(course)
       diff      = hole_diff(course)
       diff      = diff.merge(lr)
+      diff      = diff.merge(h_diff)
       stats     = avgs.merge(hole_avgs.merge(diff))
 
       ActiveRecord::Base.transaction do
@@ -53,7 +56,7 @@ module Aggs
     end
 
     def lowest_round
-      h = course.lowest_round
+      h = course.get_lowest_round
       h.blank? ? {} : { lowest_round_id: h.id }
     end
 
@@ -64,6 +67,10 @@ module Aggs
       h['easiest_hole_id'] = res[-1]['agg_id']
       h['hardest_hole_id'] = res[0]['agg_id']
       h
+    end
+
+    def get_hcap_diff(course)
+      course.calc_hcap_diff[0].attributes.except('id')
     end
 
     def course_agg

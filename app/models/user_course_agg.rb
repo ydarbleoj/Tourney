@@ -18,8 +18,9 @@ class UserCourseAgg < ApplicationRecord
     where(new_course_id: course_id).first
   end
 
-  def lowest_round
-    scorecards.lowest_round
+  def get_lowest_round
+    id = self.new_course_id
+    scorecards.lowest_round(id)
   end
 
   def hole_par_avgs
@@ -31,5 +32,10 @@ class UserCourseAgg < ApplicationRecord
     user_hole_aggs.joins(:hole)
     .select('user_hole_aggs.id AS agg_id, (net_avg::decimal - user_hole_aggs.par) AS hole_diff')
     .order('hole_diff DESC')
+  end
+
+  def calc_hcap_diff
+    id = self.new_course_id
+    scorecards.user_course_hcap_diff(id)
   end
 end
