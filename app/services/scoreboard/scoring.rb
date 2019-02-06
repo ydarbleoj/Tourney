@@ -23,7 +23,7 @@ module Scoreboard
       end
       true
     rescue StandardError => e
-      p "error #{e}"
+      p "error  Scoreboard::Scoring #{e}"
       false
     end
 

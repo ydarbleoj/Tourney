@@ -15,7 +15,7 @@ module Scoreboard
         leaderboard.update(totals)
       end
     rescue StandardError => e
-      p "error #{e}"
+      p "error Scoreboard::Updates #{e}"
     end
 
     private
@@ -33,8 +33,6 @@ module Scoreboard
     end
 
     def total_score(scorecard)
-      p "SCOF"
-      p scorecard
       if scorecard.finished && !scorecard.dnf
         scorecard.total_net - scorecard.new_course.par
       else

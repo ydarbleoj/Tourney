@@ -19,7 +19,7 @@ module Scoreboard
       sum_team_scores
       build_team_score
     rescue StandardError => e
-      p "error #{e}"
+      p "Scoreboard::TeamScoring #{e}"
     end
 
     private

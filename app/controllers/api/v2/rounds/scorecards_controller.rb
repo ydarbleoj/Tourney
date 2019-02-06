@@ -8,7 +8,7 @@ module API
           p @tournament_user
           if @tournament_user
             scorecard = Scorecard.for_user_round(current_user.id, params['tournament_round_id'])
-           p payload = RoundInfo::UserScorecardSerializer.new(scorecard).serialized_json
+            payload = RoundInfo::UserScorecardSerializer.new(scorecard).serialized_json
           else
             payload = {}
           end

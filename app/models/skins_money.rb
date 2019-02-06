@@ -33,7 +33,7 @@ class SkinsMoney < ApplicationRecord
   end
 
   def self.update_player_money(scorecard)
-    p 'THEN HETE'
+    p 'SkinsMoney'
     tournament = TournamentRound.find(scorecard.tournament_round_id).tournament
     round = set_round(scorecard.round_num)
     scorecards = TournamentRound.find(scorecard.tournament_round_id).scorecards.skins_total
