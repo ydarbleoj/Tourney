@@ -42,8 +42,8 @@ class SkinsMoney < ApplicationRecord
     money = ((tournament.num_players * 10) / total_skins).round(2)
 
     scorecards.each do |sc|
-      skins_money = SkinsMoney.where(user_id: sc[:user_id], tournament_id: tournament.id)
-        .first.update(round.to_sym => (money * sc[:total]))
+      sm = SkinsMoney.where(user_id: sc[:user_id], tournament_id: tournament.id).first
+      sm.update(round.to_sym => (money * sc[:total]))
     end
   end
 
