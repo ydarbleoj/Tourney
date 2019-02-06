@@ -28,15 +28,20 @@ module API
           end
 
           def destroy
-            p params
             leaderboard = Leaderboard.find(params['id'])
+            tournament_id = leaderboard.tournament_id
             user = leaderboard.user
+
             ActiveRecord::Base.transaction do
               TournamentUser.where(tournament_id: @tournament.id, user_id: user.id).first.delete
-              leaderboard.destroy
+              SkinsMoney.where(user_id: user.id, tournament_id: tournament_id).first.delete
+              PuttingMoney.where(user_id: user.id, tournament_id: tournament_id).first.delete
+              StrokeMoney.where(user_id: user.id, tournament_id: tournament_id).first.delete
+              TeamMoney.where(user_id: user.id, tournament_id: tournament_id).first.delete
+              leaderboard.scorecards.delete_all
+              leaderboard.delete
             end
-            true
-            render json: { success: true }
+            render json: { success: true, id: user.id }
           rescue StandardError => e
             p "error #{e.message}"
             render json: { success: false }
