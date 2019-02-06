@@ -6,5 +6,13 @@ class TeeTimeSerializer
   belongs_to :user
   belongs_to :team_scorecard, serializer: Scoreboard::TeamSerializer
 
-  attributes :tee_time, :group, :user_id
+  attributes :group, :user_id, :team_scorecard_id
+
+  attribute :round_number do |object|
+    object.tournament_round.round_number
+  end
+
+  attribute :tee_time do |object|
+    object.tee_time.strftime("%I:%M")
+  end
 end
