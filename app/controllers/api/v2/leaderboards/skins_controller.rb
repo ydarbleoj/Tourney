@@ -12,9 +12,8 @@ module API
           else
             options = {}
             p "rething this -- I don't think it's being used"
-            options[:include] = [:scorecards, :'scorecards.user_scores', :skins_money, :user]
 
-            payload = Scoreboard::SkinsSerializer.new(@leaderboards, options).serializable_hash
+            payload = Scoreboard::SkinsSerializer.new(@leaderboards).serializable_hash
           end
           render json: payload
         end
