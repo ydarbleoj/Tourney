@@ -1,5 +1,5 @@
 class Leaderboard < ApplicationRecord
-  attr_accessor :position, :rnd1_gnr, :rnd2_gnr, :rnd3_gnr, :total_skins
+  attr_accessor :position, :rnd1_gnr, :rnd2_gnr, :rnd3_gnr, :total_skins, :purse
 	belongs_to :tournament
 	belongs_to :user
 
@@ -46,25 +46,9 @@ class Leaderboard < ApplicationRecord
   def self.putting_money
     joins(:user)
     .order('leaderboards.total_putts asc')
-    .select("user_id, total_3_putts, total_putts")
-    .map do |lb|
-      {
-        user_id: lb.user_id,
-        total_3_putts: lb.total_3_putts,
-        total_putts: lb.total_putts,
-      }
-    end
   end
 
   def self.stroke_money
     order('leaderboards.total_score asc')
-    .select("user_id, net_total, total_score")
-    .map do |lb|
-      {
-        user_id: lb.user_id,
-        net_total: lb.net_total,
-        total_score: lb.total_score
-      }
-    end
   end
 end

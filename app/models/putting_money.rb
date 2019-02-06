@@ -11,37 +11,25 @@ class PuttingMoney < ApplicationRecord
   end
 
   def self.set_position(scores)
-    new_payload = []
-    payload = scores.group_by { |x| x[:total_putts] }.sort.map { |x| x[1] }
-    pos = 0
-    payload.each do |x|
-      pos = pos == 0 ? 1 : pos
-
-      if pos == 1 && x.length > 1
-        new_payload << x.sort_by { |x| x[:total_3_putts] }
-          .map { |x| x.merge({pos: pos}) }
-      else
-        new_payload << x.map { |x| x.merge({pos: pos}) }
-      end
-
-      pos += x.length
-    end
-    new_payload.flatten(1)
+    Position.setter(scores, :total_putts)
+    scores
   end
 
   def self.set_money(players, tournament)
     purse = players.inject(0) { |sum, hash| sum + hash[:total_3_putts] }
-    first_player = players.shift
+    first_player = players.first
 
     winner(first_player, tournament, purse)
 
     players.each do |x|
-      PuttingMoney.where(tournament_id: tournament.id, user_id: x[:user_id]).update(position: x[:pos], money: 0)
+      pm = PuttingMoney.where(tournament_id: tournament.id, user_id: x.user_id).first_or_create
+      pm.update(position: x.position, money: 0)
     end
   end
 
   def self.winner(player, tourn, purse)
     p 'winner'
-    PuttingMoney.where(tournament_id: tourn.id, user_id: player[:user_id]).first.update(position: player[:pos], money: purse)
+    pm = PuttingMoney.where(tournament_id: tourn.id, user_id: player.id).first_or_create
+    pm.update(position: player.position, money: purse)
   end
 end

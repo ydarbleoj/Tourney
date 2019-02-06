@@ -7,55 +7,46 @@ class StrokeMoney < ApplicationRecord
 
     scores = tournament.leaderboards.stroke_money
     players = set_position(scores)
-
+    players = set_purse(players)
     set_money(players, tournament)
   end
 
   def self.set_position(scores)
-    new_payload = []
-    payload = scores.group_by { |x| x[:total_score] }.sort.map { |x| x[1] }
-    pos = 0
+    Position.setter(scores, :total_score)
+    scores
+  end
 
-    payload.each do |x|
-      pos = pos == 0 ? 1 : pos
-
-      if x.length > 1
-        new_payload << x.sort_by { |y| [y[:scores][0], y[:scores][1], y[:scores][2]] }
-          .map.with_index { |z, i| z.merge({pos: pos, money: purse(pos, x.length, i)}) }
-      else
-        new_payload << x.map.with_index { |z, i| z.merge({ pos: pos, money: purse(pos, x.length, i)}) }
-      end
-      pos += x.length
+  def self.set_purse(players)
+    sc = players.group_by { |x| x.position }.map { |x| x }
+    sc.map do |group|
+      group[1].map { |xx| xx.purse = purse(group[0], group.length) }
     end
-    new_payload.flatten(1)
+    players
   end
 
   def self.set_money(players, tournament)
     StrokeMoney.transaction do
       players.each do |x|
-        if tournament.stroke_moneys.where(user_id: x[:user_id]).exists?
-          tournament.stroke_moneys.where(user_id: x[:user_id]).update(money: x[:money], position: x[:pos])
-        else
-          tournament.stroke_moneys.create(user_id: x[:user_id], money: x[:money], position: x[:pos])
-        end
+        sm = StrokeMoney.where(tournament_id: tournament.id, user_id: x.user_id).first_or_create
+        sm.update(money: x.purse, position: x.position)
       end
     end
   end
 
-  def self.purse(pos, group_length, i)
+  def self.purse(pos, group_length)
     case pos
     when 1
-      if i == 0
+      if group_length == 1
         (@purse * 0.5625)
       else
         if group_length == 2
-          (@purse * 0.25)
+          (@purse * 0.40625)
         else
-          (@purse * 0.4375) / (group_length - 1)
+          (@purse * 1) / (group_length - 1)
         end
       end
     when 2
-      if i == 0 && group_length == 1
+      if group_length == 1
         (@purse * 0.25)
       else
         (@purse * 0.4375) / group_length
