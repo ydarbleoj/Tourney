@@ -12,13 +12,11 @@ module RoundInfo
       :total_net, :round_num, :handicap, :finished, :id
 
     attribute :out_net do |obj|
-      p 'out_net'
-      obj.user_scores.select { |x|p x if x.number < 10 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
+      obj.user_scores.select { |x| x if x.number < 10 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
     end
 
     attribute :in_net do |obj|
-      p 'in net'
-      obj.user_scores.select { |x| p x if x.number > 9 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
+      obj.user_scores.select { |x| x if x.number > 9 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
     end
 
     attribute :out_gross do |obj|

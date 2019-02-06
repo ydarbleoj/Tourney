@@ -36,6 +36,11 @@ class Position
   private
   attr_reader :skins, :dnfs, :valid_group
   def group_dnf
+    if @objects[0].instance_of? TeamScorecard
+      @valid_group = @objects
+      return
+    end
+
     g = @objects.group_by { |x| x.dnf }.map { |x| x }
     g.each do |x|
       if x[0] == true
