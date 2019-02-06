@@ -39,7 +39,7 @@ class SkinsMoney < ApplicationRecord
     scorecards = TournamentRound.find(scorecard.tournament_round_id).scorecards.skins_total
 
     total_skins = scorecards.inject(0) { |sum, total| sum + total[:total] }
-    money = ((tournament.num_players * 10) / total_skins).round(2)
+    money = total_skins == 0 ? 0 : ((tournament.num_players * 10) / total_skins).round(2)
 
     scorecards.each do |sc|
       sm = SkinsMoney.where(user_id: sc[:user_id], tournament_id: tournament.id).first_or_create

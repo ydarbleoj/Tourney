@@ -16,7 +16,6 @@ module API
 
           def create
             res = TeeTime.bulk_set(params['tee_time'])
-            p params
           end
 
           private

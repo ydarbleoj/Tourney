@@ -7,7 +7,6 @@ module API
         before_action :set_positions
 
         def index
-
           if params[:preview] == "true"
             payload = Scoreboard::StrokesPreviewSerializer.new(@leaderboards).serialized_json
           else

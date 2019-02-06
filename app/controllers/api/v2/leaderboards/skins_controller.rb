@@ -10,9 +10,6 @@ module API
           if params[:preview] == "true"
             payload = Scoreboard::SkinsPreviewSerializer.new(@leaderboards).serialized_json
           else
-            options = {}
-            p "rething this -- I don't think it's being used"
-
             payload = Scoreboard::SkinsSerializer.new(@leaderboards).serializable_hash
           end
           render json: payload
