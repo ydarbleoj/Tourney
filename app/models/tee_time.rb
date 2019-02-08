@@ -15,6 +15,7 @@ class TeeTime < ApplicationRecord
   end
 
   def self.bulk_set(params)
+    p 'hitt'
     p params
     @card_id  = params['id']
     @tee_time = params['group_time']
@@ -23,10 +24,9 @@ class TeeTime < ApplicationRecord
 
     params['players'].each do |x|
       user = x['attributes'].blank? ? x : x['attributes']
-      p x
-      p user
+      p x['id']
       if user['tee_time_id'].blank?
-        _create(user['user_id'])
+        _create(x['id'])
       else
         _update(user['tee_time_id'])
       end
