@@ -34,7 +34,4 @@ class TournamentRound < ApplicationRecord
       round_aggs: [ :easiest_hole, :hardest_hole, { scorecards: :user_scores, lowest_round: :user }],
     }).find(tr_id)
   end
-
-
 end
-

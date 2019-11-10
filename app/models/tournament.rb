@@ -49,7 +49,4 @@ class Tournament < ApplicationRecord
     joins(:users).where(name: name)
     .select('users.id AS id, users.email AS user_email, users.username AS username').uniq.as_json
   end
-
-
-
 end

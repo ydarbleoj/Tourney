@@ -15,12 +15,10 @@ class TeeTime < ApplicationRecord
   end
 
   def self.bulk_set(params)
-    p 'hitt'
-    p params
     @card_id  = params['id']
     @tee_time = params['group_time']
     @tr_id    = params['tournament_round_id']
-    p @group    = params['group']
+    @group    = params['group']
 
     params['players'].each do |x|
       user = x['attributes'].blank? ? x : x['attributes']
