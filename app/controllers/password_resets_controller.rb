@@ -14,7 +14,7 @@ class PasswordResetsController < ApplicationController
 
       render json: 'Email has been sent'
     else
-      render json: 'Email address not found.', status: "404"
+      render json: 'Email address not found.', status: 400
     end
   end
 
