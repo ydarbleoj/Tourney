@@ -2,10 +2,17 @@ Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :courses
-  resources :users, only: [:index, :show, :edit, :update]
-  resources :user_statistics
-  resources :password_resets,     only: [:new, :create, :edit, :update]
 
+  resources :users, only: [:index, :show, :edit, :update]
+
+  resources :user_statistics
+
+  resources :password_resets, only: [:create] do
+    collection do
+      get ':token', action: :edit, as: :edit
+      patch ':token', action: :update
+    end
+  end
 
   namespace :api do
     namespace :v2 do

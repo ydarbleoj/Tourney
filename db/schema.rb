@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190130022541) do
+ActiveRecord::Schema.define(version: 20200112010023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,13 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leaderboard_scorecards", force: :cascade do |t|
+    t.integer "leaderboard_id"
+    t.integer "scorecard_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "leaderboards", force: :cascade do |t|
     t.integer "total_score", default: 0
     t.integer "total_putts", default: 0
@@ -151,7 +158,6 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.bigint "tournament_id"
     t.bigint "user_id"
     t.integer "handicap", default: 0
-    t.integer "rn1_3putts", default: 0
     t.boolean "dnf", default: false
     t.index ["tournament_id"], name: "index_leaderboards_on_tournament_id"
     t.index ["user_id"], name: "index_leaderboards_on_user_id"
@@ -496,6 +502,8 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.boolean "net_skin", default: false
     t.integer "hole_id"
     t.integer "number", default: 1
+    t.integer "handicap"
+    t.integer "par"
     t.index ["scorecard_id"], name: "index_user_scores_on_scorecard_id"
   end
 
@@ -520,7 +528,10 @@ ActiveRecord::Schema.define(version: 20190130022541) do
     t.string "last_name"
     t.string "password_digest"
     t.string "reset_digest"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
   add_foreign_key "holes", "new_courses"

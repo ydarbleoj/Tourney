@@ -1,12 +1,9 @@
 class ApplicationController < ActionController::API
   include Knock::Authenticable
-  # before_action :test_params
 
+  rescue_from ResetPasswordError, with: :not_authorized
 
-  def test_params
-    p "APP CON"
-    p params
-    p current_user
+  def not_authorized
+    render json: { error: 'Not authorized' }, status: :unauthorized
   end
-  private
 end

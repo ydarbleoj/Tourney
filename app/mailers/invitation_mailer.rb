@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
+require "sendgrid-ruby"
+
 class InvitationMailer < ApplicationMailer
+  include SendGrid
+
   def invite(invitation)
     @invitation = invitation
     mail(
