@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scoreboard
   class Scoring
 
@@ -28,6 +30,7 @@ module Scoreboard
     end
 
     private
+
     attr_reader :user_score, :scorecard, :tournament_round, :user, :course_agg, :hole
 
     def update_leaderboard

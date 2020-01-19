@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Scoreboard
   class SetSkin
-
     def self.call(user_score, type)
       new(user_score, type).call
     end
@@ -23,6 +24,7 @@ module Scoreboard
     end
 
     private
+
     attr_reader :user_score, :scorecard, :round, :current_skin, :scores, :lowest_scores, :type
 
     def hole_scores

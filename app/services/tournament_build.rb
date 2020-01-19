@@ -1,5 +1,4 @@
 class TournamentBuild
-
   def initialize(name, emails)
     @tournament = Tournament.create(
       name: 'Bandon', year: 2018, num_players: 15,

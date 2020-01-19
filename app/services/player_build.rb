@@ -26,6 +26,7 @@ class PlayerBuild
   end
 
   private
+
   def add_user
     TournamentUser.create(tournament_id: @tournament.id, user_id: @user.id, role: @role)
   end

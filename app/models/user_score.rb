@@ -35,5 +35,4 @@ class UserScore < ApplicationRecord
     where(number: number)
     .select("user_scores.id AS id, #{type} AS skin, #{score} AS score, scorecard_id, number, putts, hole_id, par")
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InvitationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:accept, :accepted], raise: false
   before_action :current_tournament
@@ -6,12 +8,10 @@ class InvitationsController < ApplicationController
     @invited = @tournament.invitations
 
     @accpeted = @tournament.invitations.where(accepted: true)
-
   end
 
   def new
     @invitation = Invitation.new
-
   end
 
   def create
@@ -24,9 +24,8 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    p 'accpet'
-    p store_location_for(:user, request.fullpath)
-    p @invitation = Invitation.find_by!(token: params[:id])
+    store_location_for(:user, request.fullpath)
+    @invitation = Invitation.find_by!(token: params[:id])
   end
 
   def accepted
@@ -34,11 +33,9 @@ class InvitationsController < ApplicationController
     @user = User.where(email: @invitation.email).first
 
     if @user.present?
-      p "current_user"
       @invitation.update(accepted: true)
       @tournament.leaderboards.create(user_id: @user.id)
       TournamentUser.create(tournament_id: @invitation.tournament_id, user_id: @user.id)
-
 
       sign_in(@user)
     else
@@ -50,17 +47,17 @@ class InvitationsController < ApplicationController
         :password_confirmation
       )
 
-
-      p user = User.create!(user_params)
-     p @invitation.update(accepted: true)
+      user = User.create!(user_params)
+      @invitation.update(accepted: true)
       @tournament.leaderboards.create(user_id: user.id)
+
       TournamentUser.create(tournament_id: @invitation.tournament_id, user_id: user.id)
 
       sign_in(user)
     end
 
-
     flash[:notice] = "You now have access to #{@tournament.name} : #{@tournament.year}"
+
     redirect_to user_path
   end
 

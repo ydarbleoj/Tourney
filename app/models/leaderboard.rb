@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Leaderboard < ApplicationRecord
   attr_accessor :position, :rnd1_gnr, :rnd2_gnr, :rnd3_gnr, :total_skins, :purse
+
 	belongs_to :tournament
 	belongs_to :user
 
@@ -23,29 +26,29 @@ class Leaderboard < ApplicationRecord
 
   def self.strokes(tournament_id)
     includes({ scorecards: :user_scores }, :user)
-    .where(tournament_id: tournament_id)
-    .order('leaderboards.dnf asc, leaderboards.total_score asc')
+      .where(tournament_id: tournament_id)
+      .order('leaderboards.dnf asc, leaderboards.total_score asc')
   end
 
   def self.putting(tournament_id)
     includes(:scorecards, :user)
-    .where(tournament_id: tournament_id)
-    .order('leaderboards.dnf asc, leaderboards.total_putts asc')
+      .where(tournament_id: tournament_id)
+      .order('leaderboards.dnf asc, leaderboards.total_putts asc')
   end
 
   def self.skins(tournament_id)
     includes({ scorecards: :user_scores }, :user, :skins_money)
-    .where(tournament_id: tournament_id)
+      .where(tournament_id: tournament_id)
   end
 
   def self.admin_users(tournament_id)
     includes(:user)
-    .where(tournament_id: tournament_id)
+      .where(tournament_id: tournament_id)
   end
 
   def self.putting_money
     joins(:user)
-    .order('leaderboards.total_putts asc')
+      .order('leaderboards.total_putts asc')
   end
 
   def self.stroke_money
