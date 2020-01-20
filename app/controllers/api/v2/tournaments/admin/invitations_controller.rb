@@ -36,7 +36,9 @@ module API
             @invitation = Invitation.find(params['id'])
             @invitation.update(accepted: true)
 
-            if @invitation.save!
+            if user_already_accepted?
+              render json: { success: true }
+            elsif @invitation.save! && !user_already_accepted?
               res = PlayerBuild.call(@tournament, current_user, params['handicap'])
               if res
                 render json: { success: true }
@@ -94,6 +96,10 @@ module API
 
           def tournament_full
             @tournament.num_players == @users.size
+          end
+
+          def user_already_accepted?
+            @already ||= @tournament.users.find_by(id: current_user.id).present?
           end
         end
       end
