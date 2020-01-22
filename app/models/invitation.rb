@@ -9,6 +9,10 @@ class Invitation < ApplicationRecord
     token
   end
 
+  def accepted?
+    accepted
+  end
+
   private
   def generate_token
     self.token = SecureRandom.hex(16)

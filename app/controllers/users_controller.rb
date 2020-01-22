@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user
 
   def index
-    p 'current_user'
-    p current_user
     render json: UserSerializer.new(current_user).serialized_json
   end
 
@@ -25,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    p "update"
     @user = current_user
     @user.update(user_params)
 
