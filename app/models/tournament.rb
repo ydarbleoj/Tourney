@@ -10,6 +10,7 @@ class Tournament < ApplicationRecord
   has_many :holes, through: :new_courses
 
   has_many :tournament_aggs
+  has_many :round_aggs, through: :tournament_rounds
 
   has_many :stroke_moneys
   has_many :skins_moneys

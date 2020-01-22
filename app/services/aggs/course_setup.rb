@@ -18,7 +18,9 @@ module Aggs
     end
 
     private
+
     attr_reader :course_agg, :course
+
     def create_course_agg
       CourseAgg.find_or_create_by(new_course_id: course.id)
     end

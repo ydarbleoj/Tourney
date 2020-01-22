@@ -36,6 +36,8 @@ Rails.application.routes.draw do
       namespace :tournaments do
         resources :rounds, only: [:create]
 
+        resources :summary, only: [:index]
+
         namespace :admin do
           resources :user_scorecards
           resources :users
@@ -50,7 +52,6 @@ Rails.application.routes.draw do
           resources :tee_times
           resource :edits
         end
-
       end
 
       namespace :users do

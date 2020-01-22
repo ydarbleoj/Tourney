@@ -3,4 +3,5 @@ class TournamentAgg < ApplicationRecord
 
   has_many :scorecards, through: :tournament
 
+  has_many :round_aggs, through: :tournament
 end

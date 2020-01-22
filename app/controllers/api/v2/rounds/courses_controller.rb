@@ -16,6 +16,7 @@ module API
         end
 
         private
+
         def set_round
           @course_data = TournamentRound.course_data(params[:tournament_round_id])
         end

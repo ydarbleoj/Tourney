@@ -26,11 +26,24 @@ class RoundAgg < ApplicationRecord
 
   def hole_difficulty
     user_scores.joins(:hole)
-    .select('holes.id AS hole_id, (net::decimal - holes.par) AS hole_diff')
-    .order('hole_diff DESC')
+      .select('holes.id AS hole_id, (net::decimal - holes.par) AS hole_diff')
+      .order('hole_diff DESC')
   end
 
   def calc_hcap_diff
     scorecards.course_hcap_diff
+  end
+
+  def self.tournament_avgs
+    select("
+      AVG(par3_avg) AS par3_avg,
+      AVG(par4_avg) AS par4_avg,
+      AVG(par5_avg) AS par5_avg,
+      AVG(net_avg) AS net_avg,
+      AVG(gross_avg) AS gross_avg,
+      AVG(putts_avg) AS putts_avg,
+      AVG(three_putts_avg) AS three_putts_avg,
+      AVG(hcap_diff) AS hcap_diff
+    ")
   end
 end
