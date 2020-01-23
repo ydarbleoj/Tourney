@@ -2,7 +2,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
   has_secure_password
   before_save { self.email = email.downcase }
-  before_create :username
+  before_create :set_username
 
   has_many :rounds
   has_many :courses, through: :rounds
@@ -40,7 +40,7 @@ class User < ApplicationRecord
     }
   end
 
-  def username
+  def set_username
     self.username = self.first_name + ' ' + self.last_name
   end
 
