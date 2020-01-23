@@ -90,7 +90,7 @@ module API
 
           def invitees
             emails = [@invited.map(&:email), @users.map {|x| x.user.email }].flatten
-            inv = Tournament.invite_list(@tournament.name)
+            inv = User.all
             @invitees = tournament_full ? [] : inv
           end
 
