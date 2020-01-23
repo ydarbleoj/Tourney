@@ -58,7 +58,7 @@ module API
 
           def invitees
             return false if tournament_full
-            inv = User.all
+            inv = User.all.select('id AS id, email AS user_email, username AS username').as_json
             @inv = inv.select { |x| x if !remove.include?(x['user_email']) }.map { |xx| p xx }
           end
 
