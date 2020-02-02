@@ -53,26 +53,23 @@ module Tournaments
         low = []
         low_score = nil
 
-        low = scorecards.sort_by(&:total_net).each.with_index do |card, i|
+        scorecards.sort_by(&:total_net).each.with_index do |card, i|
           low_score = card.total_net if i.zero?
           low << card if card.total_net == low_score
         end
-        p 'low99'
         p low
-        low.map do |x|
-          {
-            score:    x.total_net,
-            username: x.user.username,
-            course:   x.new_course.name
-          }
-        end
+        users = low.size > 2 ? "T #{low.size}" : low.map { |x| ["#{x.user.username} - #{x.new_course.name}"] }
+
+        {
+          score: low_score,
+          users: users.flatten
+        }
       end
 
       def hardest_hole
         agg = round_aggs.sort_by(&:hardest_hole_hcap_diff).reverse.first
-        p "herhejehjk"
-        p hole = agg.hardest_hole
-       p diff = agg.hardest_hole_hcap_diff
+        hole = agg.hardest_hole
+        diff = agg.hardest_hole_hcap_diff
 
        {
           hole_number: hole.number,

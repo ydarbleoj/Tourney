@@ -52,7 +52,8 @@ module Aggs
     end
 
     def hole_diff
-     p res = round.hole_difficulty
+      res = round.hole_difficulty
+
       return {} if res[0]['hole_diff'].blank?
       h = {}
       h['easiest_hole_id'] = res[-1]['hole_id']
