@@ -69,13 +69,14 @@ module Tournaments
 
       def hardest_hole
         agg = round_aggs.sort_by(&:hardest_hole_hcap_diff).reverse.first
-        hole = agg.hardest_hole
-        diff = agg.hardest_hole_hcap_diff
+        p "herhejehjk"
+        p hole = agg.hardest_hole
+       p diff = agg.hardest_hole_hcap_diff
 
        {
           hole_number: hole.number,
           diff:        diff,
-          avg:         hole.par + diff,
+          avg:         hole.par + diff.to_f,
           par:         hole.par,
           course_name: agg.new_course.name
         }
@@ -89,7 +90,7 @@ module Tournaments
         {
           hole_number: hole.number,
           diff:        diff,
-          avg:         hole.par + diff,
+          avg:         hole.par + diff.to_f,
           par:         hole.par,
           course_name: agg.new_course.name
         }
