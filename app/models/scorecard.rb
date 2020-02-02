@@ -150,7 +150,7 @@ class Scorecard < ApplicationRecord
       ROUND(AVG(total_putts), 2) AS putts_avg,
       ROUND(AVG(total_net), 2) AS net_avg,
       ROUND(AVG(total_3putts), 2) AS three_putts_avg,
-      ROUND(AVG((scorecards.total_net::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff")
+      ROUND(AVG((scorecards.total_score::decimal - new_courses.par) - scorecards.handicap), 2) AS hcap_diff")
   end
 #----> NEEDS REFACTORING OR REMOVAL
 

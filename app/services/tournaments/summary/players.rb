@@ -30,28 +30,6 @@ module Tournaments
         end
       end
 
-      # def user_hardest_hole
-      #   user_ordered_holes[-1]
-      # end
-
-      # def user_easiest_hole
-      #   user_ordered_holes[0]
-      # end
-
-      # def user_ordered_holes
-      #   return [] unless user_scores.present?
-
-      #   @ordered_holes ||= user_scores.flatten.sort_by { |x| x.net.to_f - x.hole.par }
-      #     .map do |xx|
-      #       {
-      #         par: xx.hole.par,
-      #         diff: (xx.net.to_f - xx.hole.par).round(2),
-      #         number: xx.hole.number,
-      #         course: xx.hole.new_course.name
-      #       }
-      #     end
-      # end
-
       def user_scores
         @user_scores ||= user_scorecards.map(&:user_scores)
       end
