@@ -100,7 +100,7 @@ module Tournaments
       end
 
       def scorecards
-        @scorecards ||= @tournament.scorecards
+        @scorecards ||= @tournament.scorecards.active
       end
     end
   end

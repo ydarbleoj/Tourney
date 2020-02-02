@@ -1,6 +1,7 @@
 class Scorecard < ApplicationRecord
   scope :completed, -> { where(finished: true) }
   scope :round_open, -> { where(finished: false) }
+  scope :active, -> { where(dnf: false) }
 
   belongs_to :user
   belongs_to :tournament_round
