@@ -57,7 +57,8 @@ module Tournaments
           low_score = card.total_net if i.zero?
           low << card if card.total_net == low_score
         end
-
+        p 'low99'
+        p low
         low.map do |x|
           {
             score:    x.total_net,

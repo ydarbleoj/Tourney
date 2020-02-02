@@ -120,7 +120,7 @@ class Scorecard < ApplicationRecord
     .order(total_net: :asc).first
   end
 
-   def self.total_lowest_round
+  def self.total_lowest_round
     where(finished: true, dnf: false)
     .order(total_net: :asc).first
   end

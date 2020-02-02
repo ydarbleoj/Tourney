@@ -15,7 +15,7 @@ class RoundAgg < ApplicationRecord
     scorecards.completed.round_averages
   end
 
-  def lowest_round
+  def set_lowest_round
     scorecards.total_lowest_round
   end
 

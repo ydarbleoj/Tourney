@@ -47,12 +47,12 @@ module Aggs
     end
 
     def lowest_round
-      h = round.lowest_round
+      h = round.set_lowest_round
       h.blank? ? {} : { lowest_round_id: h.id }
     end
 
     def hole_diff
-      res = round.hole_difficulty
+     p res = round.hole_difficulty
       return {} if res[0]['hole_diff'].blank?
       h = {}
       h['easiest_hole_id'] = res[-1]['hole_id']
