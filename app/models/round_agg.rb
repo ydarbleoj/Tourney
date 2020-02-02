@@ -34,6 +34,20 @@ class RoundAgg < ApplicationRecord
     scorecards.course_hcap_diff
   end
 
+  def hardest_hole_hcap_diff
+    user_scores
+      .joins(:hole)
+      .where(user_scores: { hole_id: hardest_hole_id })
+      .select('AVG(user_scores.net::decimal - holes.par) AS hole_diff')[0].as_json['hole_diff'].to_f
+  end
+
+  def easiest_hole_hcap_diff
+    user_scores
+      .joins(:hole)
+      .where(user_scores: { hole_id: easiest_hole_id })
+      .select('AVG(user_scores.net::decimal - holes.par) AS hole_diff')[0].as_json['hole_diff'].to_f
+  end
+
   def self.tournament_avgs
     select("
       AVG(par3_avg) AS par3_avg,

@@ -7,17 +7,13 @@ module API
         skip_before_action :authenticate_user
 
         def index
-          @summary
+          render json: summary
         end
 
         private
 
-        def tournament_avgs
-          @tournament_avgs ||= @tournament.round_aggs.tournament_avgs
-        end
-
-        def lowest_and_highest
-
+        def summary
+          ::Tournaments::Summary::Index.new(@tournament.id, current_user).to_h
         end
       end
     end

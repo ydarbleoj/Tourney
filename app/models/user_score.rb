@@ -33,6 +33,11 @@ class UserScore < ApplicationRecord
   def self.skins_for(number, type)
     score = type == 'net_skin' ? 'net' : 'score'
     where(number: number)
-    .select("user_scores.id AS id, #{type} AS skin, #{score} AS score, scorecard_id, number, putts, hole_id, par")
+    .select("
+      user_scores.id AS id,
+      #{type} AS skin,
+      #{score} AS score,
+      scorecard_id, number, putts, hole_id, par
+    ")
   end
 end
