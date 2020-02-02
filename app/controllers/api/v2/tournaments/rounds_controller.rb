@@ -4,7 +4,6 @@ module API
       class RoundsController < TournamentBaseController
         skip_before_action :authenticate_user
 
-
         def create
           res = CreateRounds.call(@tournament, params['round'], current_user)
           if res

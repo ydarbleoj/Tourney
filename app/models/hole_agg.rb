@@ -10,12 +10,14 @@ class HoleAgg < ApplicationRecord
   def user_hole_avgs
     count = (self.count.blank? || self.count == 0) ? 1 : self.count
     user_hole_aggs
-    .select("SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.net_avg) AS net_avg,
+    .select("
+      SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.net_avg) AS net_avg,
       SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.gross_avg) AS gross_avg,
       SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.putts_avg) AS putts_avg,
       SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.three_putts_avg) AS three_putts_avg,
       SUM(((user_hole_aggs.count::decimal / #{count}) * 1.0) * user_hole_aggs.greens_in_reg) AS greens_in_reg,
-      SUM(user_hole_aggs.count) AS count")
+      SUM(user_hole_aggs.count) AS count
+    ")
   end
 
 end

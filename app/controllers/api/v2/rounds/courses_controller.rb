@@ -16,15 +16,25 @@ module API
         end
 
         private
+
         def set_round
           @course_data = TournamentRound.course_data(params[:tournament_round_id])
         end
 
         def set_user_data
           return {} if @tournament_user.blank?
-          UserCourseAgg.includes({ easiest_hole: :hole, hardest_hole: :hole }, :lowest_round).where(user_id: current_user.id, new_course_id: @course_data.new_course_id).first
-        end
 
+          UserCourseAgg.includes(
+            {
+              easiest_hole: :hole,
+              hardest_hole: :hole
+            },
+            :lowest_round
+          ).where(
+            user_id:       current_user.id,
+            new_course_id: @course_data.new_course_id
+          ).first
+        end
       end
     end
   end

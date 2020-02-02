@@ -76,14 +76,23 @@ class Scorecard < ApplicationRecord
   #
   def self.hole_averages(user_id, course_id, hole_id)
     joins(user_scores: :hole)
-    .where(user_scores: { hole_id: hole_id }, new_course_id: course_id, user_id: user_id, dnf: false)
-    .select("ROUND(AVG(net), 2) AS net_avg,
+    .where(
+      user_scores: {
+        hole_id: hole_id
+      },
+      new_course_id: course_id,
+      user_id: user_id,
+      dnf: false
+    )
+    .select("
+      ROUND(AVG(net), 2) AS net_avg,
       ROUND(AVG(score), 2) AS gross_avg,
       COUNT(scorecards.id) AS count,
       ROUND(AVG(putts), 2) AS putts_avg,
       ROUND(AVG(CASE WHEN putts > 2 THEN 1 ELSE 0 END), 2) AS three_putts_avg,
       ROUND(AVG(CASE WHEN score = holes.par
-        AND putts > 1 THEN 1 ELSE 0 END), 2) AS greens_in_reg")
+        AND putts > 1 THEN 1 ELSE 0 END), 2) AS greens_in_reg
+    ")
   end
 
   def self.user_course_averages(user_id, course_id)
@@ -187,5 +196,4 @@ class Scorecard < ApplicationRecord
     n = self.user_scores.where(type.to_sym => true).size
     self.update_columns(total.to_sym => n)
   end
-
 end

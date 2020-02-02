@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module API
   module V2
     module Rounds
@@ -5,7 +7,6 @@ module API
         skip_before_action :authenticate_user
 
         def index
-          p @tournament_user
           if @tournament_user
             scorecard = Scorecard.for_user_round(current_user.id, params['tournament_round_id'])
             payload = RoundInfo::UserScorecardSerializer.new(scorecard).serialized_json
@@ -36,6 +37,7 @@ module API
         end
 
         private
+
         def scorecard_params
           params.require(:scorecard).permit(:total_score, :total_putts, :total_3putts,
             :new_course_id, :user_id, :tournament_round_id, :total_net, :handicap, :finished, :dnf,
@@ -46,7 +48,6 @@ module API
           Aggs::CourseUpdate.call(@scorecard.new_course_id, current_user.id)
           Aggs::RoundSetup.call(@scorecard.tournament_round_id)
         end
-
       end
     end
   end

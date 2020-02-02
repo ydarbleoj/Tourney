@@ -21,6 +21,7 @@ module Aggs
       diff   = diff.merge(lr)
       stats  = avgs.merge(holes.merge(diff).compact)
       ActiveRecord::Base.transaction do
+        p stats
         round.update(stats.compact)
       end
     rescue StandardError => e
@@ -66,6 +67,5 @@ module Aggs
     def set_round
       RoundAgg.where(tournament_round_id: round_id).first_or_create
     end
-
   end
 end
