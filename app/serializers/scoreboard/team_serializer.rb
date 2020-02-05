@@ -13,6 +13,8 @@ module Scoreboard
     attributes :finished, :total_net, :group, :is_won, :group_time, :position, :team_scores
 
     attribute :total do |object|
+      p "object"
+      p object.total_net
       if object.total_net
         object.total_net - (object.new_course.par * 2)
       else
