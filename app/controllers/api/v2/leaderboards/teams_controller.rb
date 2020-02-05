@@ -20,7 +20,8 @@ module API
 
         private
         def set_leaderboards
-          @leaderboards = TeamScorecard.leaderboard(params[:round_id])
+          round_id = @tournament.tournament_rounds.find_by(round_number: params[:round_id])
+          @leaderboards = TeamScorecard.leaderboard(round_id)
         end
 
         def set_positions
