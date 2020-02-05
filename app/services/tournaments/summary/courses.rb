@@ -9,11 +9,8 @@ module Tournaments
 
       def to_h
         {
-          hardest_hole:   hardest_hole,
-          easiest_hole:   easiest_hole,
           easiest_course: easiest_course,
           hardest_course: hardest_course,
-          lowest_round:   lowest_round,
           avgs:           tournament_avgs
         }
       end
@@ -24,6 +21,8 @@ module Tournaments
       end
 
       def hardest_course
+        return unless sorted_rounds.present?
+
         course = sorted_rounds.last.new_course
         avg    = sorted_rounds.last.net_avg.to_f
 
@@ -35,6 +34,8 @@ module Tournaments
       end
 
       def easiest_course
+        return unless sorted_rounds.present?
+
         course = sorted_rounds.first.new_course
         avg    = sorted_rounds.first.net_avg.to_f
 
@@ -49,24 +50,9 @@ module Tournaments
         @sorted_rounds ||= round_aggs.sort_by(&:net_avg)
       end
 
-      def lowest_round
-        low = []
-        low_score = nil
-
-        scorecards.sort_by(&:total_net).each.with_index do |card, i|
-          low_score = card.total_net if i.zero?
-          low << card if card.total_net == low_score
-        end
-        p low
-        users = low.size > 2 ? "T #{low.size}" : low.map { |x| ["#{x.user.username} - #{x.new_course.name}"] }
-
-        {
-          score: low_score,
-          users: users.flatten
-        }
-      end
-
       def hardest_hole
+        return unless round_aggs.present?
+
         agg = round_aggs.sort_by(&:hardest_hole_hcap_diff).reverse.first
         hole = agg.hardest_hole
         diff = agg.hardest_hole_hcap_diff
@@ -81,6 +67,8 @@ module Tournaments
       end
 
       def easiest_hole
+        return unless round_aggs.present?
+
         agg = round_aggs.sort_by(&:easiest_hole_hcap_diff).reverse.first
         hole = agg.easiest_hole
         diff = agg.easiest_hole_hcap_diff

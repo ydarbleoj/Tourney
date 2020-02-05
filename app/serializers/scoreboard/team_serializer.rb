@@ -13,14 +13,18 @@ module Scoreboard
     attributes :finished, :total_net, :group, :is_won, :group_time, :position, :team_scores
 
     attribute :total do |object|
-      object.total_net - (object.new_course.par * 2)
+      if object.total_net
+        object.total_net - (object.new_course.par * 2)
+      else
+        0.0
+      end
     end
 
     attribute :players do |object|
       object.tee_times.map do |x|
         {
           username: x.user.username,
-          handicap: x.user.handicap,
+          handicap: x.l,
         }
       end
     end
