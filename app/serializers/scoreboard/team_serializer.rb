@@ -13,12 +13,10 @@ module Scoreboard
     attributes :finished, :total_net, :group, :is_won, :group_time, :position, :team_scores
 
     attribute :total do |object|
-      p "object"
-      p object.total_net
-      if object.total_net
-        object.total_net - (object.new_course.par * 2)
-      else
+      if object.total_net.zero?
         0.0
+      else
+        object.total_net - (object.new_course.par * 2)
       end
     end
 
