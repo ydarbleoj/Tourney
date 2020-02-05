@@ -24,10 +24,8 @@ module Scoreboard
       object.tee_times.map do |x|
         {
           username: x.user.username,
-          handicap: x.l,
         }
       end
     end
-
   end
 end

@@ -24,7 +24,13 @@ class TeamScorecard < ApplicationRecord
   end
 
   def self.leaderboard(round_id)
-    includes({tee_times: [:user]}, :team_scores, :new_course)
+    includes(
+      {
+        tee_times: [:user]
+      },
+      :team_scores,
+      :new_course
+    )
     .where(tournament_round_id: round_id)
     .order(group: :asc)
   end
