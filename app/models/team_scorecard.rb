@@ -1,11 +1,15 @@
 class TeamScorecard < ApplicationRecord
-  attr_accessor :position
   scope :completed, -> { where(finished: true) }
   scope :card_open, -> { where(finished: false) }
   scope :winning_team, -> { where(is_won: true) }
 
   belongs_to :new_course
   belongs_to :tournament_round
+
+  belongs_to :player_1, class_name: "Scorecard", optional: true
+  belongs_to :player_2, class_name: "Scorecard", optional: true
+  belongs_to :player_3, class_name: "Scorecard", optional: true
+  belongs_to :player_4, class_name: "Scorecard", optional: true
 
   has_many :team_scores
   has_many :tee_times

@@ -1,5 +1,7 @@
 class TeamScore < ApplicationRecord
   belongs_to :team_scorecard
+  belongs_to :user_score_1, class_name: "UserScore"
+  belongs_to :user_score_2, class_name: "UserScore"
 
   validates :number, presence: true
   validates :net, presence: true

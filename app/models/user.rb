@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :user_scores, through: :scorecards
   has_many :tournament_rounds, through: :scorecards
   has_many :tee_times
-  has_many :team_scorecards, through: :tee_times
 
   has_many :stroke_moneys
   has_many :skins_moneys
