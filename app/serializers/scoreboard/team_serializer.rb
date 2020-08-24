@@ -1,7 +1,7 @@
 module Scoreboard
   class TeamSerializer
     include FastJsonapi::ObjectSerializer
-    set_type :team_scorecard
+    set_type :team
     set_id :id
 
     belongs_to :new_course, serializer: NewCourseSerializer

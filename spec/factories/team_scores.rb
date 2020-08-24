@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :team_score do
-    team_scorecard
+    team
     number { rand(1..18) }
     net 4
     par 4

@@ -1,4 +1,6 @@
-class TeamScorecard < ApplicationRecord
+# frozen_string_literal: true
+
+class Team < ApplicationRecord
   scope :completed, -> { where(finished: true) }
   scope :card_open, -> { where(finished: false) }
   scope :winning_team, -> { where(is_won: true) }
@@ -19,7 +21,7 @@ class TeamScorecard < ApplicationRecord
 
 
   def check_for_last_scorecard
-    last_scorecard = TournamentRound.find(self.tournament_round_id).team_scorecards.card_open
+    last_scorecard = TournamentRound.find(self.tournament_round_id).teams.card_open
     if last_scorecard.blank?
       update_money_lists(self)
     end
@@ -49,9 +51,9 @@ class TeamScorecard < ApplicationRecord
     p "update"
     p scorecard
     tr = TournamentRound.find(scorecard.tournament_round_id)
-   p team_won = tr.team_scorecards.where(is_won: true)
-    low_net = tr.team_scorecards.minimum(:total_net)
-   p low_scorecards = tr.team_scorecards.includes(:users).where(total_net: low_net)
+   p team_won = tr.teams.where(is_won: true)
+    low_net = tr.teams.minimum(:total_net)
+   p low_scorecards = tr.teams.includes(:users).where(total_net: low_net)
 
     if team_won.blank?
 
@@ -87,9 +89,9 @@ class TeamScorecard < ApplicationRecord
   end
 
 
-  def self.find_lowest(team_scorecards, tr)
+  def self.find_lowest(teams, tr)
     teams = []
-    team_scorecards.each do |card|
+    teams.each do |card|
       users = card.users.pluck(:id)
       scores = low_team_score(users, card)
       teams << [scores, card]

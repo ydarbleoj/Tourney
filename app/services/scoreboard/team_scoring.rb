@@ -9,7 +9,7 @@ module Scoreboard
       @number           = user_score.number
       @tournament_round = user_score.tournament_round
       @tee_times        = tournament_round.tee_times.groups_users(user_score.user.id)
-      @team_scorecard   = tee_times.team_scorecard
+      @team_scorecard   = tee_times.team
       @user_ids         = users
     end
 
@@ -23,10 +23,10 @@ module Scoreboard
     end
 
     private
-    attr_reader :number, :tournament_round, :tee_times, :user_ids, :score, :team_scorecard
+    attr_reader :number, :tournament_round, :tee_times, :user_ids, :score, :team
 
     def build_team_score
-      team_score = team_scorecard.team_scores.find_or_create_by(number: number)
+      team_score = team.team_scores.find_or_create_by(number: number)
       team_score.update(net: score)
     end
 
@@ -35,7 +35,7 @@ module Scoreboard
     end
 
     def users
-      team_scorecard.users.map(&:id)
+      team.users.map(&:id)
     end
   end
 end
