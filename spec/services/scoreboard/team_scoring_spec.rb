@@ -16,13 +16,13 @@ RSpec.describe Scoreboard::TeamScoring do
     let(:hole3) { create(:hole, new_course_id: course.id, par: 3, handicap: 18, number: 3) }
 
     it "leaderboard model should reflect the appropriate totals after 1st round" do
-      team_scorecard = create(:team_scorecard, tournament_round_id: tourn_round.id, group: 'A', new_course_id: course.id)
-      team_scorecard2 = create(:team_scorecard, tournament_round_id: tourn_round.id, group: 'B', new_course_id: course.id)
-      create(:tee_time, user_id: user1.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
-      create(:tee_time, user_id: user2.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
-      create(:tee_time, user_id: user3.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
-      create(:tee_time, user_id: user4.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_scorecard_id: team_scorecard.id)
-      create(:tee_time, user_id: user5.id, tournament_round_id: tourn_round.id, group: 'B', tee_time: DateTime.now - 10.minutes, team_scorecard_id: team_scorecard2.id)
+      team = create(:team, tournament_round_id: tourn_round.id, group: 'A', new_course_id: course.id)
+      team2 = create(:team, tournament_round_id: tourn_round.id, group: 'B', new_course_id: course.id)
+      create(:tee_time, user_id: user1.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_id: team.id)
+      create(:tee_time, user_id: user2.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_id: team.id)
+      create(:tee_time, user_id: user3.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_id: team.id)
+      create(:tee_time, user_id: user4.id, tournament_round_id: tourn_round.id, group: 'A', tee_time: DateTime.now, team_id: team.id)
+      create(:tee_time, user_id: user5.id, tournament_round_id: tourn_round.id, group: 'B', tee_time: DateTime.now - 10.minutes, team_id: team2.id)
       leaderboard1 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user1.id, handicap: user1.handicap)
       leaderboard2 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user2.id, handicap: user2.handicap)
       leaderboard3 = create(:leaderboard, tournament_id: tourn_round.tournament_id, user_id: user3.id, handicap: user3.handicap)
@@ -56,7 +56,7 @@ RSpec.describe Scoreboard::TeamScoring do
       # user_score4 = create(:user_score, score: 4, scorecard_id: scorecard1.id, number: hole3.number, hole_id: hole3.id)
 
       Scoreboard::TeamScoring.call(user_score4)
-      team_sc = team_scorecard.reload
+      team_sc = team.reload
 
       expect(team_sc.total_net).to eq(4)
       expect(team_sc.team_scores.first.net).to eq(4)

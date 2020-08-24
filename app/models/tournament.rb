@@ -21,7 +21,7 @@ class Tournament < ApplicationRecord
 
   has_many :scorecards, through: :tournament_rounds
   has_many :user_scores, through: :scorecards
-  has_many :team_scorecards, through: :tournament_rounds
+  has_many :teams, through: :tournament_rounds
 
   has_many :invitations
   has_one :tournament_leaderboard #nesc?

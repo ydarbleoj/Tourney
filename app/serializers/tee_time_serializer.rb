@@ -4,9 +4,9 @@ class TeeTimeSerializer
   set_id :id
 
   belongs_to :user
-  belongs_to :team_scorecard, serializer: Scoreboard::TeamSerializer
+  belongs_to :team, serializer: Scoreboard::TeamSerializer
 
-  attributes :group, :user_id, :team_scorecard_id
+  attributes :group, :user_id, :team_id
 
   attribute :round_number do |object|
     object.tournament_round.round_number

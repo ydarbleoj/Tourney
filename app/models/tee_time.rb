@@ -3,14 +3,14 @@ class TeeTime < ApplicationRecord
 
   belongs_to :user
   belongs_to :tournament_round
-  belongs_to :team_scorecard
+  belongs_to :team
 
 
   validates :group, presence: true
   validates :tee_time, presence: true
 
   def self.groups_users(user_id)
-    includes(team_scorecard: :users)
+    includes(team: :users)
     .where(user_id: user_id).first
   end
 
@@ -34,7 +34,7 @@ class TeeTime < ApplicationRecord
   def self._update(id)
     TeeTime.find(id).update(
       group: @group,
-      team_scorecard_id: @card_id,
+      team_id: @card_id,
       tee_time: @tee_time,
     )
   end
@@ -42,7 +42,7 @@ class TeeTime < ApplicationRecord
   def self._create(user_id)
     TeeTime.create!(
       tournament_round_id: @tr_id,
-      team_scorecard_id: @card_id,
+      team_id: @card_id,
       group: @group,
       tee_time: @tee_time,
       user_id: user_id,

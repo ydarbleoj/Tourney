@@ -20,7 +20,7 @@ module Scoreboard
       ActiveRecord::Base.transaction do
         update_leaderboard
         set_skins
-        update_team_scorecard
+        update_team
         update_aggs
       end
       true
@@ -41,7 +41,7 @@ module Scoreboard
       Scoreboard::SetSkin.call(user_score, 'net_skin')
     end
 
-    def update_team_scorecard
+    def update_team
       Scoreboard::TeamScoring.call(user_score)
     end
 

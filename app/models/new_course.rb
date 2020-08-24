@@ -7,7 +7,7 @@ class NewCourse < ApplicationRecord
   has_many :user_hole_aggs
   has_many :round_aggs
 
-  has_many :team_scorecards
+  has_many :teams
 
   has_many :tournament_rounds
   has_many :tournaments, through: :tournament_rounds

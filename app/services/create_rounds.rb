@@ -25,13 +25,13 @@ class CreateRounds
   def build_rounds
     @params.each do |round|
       t_round = create_round(round)
-      build_team_scorecards(t_round, round)
+      build_teams(t_round, round)
     end
   end
 
-  def build_team_scorecards(t_round, round)
+  def build_teams(t_round, round)
     groups(round['tee_times']).each do |group|
-      create_team_scorecard(t_round.id, t_round.new_course_id, group, round['round_date'])
+      create_team(t_round.id, t_round.new_course_id, group, round['round_date'])
     end
   end
 
@@ -58,7 +58,7 @@ class CreateRounds
     )
   end
 
-  def create_team_scorecard(tr_id, course_id, group, round_date)
+  def create_team(tr_id, course_id, group, round_date)
     TeamScorecard.create!(
       tournament_round_id: tr_id,
       new_course_id: course_id,

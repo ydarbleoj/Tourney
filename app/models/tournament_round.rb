@@ -8,8 +8,8 @@ class TournamentRound < ApplicationRecord
   has_many :scorecards, dependent: :destroy
   has_many :user_scores, through: :scorecards
 
-  has_many :team_scorecards, dependent: :destroy
-  has_many :team_scores, through: :team_scorecards
+  has_many :teams, dependent: :destroy
+  has_many :team_scores, through: :teams
   has_many :round_tee_times, dependent: :destroy
   has_many :tee_times
 

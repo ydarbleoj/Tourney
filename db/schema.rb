@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200112010023) do
+ActiveRecord::Schema.define(version: 20200824210009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,7 +341,18 @@ ActiveRecord::Schema.define(version: 20200112010023) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "team_scorecards", force: :cascade do |t|
+  create_table "team_scores", force: :cascade do |t|
+    t.integer "team_scorecard_id"
+    t.integer "number"
+    t.integer "net"
+    t.integer "par"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "score_1_id"
+    t.integer "score_2_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
     t.integer "new_course_id"
     t.integer "tournament_round_id"
     t.boolean "finished", default: false
@@ -353,15 +364,6 @@ ActiveRecord::Schema.define(version: 20200112010023) do
     t.datetime "group_time"
   end
 
-  create_table "team_scores", force: :cascade do |t|
-    t.integer "team_scorecard_id"
-    t.integer "number"
-    t.integer "net"
-    t.integer "par"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tee_times", force: :cascade do |t|
     t.integer "user_id"
     t.integer "tournament_round_id"
@@ -369,7 +371,7 @@ ActiveRecord::Schema.define(version: 20200112010023) do
     t.string "group"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "team_scorecard_id"
+    t.integer "team_id"
   end
 
   create_table "tournament_aggs", force: :cascade do |t|

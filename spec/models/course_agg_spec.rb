@@ -77,8 +77,8 @@ RSpec.describe CourseAgg, type: :model do
 
   describe 'hole difficulty' do
     it "should return easiest and hardest holes" do
-     p aggs = @course_agg.hole_difficulty
-     p hardest = aggs[0]
+      aggs = @course_agg.hole_difficulty
+      hardest = aggs[0]
       easiest = aggs[-1]
 
       expect(hardest.attributes['hole_diff'].to_f.round(1)).to eq(-0.3)

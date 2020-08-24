@@ -22,13 +22,13 @@ RSpec.describe CreateRounds do
     expect(@tournament.tournament_users.first.role).to eq('admin')
     expect(tr1.new_course.id).to eq(2)
     expect(tr1.round_number).to eq(1)
-    expect(tr1.team_scorecards.size).to eq(4)
+    expect(tr1.teams.size).to eq(4)
     expect(tr2.new_course.id).to eq(3)
     expect(tr2.round_number).to eq(2)
-    expect(tr2.team_scorecards.size).to eq(4)
+    expect(tr2.teams.size).to eq(4)
     expect(tr3.new_course.id).to eq(4)
     expect(tr3.round_number).to eq(3)
-    expect(tr3.team_scorecards.size).to eq(4)
+    expect(tr3.teams.size).to eq(4)
   end
 
   def rounds_data
