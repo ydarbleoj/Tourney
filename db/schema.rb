@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200824212028) do
+ActiveRecord::Schema.define(version: 2020_08_25_165607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,6 +330,15 @@ ActiveRecord::Schema.define(version: 20200824212028) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "team_cards", force: :cascade do |t|
+    t.bigint "team_id"
+    t.bigint "scorecard_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scorecard_id"], name: "index_team_cards_on_scorecard_id"
+    t.index ["team_id"], name: "index_team_cards_on_team_id"
+  end
+
   create_table "team_moneys", force: :cascade do |t|
     t.integer "tournament_id"
     t.integer "user_id"
@@ -544,6 +553,8 @@ ActiveRecord::Schema.define(version: 20200824212028) do
   add_foreign_key "scorecards", "new_courses"
   add_foreign_key "scorecards", "tournament_rounds"
   add_foreign_key "scorecards", "users"
+  add_foreign_key "team_cards", "scorecards"
+  add_foreign_key "team_cards", "teams"
   add_foreign_key "tournament_leaderboards", "tournaments"
   add_foreign_key "tournament_rounds", "tournaments"
   add_foreign_key "user_scores", "scorecards"
