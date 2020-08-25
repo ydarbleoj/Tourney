@@ -14,6 +14,9 @@ class Scorecard < ApplicationRecord
   has_many :user_scores, dependent: :destroy
   has_many :holes, through: :new_course
 
+  has_one :team_card
+  has_one :team, :through => :team_card
+
   has_many :tournament_aggs, through: :tournament
   has_many :touranment_round_aggs, through: :tournament_round
   has_many :user_hole_aggs, through: :user
