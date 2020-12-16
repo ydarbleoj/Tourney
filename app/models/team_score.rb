@@ -7,4 +7,12 @@ class TeamScore < ApplicationRecord
 
   validates :number, presence: true
   validates :net, presence: true
+
+  def score_1_net
+    score_1.net
+  end
+
+  def score_2_net
+    score_2.net
+  end
 end

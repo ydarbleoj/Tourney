@@ -3,18 +3,15 @@
 module Tourney
   module Entities
     class UserScore
-      attr_reader :id, :net, :par, :number
+      attr_reader :id, :net, :par, :number, :handicap, :score
 
-      def initialize(user_score)
-        @user_score = user_score
-        @id         = user_score.id
-        @net        = user_score.net
-        @par        = user_score.par
-        @number     = user_score.number
-      end
-
-      def team
-        @team ||= scorecard.team
+      def initialize(attributes = {})
+        @id         = attributes.fetch(:id)
+        @net        = attributes.fetch(:net)
+        @par        = attributes.fetch(:par)
+        @number     = attributes.fetch(:number)
+        @handicap   = attributes.fetch(:handicap)
+        @score      = attributes.fetch(:score)
       end
     end
   end
