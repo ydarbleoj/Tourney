@@ -33,18 +33,22 @@ module Tourney
 
       def team_score_entity
         Tourney::Entities::Team::Score.new(
-          :id         => team_score.id,
-          :team_id    => team.id,
-          :number     => team_score.number,
-          :net        => calculate_team_score.net,
-          :par        => team_score.par,
-          :score_1_id => calculate_team_score.score1_id,
-          :score_2_id => calculate_team_score.score2_id
+          :id        => team_score.id,
+          :team_id   => team.id,
+          :number    => team_score.number,
+          :net       => team_score.net,
+          :par       => team_score.par,
+          :score1_id => team_score.score_1_id,
+          :score2_id => team_score.score_2_id,
+          :score1    => team_score.score1_net,
+          :score2    => team_score.score2_net
         )
       end
 
       def calculate_team_score
-        Tourney::Services::CalculateTeamScore.new(team_score, @user_score)
+        @cts ||= Tourney::Services::CalculateTeamScore.new(
+          team_score_entity, @user_score
+        )
       end
     end
   end

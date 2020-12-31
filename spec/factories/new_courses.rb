@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :new_course do
-    name 'Bandon Dunes'
+    sequence(:name) { |n| "Bandon Dunes#{n}" }
     slope 133
     yardage 6221
     rating 71.4
@@ -10,15 +10,7 @@ FactoryGirl.define do
     par 72
   end
 
-  trait :bandon_dunes do
-    name 'Bandon Dunes'
-    slope 133
-    yardage 6221
-    rating 71.4
-    tee 'Green'
-    state 'Oregon'
-    city 'Bandon'
-    par 72
+   trait :bandon_dunes do
     after :create do |new_course|
       new_course.holes.create(number: 1, par: 4, yards: 352, handicap: 13)
       new_course.holes.create(number: 2, par: 3, yards: 155, handicap: 15)
@@ -42,13 +34,10 @@ FactoryGirl.define do
   end
 
   trait :pacific_dunes do
-    name 'Pacific Dunes'
+    sequence(:name) { |n| "Pacific Dunes#{n}" }
     yardage 6142
     slope 133
     rating 70.7
-    tee 'Green'
-    city 'Bandon'
-    state 'Oregon'
     par 71
     after :create do |new_course|
       new_course.holes.create(number: 1, par: 4, yards: 304, handicap: 9)
@@ -73,13 +62,10 @@ FactoryGirl.define do
   end
 
   trait :old_mac do
-    name 'Old Mac'
+    sequence(:name) { |n| "Old Mac#{n}" }
     yardage 6320
     slope 125
     rating 71.6
-    tee 'Green'
-    city 'Bandon'
-    state 'Oregon'
     par 71
     after :create do |new_course|
       new_course.holes.create(number: 1, par: 4, yards: 304, handicap: 11)
@@ -108,9 +94,6 @@ FactoryGirl.define do
     yardage 6400
     slope 129
     rating 70.7
-    tee 'Green'
-    city 'Bandon'
-    state 'Oregon'
     par 71
     after :create do |new_course|
       new_course.holes.create(number: 1, par: 4, yards: 356, handicap: 13)

@@ -4,28 +4,20 @@ module Tourney
   module Entities
     module Team
       class Score
-        attr_reader :id, :number, :net, :par, :score_1_id, :score_2_id, :team_id
-
         def initialize(attributes = {})
-          @id      = attributes.fetch(:id)
-          @number  = attributes.fetch(:number)
-          @net     = attributes.fetch(:net)
-          @par     = attributes.fetch(:par)
-          @score_1 = attributes.fetch(:score_1)
-          @score_2 = attributes.fetch(:score_2)
-          @team_id = attributes.fetch(:team_id)
+          @id        = attributes.fetch(:id, nil)
+          @number    = attributes.fetch(:number, nil)
+          @net       = attributes.fetch(:net, nil)
+          @par       = attributes.fetch(:par, nil)
+          @score1_id = attributes.fetch(:score1_id, nil)
+          @score2_id = attributes.fetch(:score2_id, nil)
+          @score1    = attributes.fetch(:score1, nil)
+          @score2    = attributes.fetch(:score2, nil)
+          @team_id   = attributes.fetch(:team_id, nil)
         end
 
-        def lower_than_first(score)
-          score < @score_1
-        end
-
-        def lower_than_second(score)
-          return true if @score_2.blank?
-
-          score < @score_2
-        end
-
+        attr_reader :id, :number, :net, :par, :score_1, :score_2,
+                    :team_id, :score1_id, :score2_id
       end
     end
   end

@@ -1,47 +1,38 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "Tournament" do
-  before :all do
+  before do
     @tournament = FactoryGirl.create(:tournament)
+    @course1    = FactoryGirl.create(:new_course, :bandon_dunes)
+    @course2    = FactoryGirl.create(:new_course, :pacific_dunes)
+    @course3    = FactoryGirl.create(:new_course, :old_mac)
 
-    @round_1 = FactoryGirl.create(
+    @round1 = FactoryGirl.create(
       :tournament_round,
       :tournament => @tournament,
-      :new_course => FactoryGirl.create(
-        :new_course,
-        :bandon_dunes
-      )
+      :new_course => @course1
     )
-    @course_1 = @round_1.new_course
 
-    @round_2 = FactoryGirl.create(
+    @round2 = FactoryGirl.create(
       :tournament_round,
       :tournament   => @tournament,
       :round_number => 2,
-      :new_course   => FactoryGirl.create(
-        :new_course,
-        :pacific_dunes
-      )
+      :new_course   => @course2
     )
-    @course_2 = @round_2.new_course
 
-    @round_3 = FactoryGirl.create(
+    @round3 = FactoryGirl.create(
       :tournament_round,
       :tournament   => @tournament,
       :round_number => 3,
-      :new_course   => FactoryGirl.create(
-        :new_course,
-        :old_mac
-      )
+      :new_course   => @course3
     )
-    @course_3 = @round_3
 
-    @player_1 = FactoryGirl.create(:user)
-    @leaderboard_1 = FactoryGirl.create(
+    @player1 = FactoryGirl.create(:user)
+    @leaderboard1 = FactoryGirl.create(
       :leaderboard,
       :tournament => @tournament,
-      :user       => @player_1
+      :user       => @player1
     )
-    @tournament.users << @player_1
+    @tournament.users << @player1
   end
 end

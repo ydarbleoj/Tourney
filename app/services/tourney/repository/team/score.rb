@@ -10,8 +10,8 @@ module Tourney
             :par    => score_entity.par
           )
 
-          team_score.score_1_id = score_entity.score_1_id
-          team_score.score_2_id = score_entity.score_2_id
+          team_score.score_1_id = score_entity.score1_id
+          team_score.score_2_id = score_entity.score2_id
           team_score.net        = score_entity.net
 
           team_score.save!
