@@ -1,0 +1,218 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe Tourney::Services::CalculateTeamScore do
+  include_context "Foursome"
+
+  before do
+    @hole1 = @course1.holes.first
+    @score1 = FactoryGirl.create(
+      :user_score,
+      :scorecard => @scorecard1,
+      :hole      => @hole1,
+      :par       => @hole1.par,
+      :number    => @hole1.number,
+      :handicap  => @hole1.handicap,
+      :score     => 4
+    )
+
+    @score2 = FactoryGirl.create(
+      :user_score,
+      :scorecard => @scorecard2,
+      :hole      => @hole1,
+      :par       => @hole1.par,
+      :number    => @hole1.number,
+      :score     => 5
+    )
+    @score3 = FactoryGirl.create(
+      :user_score,
+      :scorecard => @scorecard3,
+      :hole      => @hole1,
+      :par       => @hole1.par,
+      :number    => @hole1.number,
+      :score     => 5
+    )
+
+    @score4 = FactoryGirl.create(
+      :user_score,
+      :scorecard => @scorecard4,
+      :hole      => @hole1,
+      :par       => @hole1.par,
+      :number    => @hole1.number,
+      :score     => 4
+    )
+  end
+
+  def team_score_entity
+    Tourney::Entities::Team::Score.new(
+      :id         => @team_score.id,
+      :team_id    => @team_score.team.id,
+      :number     => @team_score.number,
+      :net        => @team_score.net,
+      :par        => @team_score.par,
+      :score1_id  => @team_score.score_1_id,
+      :score2_id  => @team_score.score_2_id,
+      :score1     => @team_score.score1,
+      :score2     => @team_score.score2,
+      :next_score => @team_score.next_score
+    )
+  end
+
+  def user_score_entity(user_score)
+    Tourney::Entities::UserScore.new(user_score.attributes.symbolize_keys)
+  end
+
+  describe "new scores" do
+    context "first score added" do
+      before do
+        @team_score = FactoryGirl.build(
+          :team_score,
+          :team   => @team,
+          :number => @score1.number,
+          :par    => @score1.par
+        )
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score1)
+        )
+      end
+
+      it "returns score1" do
+        expect(@calculate_team_score.net).to eq(4)
+        expect(@calculate_team_score.score1_id).to eq(@score1.id)
+        expect(@calculate_team_score.score2_id).to be_nil
+        expect(@calculate_team_score.update?).to be_truthy
+      end
+    end
+
+    describe "when the second score is added" do
+      context "when it's higher than the first" do
+        before do
+          @team_score = FactoryGirl.create(
+            :team_score,
+            :team       => @team,
+            :number     => @score1.number,
+            :par        => @score1.par,
+            :score_1_id => @score1.id,
+            :net        => @score1.net
+          )
+
+          @calculate_team_score = described_class.new(
+            team_score_entity, user_score_entity(@score2)
+          )
+        end
+
+        it "returns score2" do
+          expect(@calculate_team_score.net).to eq(9)
+          expect(@calculate_team_score.score1_id).to eq(@score1.id)
+          expect(@calculate_team_score.score2_id).to eq(@score2.id)
+          expect(@calculate_team_score.update?).to be_truthy
+        end
+      end
+
+      context "when it's lower than the first" do
+        before do
+          @team_score = FactoryGirl.create(
+            :team_score,
+            :team       => @team,
+            :number     => @score1.number,
+            :par        => @score1.par,
+            :score_1_id => @score1.id,
+            :net        => @score1.net
+          )
+          @score2.update(:score => 3)
+          @calculate_team_score = described_class.new(
+            team_score_entity, user_score_entity(@score2.reload)
+          )
+        end
+
+        it "returns demotes score1" do
+          expect(@calculate_team_score.net).to eq(7)
+          expect(@calculate_team_score.score1_id).to eq(@score2.id)
+          expect(@calculate_team_score.score2_id).to eq(@score1.id)
+          expect(@calculate_team_score.update?).to be_truthy
+        end
+      end
+    end
+
+    context "third score" do
+      before do
+        @team_score = FactoryGirl.create(
+          :team_score,
+          :team       => @team,
+          :number     => @score1.number,
+          :par        => @score1.par,
+          :score_1_id => @score1.id,
+          :score_2_id => @score2.id,
+          :net        => 9
+        )
+
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score3)
+        )
+      end
+
+      it "doesn't update anything" do
+        expect(@calculate_team_score.net).to eq(9)
+        expect(@calculate_team_score.score1_id).to eq(@score1.id)
+        expect(@calculate_team_score.score2_id).to eq(@score2.id)
+        expect(@calculate_team_score.update?).to be_falsey
+      end
+    end
+
+    context "when fourth score is added" do
+      before do
+        @team_score = FactoryGirl.create(
+          :team_score,
+          :team       => @team,
+          :number     => @score1.number,
+          :par        => @score1.par,
+          :score_1_id => @score1.id,
+          :score_2_id => @score2.id,
+          :net        => 9
+        )
+
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score4)
+        )
+      end
+
+      it "demotes score2" do
+        expect(@calculate_team_score.net).to eq(8)
+        expect(@calculate_team_score.score1_id).to eq(@score1.id)
+        expect(@calculate_team_score.score2_id).to eq(@score4.id)
+        expect(@calculate_team_score.update?).to be_truthy
+      end
+    end
+
+    context "when fourth score updates" do
+      before do
+        @score4.update(:score => 3)
+        @team_score = FactoryGirl.create(
+          :team_score,
+          :team       => @team,
+          :number     => @score1.number,
+          :par        => @score1.par,
+          :score_1_id => @score1.id,
+          :score_2_id => @score4.id,
+          :net        => 8
+        )
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score4.reload)
+        )
+      end
+
+      it "updates the score total" do
+        expect(@calculate_team_score.net).to eq(7)
+      end
+
+      it "promotes score2 to score1" do
+        expect(@calculate_team_score.score1_id).to eq(@score4.id)
+      end
+
+      it "demotes score1 to score2" do
+        expect(@calculate_team_score.score2_id).to eq(@score1.id)
+      end
+    end
+  end
+end

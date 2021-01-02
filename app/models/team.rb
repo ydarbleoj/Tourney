@@ -8,17 +8,18 @@ class Team < ApplicationRecord
   belongs_to :new_course
   belongs_to :tournament_round
 
-  belongs_to :player_1, class_name: "Scorecard", optional: true
-  belongs_to :player_2, class_name: "Scorecard", optional: true
-  belongs_to :player_3, class_name: "Scorecard", optional: true
-  belongs_to :player_4, class_name: "Scorecard", optional: true
-
+  has_many :team_cards
+  has_many :scorecards, through: :team_cards
+  has_many :user_scores, through: :scorecards
   has_many :team_scores
   has_many :tee_times
   has_many :users, through: :tee_times
 
-  after_commit :check_for_last_scorecard
+  def scores_total
+    return 0 unless team_scores.present?
 
+    team_scores.sum(:net)
+  end
 
   def check_for_last_scorecard
     last_scorecard = TournamentRound.find(self.tournament_round_id).teams.card_open

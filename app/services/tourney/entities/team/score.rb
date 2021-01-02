@@ -4,12 +4,29 @@ module Tourney
   module Entities
     module Team
       class Score
-        def initialize(user_score_id)
-          @user_score = UserScore.find(user_score_id)
+        attr_reader :id, :number, :net, :par, :score1, :score2,
+                    :team_id, :score1_id, :score2_id
+
+        def initialize(attributes = {})
+          @id        = attributes.fetch(:id, nil)
+          @number    = attributes.fetch(:number, nil)
+          @net       = attributes.fetch(:net, nil)
+          @par       = attributes.fetch(:par, nil)
+          @score1_id = attributes.fetch(:score1_id, nil)
+          @score2_id = attributes.fetch(:score2_id, nil)
+          @score1    = attributes.fetch(:score1, nil)
+          @score2    = attributes.fetch(:score2, nil)
+          @team_id   = attributes.fetch(:team_id, nil)
+
+          @next_score = attributes.fetch(:next_score)
         end
 
-        def total
+        def next_score_id
+          @next_score&.id
+        end
 
+        def next_score_net
+          @next_score&.net
         end
       end
     end
