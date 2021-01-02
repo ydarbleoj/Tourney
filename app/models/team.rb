@@ -21,15 +21,6 @@ class Team < ApplicationRecord
     team_scores.sum(:net)
   end
 
-  def next_lowest_score(num, val, not_ids)
-    user_scores.where(
-      "user_scores.number = ?
-      AND user_scores.net < ?
-      AND user_scores.id != ?",
-      num, val, not_ids
-    ).order("user_scores.net desc").first
-  end
-
   def check_for_last_scorecard
     last_scorecard = TournamentRound.find(self.tournament_round_id).teams.card_open
     if last_scorecard.blank?

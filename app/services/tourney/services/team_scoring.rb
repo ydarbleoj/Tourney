@@ -32,16 +32,13 @@ module Tourney
 
       def team_score_entity
         Tourney::Entities::Team::Score.new(
-          :id         => team_score.id,
-          :team_id    => team.id,
-          :number     => team_score.number,
-          :net        => team_score.net,
-          :par        => team_score.par,
-          :score1_id  => team_score.score_1_id,
-          :score2_id  => team_score.score_2_id,
-          :score1     => team_score.score1,
-          :score2     => team_score.score2,
-          :next_score => team_score.next_score
+          team_score.attributes.symbolize_keys.merge(
+            :score1_id  => team_score.score_1_id,
+            :score2_id  => team_score.score_2_id,
+            :score1     => team_score.score1,
+            :score2     => team_score.score2,
+            :next_score => team_score.next_score
+          )
         )
       end
 

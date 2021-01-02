@@ -31,6 +31,8 @@ module Tourney
         end
 
         def less_than_score2?
+          return false if @team_score.score2_id.blank?
+
           new_net < @team_score.score2
         end
 

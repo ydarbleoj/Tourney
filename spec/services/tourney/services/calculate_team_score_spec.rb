@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe Tourney::Services::CalculateTeamScore do
   include_context "Foursome"
 
-  let(:next_lowest_score) { nil }
-
   before do
     @hole1 = @course1.holes.first
     @score1 = FactoryGirl.create(
@@ -57,7 +55,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
       :score2_id  => @team_score.score_2_id,
       :score1     => @team_score.score1,
       :score2     => @team_score.score2,
-      :next_score => next_lowest_score
+      :next_score => @team_score.next_score
     )
   end
 
@@ -122,8 +120,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
             :score_1_id => @score1.id,
             :net        => @score1.net
           )
-
-          @score2.update(:score => 4)
+          @score2.update(:score => 3)
           @calculate_team_score = described_class.new(
             team_score_entity, user_score_entity(@score2.reload)
           )

@@ -37,7 +37,7 @@ module Tourney
         end
 
         def score2_new?
-          !new? && @team_score.score2_id.blank?
+          !new? && @team_score.score2_id.blank? && !demote_score1?
         end
 
         def net_update?
