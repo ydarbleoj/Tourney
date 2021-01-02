@@ -12,8 +12,7 @@ module Tourney
         return unless calculate_team_score.update?
 
         Tourney::Repository::Team::Score.persist(
-          team,
-          team_score_entity
+          team, calculate_team_score
         )
         Tourney::Repository::Team::Update.execute(team.reload)
       end
@@ -33,21 +32,27 @@ module Tourney
 
       def team_score_entity
         Tourney::Entities::Team::Score.new(
-          :id        => team_score.id,
-          :team_id   => team.id,
-          :number    => team_score.number,
-          :net       => team_score.net,
-          :par       => team_score.par,
-          :score1_id => team_score.score_1_id,
-          :score2_id => team_score.score_2_id,
-          :score1    => team_score.score1_net,
-          :score2    => team_score.score2_net
+          :id         => team_score.id,
+          :team_id    => team.id,
+          :number     => team_score.number,
+          :net        => team_score.net,
+          :par        => team_score.par,
+          :score1_id  => team_score.score_1_id,
+          :score2_id  => team_score.score_2_id,
+          :score1     => team_score.score1,
+          :score2     => team_score.score2,
+          :next_score => team_score.next_score
         )
+      end
+
+      def user_score_entity
+        Tourney::Entities::UserScore.new(@user_score.attributes.symbolize_keys)
       end
 
       def calculate_team_score
         @cts ||= Tourney::Services::CalculateTeamScore.new(
-          team_score_entity, @user_score
+          team_score_entity,
+          user_score_entity
         )
       end
     end

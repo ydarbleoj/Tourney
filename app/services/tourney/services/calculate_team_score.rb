@@ -3,10 +3,14 @@
 module Tourney
   module Services
     class CalculateTeamScore
+      attr_reader :number, :par
+
       def initialize(team_score, user_score)
         @team_score = team_score
         @user_score = user_score
         @new_net    = user_score.net
+        @par        = user_score.par
+        @number     = user_score.number
       end
 
       def net
