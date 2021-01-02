@@ -152,7 +152,6 @@ RSpec.describe Tourney::Services::TeamScoring do
         expect(@team.total_net).to eq(9)
       end
     end
-
     context "third score" do
       before do
         @team_score = FactoryGirl.create(
@@ -179,6 +178,7 @@ RSpec.describe Tourney::Services::TeamScoring do
         expect(@team.total_net).to eq(9)
       end
     end
+
 
     context "fourth score" do
       before do

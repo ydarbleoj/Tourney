@@ -8,11 +8,11 @@ class TeamScore < ApplicationRecord
   validates :number, presence: true
   validates :net, presence: true
 
-  def score1_net
+  def score1
     score_1&.net
   end
 
-  def score2_net
+  def score2
     score_2&.net
   end
 end

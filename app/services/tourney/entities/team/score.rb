@@ -4,6 +4,9 @@ module Tourney
   module Entities
     module Team
       class Score
+        attr_reader :id, :number, :net, :par, :score1, :score2,
+                    :team_id, :score1_id, :score2_id
+
         def initialize(attributes = {})
           @id        = attributes.fetch(:id, nil)
           @number    = attributes.fetch(:number, nil)
@@ -14,10 +17,17 @@ module Tourney
           @score1    = attributes.fetch(:score1, nil)
           @score2    = attributes.fetch(:score2, nil)
           @team_id   = attributes.fetch(:team_id, nil)
+
+          @next_score = attributes.fetch(:next_score)
         end
 
-        attr_reader :id, :number, :net, :par, :score_1, :score_2,
-                    :team_id, :score1_id, :score2_id
+        def next_score_id
+          @next_score&.id
+        end
+
+        def next_score_net
+          @next_score&.net
+        end
       end
     end
   end

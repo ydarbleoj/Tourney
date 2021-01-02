@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "Foursome" do
-  # include_context "Tournament"
+  include_context "Tournament"
 
   before do
     @player2 = FactoryGirl.create(:user)
