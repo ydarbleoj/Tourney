@@ -36,8 +36,8 @@ class Tournament < ApplicationRecord
   validates :end_date, presence: true
 
   def self.current_and_list(name)
-    includes({ tournament_rounds: :new_course })
-    .where(name: name)
-    .order(id: :asc)
+    includes(tournament_rounds: :new_course)
+      .where(name: name)
+      .order(id: :asc)
   end
 end

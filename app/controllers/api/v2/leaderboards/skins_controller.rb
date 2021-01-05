@@ -8,7 +8,9 @@ module API
 
         def index
           if params[:preview] == "true"
-            payload = Scoreboard::SkinsPreviewSerializer.new(@leaderboards).serialized_json
+           payload = Scoreboard::SkinsPreviewSerializer.new(
+             preview_leaderboards
+           ).serialized_json
           else
             payload = Scoreboard::SkinsSerializer.new(@leaderboards).serializable_hash
           end
@@ -16,6 +18,7 @@ module API
         end
 
         private
+
         def set_leaderboards
           @leaderboards = Leaderboard.skins(@tournament.id)
         end
@@ -24,7 +27,6 @@ module API
           Position.skins_setter(@leaderboards, :net_skin_total)
           @leaderboards = @leaderboards.sort_by { |x| x.position }
         end
-
       end
     end
   end

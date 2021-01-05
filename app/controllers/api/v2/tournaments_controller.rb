@@ -5,7 +5,9 @@ module API
 
       def index
         payload = Tournament.current_and_list('Bandon')
-        render json: { tournament: TournamentSerializer.new(payload).serialized_json }
+        render json: {
+          tournament: TournamentSerializer.new(payload).serialized_json
+        }
       end
 
       def create
@@ -32,6 +34,7 @@ module API
 
 
       private
+
       def tournament_params
         params.require(:tournament).permit(:name, :year, :num_rounds, :num_players, :start_date, :end_date)
       end
@@ -46,7 +49,6 @@ module API
         @user_list = @user_list.flatten(1).uniq
         @course_list = @course_list.flatten(1).uniq
       end
-
     end
   end
 end

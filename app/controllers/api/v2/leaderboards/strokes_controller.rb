@@ -8,7 +8,9 @@ module API
 
         def index
           if params[:preview] == "true"
-            payload = Scoreboard::StrokesPreviewSerializer.new(@leaderboards).serialized_json
+            payload = Scoreboard::StrokesPreviewSerializer.new(
+              preview_leaderboards
+            ).serialized_json
           else
             options = {}
             options[:include] = [:scorecards, :'scorecards.user_scores', :user]
@@ -20,9 +22,11 @@ module API
         end
 
         private
+
         def set_leaderboards
           @leaderboards = Leaderboard.strokes(@tournament.id)
         end
+
 
         def set_positions
           Position.setter(@leaderboards, :total_score)

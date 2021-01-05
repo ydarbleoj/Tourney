@@ -36,7 +36,7 @@ class Position
   private
   attr_reader :skins, :dnfs, :valid_group
   def group_dnf
-    if @objects[0].instance_of? TeamScorecard
+    if @objects[0].instance_of? TeamCard
       @valid_group = @objects
       return
     end

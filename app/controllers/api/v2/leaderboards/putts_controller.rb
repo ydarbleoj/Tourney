@@ -7,9 +7,10 @@ module API
         before_action :set_positions
 
         def index
-
           if params[:preview] == "true"
-            payload = Scoreboard::PuttingPreviewSerializer.new(@leaderboards).serialized_json
+            payload = Scoreboard::PuttingPreviewSerializer.new(
+              preview_leaderboards
+            ).serialized_json
           else
             options = {}
             options[:include] = [:scorecards, :user]
@@ -20,6 +21,7 @@ module API
         end
 
         private
+
         def set_leaderboards
           @leaderboards = Leaderboard.putting(@tournament.id)
         end
@@ -27,7 +29,6 @@ module API
         def set_positions
           Position.setter(@leaderboards, :total_putts)
         end
-
       end
     end
   end
