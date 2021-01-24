@@ -19,9 +19,13 @@ module RoundInfo
     attribute :name do |obj|
       "#{obj.new_course.name}"
     end
+
     attribute :par do |obj|
       obj.new_course.par
     end
 
+    attribute :yardage do |obj|
+      obj.new_course.yardage
+    end
   end
 end
