@@ -7,9 +7,14 @@ module API
       before_action :set_tournament
       before_action :check_tournament_user
       before_action :set_current_leaderboard
+      before_action :current_tournament_rounds
 
       def set_tournament
         @tournament = Tournament.find(params['tournament_id'])
+      end
+
+      def current_tournament_rounds
+        @current_tournament_rounds ||= @tournament.tournament_rounds
       end
 
       def check_tournament_user
@@ -25,7 +30,6 @@ module API
       end
 
       def preview_leaderboards
-
         (@leaderboards.first(3) + [@current_leaderboard]).uniq(&:user_id)
       end
     end
