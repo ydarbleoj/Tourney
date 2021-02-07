@@ -13,7 +13,7 @@ class Team < ApplicationRecord
   has_many :user_scores, through: :scorecards
   has_many :team_scores
   has_many :tee_times
-  has_many :users, through: :tee_times
+  has_many :users, through: :scorecards
 
   def scores_total
     return 0 unless team_scores.present?
@@ -43,9 +43,9 @@ class Team < ApplicationRecord
   end
 
   def self.admin_tee_times(tr_id)
-    includes({ tee_times: [:user] }, :new_course)
-    .where(tournament_round_id: tr_id)
-    .order(group: :asc)
+    includes({ scorecards: [:user] }, :new_course)
+      .where(tournament_round_id: tr_id)
+      .order(group: :asc)
   end
 
   def update_money_lists(scorecard)

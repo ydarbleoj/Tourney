@@ -68,26 +68,26 @@ class TournamentBuild
 
   def round_one_team
     rnd = @round_one
-    TeamScorecard.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 00))
-    TeamScorecard.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 20))
-    TeamScorecard.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 30))
-    TeamScorecard.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 40))
+    Team.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 00))
+    Team.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 20))
+    Team.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 30))
+    Team.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 9, 11, 40))
   end
 
   def round_two_team
     rnd = @round_two
-    TeamScorecard.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 20))
-    TeamScorecard.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 30))
-    TeamScorecard.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 40))
-    TeamScorecard.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 50))
+    Team.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 20))
+    Team.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 30))
+    Team.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 40))
+    Team.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 10, 10, 50))
   end
 
   def round_three_team
     rnd = @round_three
-    TeamScorecard.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 9, 50))
-    TeamScorecard.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 00))
-    TeamScorecard.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 10))
-    TeamScorecard.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 20))
+    Team.create(group: 'Group A', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 9, 50))
+    Team.create(group: 'Group B', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 00))
+    Team.create(group: 'Group C', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 10))
+    Team.create(group: 'Group D', new_course_id: rnd.new_course_id, tournament_round_id: rnd.id, group_time: DateTime.new(2018, 2, 11, 10, 20))
   end
 
 

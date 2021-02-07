@@ -59,7 +59,7 @@ class CreateRounds
   end
 
   def create_team(tr_id, course_id, group, round_date)
-    TeamScorecard.create!(
+    Team.create!(
       tournament_round_id: tr_id,
       new_course_id: course_id,
       group: group[0],
