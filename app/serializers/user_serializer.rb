@@ -12,4 +12,8 @@ class UserSerializer
   attribute :username do |object|
     object.username
   end
+
+  attribute :id do |object|
+    object.id
+  end
 end

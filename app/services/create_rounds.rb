@@ -1,5 +1,4 @@
 class CreateRounds
-
   def self.call(tournament, params, current_user)
     new(tournament, params, current_user).call
   end

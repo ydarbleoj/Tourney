@@ -30,6 +30,8 @@ module API
       end
 
       def preview_leaderboards
+        return nil unless @leaderboards.present? && @current_leaderboard.present?
+
         (@leaderboards.first(3) + [@current_leaderboard]).uniq(&:user_id)
       end
     end
