@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_213700) do
+ActiveRecord::Schema.define(version: 2021_02_08_214208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -372,6 +372,8 @@ ActiveRecord::Schema.define(version: 2021_02_08_213700) do
     t.string "group"
     t.boolean "is_won", default: false
     t.datetime "group_time"
+    t.integer "total_score", default: 0
+    t.integer "total_putts", default: 0
   end
 
   create_table "tee_times", force: :cascade do |t|
