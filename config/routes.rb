@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         resources :courses, only: [:index]
         resources :lists, only: [:index]
         resources :scorecards, only: [:index, :update]
+        resources :team_scorecards, only: [:show]
       end
 
       namespace :tournaments do

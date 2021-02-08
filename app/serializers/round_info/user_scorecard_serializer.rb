@@ -64,7 +64,6 @@ module RoundInfo
           user_score_id: score.blank? ? nil : score.id
         }
       end
-
     end
   end
 end

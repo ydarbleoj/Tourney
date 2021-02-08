@@ -12,6 +12,7 @@ class Team < ApplicationRecord
   has_many :scorecards, through: :team_cards
   has_many :user_scores, through: :scorecards
   has_many :team_scores
+  has_many :holes, :through => :new_course
   has_many :tee_times
   has_many :users, through: :scorecards
 

@@ -14,6 +14,10 @@ module Admins
       object.new_course.name
     end
 
+    attribute :time do |object|
+      object.group_time.strftime('%H:%M')
+    end
+
     attribute :group do |object|
       object.group
     end

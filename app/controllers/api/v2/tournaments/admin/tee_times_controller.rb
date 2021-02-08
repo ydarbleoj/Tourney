@@ -49,7 +49,7 @@ module API
           end
 
           def awaiting_scorecards
-           p @tournament.scorecards
+            @tournament.scorecards
                        .where.not(id: users_with_times)
                        .where(:tournament_round_id => params["tournament_round_id"])
           end

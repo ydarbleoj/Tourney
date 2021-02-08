@@ -10,6 +10,7 @@ module API
           options[:include] = [:round_aggs, :course_aggs]
           @user_data = set_user_data
           render json: {
+            tee_times: Admins::TeeTimesSerializer.new(teams).serialized_json,
             course_data: RoundInfo::CourseStatsSerializer.new(@course_data, options).serialized_json,
             user_data: UserCourseAggSerializer.new(@user_data).serialized_json
           }
@@ -34,6 +35,12 @@ module API
             user_id:       current_user.id,
             new_course_id: @course_data.new_course_id
           ).first
+        end
+
+        def teams
+          @teams = Team.where(tournament_round_id: params[:tournament_round_id])
+                       .includes(:new_course, scorecards: :user)
+                       .order(:group_time)
         end
       end
     end
