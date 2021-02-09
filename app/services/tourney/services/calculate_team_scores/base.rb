@@ -25,7 +25,7 @@ module Tourney
         end
 
         def less_than_score1?
-          return true if new?
+          return true if new? || @team_score.score1.blank?
 
           new_net < @team_score.score1
         end
@@ -34,7 +34,7 @@ module Tourney
           return false if @team_score.score2_id.blank?
           return false if override_score1?
 
-          p new_net < @team_score.score2
+          new_net < @team_score.score2
         end
 
         def next_score_net
