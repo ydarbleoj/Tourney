@@ -5,45 +5,6 @@ require "rails_helper"
 RSpec.describe Tourney::Services::CalculateTeamScore do
   include_context "Foursome"
 
-  before do
-    @hole1 = @course1.holes.first
-    @score1 = FactoryGirl.create(
-      :user_score,
-      :scorecard => @scorecard1,
-      :hole      => @hole1,
-      :par       => @hole1.par,
-      :number    => @hole1.number,
-      :handicap  => @hole1.handicap,
-      :score     => 4
-    )
-
-    @score2 = FactoryGirl.create(
-      :user_score,
-      :scorecard => @scorecard2,
-      :hole      => @hole1,
-      :par       => @hole1.par,
-      :number    => @hole1.number,
-      :score     => 5
-    )
-    @score3 = FactoryGirl.create(
-      :user_score,
-      :scorecard => @scorecard3,
-      :hole      => @hole1,
-      :par       => @hole1.par,
-      :number    => @hole1.number,
-      :score     => 5
-    )
-
-    @score4 = FactoryGirl.create(
-      :user_score,
-      :scorecard => @scorecard4,
-      :hole      => @hole1,
-      :par       => @hole1.par,
-      :number    => @hole1.number,
-      :score     => 4
-    )
-  end
-
   def team_score_entity
     Tourney::Entities::Team::Score.new(
       :id         => @team_score.id,
@@ -55,15 +16,59 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
       :score2_id  => @team_score.score_2_id,
       :score1     => @team_score.score1,
       :score2     => @team_score.score2,
+      :team_size  => @team.scorecards.size,
       :next_score => @team_score.next_score
     )
   end
 
-  def user_score_entity(user_score)
-    Tourney::Entities::UserScore.new(user_score.attributes.symbolize_keys)
+  def user_score_entity(user_score, position)
+    Tourney::Entities::UserScore.new(
+      user_score.attributes.symbolize_keys.merge(
+        :position => position
+      )
+    )
   end
 
   describe "new scores" do
+    before do
+      @hole1 = @course1.holes.first
+      @score1 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard1,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :handicap  => @hole1.handicap,
+        :score     => 4
+      )
+
+      @score2 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard2,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :score     => 5
+      )
+      @score3 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard3,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :score     => 5
+      )
+
+      @score4 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard4,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :score     => 4
+      )
+    end
+
     context "first score added" do
       before do
         @team_score = FactoryGirl.build(
@@ -73,7 +78,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
           :par    => @score1.par
         )
         @calculate_team_score = described_class.new(
-          team_score_entity, user_score_entity(@score1)
+          team_score_entity, user_score_entity(@score1, @team_card1.position)
         )
       end
 
@@ -98,7 +103,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
           )
 
           @calculate_team_score = described_class.new(
-            team_score_entity, user_score_entity(@score2)
+            team_score_entity, user_score_entity(@score2, @team_card2.position)
           )
         end
 
@@ -118,11 +123,12 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
             :number     => @score1.number,
             :par        => @score1.par,
             :score_1_id => @score1.id,
-            :net        => @score1.net
+            :score_2_id => @score2.id,
+            :net        => 9
           )
           @score2.update(:score => 3)
           @calculate_team_score = described_class.new(
-            team_score_entity, user_score_entity(@score2.reload)
+            team_score_entity, user_score_entity(@score2.reload, @team_card2.position)
           )
         end
 
@@ -148,7 +154,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
         )
 
         @calculate_team_score = described_class.new(
-          team_score_entity, user_score_entity(@score3)
+          team_score_entity, user_score_entity(@score3, @team_card3.position)
         )
       end
 
@@ -173,7 +179,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
         )
 
         @calculate_team_score = described_class.new(
-          team_score_entity, user_score_entity(@score4)
+          team_score_entity, user_score_entity(@score4, @team_card4.position)
         )
       end
 
@@ -198,7 +204,7 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
           :net        => 8
         )
         @calculate_team_score = described_class.new(
-          team_score_entity, user_score_entity(@score4.reload)
+          team_score_entity, user_score_entity(@score4.reload, @team_card4.position)
         )
       end
 
@@ -212,6 +218,137 @@ RSpec.describe Tourney::Services::CalculateTeamScore do
 
       it "demotes score1 to score2" do
         expect(@calculate_team_score.score2_id).to eq(@score1.id)
+      end
+    end
+  end
+
+  describe "threesome new scores" do
+    before do
+      @team_card4.delete
+      @hole1 = @course1.holes.first
+      @score1 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard1,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :handicap  => @hole1.handicap,
+        :score     => 4
+      )
+
+      @score2 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard2,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :score     => 5
+      )
+      @score3 = FactoryGirl.create(
+        :user_score,
+        :scorecard => @scorecard3,
+        :hole      => @hole1,
+        :par       => @hole1.par,
+        :number    => @hole1.number,
+        :score     => 5
+      )
+    end
+
+    context "first score added" do
+      before do
+        @team_score = FactoryGirl.build(
+          :team_score,
+          :team   => @team,
+          :number => @score1.number,
+          :par    => @score1.par
+        )
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score1, @team_card1.position)
+        )
+      end
+
+      it "returns score1" do
+        expect(@calculate_team_score.net).to eq(8)
+        expect(@calculate_team_score.score1_id).to eq(@score1.id)
+        expect(@calculate_team_score.score2_id).to eq(@score1.id)
+        expect(@calculate_team_score.update?).to be_truthy
+      end
+    end
+
+    describe "when the second score is added" do
+      context "when it's higher than the first" do
+        before do
+          @team_score = FactoryGirl.create(
+            :team_score,
+            :team       => @team,
+            :number     => @score1.number,
+            :par        => @score1.par,
+            :score_1_id => @score1.id,
+            :score_2_id => @score1.id,
+            :net        => 8
+          )
+
+          @calculate_team_score = described_class.new(
+            team_score_entity, user_score_entity(@score2, @team_card2.position)
+          )
+        end
+
+        it "returns score2" do
+          expect(@calculate_team_score.net).to eq(8)
+          expect(@calculate_team_score.score1_id).to eq(@score1.id)
+          expect(@calculate_team_score.score2_id).to eq(@score1.id)
+          expect(@calculate_team_score.update?).to be_falsey
+        end
+      end
+
+      context "when it's lower than the first" do
+        before do
+          @team_score = FactoryGirl.create(
+            :team_score,
+            :team       => @team,
+            :number     => @score1.number,
+            :par        => @score1.par,
+            :score_1_id => @score1.id,
+            :score_2_id => @score1.id,
+            :net        => 8
+          )
+          @score2.update(:score => 3)
+          @calculate_team_score = described_class.new(
+            team_score_entity, user_score_entity(@score2.reload, @team_card2.position)
+          )
+        end
+
+        it "returns demotes score1" do
+          expect(@calculate_team_score.net).to eq(7)
+          expect(@calculate_team_score.score1_id).to eq(@score2.id)
+          expect(@calculate_team_score.score2_id).to eq(@score1.id)
+          expect(@calculate_team_score.update?).to be_truthy
+        end
+      end
+    end
+
+    context "third score" do
+      before do
+        @team_score = FactoryGirl.create(
+          :team_score,
+          :team       => @team,
+          :number     => @score1.number,
+          :par        => @score1.par,
+          :score_1_id => @score1.id,
+          :score_2_id => @score2.id,
+          :net        => 9
+        )
+
+        @calculate_team_score = described_class.new(
+          team_score_entity, user_score_entity(@score3, @team_card3.position)
+        )
+      end
+
+      it "doesn't update anything" do
+        expect(@calculate_team_score.net).to eq(9)
+        expect(@calculate_team_score.score1_id).to eq(@score1.id)
+        expect(@calculate_team_score.score2_id).to eq(@score2.id)
+        expect(@calculate_team_score.update?).to be_falsey
       end
     end
   end

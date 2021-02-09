@@ -29,7 +29,8 @@ module Admins
           last_name:    scorecard.user.last_name,
           scorecard_id: scorecard.id,
           user_id:      scorecard.user.id,
-          handicap:     scorecard.handicap
+          handicap:     scorecard.handicap,
+          position:     scorecard.team_card.position
         }
       end
     end

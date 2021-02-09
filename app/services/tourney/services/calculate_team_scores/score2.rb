@@ -10,22 +10,22 @@ module Tourney
         end
 
         def id
-          new? ? nil : find_lowest_score[0]
+          (new? && !both_scores?) ? nil : find_lowest_score[0]
         end
 
         def net
-          new? ? nil : find_lowest_score[1]
+          (new? && !both_scores?) ? nil : find_lowest_score[1]
         end
 
         def update?
-          score2_new? || demote_score1? ||
+          score2_new? || demote_score1? || both_scores? ||
             promote_score3? || net_update? || demote_score2?
         end
 
         private
 
         def find_lowest_score
-          if score2_new? || less_than_score2? || net_update?
+          if both_scores? || score2_new? || less_than_score2? || net_update?
             [new_id, new_net]
           elsif demote_score1?
             [@team_score.score1_id, @team_score.score1]
@@ -37,7 +37,7 @@ module Tourney
         end
 
         def score2_new?
-          !new? && @team_score.score2_id.blank? && !demote_score1?
+          !new? && @team_score.score2_id.blank?
         end
 
         def net_update?

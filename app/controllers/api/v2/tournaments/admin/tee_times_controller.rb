@@ -33,8 +33,12 @@ module API
           end
 
           def create_team_players
-            Scorecard.where(:id => params["ids"]).each do |scorecard|
-              @team.scorecards << scorecard
+            Scorecard.where(:id => params["ids"]).each.with_index do |scorecard, index|
+              TeamCard.create(
+                :scorecard_id => scorecard.id,
+                :team_id      => @team.id,
+                :position     => index + 1
+              )
             end
           end
 

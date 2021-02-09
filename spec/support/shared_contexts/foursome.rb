@@ -63,9 +63,29 @@ RSpec.shared_context "Foursome" do
       :tournament_round => @round1
     )
 
-    @team.scorecards << @scorecard1
-    @team.scorecards << @scorecard2
-    @team.scorecards << @scorecard3
-    @team.scorecards << @scorecard4
+    @team_card1 = FactoryGirl.create(
+      :team_card,
+      :scorecard => @scorecard1,
+      :team      => @team,
+      :position  => 1
+    )
+    @team_card2 = FactoryGirl.create(
+      :team_card,
+      :scorecard => @scorecard2,
+      :team      => @team,
+      :position  => 2
+    )
+    @team_card3 = FactoryGirl.create(
+      :team_card,
+      :scorecard => @scorecard3,
+      :team      => @team,
+      :position  => 3
+    )
+    @team_card4 = FactoryGirl.create(
+      :team_card,
+      :scorecard => @scorecard4,
+      :team      => @team,
+      :position  => 4
+    )
   end
 end

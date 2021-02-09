@@ -18,13 +18,14 @@ module Tourney
         end
 
         def update?
-          new? || demote_score1? || promote_score2? || net_update?
+          new? || demote_score1? || promote_score2? || net_update? || both_scores?
         end
 
         private
 
         def find_lowest_score
-          if new? || demote_score1? || net_update?
+
+          if new? || demote_score1? || net_update? || both_scores?
             [new_id, new_net]
           elsif promote_score2?
             [@team_score.score2_id, @team_score.score2]

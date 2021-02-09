@@ -22,7 +22,7 @@ module API
         def team_scorecard_includes
           [
             :new_course => [:holes],
-            :scorecards => [:user_scores],
+            :scorecards => [:user_scores, :team_card],
             :team_scores => [:score_1, :score_2]
           ]
         end

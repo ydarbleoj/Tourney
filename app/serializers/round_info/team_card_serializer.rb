@@ -8,6 +8,8 @@ module RoundInfo
     has_one :new_course, serializer: NewCourseSerializer
     has_many :holes, through: :new_course, serializer: HoleSerializer
     has_many :team_scores
+    has_many :team_cards
+    has_many :scorecards, through: :team_cards
 
     attributes :new_course_id, :tournament_round_id, :total_net, :is_won, :group
 
@@ -60,8 +62,8 @@ module RoundInfo
           last_name:    scorecard.user.last_name,
           scorecard_id: scorecard.id,
           user_id:      scorecard.user.id,
-          handicap:     scorecard.handicap
-
+          handicap:     scorecard.handicap,
+          position:     scorecard.team_card.position
         }
       end
     end
