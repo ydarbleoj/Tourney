@@ -27,7 +27,11 @@ module API
           return false if @tournament_user.blank?
 
           @tournament.tournament_rounds.map do |round|
-            Team.includes(:tournament_round, :scorecards).where(user_id: current_user.id, tournament_round_id: round.id).first
+            Team.includes(:tournament_round, :scorecards).where(
+              scorecards: {
+                user_id: current_user.id, tournament_round_id: round.id
+              }
+            ).first
           end
         end
 
