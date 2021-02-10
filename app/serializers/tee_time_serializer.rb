@@ -1,6 +1,6 @@
 class TeeTimeSerializer
   include FastJsonapi::ObjectSerializer
-  set_type :tee_time
+  set_type :team
   set_id :id
 
   belongs_to :user
@@ -13,6 +13,6 @@ class TeeTimeSerializer
   end
 
   attribute :tee_time do |object|
-    object.tee_time.strftime("%I:%M")
+    object.group_time.strftime("%I:%M")
   end
 end

@@ -7,12 +7,12 @@ module API
         def index
           payload = @tournament.tournament_rounds.rounds
 
+          # user_times: TeeTimeSerializer.new(
+          #   user_tee_times
+          # ).serialized_json,
           render json: {
             rounds: RoundInfo::ListSerializer.new(
               payload
-            ).serialized_json,
-            user_times: TeeTimeSerializer.new(
-              user_tee_times
             ).serialized_json,
             scorecard_previews: RoundInfo::ScorecardPreviewSerializer.new(
               user_scorecards
@@ -25,10 +25,10 @@ module API
 
         def user_tee_times
           return false if @tournament_user.blank?
-          p 'here99'
+
           @tournament.tournament_rounds.map do |round|
-            Team.includes(:tournament_round, :scorecards)
-                .where("scorecards.user_id = ? AND scorecards.tournament_round_id = ?",
+            Team.includes(:tournament_round, :team_cards)
+                .where("scorecards.user_id = ? AND tournament_round_id = ?",
                   current_user.id, round.id
                 ).first
           end
