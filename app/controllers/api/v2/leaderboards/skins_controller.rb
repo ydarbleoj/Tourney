@@ -9,7 +9,7 @@ module API
         def index
           if params[:preview] == "true"
            payload = Scoreboard::SkinsPreviewSerializer.new(
-             preview_leaderboards
+             set_preview
            ).serialized_json
           else
             payload = Scoreboard::SkinsSerializer.new(@leaderboards).serializable_hash
@@ -26,6 +26,10 @@ module API
         def set_positions
           Position.skins_setter(@leaderboards, :net_skin_total)
           @leaderboards = @leaderboards.sort_by { |x| x.position }
+        end
+
+        def set_preview
+          @leaderboards.first(3)
         end
       end
     end

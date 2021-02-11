@@ -9,7 +9,7 @@ module API
         def index
           if params[:preview] == "true"
             payload = Scoreboard::PuttingPreviewSerializer.new(
-              preview_leaderboards
+              set_preview
             ).serialized_json
           else
             options = {}
@@ -28,6 +28,10 @@ module API
 
         def set_positions
           Position.setter(@leaderboards, :total_putts)
+        end
+
+        def set_preview
+          @leaderboards.first(3)
         end
       end
     end

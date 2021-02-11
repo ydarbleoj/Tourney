@@ -9,7 +9,7 @@ module API
         def index
           if params[:preview] == "true"
             payload = Scoreboard::StrokesPreviewSerializer.new(
-              preview_leaderboards
+              set_preview
             ).serialized_json
           else
             options = {}
@@ -34,6 +34,10 @@ module API
 
         def set_greens_in_reg
           GreensInReg.call(@leaderboards)
+        end
+
+        def set_preview
+          @leaderboards.first(3)
         end
       end
     end
