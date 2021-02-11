@@ -40,14 +40,13 @@ module API
       end
 
       def build_lists
-        @user_list = []
-        @course_list = []
-        Tournament.includes({tournament_users: :user}, :new_courses).where(name: @tournament.name).each do |tourn|
-          @user_list << tourn.users
-        end
+        # @user_list = []
+        # @course_list = []
+        # Tournament.includes({tournament_users: :user}, :new_courses).where(name: @tournament.name).each do |tourn|
+        #   @user_list << tourn.users
+        # end
+        @user_list = User.all
         @course_list << NewCourse.all
-        @user_list = @user_list.flatten(1).uniq
-        @course_list = @course_list.flatten(1).uniq
       end
     end
   end

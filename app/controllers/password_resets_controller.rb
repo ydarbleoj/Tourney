@@ -14,7 +14,8 @@ class PasswordResetsController < ApplicationController
       # user.generate_password_token!
       # UserMailer.reset_password(user).deliver_now
 
-      render json: 'Your email was found and your password updated.'
+      render json:
+      'Your email was found and your password updated.'
     else
       render json: 'Email address not found.', status: 400
     end
