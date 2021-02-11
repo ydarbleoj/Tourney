@@ -9,10 +9,12 @@ class PasswordResetsController < ApplicationController
   def create
     user = User.find_by(email: params[:password_reset][:email].downcase)
     if user
-      user.generate_password_token!
-      UserMailer.reset_password(user).deliver_now
+      pswd = user.last_name.downcase + "1234"
+      user.update(:password => pswd)
+      # user.generate_password_token!
+      # UserMailer.reset_password(user).deliver_now
 
-      render json: 'Email has been sent'
+      render json: 'Your email was found and your password updated.'
     else
       render json: 'Email address not found.', status: 400
     end

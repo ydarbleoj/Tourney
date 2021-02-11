@@ -70,7 +70,7 @@ module API
               emails.each do |email|
                 user = User.find_by_email(email)
                 inv = Invitation.create!(email: email, first_name: user.first_name, last_name: user.last_name, tournament_id: @tournament.id)
-                InvitationMailer.invite(inv).deliver_now
+                # InvitationMailer.invite(inv).deliver_now
               end
             end
             true
