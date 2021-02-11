@@ -46,7 +46,7 @@ module API
         #   @user_list << tourn.users
         # end
         @user_list = User.all
-        @course_list << NewCourse.all
+        @course_list = NewCourse.all
       end
     end
   end
