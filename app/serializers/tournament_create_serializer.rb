@@ -16,7 +16,7 @@ class TournamentCreateSerializer
       {
         round_number: i,
         roundNumber: i,
-        course: new_course&.name,
+        course: course&.name,
         roundId: round&.id,
         round_date: dates[i-1],
         display_date: dates[i-1].strftime("%a %d"),
