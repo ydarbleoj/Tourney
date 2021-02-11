@@ -69,7 +69,14 @@ module API
             ActiveRecord::Base.transaction do
               emails.each do |email|
                 user = User.find_by_email(email)
-                inv = Invitation.create!(email: email, first_name: user.first_name, last_name: user.last_name, tournament_id: @tournament.id)
+                inv = Invitation.create!(
+                  email: email,
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  tournament_id: @tournament.id,
+                  accepted: true
+                )
+                PlayerBuild.call(@tournament, user, 36)
                 # InvitationMailer.invite(inv).deliver_now
               end
             end
