@@ -44,8 +44,8 @@ module API
         @course_list = []
         Tournament.includes({tournament_users: :user}, :new_courses).where(name: @tournament.name).each do |tourn|
           @user_list << tourn.users
-          @course_list << tourn.new_courses
         end
+        @course_list << NewCourse.all
         @user_list = @user_list.flatten(1).uniq
         @course_list = @course_list.flatten(1).uniq
       end
