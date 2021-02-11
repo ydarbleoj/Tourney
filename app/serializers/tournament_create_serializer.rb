@@ -8,7 +8,7 @@ class TournamentCreateSerializer
   attributes :name, :year, :start_date, :end_date, :num_players, :num_rounds, :id
 
   attribute :round_info do |object|
-    retrurn [] if object.tournament_rounds.blank?
+    return [] if object.tournament_rounds.blank?
 
     dates = (object.start_date.to_datetime..object.end_date.to_datetime).to_a
     (1..object.num_rounds).map do |i|
