@@ -20,15 +20,11 @@ module API
         @user_score.update!(user_scores_params)
         update_leaderboard
         @scorecard.reload
-        p "here99"
-        p @scorecard.id
-        p current_user
+
         if @user_score.user_id != current_user.id
-          p 'hitto'
-          p @scorecard = find_current_player_scorecard
+          @scorecard = find_current_player_scorecard
         end
-        p 'hhs'
-        p @scorecard.id
+
         player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
 
         team_cards = RoundInfo::UserScorecardSerializer.new(
@@ -63,8 +59,6 @@ module API
       end
 
       def players_team_scorecards
-        p 'payer'
-        p @scorecard
         @scorecard.team.scorecards
                   .order('team_cards.position')
                   .includes({ new_course: :holes }, :user_scores, :team_card)
@@ -74,7 +68,7 @@ module API
       def find_current_player_scorecard
         @scorecard.team.scorecards
                   .includes({ new_course: :holes }, :user_scores, :team_card)
-                  .where.not(user_id: current_user.id).first
+                  .where(user_id: current_user.id).first
       end
     end
   end
