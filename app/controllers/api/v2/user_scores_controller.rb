@@ -20,7 +20,10 @@ module API
         @user_score.update!(user_scores_params)
         update_leaderboard
         @scorecard.reload
-
+        p "here99"
+        p @user_score
+        p "----"
+        p current_user
         if @user_score.user_id != current_user.id
           @scorecard = find_current_player_scorecard
         end
