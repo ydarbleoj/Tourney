@@ -21,7 +21,17 @@ module API
         update_leaderboard
         @scorecard.reload
 
-        payload = Admins::ScorecardsWithHolesSerializer.new(@scorecard).serialized_json
+        player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
+
+        team_cards = RoundInfo::UserScorecardSerializer.new(
+          players_team_scorecards
+        ).serialized_json
+
+        payload = {
+          player_card: player_card,
+          team_cards: team_cards
+        }
+
         render json: payload
       rescue StandardError => e
         p "error #{e}"
@@ -42,6 +52,12 @@ module API
 
       def update_leaderboard
         Scoreboard::Scoring.call(@user_score.id)
+      end
+
+      def players_team_scorecards
+        @scorecard.team.scorecards
+                  .includes({ new_course: :holes }, :user_scores, :team_card)
+                  .where.not(id: @scorecard.id)
       end
     end
   end

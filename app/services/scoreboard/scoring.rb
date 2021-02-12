@@ -42,7 +42,7 @@ module Scoreboard
     end
 
     def update_team
-      Scoreboard::TeamScoring.call(user_score)
+      Tourney::Services::TeamScoring.new(user_score).execute
     end
 
     def update_aggs

@@ -24,14 +24,6 @@ module API
         private
 
         def user_tee_times
-          return false if @tournament_user.blank?
-
-          @tournament.tournament_rounds.map do |round|
-            Team.includes(:tournament_round, :team_cards)
-                .where("scorecards.user_id = ? AND tournament_round_id = ?",
-                  current_user.id, round.id
-                ).first
-          end
         end
 
         def user_scorecards
