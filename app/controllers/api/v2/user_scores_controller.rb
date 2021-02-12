@@ -67,7 +67,7 @@ module API
       def find_current_player_scorecard
         @scorecard.team.scorecards
                   .includes({ new_course: :holes }, :user_scores, :team_card)
-                  .where.not(user_id: current_user.id)
+                  .where.not(user_id: current_user.id).first
       end
     end
   end
