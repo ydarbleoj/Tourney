@@ -9,7 +9,21 @@ module API
         update_leaderboard
         @scorecard.reload
 
-        payload = Admins::ScorecardsWithHolesSerializer.new(@scorecard).serialized_json
+        if @user_score.user_id != current_user.id
+          @scorecard = find_current_player_scorecard
+        end
+
+        player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
+
+        team_cards = RoundInfo::UserScorecardSerializer.new(
+          players_team_scorecards
+        ).serialized_json
+
+        payload = {
+          player_card: player_card,
+          team_cards: team_cards
+        }
+
         render json: payload
       rescue StandardError => e
         p "error #{e}"
