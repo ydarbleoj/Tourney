@@ -21,6 +21,10 @@ module API
         update_leaderboard
         @scorecard.reload
 
+        if @user_score.user_id != current_user.id
+          @scorecard = find_current_player_scorecard
+        end
+
         player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
 
         team_cards = RoundInfo::UserScorecardSerializer.new(
@@ -43,7 +47,7 @@ module API
       end
 
       def set_scorecard
-        @scorecard = Scorecard.includes({ new_course: [:holes] }, :user_scores, :tournament_round).find(params['scorecard_id'])
+        @scorecard = Scorecard.includes({ new_course: [:holes] }, :user_scores, :tournament_round, :team_card).find(params['scorecard_id'])
       end
 
       def create_score
@@ -58,6 +62,12 @@ module API
         @scorecard.team.scorecards
                   .includes({ new_course: :holes }, :user_scores, :team_card)
                   .where.not(id: @scorecard.id)
+      end
+
+      def find_current_player_scorecard
+        @scorecard.team.scorecards
+                  .includes({ new_course: :holes }, :user_scores, :team_card)
+                  .where.not(user_id: current_user.id)
       end
     end
   end
