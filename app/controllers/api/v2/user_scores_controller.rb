@@ -21,15 +21,14 @@ module API
         update_leaderboard
         @scorecard.reload
         p "here99"
-        p @user_score.user_id
+        p @scorecard.id
         p current_user
-        p players_team_scorecards.size
-        p
         if @user_score.user_id != current_user.id
           p 'hitto'
-          @scorecard = find_current_player_scorecard
+          p @scorecard = find_current_player_scorecard
         end
-
+        p 'hhs'
+        p @scorecard.id
         player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
 
         team_cards = RoundInfo::UserScorecardSerializer.new(
@@ -64,6 +63,8 @@ module API
       end
 
       def players_team_scorecards
+        p 'payer'
+        p @scorecard
         @scorecard.team.scorecards
                   .order('team_cards.position')
                   .includes({ new_course: :holes }, :user_scores, :team_card)
