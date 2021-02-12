@@ -21,10 +21,12 @@ module API
         update_leaderboard
         @scorecard.reload
         p "here99"
-        p @user_score
-        p "----"
+        p @user_score.user_id
         p current_user
+        p players_team_scorecards.size
+        p
         if @user_score.user_id != current_user.id
+          p 'hitto'
           @scorecard = find_current_player_scorecard
         end
 
@@ -63,9 +65,9 @@ module API
 
       def players_team_scorecards
         @scorecard.team.scorecards
+                  .order('team_cards.position')
                   .includes({ new_course: :holes }, :user_scores, :team_card)
                   .where.not(id: @scorecard.id)
-                  .order('team_cards.position')
       end
 
       def find_current_player_scorecard
