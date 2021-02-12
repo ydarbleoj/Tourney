@@ -8,11 +8,14 @@ module API
         def index
           options = {}
           options[:include] = [:round_aggs, :course_aggs]
-          @user_data = set_user_data
+
+          user_data = set_user_data
+          user_data = user_data.present? ? UserCourseAggSerializer.new(@user_data).serialized_json : {}
+
           render json: {
             tee_times: Admins::TeeTimesSerializer.new(teams).serialized_json,
             course_data: RoundInfo::CourseStatsSerializer.new(@course_data, options).serialized_json,
-            user_data: UserCourseAggSerializer.new(@user_data).serialized_json
+            user_data: user_data
           }
         end
 
@@ -23,7 +26,7 @@ module API
         end
 
         def set_user_data
-          return {} if @tournament_user.blank?
+          return if @tournament_user.blank?
 
           UserCourseAgg.includes(
             {
