@@ -75,16 +75,17 @@ module RoundInfo
       [holes, scores].flatten.group_by { |x| x.number }.map do |num, arr|
         hole = arr.select { |x| x if x.is_a?(Hole) }.map {|xx| xx}[0]
         score = arr.select { |x| x if x.is_a?(TeamScore) }.map {|xx| xx}[0]
+
         {
           number: num,
           par: hole.par,
           handicap: hole.handicap,
           score: nil,
-          net: score.blank? ? nil : score.net,
+          net: score.blank? ? 0 : score.net,
           putts: nil,
           hole_id: hole.id,
-          score_1_id: score.score_1_id.presence,
-          score_2_id: score.score_2_id.presence
+          score_1_id: score&.score_1_id,
+          score_2_id: score&.score_2_id
         }
       end
     end

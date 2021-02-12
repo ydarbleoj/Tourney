@@ -50,6 +50,10 @@ module RoundInfo
       "#{object.user.first_name} #{object.user.last_name}"
     end
 
+    attribute :position do |object|
+      object.team_card.position
+    end
+
     attributes :holes do |object|
       holes = object.new_course.holes.sort_by(&:number)
       scores = object.user_scores.sort_by(&:number)

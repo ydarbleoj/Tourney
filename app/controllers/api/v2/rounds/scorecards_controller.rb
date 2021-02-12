@@ -5,14 +5,22 @@ module API
     module Rounds
       class ScorecardsController < TournamentBaseController
         skip_before_action :authenticate_user
+        before_action :find_scorecard, :only => [:index]
 
         def index
           if @tournament_user
             if params[:team_id].present?
               payload = RoundInfo::TeamCardSerializer.new(team_scorecard).serialized_json
             else
-              scorecard = Scorecard.for_user_round(current_user.id, params['tournament_round_id'])
-              payload = RoundInfo::UserScorecardSerializer.new(scorecard).serialized_json
+              player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
+              team_cards = RoundInfo::UserScorecardSerializer.new(
+                players_team_scorecards
+              ).serialized_json
+
+              payload = {
+                player_card: player_card,
+                team_cards: team_cards
+              }
             end
           else
             payload = {}
@@ -51,6 +59,16 @@ module API
         def run_aggs
           Aggs::CourseUpdate.call(@scorecard.new_course_id, current_user.id)
           Aggs::RoundSetup.call(@scorecard.tournament_round_id)
+        end
+
+        def find_scorecard
+          @scorecard = Scorecard.for_user_round(current_user.id, params['tournament_round_id'])
+        end
+
+        def players_team_scorecards
+          @scorecard.team.scorecards
+                    .includes({ new_course: :holes }, :user_scores, :team_card)
+                    .where.not(id: @scorecard.id)
         end
 
         def team_scorecard
