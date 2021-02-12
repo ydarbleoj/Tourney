@@ -62,6 +62,7 @@ module API
         @scorecard.team.scorecards
                   .includes({ new_course: :holes }, :user_scores, :team_card)
                   .where.not(id: @scorecard.id)
+                  .order('team_cards.position')
       end
 
       def find_current_player_scorecard
