@@ -11,7 +11,7 @@ module RoundInfo
     has_many :team_cards
     has_many :scorecards, through: :team_cards
 
-    attributes :new_course_id, :tournament_round_id, :total_net, :is_won, :group
+    attributes :new_course_id, :tournament_round_id, :total_net, :is_won, :group, :id
 
     attribute :out_net do |obj|
       obj.team_scores.select { |x| x if x.number < 10 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
