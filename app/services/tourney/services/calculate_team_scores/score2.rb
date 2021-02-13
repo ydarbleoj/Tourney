@@ -26,8 +26,18 @@ module Tourney
 
         def find_lowest_score
           if both_scores? || score2_new? || less_than_score2? || net_update?
+            p "failes here"
+            p both_scores?
+            p 'both'
+            p score2_new?
+            p "score2n"
+            p less_than_score1?
+            p 'less'
+            p net_update?
+            p 'netupdate'
             [new_id, new_net]
           elsif demote_score1?
+            p 'demotescore 1'
             [@team_score.score1_id, @team_score.score1]
           elsif promote_score3?
             [next_score_id, next_score_net]

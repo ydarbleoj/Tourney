@@ -9,6 +9,7 @@ module Tourney
         end
 
         def score1_update?
+          p 'scoreupdate'
           @user_score.id == @team_score.score1_id
         end
 
@@ -31,7 +32,7 @@ module Tourney
         end
 
         def less_than_score2?
-          # return false if @team_score.score2_id.blank?
+          return false if @team_score.score2_id.blank?
           return false if override_score1?
 
           new_net < @team_score.score2
@@ -46,9 +47,10 @@ module Tourney
         end
 
         def demote_score1?
-          greater_than = @team_score.score2.blank? ? false : new_net > @team_score.score2
+          p 'greter than'
+          p greater_than = @team_score.score2.blank? ? false : new_net > @team_score.score2
           less_than_score1? ||
-            (score1_update? && (greater_than)) ||
+            (score1_update? && greater_than) ||
             promote_score2?
         end
 
