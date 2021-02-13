@@ -18,7 +18,7 @@ module RoundInfo
     end
 
     attribute :group do |obj|
-      object.group.split("group").last
+      obj.group.split("group").last
     end
 
     attribute :in_net do |obj|
