@@ -31,8 +31,18 @@ module API
 
       def update
         @user_score = UserScore.find(params['user_score_id'])
-        @user_score.update!(user_scores_params)
-        update_leaderboard
+
+        ActiveRecord::Base.transaction do
+          @user_score.update!(user_scores_params)
+
+          if completed?
+            @scorecard.update!(finished: true, dnf: false)
+            @scorecard.leaderboard.update(dnf: false)
+            run_aggs
+            update_leaderboard
+          end
+
+        end
         @scorecard.reload
 
         if @user_score.user_id != current_user.id
@@ -41,13 +51,13 @@ module API
 
         player_card = RoundInfo::UserScorecardSerializer.new(@scorecard).serialized_json
 
-        team_cards = RoundInfo::UserScorecardSerializer.new(
-          players_team_scorecards
-        ).serialized_json
+        # team_cards = RoundInfo::UserScorecardSerializer.new(
+        #   players_team_scorecards
+        # ).serialized_json
 
+        # team_cards: team_cards
         payload = {
-          player_card: player_card,
-          team_cards: team_cards
+          player_card: player_card
         }
 
         render json: payload
@@ -83,6 +93,15 @@ module API
         @scorecard.team.scorecards
                   .includes({ new_course: :holes }, :user_scores, :team_card)
                   .where(user_id: current_user.id).first
+      end
+
+      def run_aggs
+        Aggs::CourseUpdate.call(@scorecard.new_course_id, current_user.id)
+        Aggs::RoundSetup.call(@scorecard.tournament_round_id)
+      end
+
+      def completed?
+        @scorecard.user_scores.size == 18
       end
     end
   end
