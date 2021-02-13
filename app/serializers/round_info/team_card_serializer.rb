@@ -17,6 +17,10 @@ module RoundInfo
       obj.team_scores.select { |x| x if x.number < 10 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
     end
 
+    attribute :group do |obj|
+      object.group.split("group").last
+    end
+
     attribute :in_net do |obj|
       obj.team_scores.select { |x| x if x.number > 9 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
     end
