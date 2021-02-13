@@ -5,7 +5,7 @@ module API
     module Rounds
       class TeamScorecardsController < TournamentBaseController
         skip_before_action :authenticate_user
-        before_action :find_team_scorecard
+        before_action :find_team_scorecard, only: [:show]
 
         def show
           team = RoundInfo::TeamCardSerializer.new(@team).serialized_json
@@ -30,9 +30,7 @@ module API
         private
 
         def find_team_scorecard
-          @team = @tournament.teams.includes(team_scorecard_includes)
-                             .find_by(id: params[:id])
-
+          @team = @tournament.teams.includes(team_scorecard_includes).find_by(id: params[:id])
         end
 
         def team_scorecard_includes
@@ -44,9 +42,8 @@ module API
         end
 
         def players_team_scorecards
-          @team_cards ||= @scorecard.team.scorecards
-                                    .order('team_cards.position')
-                                    .includes({ new_course: :holes }, :user_scores, :team_card)
+          @team_cards ||= @team.scorecards.order('team_cards.position')
+                               .includes({ new_course: :holes }, :user_scores, :team_card)
         end
       end
     end
