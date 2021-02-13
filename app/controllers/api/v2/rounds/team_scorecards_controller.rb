@@ -5,17 +5,33 @@ module API
     module Rounds
       class TeamScorecardsController < TournamentBaseController
         skip_before_action :authenticate_user
+        before_action :find_team_scorecard
 
         def show
-          payload = RoundInfo::TeamCardSerializer.new(team_scorecard).serialized_json
+          team = RoundInfo::TeamCardSerializer.new(@team).serialized_json
+
+          player_card = RoundInfo::UserScorecardSerializer.new(
+            players_team_scorecards[0]
+          ).serialized_json
+
+          team_cards = RoundInfo::UserScorecardSerializer.new(
+            players_team_scorecards[1..3]
+          ).serialized_json
+
+          payload = {
+            player_card: player_card,
+            team_cards: team_cards,
+            team: team
+          }
+
           render json: payload
         end
 
         private
 
-        def team_scorecard
-          @tournament.teams.includes(team_scorecard_includes)
-                           .find_by(id: params[:id])
+        def find_team_scorecard
+          @team = @tournament.teams.includes(team_scorecard_includes)
+                             .find_by(id: params[:id])
 
         end
 
@@ -25,6 +41,12 @@ module API
             :scorecards => [:user_scores, :team_card],
             :team_scores => [:score_1, :score_2]
           ]
+        end
+
+        def players_team_scorecards
+          @team_cards ||= @scorecard.team.scorecards
+                                    .order('team_cards.position')
+                                    .includes({ new_course: :holes }, :user_scores, :team_card)
         end
       end
     end

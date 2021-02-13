@@ -18,7 +18,7 @@ module RoundInfo
     end
 
     attribute :in_net do |obj|
-      obj.user_scores.select { |x| x if x.number > 9 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
+      obj.team_scores.select { |x| x if x.number > 9 }.map { |xx| xx.net }.inject(0) { |sum, i| sum + i }
     end
 
     attribute :out_gross do |obj|
