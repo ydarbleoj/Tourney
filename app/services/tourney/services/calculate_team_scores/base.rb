@@ -31,7 +31,7 @@ module Tourney
         end
 
         def less_than_score2?
-          return false if @team_score.score2_id.blank?
+          # return false if @team_score.score2_id.blank?
           return false if override_score1?
 
           new_net < @team_score.score2
@@ -46,8 +46,9 @@ module Tourney
         end
 
         def demote_score1?
-           less_than_score1? ||
-            (score1_update? && (new_net > @team_score.score2)) ||
+          greater_than = @team_score.score2.blank? ? false : new_net > @team_score.score2
+          less_than_score1? ||
+            (score1_update? && (greater_than)) ||
             promote_score2?
         end
 
@@ -78,8 +79,6 @@ module Tourney
         end
 
         def both_scores?
-          p 'team size'
-          p team_size
           return false if team_size == 4
           return true if team_size <= 2
 
@@ -88,7 +87,7 @@ module Tourney
 
         def position_match?
           p "position match"
-          p current_position == @user_score.team_position
+          current_position == @user_score.team_position
         end
 
         def current_position
@@ -115,6 +114,9 @@ module Tourney
             0
           end
         end
+
+        #####
+
       end
     end
   end
