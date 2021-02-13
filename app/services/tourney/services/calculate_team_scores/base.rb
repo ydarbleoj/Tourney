@@ -78,6 +78,8 @@ module Tourney
         end
 
         def both_scores?
+          p 'team size'
+          p team_size
           return false if team_size == 4
           return true if team_size <= 2
 
@@ -85,7 +87,8 @@ module Tourney
         end
 
         def position_match?
-          current_position == @user_score.team_position
+          p "position match"
+          p current_position == @user_score.team_position
         end
 
         def current_position
