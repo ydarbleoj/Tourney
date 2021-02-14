@@ -24,11 +24,13 @@ module Tourney
         private
 
         def lowest_score
-          @lowest_score ||= find_lowest_score
+         p @lowest_score ||= find_lowest_score
         end
 
         def find_lowest_score
           p 'hello 99'
+          p new_net
+          p new_id
           if score2_new?
             p 'new  score'
             if demote_score1? || both_scores?
