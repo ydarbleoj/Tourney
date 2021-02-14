@@ -28,7 +28,6 @@ module Tourney
           if both_scores? || score2_new? || less_than_score2? || net_update?
             [new_id, new_net]
           elsif demote_score1?
-            p 'demotescore 1'
             [@team_score.score1_id, @team_score.score1]
           elsif promote_score3?
             [next_score_id, next_score_net]

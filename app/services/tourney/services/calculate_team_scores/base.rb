@@ -31,9 +31,11 @@ module Tourney
         end
 
         def less_than_score2?
+          p 'less'
+          p score2_updateable?
           return true if score2_updateable?
           return false if override_score1?
-
+          p 'here 99'
           new_net < @team_score.score2
         end
 
