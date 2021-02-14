@@ -36,9 +36,11 @@ module Tourney
             if demote_score1? || both_scores?
               p 'deom or both'
               [@team_score.score1_id, @team_score.score1]
-            else
+            elsif !score1_update?
               p 'new score inside'
               [new_id, new_net]
+            else
+              [nil, nil]
             end
           elsif score2_update?
             p 'update 2'
