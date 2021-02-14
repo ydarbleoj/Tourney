@@ -49,7 +49,7 @@ module Tourney
               [@team_score.score1_id, @team_score.score1]
             elsif less_than_score3?
               p 'less than 3'
-              [@team.score2_id, new_net]
+              [@team.sco new_net]
             else
               p 'update wiht next '
               [next_score_id, next_score_net]

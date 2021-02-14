@@ -17,7 +17,10 @@ module Tourney
         end
 
         def score2_update?
-          @user_score.id == @team_score.score2_id
+          p 'score2 upde'
+          p @user_score.id
+          p @team_score.score2_id
+          p @user_score.id == @team_score.score2_id
         end
 
         def new_user_score?
