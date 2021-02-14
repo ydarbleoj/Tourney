@@ -10,40 +10,61 @@ module Tourney
         end
 
         def id
-          (new? && !both_scores?) ? nil : find_lowest_score[0]
+          (new? && !both_scores?) ? nil : lowest_score[0]
         end
 
         def net
-          (new? && !both_scores?) ? nil : find_lowest_score[1]
+          (new? && !both_scores?) ? nil : lowest_score[1]
         end
 
         def update?
-          score2_new? || demote_score1? || both_scores? ||
-            promote_score3? || net_update? || demote_score2?
+          net.blank?
         end
 
         private
 
+        def lowest_score
+          @lowest_score ||= find_lowest_score
+        end
+
         def find_lowest_score
-          if both_scores? || score2_new? || less_than_score2? || net_update?
-            [new_id, new_net]
-          elsif demote_score1?
-            [@team_score.score1_id, @team_score.score1]
-          elsif promote_score3?
-            [next_score_id, next_score_net]
-          else
-            [@team_score.score2_id, @team_score.score2]
+          if score2_new?
+            if demote_score1? || both_scores?
+              [@team_score.score1_id, @team_score.score1]
+            else
+              [new_id, new_net]
+            end
+          elsif score2_update?
+            if less_than_score1?
+              [@team_score.score1_id, @team_score.score1]
+            elsif less_than_score3?
+              [@team.score2_id, new_net]
+            else
+              [next_score_id, next_score_net]
+            end
+          elsif score1_update?
+            if both_scores?
+              if less_than_score2?
+                [@team_score.score1_id, @team_score.score1]
+              elsif less_than_score3?
+                [@team_score.score1_id, @team_score.score1]
+              else
+                [@team_score.score2_id, @team_score.score2]
+              end
+            elsif less_than_score2?
+              [@team_score.score2_id, @team_score.score2]
+            elsif less_than_score3?
+              [@team_score.score1_id, @team_score.score1]
+            else
+              [next_score_id, next_score_net]
+            end
+          elsif new_user_score?
+            if less_than_score2? && !less_than_score1?
+              [new_id, new_net]
+            else
+              [nil, nil]
+            end
           end
-        end
-
-        def score2_new?
-          !new? && @team_score.score2_id.blank?
-        end
-
-        def net_update?
-          score2_update? &&
-            !less_than_score1? &&
-            !promote_score3?
         end
       end
     end

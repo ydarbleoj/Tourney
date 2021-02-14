@@ -8,12 +8,20 @@ module Tourney
           @team_score&.id.blank?
         end
 
+        def score2_new?
+          @team_score.score2_id.blank?
+        end
+
         def score1_update?
           @user_score.id == @team_score.score1_id
         end
 
         def score2_update?
           @user_score.id == @team_score.score2_id
+        end
+
+        def new_user_score?
+          !score1_update? && !score2_update? && !new? && !score2_new?
         end
 
         def new_net
@@ -31,18 +39,13 @@ module Tourney
         end
 
         def less_than_score2?
-          p 'less'
-          return false if !score2_updateable?
-          return false if override_score1?
-          p 'here 99'
           new_net < @team_score.score2
         end
 
-        def score2_updateable?
-          p 'updateable'
-          p score1_update?
-          @team_score.score2_id.blank? &&
-          !score1_update? && !both_scores?
+        def less_than_score3?
+          return true if next_score_net.blank?
+
+          new_net < next_score_net
         end
 
         def next_score_net

@@ -24,7 +24,6 @@ module Tourney
         private
 
         def find_lowest_score
-
           if new? || demote_score1? || net_update? || both_scores?
             [new_id, new_net]
           elsif promote_score2?
