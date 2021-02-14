@@ -39,6 +39,8 @@ module Tourney
         end
 
         def less_than_score2?
+          return true if @team_score.score2.blank?
+
           new_net < @team_score.score2
         end
 
@@ -57,10 +59,11 @@ module Tourney
         end
 
         def demote_score1?
+          return false if new?
+
           greater_than = @team_score.score2.blank? ? false : new_net > @team_score.score2
-          less_than_score1? ||
-            (score1_update? && greater_than) ||
-            promote_score2?
+
+          less_than_score1? || (score1_update? && greater_than) || promote_score2?
         end
 
         def demote_score2?

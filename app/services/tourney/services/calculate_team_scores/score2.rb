@@ -18,7 +18,7 @@ module Tourney
         end
 
         def update?
-          net.blank?
+         p net.blank?
         end
 
         private
