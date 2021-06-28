@@ -16,6 +16,7 @@ gem 'rails_12factor', group: :produciton
 # gem 'paperclip'
 # gem 'aws-sdk'
 gem "sendgrid-ruby"
+gem "jsonapi-serializer"
 gem 'figaro'
 gem 'bcrypt', '~> 3.1.13'
 gem 'annotate'
