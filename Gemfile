@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 ruby "2.6.6"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.4.3 '
+gem 'rails', "6.0.4"
 gem 'pg','~> 0.18'
-gem 'redis', '~> 3.0'
+gem 'redis'
 gem 'rack-cors'
 gem 'knock'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -17,7 +17,7 @@ gem 'rails_12factor', group: :produciton
 # gem 'aws-sdk'
 gem "sendgrid-ruby"
 gem 'figaro'
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.13'
 gem 'annotate'
 gem 'puma'
 gem 'fast_jsonapi'
