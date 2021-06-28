@@ -4,11 +4,20 @@ module Tourney
   module Services
     module CalculateTeamScores
       class Base
-        def new?
-          @team_score&.id.blank?
+        def initialize(team_score, user_score)
+          @team_score = team_score
+          @user_score = user_score
         end
 
-        def score2_new?
+        def new_net
+          @new_net ||= @user_score.net
+        end
+
+        def score1_blank?
+          @team_score&.score1_id.blank?
+        end
+
+        def score2_blank?
           @team_score.score2_id.blank?
         end
 
@@ -17,19 +26,13 @@ module Tourney
         end
 
         def score2_update?
-          p 'score2 upde'
-          p @user_score.id
-          p @team_score.score2_id
-          p @user_score.id == @team_score.score2_id
+          @user_score.id == @team_score.score2_id
         end
 
         def new_user_score?
           !score1_update? && !score2_update? && !new? && !score2_new?
         end
 
-        def new_net
-          @new_net ||= @user_score.net
-        end
 
         def new_id
           @new_id ||= @user_score.id
@@ -64,16 +67,19 @@ module Tourney
         def demote_score1?
           return false if new?
 
-          greater_than = @team_score.score2.blank? ? false : new_net > @team_score.score2
-
-          less_than_score1? || (score1_update? && greater_than) || promote_score2?
+          (
+            (score1_update? && !less_than_score2? && less_than_score3?) ||
+            (less_than_score1? &&
+              (score2_update? || new_user_score? || (score2_new? && !score1_update?))
+            )
+          )
         end
 
         def demote_score2?
-          !less_than_score1? &&
-            less_than_score2? &&
-            !score1_update? &&
-            !score2_update?
+          return false if score2_new?
+
+          (score2_update? && !less_than_score3?) ||
+            (new_user_score? && less_than_score2? && !less_than_score1?)
         end
 
         def promote_score2?
