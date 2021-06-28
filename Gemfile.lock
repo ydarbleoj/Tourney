@@ -112,8 +112,6 @@ GEM
       railties (>= 3.0.0)
     faker (2.13.0)
       i18n (>= 1.6, < 2)
-    fast_jsonapi (1.5)
-      activesupport (>= 4.2)
     ffi (1.13.1)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -283,7 +281,6 @@ DEPENDENCIES
   derailed
   factory_girl_rails
   faker
-  fast_jsonapi
   figaro
   jbuilder (~> 2.0)
   knock

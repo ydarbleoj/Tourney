@@ -20,9 +20,6 @@ gem 'figaro'
 gem 'bcrypt', '~> 3.1.13'
 gem 'annotate'
 gem 'puma'
-gem 'fast_jsonapi'
-# gem 'active_model_serializers'
-# gem 'figaro'
 gem 'web-console', group: :development
 group :development, :test do
   gem 'bullet'
