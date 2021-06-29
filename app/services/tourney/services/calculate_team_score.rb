@@ -14,15 +14,15 @@ module Tourney
       end
 
       def net
-        update? ? (score1.net + score2.net.to_i) : @team_score.net
+        update? ? (calculate_score1 + calculate_score2) : @team_score.net
       end
 
       def score1_id
-        update? ? score1.id : @team_score.score1_id
+        score1.update? ? score1.id : @team_score.score1_id
       end
 
       def score2_id
-        update? ? score2.id : @team_score.score2_id
+        score2.update? ? score2.id : @team_score.score2_id
       end
 
       def update?
@@ -31,10 +31,18 @@ module Tourney
 
       private
 
+      def calculate_score1
+        score1.update? ? score1.net.to_i : @team_score.score1
+      end
+
       def score1
         @score1 ||= Tourney::Services::CalculateTeamScores::Score1.new(
           @team_score, @user_score
         )
+      end
+
+      def calculate_score2
+        score2.update? ? score2.net.to_i : @team_score.score2
       end
 
       def score2

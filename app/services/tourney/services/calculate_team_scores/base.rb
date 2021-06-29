@@ -13,47 +13,52 @@ module Tourney
           @new_net ||= @user_score.net
         end
 
-        def score1_blank?
-          @team_score&.score1_id.blank?
+        def first_score?
+          score1.blank? && score2.blank?
         end
 
-        def score2_blank?
-          @team_score.score2_id.blank?
+        def new_score
+          @user_score
+        end
+
+        def new_score?
+          !score1_update? && !score2_update?
+        end
+
+        def new_score_hash
+          { :net => new_net, :id => new_score.id }
+        end
+
+        def score1
+          @score1 ||= @team_score&.score1
+        end
+
+        def score1_id
+          @score1_id ||= @team_score&.score1_id
         end
 
         def score1_update?
-          @user_score.id == @team_score.score1_id
+          new_score.id == score1_id
+        end
+
+        def score1_hash
+          { :net => score1, :id => score1_id }
+        end
+
+        def score2
+          @score2 ||= @team_score&.score2
+        end
+
+        def score2_id
+          @score2_id ||= @team_score.score2_id
         end
 
         def score2_update?
-          @user_score.id == @team_score.score2_id
+          new_score.id == @team_score.score2_id
         end
 
-        def new_user_score?
-          !score1_update? && !score2_update? && !new? && !score2_new?
-        end
-
-
-        def new_id
-          @new_id ||= @user_score.id
-        end
-
-        def less_than_score1?
-          return true if new? || @team_score.score1.blank?
-
-          new_net < @team_score.score1
-        end
-
-        def less_than_score2?
-          return true if @team_score.score2.blank?
-
-          new_net < @team_score.score2
-        end
-
-        def less_than_score3?
-          return true if next_score_net.blank?
-
-          new_net < next_score_net
+        def score2_hash
+          { :net => score2, :id => score2_id }
         end
 
         def next_score_net
@@ -64,6 +69,29 @@ module Tourney
           @next_score_id ||= @team_score.next_score_id
         end
 
+        def next_score_hash
+          { :net => next_score_net, :id => next_score_id }
+        end
+
+        def less_than_score1?
+          return true unless score1.present?
+
+          new_net < score1
+        end
+
+        def less_than_score2?
+          return true if score2.blank? && !less_than_score1?
+
+          new_net < score2
+        end
+
+        def less_than_score3?
+          return true if next_score_net.blank?
+
+          new_net < next_score_net
+        end
+
+        # Below this is considered deprecated:
         def demote_score1?
           return false if new?
 

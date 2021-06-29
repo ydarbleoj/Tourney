@@ -5,21 +5,43 @@ module Tourney
     module CalculateTeamScores
       class Score1 < Tourney::Services::CalculateTeamScores::Base
         def id
-          find_lowest_score[0]
+          return unless score.present?
+
+          score[:id]
         end
 
         def net
-          find_lowest_score[1]
+          return unless score.present?
+
+          score[:net]
         end
 
         def update?
-          new? || demote_score1? || promote_score2? || net_update? || both_scores?
+          score.present?
         end
 
         private
 
-        def net_update?
-          score1_update? && less_than_score2?
+        def score
+          @score ||= find_score
+        end
+
+        def find_score
+          if use_new_score?
+            new_score_hash
+          elsif use_score2?
+            score2_hash
+          end
+        end
+
+        def use_new_score?
+          (new_score? && less_than_score1?) ||
+            (score1_update? && less_than_score1?)
+        end
+
+        def use_score2?
+          (score2_update? && less_than_score1?) ||
+            (score1_update? && !less_than_score2?)
         end
       end
     end
