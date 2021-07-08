@@ -22,6 +22,6 @@ class TeamScore < ApplicationRecord
     user_scores
       .where.not(:id => [score_1_id, score_2_id])
       .where(:number => number, :par => par)
-      .order("user_scores.net desc").first
+      .order("user_scores.net asc").first
   end
 end

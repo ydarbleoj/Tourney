@@ -37,7 +37,8 @@ module Tourney
         end
 
         def use_new_score?
-          !first_score? && new_score? && !less_than_score1? && less_than_score2?
+          !first_score? && new_score? && !less_than_score1? && less_than_score2? ||
+            (first_score? && both_scores?)
         end
 
         def use_score1?
@@ -46,7 +47,7 @@ module Tourney
             (new_score? && less_than_score1?)
           ) ||
             (first_score? && both_scores?) ||
-            (score2_update? && less_than_score1?)
+            (score2_update? && less_than_score1? && !both_scores?)
         end
 
         def next_score?

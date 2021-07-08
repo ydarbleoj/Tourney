@@ -92,41 +92,8 @@ module Tourney
         end
 
         # Below this is considered deprecated:
-        def demote_score1?
-          return false if new?
-
-          (
-            (score1_update? && !less_than_score2? && less_than_score3?) ||
-            (less_than_score1? &&
-              (score2_update? || new_user_score? || (score2_new? && !score1_update?))
-            )
-          )
-        end
-
-        def demote_score2?
-          return false if score2_new?
-
-          (score2_update? && !less_than_score3?) ||
-            (new_user_score? && less_than_score2? && !less_than_score1?)
-        end
-
-        def promote_score2?
-          score2_update? && less_than_score1?
-        end
-
-        def promote_score3?
-          return false if next_score_net.blank?
-
-          next_score_net < new_net
-        end
-
         def team_size
           @team_size ||= @team_score.team_size
-        end
-
-        def override_score1?
-          (@team_score.score1_id == @team_score.score2_id) &&
-            (@user_score.id != @team_score.score1_id)
         end
 
         def both_scores?
