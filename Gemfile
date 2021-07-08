@@ -9,7 +9,7 @@ gem 'rack-cors'
 gem 'knock'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-gem 'rake', '12.1.0'
+gem 'rake', '12.3.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_12factor', group: :produciton
